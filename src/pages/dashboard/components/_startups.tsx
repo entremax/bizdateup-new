@@ -21,7 +21,7 @@ const Startups = ({data}: { data: Campaign[] }) => {
   
   return (
     <div className={"grid"}>
-      <h3 className={"text-primary-dark text-4xl font-bold !m-0 !p-0"}>Invest with Confidence</h3>
+      <h3 className={"text-primary-dark text-2xl md:text-4xl font-bold !m-0 !p-0"}>Invest with Confidence</h3>
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 justify-center py-6 ">
         {getData(data).map((startup) => (
           <div
@@ -40,7 +40,7 @@ const Startups = ({data}: { data: Campaign[] }) => {
               height={40}
               width={40}
               alt={startup.registeredCompanyName}
-              className={"absolute top-60 rounded-xl left-5 w-16 h-16 border_gray"}
+              className={"absolute top-52 rounded-xl left-5 w-16 h-16 border_gray"}
             />
             <div className={"p-5 pt-8 grid gap-3"}>
               <h5 className='text-2xl font-bold text-black-lighter m-0 p-0'>

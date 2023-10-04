@@ -33,16 +33,16 @@ const Dashboard = ({campaign}: { campaign: Campaign[] }) => {
     },
   ]
   return (
-    <div className='pt-20 pb-3 ml-2 grid grid-cols-12'>
-      <div className='mt-5 col-start-1 col-end-12 md:col-start-2 md:col-end-11'>
+    <div className='pt-20 pb-3 ml-2 grid grid-cols-12 px-5'>
+      <div className='md:mt-5 col-start-1 col-end-12 md:col-start-2 md:col-end-11'>
         <Greet/>
       </div>
-      <div className='col-start-1 col-end-12 md:col-start-2 md:col-end-9 gap-7 grid'>
+      <div className='col-span-full md:col-start-2 md:col-end-9 gap-7 grid'>
         <LiveCampaigns data={campaign}/>
         <Plans/>
         <Startups data={campaign}/>
       </div>
-      <div className={'col-start-2 md:col-start-9 col-end-12 pl-12'}>
+      <div className={'col-span-full md:col-start-9 md:col-end-12 md:pl-12'}>
         <KycIndicator/>
         <div
           className={"grid md:text-left text-center  md:items-left items-center justify-center md:justify-left border_gray p-3 gap-2  rounded-xl my-4 shadow"}>
@@ -115,7 +115,7 @@ const Dashboard = ({campaign}: { campaign: Campaign[] }) => {
           </div>
         </div>
         <div
-          className=" py-4 px-4">
+          className="hidden md:inline-block py-4 px-4">
           {menu.map((item, index) => (
             <Link href={item.link}
                   key={index}

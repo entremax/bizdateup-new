@@ -1,8 +1,10 @@
 import {Button} from "antd";
+import {cn} from "@/lib/utils";
 
-const KycIndicator = () => {
+const KycIndicator = ({className, hidden}: { className?: string, hidden?: boolean }) => {
   return (
-    <div className={"grid gap-2 p-6 border_gray bg-light-shadow rounded-xl"}>
+    <div
+      className={cn("grid gap-2 p-6 border_gray bg-light-shadow rounded-xl" + " " + className + (hidden ? "hidden" : ""))}>
       <div className={"flex"}>
         <div className="grid">
           <h5 className={"text-lg font-semibold text-black-lighter"}>Complete your KYC</h5>
