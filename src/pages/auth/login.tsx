@@ -1,52 +1,51 @@
-import {UserAuthForm} from '@/components/user-auth-form';
+import UserAuthForm from './components/_user-auth-form';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import store from '@/store'
+import {store} from '@/store'
 
 const Login = () => {
   const {authUser} = store.getState()
   const {temp_email} = authUser
-  console.log(temp_email)
   return (
-    <div className='p-4 min-h-full flex justify-center items-center w-screen flex-col'>
+    <div className='auth'>
       <div
-        className='mx-auto border md:border flex p-6 flex-col justify-center items-center space-y-6 bg-white shadow-lg rounded-2xl mt-32'>
+        className='auth_container'>
         <Image
           className=''
           src='/logo.svg'
-          width={100}
-          height={80}
+          width={80}
+          height={60}
           alt='Logo'
         />
-        <h2 className='font-bold text-primary'>Log in to your account</h2>
-        <p className='text-md'>
+        <h2 className='font-bold text-primary-dark'>Log in to your account</h2>
+        <p className='text-sm text-gray-400'>
           Take a first step towards investing journey with bizdateup
         </p>
-        <UserAuthForm/>
-        <div className='flex text-gray-400'>
-          <p className='flex gap-1'>
+        <UserAuthForm requestType={"login"}/>
+        <div className='flex text-gray-400 text-sm !my-6 justify-center items-center'>
+          <p className='flex gap-1 '>
             By signing up I agree to
             <Link
               href='/privacy-policy'
-              className='font-medium underline'
+              className=' underline text-brust'
             >
               Privacy policy
             </Link>
             &
             <Link
               href={'/terms'}
-              className='font-medium underline'
+              className=' underline text-brust'
             >
               Terms of Service
             </Link>
           </p>
         </div>
-        <div className='flex text-gray-950 font-medium'>
+        <div className='flex text-gray-950 font-medium gap-1'>
           <p className='text-md'>Don&apos;t have an account? </p>
           {" "}
           <Link
-            href={'/sign-up'}
+            href={'/auth/sign-up'}
             className='text-primary'
           >
             Create account

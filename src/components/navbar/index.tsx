@@ -1,6 +1,6 @@
-import { Button } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
+import {Icons} from "@/icons";
 
 const Navbar = () => {
   const links = [
@@ -22,7 +22,7 @@ const Navbar = () => {
     },
   ];
   return (
-    <div className='fixed flex px-8 items-center w-full  h-[4.5rem] shadow-[0px_1px_0px_0px_#E5E9F2]'>
+    <div className='fixed flex px-8 items-center w-full  h-[4.5rem] z-[999] bg-white shadow-[0px_1px_0px_0px_#E5E9F2]'>
       <Link
         href={'/'}
         className=' flex-grow'
@@ -50,16 +50,17 @@ const Navbar = () => {
           ))}
         </div>
         <div className='hidden md:flex gap-2'>
-          <Link href={'/log-in'} className='p-[0.625rem_1.25rem]  cursor-pointer bg-lightShadow outline-none border-0  text-primary rounded-lg'>
+          <Link href={'/auth/login'}
+                className='p-[0.625rem_1.25rem]  cursor-pointer bg-light-shadow outline-none border-0  text-primary rounded-lg'>
             Login
           </Link>
-          <Link href={'/get-started'} className='p-[0.625rem_1.25rem] cursor-pointer items-center text-md outline-none border-0 !bg-primary rounded-lg  text-white'>
+          <Link href={'/get-started'}
+                className='p-[0.625rem_1.25rem] cursor-pointer items-center text-md outline-none border-0 !bg-primary rounded-lg  text-white'>
             Get Started
           </Link>
         </div>
         <div className='flex-shrink md:hidden'>
-          <Image
-            src={'/burger-menu.svg'}
+          <Icons.BurgerMenu
             height={28}
             width={28}
             alt='Menu'
