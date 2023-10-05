@@ -1,22 +1,48 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import OtpInput from 'react-otp-input';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useRouter } from 'next/router';
-import { Button } from 'antd';
-import { setVerify } from '@/store/features/reducers/user/authSlice';
-import { setInvestor } from '@/store/features/reducers/user/investor';
-import { useVerifyOtpMutation } from '@/store/features/apiSlice';
+import {useAppDispatch, useAppSelector} from '@/store/hooks';
+import {useRouter} from 'next/router';
+import {Button} from 'antd';
+import {setUser, setVerify} from '@/store/features/reducers/user/authSlice';
+import {useSendOtpMutation, useVerifyOtpMutation} from '@/store/features/services/apiSlice';
+import {validateEmailOrPhone} from "@/lib/utils";
 
 interface OtpVerifyData {
   code: string;
   refId: string;
 }
 
-interface reqToVerify {
-  url: string;
-  reqData: OtpVerifyData;
-  method: 'POST' | 'PUT' | 'DELETE';
+interface NavigationDict {
+  [key: string]: {
+    error: string;
+    route: string;
+  };
 }
+
+type NavigationKey = 'profile' | 'pan' | 'aadhar' | 'bank' | 'other';
+
+const navigationData: NavigationDict = {
+  'profile': {
+    error: 'Please complete your profile',
+    route: '/layoutprofile/'
+  },
+  'pan': {
+    error: 'Please complete your KYC details',
+    route: '/layoutprofile/kyc'
+  },
+  'aadhar': {
+    error: 'Please complete your KYC details',
+    route: '/layoutprofile/kyc'
+  },
+  'bank': {
+    error: 'Please complete your bank details',
+    route: '/layoutprofile/bankdetail'
+  },
+  'other': {
+    error: 'Please complete your profile',
+    route: '/layoutprofile/others'
+  }
+};
 
 /**
  *
@@ -25,12 +51,15 @@ interface reqToVerify {
 export default function OtpField() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [verifyOtp] = useVerifyOtpMutation();
+  const [verifyOtp, {isLoading, error: verificationError}] = useVerifyOtpMutation();
   const [otp, setOtp] = useState('');
-  const { id } = router.query;
-  const { temp_auth_medium, investorUserId } = useAppSelector(
-    ({ authUser }) => authUser
+  const {id, type: actionType} = router.query;
+  const {temp_auth_medium, investorUserId} = useAppSelector(
+    ({authUser}) => authUser
   );
+  const [sendOtp, {isLoading: reSending}] = useSendOtpMutation()
+  
+  
   React.useEffect(() => {
     if (!temp_auth_medium) {
       router.back();
@@ -38,39 +67,75 @@ export default function OtpField() {
       router.back();
     }
   }, [temp_auth_medium, id, investorUserId]);
-
+  
+  async function handleResend() {
+    if (!temp_auth_medium) {
+      return
+    }
+    const emailOrPhone = validateEmailOrPhone(temp_auth_medium);
+    const endpoint =
+      emailOrPhone === 'email'
+        ? `${actionType === 'login' ? 'login/email' : 'email-signup'}`
+        : `${actionType === 'login' ? 'login/phone' : 'phone-signup'}`;
+    try {
+      const emailData = {[emailOrPhone ? emailOrPhone : "email"]: temp_auth_medium, role: 'investor'}
+      await sendOtp({emailData, url: endpoint});
+      
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  
   async function handleVerifyOtp() {
     const reqData: OtpVerifyData = {
       code: otp,
       refId: investorUserId,
     };
-
     const response = await verifyOtp(reqData);
-
+    
     if ('data' in response) {
-      const data = response.data;
-      console.log(data);
-      if (response.data.code === 200) {
-        const loginMethod = localStorage.getItem('loginMethod');
-        const loginMethod2 = localStorage.getItem('loginMethod2');
-
-        if (loginMethod === 'local' && loginMethod2 === 'signup') {
-          localStorage.removeItem('tokenInvestor');
-          localStorage.removeItem('authDataInvestor');
-          localStorage.removeItem('authRefInvestor');
-          dispatch(setVerify({ isVerified: false }));
-          dispatch(
-            setInvestor({
-              authDataInvestor: data.data?.data,
-              tokenInvestor: data.data?.token,
-              authRefINvestor: data.data?.refId,
-            })
-          );
+      const {responseCode, investorData, token, refId = investorUserId, status} = response.data
+      
+      const loginMethod = localStorage.getItem('loginMethod');
+      const loginMethod2 = localStorage.getItem('loginMethod2');
+      
+      if (loginMethod === "local" && loginMethod2 === "signup") {
+        dispatch(setVerify(false));
+        dispatch(
+          setUser({
+            userData: investorData,
+            token,
+            refId,
+          }));
+        await router.push('/layout-profile')
+      } else {
+        if (responseCode === 200) {
+          dispatch(setVerify(true))
+          dispatch(setUser({
+            token,
+            userData: investorData,
+            refId,
+            kycStatus: status
+          }))
+        } else {
+          dispatch(setVerify(false))
+          return
+        }
+        if (status.length === 0) {
+          await router.push('/dashboard/' + refId)
+          return
+        }
+        for (const key in navigationData) {
+          if (key && status.includes(key as NavigationKey)) {
+            console.error(navigationData[key].error);
+            await router.push(navigationData[key].route + refId);
+            break;
+          }
         }
       }
     }
   }
-
+  
   return (
     <>
       <div className='grid justify-center items-center text-center w-full md:max-w-[32rem] md:min-w-max'>
@@ -83,7 +148,7 @@ export default function OtpField() {
           }
         >
           Enter your OTP sent to your email{' '}
-          <strong>kalyanborah456@gamil.com</strong>
+          <strong>{temp_auth_medium}</strong>
         </p>
         <div
           className={
@@ -112,7 +177,7 @@ export default function OtpField() {
             className={'bg-primary text-white w-full hover:!text-white'}
             onClick={handleVerifyOtp}
           >
-            Continue
+            {isLoading ? "Verifying..." : "Continue"}
           </Button>
           <Button
             type={'text'}
@@ -120,8 +185,9 @@ export default function OtpField() {
             className={
               'bg-transparent text-primary font-semibold my-4 hover:!bg-transparent hover:!text-primary'
             }
+            onClick={handleResend}
           >
-            RESEND OTP
+            {reSending ? "Resending..." : "RESEND OTP"}
           </Button>
         </div>
       </div>

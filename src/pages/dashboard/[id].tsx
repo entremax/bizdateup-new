@@ -1,14 +1,16 @@
 import React from 'react';
-import Greet from './components/_greet';
 import {Campaign, QueryParams} from "@/types";
-import Plans from "@/dashboard/_plans";
+import Greet from "@/dashboard/_greet";
 import LiveCampaigns from "@/dashboard/_liveCampaigns";
+import Plans from "@/dashboard/_plans";
 import Startups from "@/dashboard/_startups";
 import KycIndicator from "@/dashboard/_kycIndicator";
+import Image from "next/image";
 import Link from "next/link";
-import Image from "next/image"
 import {Icons} from "@/icons";
 import FrequentlyAsked from "@/components/faq";
+import MobileAppAds from "@/components/mobileAppAds";
+import Head from 'next/head'
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL || ""
 
@@ -34,16 +36,20 @@ const Dashboard = ({campaign}: { campaign: Campaign[] }) => {
   ]
   return (
     <div className='pt-20 pb-3 ml-2 grid grid-cols-12 px-5'>
+      <Head>
+        <title>Bizdateup | Dashboard</title>
+      </Head>
       <div className='md:mt-5 col-start-1 col-end-12 md:col-start-2 md:col-end-11'>
         <Greet/>
       </div>
       <div className='col-span-full md:col-start-2 md:col-end-9 gap-7 grid'>
+        <KycIndicator className={'md:hidden'} hidden={false}/>
         <LiveCampaigns data={campaign}/>
         <Plans/>
         <Startups data={campaign}/>
       </div>
       <div className={'col-span-full md:col-start-9 md:col-end-12 md:pl-12'}>
-        <KycIndicator/>
+        <KycIndicator className={"hidden md:grid"}/>
         <div
           className={"grid md:text-left text-center  md:items-left items-center justify-center md:justify-left border_gray p-3 gap-2  rounded-xl my-4 shadow"}>
           <Image
@@ -115,7 +121,7 @@ const Dashboard = ({campaign}: { campaign: Campaign[] }) => {
           </div>
         </div>
         <div
-          className="hidden md:inline-block py-4 px-4">
+          className="hidden md:inline py-4 px-4">
           {menu.map((item, index) => (
             <Link href={item.link}
                   key={index}
@@ -126,40 +132,16 @@ const Dashboard = ({campaign}: { campaign: Campaign[] }) => {
             </Link>
           ))}
         </div>
-      
       </div>
       <div className="col-span-12 mt-4">
         <div className="bg-gray-smoke grid grid-cols-12">
-          <div className="grid col-start-3 col-end-11 my-32">
-            <h4 className="text-4xl font-bold text-center">Frequently Asked Questions</h4>
+          <div className="grid col-span-full md:col-start-3 md:col-end-11 my-16 md:my-32">
+            <h4 className="text-3xl md:text-4xl font-bold text-center">Frequently Asked Questions</h4>
             <FrequentlyAsked/>
           </div>
         </div>
       </div>
-      
-      <div className="col-span-12 my-4">
-        <div className="grid grid-cols-12">
-          <div className={"grid grid-cols-10 col-start-2 col-end-12 bg-light-shadow px-14 py-8 rounded-xl"}>
-            <div className="grid md:col-span-7 gap-4 pr-4">
-              <h5 className="text-4xl font-bold">
-                Startup Investments at your fingertips
-              </h5>
-              <p className="!p-0 !m-0 text-xl">
-                With Bizdateup you get a Strong Community of Top 1% Investors who live & Breathe Angel Investing! To
-                top it up Signing up takes hardly 5 mins of your time. So, Join the Community Now!
-              </p>
-            </div>
-            <div className="col-span-3">
-              <Image
-                src={"/iphone.png"}
-                height={200}
-                width={250}
-                alt={"IOS"}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <MobileAppAds/>
     </div>
   );
 };

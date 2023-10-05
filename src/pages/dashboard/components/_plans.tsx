@@ -31,7 +31,7 @@ const Plans = () => {
   }
   return (
     <div className={'hidden md:grid border_gray pt-0 rounded-2xl bg-white shadow-md'}>
-      <div className="flex justify-center items-center py-4 pb-3 px-6 shadow">
+      <div className="flex justify-center items-center py-4 pb-3 px-4 shadow">
         <div className={"flex justify-center"}>
           <Image
             src={Icons.Logo}
@@ -44,7 +44,7 @@ const Plans = () => {
           plan</h4>
         <div className="grow"/>
         <Button type={"default"}
-                className={"bg-primary rounded-lg font-bold text-sm !hover:bg-primary outline-none !px-8"}>
+                className={"bg-primary text-white rounded-lg font-bold text-sm !hover:bg-primary outline-none !px-8"}>
           Upgrade Now
         </Button>
       </div>
@@ -53,17 +53,17 @@ const Plans = () => {
         <thead>
         <tr className={'text-left'}>
           {tabelData.headers.map((head) => <th
-            className={"py-3 px-4 !text-gray-900 text-lg !font-medium "}>{head}</th>)}
+            className={"py-3 px-4 !text-gray-900 text-sm !font-medium "}>{head}</th>)}
         </tr>
         </thead>
         <tbody className={'!divide-y !divide-solid !divide-x-0 !divide-gray-300'}>
         {tabelData.features.map((rowData) => (
           <tr className={'text-left'}>
-            <td className={"px-6 py-5 font-medium text-lg text-gray-500"}>{rowData.name}</td>
-            <td className={"px-6 py-5 font-medium text-lg text-gray-500"}>{rowData.isFree ?
+            <td className={"px-6 py-5 font-medium text-sm text-gray-500"}>{rowData.name}</td>
+            <td className={"px-6 py-5 font-medium text-sm text-gray-500"}>{rowData.isFree ?
               <Icons.Checked/> :
               <Icons.Minus/>}</td>
-            <td className={"px-6 py-5 font-['Montserrat'] font-medium text-lg text-gray-700"}>
+            <td className={"px-6 py-5 font-['Montserrat'] font-medium text-sm text-gray-700"}>
               {typeof (rowData.needMembership) === "boolean" &&
               rowData.needMembership ? <Icons.Checked/> : null}
               {typeof (rowData.needMembership) === "string" &&

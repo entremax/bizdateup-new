@@ -25,21 +25,35 @@ export const api = createApi({
       ) => response.status,
     }),
     verifyOtp: builder.mutation({
-      query: ({otpData}) => ({
-        url: baseUrl + 'verify-register-otp',
-        method: 'POST',
-        body: otpData,
-      }),
+      query: (otpData) => (
+        {
+          url: baseUrl + 'verify-register-otp',
+          method: 'POST',
+          body: otpData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }),
       transformResponse: (
-        response: { data: ISendOtpResponseData },
+        response: ISendOtpResponseData,
         meta,
         arg
-      ) => response.data,
+      ) => {
+        return {
+          responseCode: response.data.code,
+          token: response.data.token,
+          refId: response.refId,
+          status: response.data.status,
+          investorData: {
+            ...response.data.data
+          }
+        }
+      },
       transformErrorResponse: (
         response: { status: string | number },
         meta,
         arg
-      ) => response.status,
+      ) => response.status
     }),
   }),
 });

@@ -5,7 +5,7 @@ import {useAppDispatch} from '@/store/hooks';
 import {Icons} from '@/icons';
 import {setInvestorId, temp_values} from "@/store/features/reducers/user/authSlice";
 import {validateEmailOrPhone} from "@/lib/utils";
-import {useSendOtpMutation} from "@/store/features/apiSlice";
+import {useSendOtpMutation} from "@/store/features/services/apiSlice";
 
 interface UserAuthFormProps {
   className?: string;
@@ -76,13 +76,13 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
             setLoader(false);
             console.log(data)
             dispatch(setInvestorId(data.data?.refId ? data.data.refId : data.refId));
-            await router.push(`/auth/otp/${data.data?.refId ? data.data.refId : data.refId}`);
+            await router.push(`/auth/otp/${data.data?.refId ? data.data.refId : data.refId}?type=${actionType}`);
           } else if (actionType === 'signup') {
             console.log(data)
             if (data.code === 200) {
               console.log(data)
               dispatch(setInvestorId(data.data?.refId ? data.data.refId : data.refId));
-              await router.push(`/auth/otp/${data.data?.refId ? data.data.refId : data.refId}`);
+              await router.push(`/auth/otp/${data.data?.refId ? data.data.refId : data.refId}?type=${actionType}`);
             } else if (data.code === 401 && data.message === 'ALREADY_EXIST') {
               console.error('User already exists. Please log in.');
             }
@@ -90,7 +90,6 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
         } else {
           console.error('Error in response:', response);
         }
-        
       } catch (e) {
         console.log(e)
       }
@@ -119,7 +118,7 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
           type="default"
           block
           size="large"
-          className="!h-12 !flex !justify-between items-center gap-2"
+          className="!h-12 !flex !justify-between items-center gap-2 !text-gray-900"
         >
           <Icons.Google height={22} width={22}/>
           <div className="grow"></div>
@@ -131,7 +130,7 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
           type="default"
           block
           size="large"
-          className="!h-12 !flex !justify-between gap-2 items-center"
+          className="!h-12 !flex !justify-between gap-2 items-center !text-gray-900"
         >
           <Icons.Facebook height={22} width={22}/>
           <div className="grow"></div>
@@ -154,7 +153,7 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
             />
             <label
               htmlFor="FormControlInputEmailLabel"
-              className="font-medium bg-white pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out -translate-y-[1.1rem] scale-[0.8]"
+              className="font-medium bg-white !text-gray-900 pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out -translate-y-[1.1rem] scale-[0.8]"
             >
               Email
             </label>

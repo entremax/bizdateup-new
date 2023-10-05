@@ -1,14 +1,11 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {DataInner} from "@/types";
 
 
 const initialState = {
-  temp_email: '',
-  user: 'guest user',
-  token: '',
-  userType: '',
-  userToken: '',
-  isUserAuthenticated: false,
-  isVerified: false
+  temp_auth_medium: '',
+  user: {} as DataInner,
+  kycStatus: [] as ['profile', 'pan', 'aadhar', 'bank', 'other'] | []
 } as any
 
 export const authUser = createSlice({
@@ -22,19 +19,33 @@ export const authUser = createSlice({
       state.investorUserId = action.payload
     },
     logoutUser: () => initialState,
-    loginUser(state, action) {
-      state.user = action.payload.id;
-      state.userType = action.payload.userType;
-      state.userToken = action.payload.userToken;
-      state.isUserAuthenticated = true;
+    setUser: (
+      state,
+      {
+        payload: {
+          token,
+          userData,
+          refId,
+          kycStatus
+        }
+      }: PayloadAction<{
+        token: string,
+        userData: DataInner,
+        refId: string,
+        kycStatus?: ['profile' | 'pan' | 'aadhar' | 'bank' | 'other'] | []
+      }>) => {
+      state.token = token;
+      state.user = userData;
+      state.refId = refId;
+      state.kycStatus = kycStatus
     },
-    setVerify(state, action) {
-      state.isVerified = action.payload.isVerified
+    setVerify(state, {payload}: PayloadAction<boolean>) {
+      state.isVerified = payload
     },
     
   }
 });
 // Action creators are generated for each case reducer function
-export const {temp_values, setVerify, loginUser, logoutUser, setInvestorId} = authUser.actions;
+export const {temp_values, setVerify, logoutUser, setInvestorId, setUser} = authUser.actions;
 
 export default authUser.reducer;
