@@ -1,26 +1,28 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {
+  createApi,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
 import {ISendOtpResponseData} from '@/types';
-import {REHYDRATE} from "redux-persist/es/constants";
 
 const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/auth/`;
 const baseQuery = fetchBaseQuery({baseUrl});
 
 export const api = createApi({
   baseQuery,
-  extractRehydrationInfo(action, { reducerPath }) {
-    // when persisting the root reducer
-    if (action.type === REHYDRATE) {
-      return action.payload[reducerPath]
-    }
-    
-    // when persisting the api reducer
-    if (
-      action.type === REHYDRATE &&
-      action.key === 'root'
-    ) {
-      return action.payload
-    }
-  },
+  // extractRehydrationInfo(action, { reducerPath }) {
+  //   // when persisting the root reducer
+  //   if (action.type === REHYDRATE) {
+  //     return action.payload[reducerPath]
+  //   }
+  //
+  //   // when persisting the api reducer
+  //   if (
+  //     action.type === REHYDRATE &&
+  //     action.key === 'root'
+  //   ) {
+  //     return action.payload
+  //   }
+  // },
   endpoints: (builder) => ({
     sendOtp: builder.mutation({
       query: ({emailData, url}) => ({
