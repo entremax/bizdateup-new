@@ -47,7 +47,9 @@
       "@/dashboard/*": [
         "./src/app/dashboard/_components/*"
       ],
-
+      "@/data": [
+        "./src/data/faker.tsx"
+      ]
     }
   },
   "include": [
