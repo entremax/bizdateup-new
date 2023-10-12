@@ -433,5 +433,5 @@ const faqData: CollapseProps['items'] = [
     ),
   },
 ];
-
-export default { campaignData, faqData };
+const data={ campaignData, faqData }
+export default data;

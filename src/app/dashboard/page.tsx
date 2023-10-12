@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: 'Dashboard for investor',
 };
 
-export async function getData() {
+async function getData() {
   // Define your API endpoint URL and query parameters
   const queryParams: QueryParams = { limit: 4 }; // Define your query parameters here
 
