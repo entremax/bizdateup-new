@@ -1,16 +1,40 @@
-import authUser from './features/authSlice';
-import chat from './features/chatSlice';
-import sidebar from './features/sidebar';
-import {configureStore} from '@reduxjs/toolkit';
+import authUserSlice from './features/reducers/user/authSlice';
+import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
+import {persistReducer, persistStore} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import {api} from '@/store/features/services/apiSlice';
+import {setupListeners} from '@reduxjs/toolkit/query';
 
-const store = configureStore({
+/**
+ * Configuration options for data persistence.
+ */
+const persistConfig= {
+  key: 'root',
+  version: 1,
+  storage,
+};
+
+const authUser = persistReducer(persistConfig, authUserSlice);
+
+export const store = configureStore({
   reducer: {
-    sidebar,
-    chat,
+    [api.reducerPath]: api.reducer,
     authUser,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
 });
 
+export const persistor = persistStore(store);
+
 export type RootState = ReturnType<typeof store.getState>;
+
 export type AppDispatch = typeof store.dispatch;
-export default store
+
+export type ReduxThunkAction<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action
+>
+setupListeners(store.dispatch);

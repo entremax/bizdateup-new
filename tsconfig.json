@@ -40,6 +40,15 @@
       ],
       "@/icons": [
         "./src/components/ui/icon"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ],
+      "@/dashboard/*": [
+        "./src/app/dashboard/_components/*"
+      ],
+      "@/data": [
+        "./src/data/index.tsx"
       ]
     }
   },

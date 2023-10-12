@@ -8,9 +8,22 @@ import {tempEmail} from "@/store/features/authSlice";
 import {useRouter} from "next/navigation";
 import {useAppDispatch} from '@/store/hooks';
 
+/**
+ * Represents the props for the UserAuthForm component.
+ * @interface UserAuthFormProps
+ * @extends React.HTMLAttributes<HTMLDivElement>
+ */
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
+/**
+ * Renders a user authentication form.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.className - The additional class name for the form container.
+ *
+ * @returns {JSX.Element} - The rendered authentication form.
+ */
 export function UserAuthForm({className, ...props}: UserAuthFormProps) {
   const dispatch = useAppDispatch()
   const router = useRouter()
@@ -29,6 +42,12 @@ export function UserAuthForm({className, ...props}: UserAuthFormProps) {
     }
   }
   
+  /**
+   * Function to register using Google.
+   *
+   * The function removes the 'loginMethod2' and 'loginMethod' keys from localStorage and sets the values
+   * 'logingoogle2' and 'social' respectively. It then opens the specified URL in the same window.
+   */
   const registerGoogle = () => {
     localStorage.removeItem('loginMethod2');
     localStorage.removeItem('loginMethod');
@@ -39,6 +58,13 @@ export function UserAuthForm({className, ...props}: UserAuthFormProps) {
       '_self'
     );
   };
+  /**
+   * Removes login methods from local storage
+   * and registers Facebook login method.
+   * Opens Facebook login page.
+   *
+   * @function registerFacebook
+   */
   const registerFacebook = () => {
     localStorage.removeItem('loginMethod2');
     localStorage.removeItem('loginMethod');
@@ -49,6 +75,11 @@ export function UserAuthForm({className, ...props}: UserAuthFormProps) {
       '_self'
     );
   };
+  /**
+   * Handles the login with email functionality.
+   *
+   * @function handleLoginWithEmail
+   */
   const handleLoginWithEmail = () => {
     const email = emailRef.current?.value as string
     if (email === undefined) {

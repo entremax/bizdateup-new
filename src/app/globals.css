@@ -3,20 +3,67 @@
 @tailwind utilities;
 :root {
   --white: 0, 0, 0;
+  --white-smoke: 249, 249, 252;
   --gray-500: 107, 114, 128;
   --light-stroke: 223, 223, 224;
+
   --gray-smoke: 110, 110, 115;
+  --gray: 130, 143, 153, 1;
   --cloud-brust: 32, 32, 84;
   --lavender-blue: 134, 134, 245;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background-color: rgb(var(--background-end-rgb));
+  --paua: 32, 32, 84;
+  --gray-900: 17, 24, 39;
+  --active-light: 99, 115, 129;
+  --gray-400: 100, 116, 139;
+  --lemon-green:31, 137, 44;
 }
 
 a {
   text-decoration: none;
+}
+
+.otp div input {
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+}
+
+@layer base {
+  html, body {
+    font-family: Helvetica Neue, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100dvh !important;
+      width: 100vw !important;
+      overflow-x: hidden;
+      /*color: rgb(var(--foreground-rgb));*/
+      background-color: rgb(var(--background-end-rgb));
+    }
+}
+
+@layer components {
+  .border_gray {
+    border: 1px solid #eae9e8 !important;
+  }
+
+  .auth {
+    @apply min-h-full flex justify-center items-center w-screen flex-col;
+  }
+
+  .auth_container {
+    @apply mx-auto md:border_gray flex flex-col justify-center items-center space-y-2 bg-white md:shadow-lg rounded-2xl mt-16 md:w-auto  px-12 py-10;
+  }
+
+  .button_primary {
+    @apply p-[0.625rem_1.25rem] my-9 text-lg font-semibold  cursor-pointer bg-primary outline-none border-0  text-primary rounded-lg;
+  }
+
+  .reset{
+    @apply !m-0 !p-0;
+  }
+}
+
+.ant-collapse-header-text {
+  font-weight: 700 !important;
 }

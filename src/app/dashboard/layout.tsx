@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] });
 const DashboardLayout = ({ children }: React.PropsWithChildren) => (
   <html lang='en'>
   <body className={inter.className}>
-  <Navbar type={"normal"}/>
+    <Navbar type={"dashboard"}/>
     {children}
   </body>
   </html>
