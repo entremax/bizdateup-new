@@ -56,13 +56,14 @@ const Plans = () => {
       <table className={"!table-fixed divide-y !divide-solid !divide-x-0 !divide-gray-300"}>
         <thead>
         <tr className={'text-left'}>
-          {tableData.headers.map((head) => <th
-            className={"py-3 px-4 !text-gray-900 text-sm !font-medium "}>{head}</th>)}
+          {tableData.headers.map((head,index) =>
+            
+            <th key={index} className={"py-3 px-4 !text-gray-900 text-sm !font-medium "}>{head}</th>)}
         </tr>
         </thead>
         <tbody className={'!divide-y !divide-solid !divide-x-0 !divide-gray-300'}>
-        {tableData.features.map((rowData) => (
-          <tr className={'text-left'}>
+        {tableData.features.map((rowData,index) => (
+          <tr key={index} className={'text-left'}>
             <td className={"px-6 py-5 font-medium text-sm text-gray-500"}>{rowData.name}</td>
             <td className={"px-6 py-5 font-medium text-sm text-gray-500"}>{rowData.isFree ?
               <Icons.Checked/> :
