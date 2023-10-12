@@ -1,0 +1,38 @@
+.card_article:hover .card_data_hidden {
+  opacity: 0;
+  transition: 0ms;
+}
+.card_article:not(:hover) .card_data_hidden {
+  opacity: 1;
+  transition: 400ms;
+}
+.card_data {
+  position: absolute;
+  opacity: 0;
+  bottom: -23%;
+  left: 0;
+  right: 0;
+  transition: opacity 400ms;
+}
+
+.card_article:hover .card_data {
+  top: 55%;
+  opacity: 1;
+  transition: 600ms;
+  animation: show-data 1s forwards;
+}
+
+.card_article:not(:hover) .card_data {
+  opacity: 0;
+  bottom: -30%;
+}
+
+@keyframes show-overflow {
+  0% {
+    overflow: initial;
+    pointer-events: none;
+  }
+  50% {
+    overflow: hidden;
+  }
+}
