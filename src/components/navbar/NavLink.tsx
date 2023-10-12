@@ -66,8 +66,8 @@ const Links=({type}:{type:string})=>{
   return(
     <div className='hidden md:flex gap-4'>
       {(type !== 'normal' ? headerType.dashboard : headerType.normal).main.map((link, index) => (
-        <div className={'group'}>
-        <Link href={link.to} key={index}
+        <div key={index} className={'group'}>
+        <Link href={link.to}
               className='flex gap-2 items-center text-gray-400 font-medium text-md px-4 group-hover:text-blue-600'>
           {link.icon ?
             <link.icon className='fill-current group-hover:fill-blue-500' width='1rem' height='1rem'/> : null}
