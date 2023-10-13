@@ -67,7 +67,7 @@ export default function OtpField({ id }: { id: string }) {
   const { temp_auth_medium, investorUserId } = useAppSelector(
     ({ authUser }) => authUser
   );
-  const [sendOtp, { isLoading: reSending }] = useSendOtpMutation();
+  const [sendOtp, { isLoading: reSending,error:sendOtpError }] = useSendOtpMutation();
 
   React.useEffect(() => {
     if (!temp_auth_medium) {
@@ -110,7 +110,10 @@ export default function OtpField({ id }: { id: string }) {
       refId: investorUserId,
     };
     const response = await verifyOtp(reqData);
-
+    if('error' in response){
+      const error=response.error
+      console.log(error)
+    }
     if ('data' in response) {
       const {
         responseCode,
@@ -119,10 +122,9 @@ export default function OtpField({ id }: { id: string }) {
         refId = investorUserId,
         status,
       } = response.data;
-
+      dispatch(setNotification({type:'success',message:'OTP Verified'}))
       const loginMethod = localStorage.getItem('loginMethod');
       const loginMethod2 = localStorage.getItem('loginMethod2');
-
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
         dispatch(setVerify(false));
         dispatch(
@@ -133,10 +135,11 @@ export default function OtpField({ id }: { id: string }) {
             kycStatus: [],
           })
         );
-        router.push('/layout-profile');
+        router.push('/dashboard/');
       } else {
         if (responseCode === 200) {
           dispatch(setVerify(true));
+          
           dispatch(
             setUser({
               token,
@@ -202,7 +205,8 @@ export default function OtpField({ id }: { id: string }) {
           <Button
             type={'default'}
             size={'large'}
-            className={'bg-primary text-white w-full hover:!text-white'}
+            disabled={otp===''||isLoading}
+            className={'!bg-primary !text-white w-full hover:!text-white'}
             onClick={handleVerifyOtp}
             block
           >
@@ -211,8 +215,9 @@ export default function OtpField({ id }: { id: string }) {
           <Button
             type={'text'}
             size={'small'}
+            disabled={reSending}
             className={
-              'bg-transparent text-primary font-semibold my-4 hover:!bg-transparent hover:!text-primary'
+              'bg-transparent !text-primary font-semibold my-4 hover:!bg-transparent hover:!text-primary'
             }
             onClick={handleResend}
           >

@@ -16,7 +16,7 @@ const AntNotification: React.FC = () => {
   const openNotification = (notificationType:NotificationType,message: string) => {
     api[notificationType]({
       message: `${message}`,
-      description: <Context.Consumer>{({ name }) => `${name}!`}</Context.Consumer>,
+      description: <Context.Consumer>{({ name }) => name}</Context.Consumer>,
       placement: 'bottomRight',
     });
   };
