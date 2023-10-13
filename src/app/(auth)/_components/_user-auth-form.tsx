@@ -7,6 +7,7 @@ import {Icons} from '@/icons';
 import {setInvestorId, temp_values} from "@/store/features/reducers/user/authSlice";
 import {validateEmailOrPhone} from "@/lib/utils";
 import {useSendOtpMutation} from "@/store/features/services/apiSlice";
+import {setNotification} from "@/reducers/others/notificationSlice";
 
 interface UserAuthFormProps {
   className?: string;
@@ -16,14 +17,14 @@ interface UserAuthFormProps {
 
 export default function UserAuthForm({className, requestType}: UserAuthFormProps) {
   const dispatch = useAppDispatch();
-  const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/v1/auth/`;
+  const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/auth/`;
   const url = requestType === 'login' ? `${baseUrl}login/` : baseUrl;
   const router = useRouter();
   const [withEmail, setWithEmail] = useState(false)
   const [email, setEmail] = useState('')
   const [loader, setLoader] = useState(false); // Fix variable name
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const [sendOtp] = useSendOtpMutation()
+  useRef<HTMLInputElement | null>(null);
+  const [sendOtp,{error,isLoading}] = useSendOtpMutation()
   
   const setLocalStorageValues = () => {
     if (requestType === 'login') {
@@ -69,44 +70,39 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
       try {
         const emailData = {[emailOrPhone]: email, role: 'investor'}
         const response = await sendOtp({emailData, url: endpoint});
-        console.log(response)
         if ('data' in response) {
           const data = response.data;
-          
-          if (data.code === 200) {
+          if(data.code===404){
+            dispatch(setNotification({type:'error',message:data.message}))
+          }else if (data.code === 200) {
+            dispatch(setNotification({type:'success',message:'OTP Sent Successfully'}))
             setLoader(false);
             console.log(data)
             dispatch(setInvestorId(data.data?.refId ? data.data.refId : data.refId));
             router.push(`/otp/${data.data?.refId ? data.data.refId : data.refId}?type=${actionType}`);
           } else if (actionType === 'signup') {
-            console.log(data)
             if (data.code === 200) {
               console.log(data)
               dispatch(setInvestorId(data.data?.refId ? data.data.refId : data.refId));
               router.push(`/otp/${data.data?.refId ? data.data.refId : data.refId}?type=${actionType}`);
             } else if (data.code === 401 && data.message === 'ALREADY_EXIST') {
-              console.error('User already exists. Please log in.');
+              dispatch(setNotification({type: 'error',message:"OTP Delivery Failed",description:'This user already exists. Please try to log in instead.'}))
             }
           }
-        } else {
-          console.error('Error in response:', response);
         }
       } catch (e) {
         console.log(e)
       }
     } else {
-      setLoader(false);
-      // Handle invalid input value
+      dispatch(setNotification({type:'error',message:'Invalid input',description:'Please enter a valid email or phone number.'}))
     }
   }
   
   async function handleRegister() {
-    setLoader(true);
     await performAuthentication('signup');
   }
   
   async function handleLogin() {
-    setLoader(true);
     await performAuthentication('login');
   }
   
@@ -148,18 +144,12 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
             <Input
               size="large"
               type={"text"}
-              className="peer block min-h-[auto] outline-gray-300 w-full text-black rounded-sm border-0 bg-transparent px-3 py-[0.28rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-300 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-300 motion-reduce:transition-none dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 font-light" id="FormControlInputEmail"
+              className="peer block min-h-[auto] !outline-gray-300 w-full text-[#000] rounded-sm border-0 bg-transparent px-3 py-[0.28rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-400 peer-focus:text-black-lighter data-[te-input-state-active]:!placeholder:opacity-400 motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-500 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 font-medium focus:outline-none focus:border-sky-500" id="FormControlInputEmail"
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
               placeholder="Enter your email or phone number"
             />
-            {/*<input*/}
-            {/*  type="text"*/}
-            {/*  className="peer block min-h-[auto] outline-gray-300 w-full text-black rounded-sm border-0 bg-transparent px-3 py-[0.28rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-300 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-300 motion-reduce:transition-none dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 font-light"*/}
-            {/*  id="FormControlInputEmail"*/}
-            {/*  ref={emailRef}*/}
-            {/*  placeholder="Enter your email or phone number"*/}
-            {/*/>*/}
+            
             <label
               htmlFor="FormControlInputEmailLabel"
               className="font-medium bg-white !text-gray-900 pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out -translate-y-[1.1rem] scale-[0.8]"
@@ -170,7 +160,8 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
           <Button
             type="default"
             size="large"
-            className="!h-10 bg-primary !flex !justify-between gap-2"
+            disabled={email===''||isLoading}
+            className="!h-10 !bg-primary !flex !justify-between gap-2 disabled:text-primary"
             onClick={requestType === 'login' ? handleLogin : handleRegister}
           >
             <div className="grow"></div>

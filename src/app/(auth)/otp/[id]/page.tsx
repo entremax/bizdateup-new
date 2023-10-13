@@ -16,7 +16,7 @@ export default function VerifyEmail({params}:{params:{id:string}}) {
         </ReduxProvider>
         <div className="flex font-semibold gap-1">
           <p className={"reset"}>Already have an account?</p>{"  "}
-          <Link href={"/auth/login"} className={"text-primary"}>Login</Link>
+          <Link href={"/login"} className={"text-primary"}>Login</Link>
         </div>
       </div>
     </div>

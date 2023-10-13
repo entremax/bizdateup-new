@@ -4,7 +4,8 @@ import './globals.css';
 import theme from "@/theme/themeConfig";
 import {ConfigProvider} from "antd";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
-import Navbar from "@/components/navbar";
+import ReduxProvider from "@/store/Provider";
+import AntNotification from "@/ui/notification";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -18,6 +19,9 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
     <StyledComponentsRegistry>
       <ConfigProvider theme={theme}>
         {children}
+        <ReduxProvider>
+          <AntNotification/>
+        </ReduxProvider>
       </ConfigProvider>
     </StyledComponentsRegistry>
     </body>

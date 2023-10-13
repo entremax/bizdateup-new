@@ -25,9 +25,7 @@ const Signup = () => {
         <p className='text-sm text-gray-400 mx-auto my-2'>
           Take a first step towards investing journey with bizdateup
         </p>
-        <ReduxProvider>
-          <UserAuthForm requestType={"signup"}/>
-        </ReduxProvider>
+        <UserAuthForm requestType={"signup"}/>
         <div className='flex text-gray-400 text-sm !my-6 justify-center items-center'>
           <p className='flex gap-1'>
             By signing up I agree to

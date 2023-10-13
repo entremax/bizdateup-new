@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,42 +19,18 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/theme/*": [
-        "./src/theme/*"
-      ],
-      "@/lib/*": [
-        "./src/lib/*"
-      ],
-      "@/ui/*": [
-        "./src/components/ui/*"
-      ],
-      "@/store/*": [
-        "./src/store/*"
-      ],
-      "@/icons": [
-        "./src/components/ui/icon"
-      ],
-      "@/types/*": [
-        "./src/types/*"
-      ],
-      "@/dashboard/*": [
-        "./src/app/dashboard/_components/*"
-      ],
-      "@/data": [
-        "./src/data/faker.tsx"
-      ]
+      "@/*": ["./src/*"],
+      "@/theme/*": ["./src/theme/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/ui/*": ["./src/components/ui/*"],
+      "@/store/*": ["./src/store/*"],
+      "@/reducers/*": ["./src/store/features/reducers/*"],
+      "@/icons": ["./src/components/ui/icon"],
+      "@/types/*": ["./src/types/*"],
+      "@/dashboard/*": ["./src/app/dashboard/_components/*"],
+      "@/data": ["./src/data/faker.tsx"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

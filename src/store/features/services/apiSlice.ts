@@ -1,11 +1,19 @@
-import {
-  createApi,
-  fetchBaseQuery,
-} from '@reduxjs/toolkit/query/react';
-import {ISendOtpResponseData} from '@/types';
-
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ISendOtpResponseData } from '@/types';
+import { useDispatch } from 'react-redux';
+import { setNotification } from '../reducers/others/notificationSlice';
+import { RootState } from '@/store';
 const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/auth/`;
-const baseQuery = fetchBaseQuery({baseUrl});
+const baseQuery = fetchBaseQuery({
+  baseUrl,
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).authUser.token;
+    if (token) {
+      headers.set('authorization', `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
 
 export const api = createApi({
   baseQuery,
@@ -25,7 +33,7 @@ export const api = createApi({
   // },
   endpoints: (builder) => ({
     sendOtp: builder.mutation({
-      query: ({emailData, url}) => ({
+      query: ({ emailData, url }) => ({
         url,
         method: 'POST',
         body: emailData,
@@ -34,7 +42,9 @@ export const api = createApi({
         response: { data: ISendOtpResponseData },
         meta,
         arg
-      ) => response.data,
+      ) => {
+        return response.data;
+      },
       transformErrorResponse: (
         response: { status: string | number },
         meta,
@@ -42,72 +52,62 @@ export const api = createApi({
       ) => response.status,
     }),
     verifyOtp: builder.mutation({
-      query: (otpData) => (
-        {
-          url: baseUrl + 'verify-register-otp',
-          method: 'POST',
-          body: otpData,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }),
-      transformResponse: (
-        response: ISendOtpResponseData,
-        meta,
-        arg
-      ) => {
-        console.log(response)
+      query: (otpData) => ({
+        url: baseUrl + 'verify-register-otp',
+        method: 'POST',
+        body: otpData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      transformResponse: (response: ISendOtpResponseData, meta, arg) => {
+        console.log(response);
         return {
           responseCode: response.data.code,
           token: response.data.token,
           refId: response.refId,
-          
+
           status: response.data.status,
           investorData: {
-            ...response.data.data
-          }
-        }
+            ...response.data.data,
+          },
+        };
       },
       transformErrorResponse: (
         response: { status: string | number },
         meta,
         arg
-      ) => response.status
+      ) => response.status,
     }),
-    getInvestorsTotalInvestment:builder.mutation({
-      query: (refId) => (
-        {
-          url: baseUrl + 'investment/totalInvestmentbyinvestor',
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          params:refId
-        }),
-      transformResponse: (
-        response: ISendOtpResponseData,
-        meta,
-        arg
-      ) => {
-        console.log(response)
+    getInvestorsTotalInvestment: builder.mutation({
+      query: (refId) => ({
+        url: baseUrl + 'investment/totalInvestmentbyinvestor',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        params: refId,
+      }),
+      transformResponse: (response: ISendOtpResponseData, meta, arg) => {
+        console.log(response);
         return {
           responseCode: response.data.code,
           token: response.data.token,
           refId: response.refId,
-          
+
           status: response.data.status,
           investorData: {
-            ...response.data.data
-          }
-        }
+            ...response.data.data,
+          },
+        };
       },
       transformErrorResponse: (
         response: { status: string | number },
         meta,
         arg
-      ) => response.status
-    })
+      ) => response.status,
+    }),
   }),
 });
 
-export const {useSendOtpMutation, useVerifyOtpMutation} = api;
+export const { useSendOtpMutation, useVerifyOtpMutation } = api;
