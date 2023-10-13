@@ -4,7 +4,6 @@ import './globals.css';
 import theme from "@/theme/themeConfig";
 import {ConfigProvider} from "antd";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
-import Navbar from "@/components/navbar";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -17,7 +16,6 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
     <body className={inter.className}>
     <StyledComponentsRegistry>
       <ConfigProvider theme={theme}>
-        <Navbar type={"normal"}/>
         {children}
       </ConfigProvider>
     </StyledComponentsRegistry>
