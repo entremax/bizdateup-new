@@ -19,11 +19,14 @@ import Link from "next/link";
 const KycIndicator = ({className, hidden}: { className?: string, hidden?: boolean }): ReactElement => {
   const router=useRouter()
   const dispatch=useAppDispatch()
-  const {user,kycStatus,kycCompletionPercentage}= useAppSelector((state) => state.authUser)
+  const {user,token,kycStatus,kycCompletionPercentage}= useAppSelector((state) => state.authUser)
   React.useEffect(()=>{
+    if(token===''){
+      router.push('/login')
+    }
     const pendingStatuses: KYCStatus[] = [];
     const totalStatuses: KYCStatus[] = [ KYCStatus.profile,KYCStatus.pan, KYCStatus.aadhar, KYCStatus.bank, KYCStatus.other];
-
+    
     totalStatuses.forEach((status) => {
       if (kycStatus.includes(status)) {
         pendingStatuses.push(status);
@@ -31,7 +34,7 @@ const KycIndicator = ({className, hidden}: { className?: string, hidden?: boolea
     });
     const percentageComplete = ((totalStatuses.length - pendingStatuses.length) / totalStatuses.length) * 100;
     dispatch(setKycCompletionPercentage(percentageComplete));
-  },[])
+  },[token,])
   return (
     <>
       {kycCompletionPercentage !== 100 ?

@@ -1,4 +1,5 @@
 import authUserSlice from './features/reducers/user/authSlice';
+import Notify from './features/reducers/others/notificationSlice'
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -20,6 +21,7 @@ export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     authUser,
+    Notify
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),

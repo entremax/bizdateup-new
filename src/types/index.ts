@@ -170,3 +170,4 @@ export interface HeaderLink {
     to: string;
   }[];
 }
+export type NotificationType = 'success' | 'info' | 'warning' | 'error';

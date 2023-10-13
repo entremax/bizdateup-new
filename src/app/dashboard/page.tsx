@@ -20,26 +20,21 @@ export const metadata: Metadata = {
   description: 'Dashboard for investor',
 };
 
-async function getData() {
-  // Define your API endpoint URL and query parameters
-  const queryParams: QueryParams = { limit: 4 }; // Define your query parameters here
-
-  const url = new URL(`${baseUrl}/startupsInvestorView`);
-  Object.keys(queryParams).forEach((key) =>
-    url.searchParams.append(
-      key,
-      queryParams[key as keyof QueryParams].toString()
-    )
-  );
-  const response = await fetch(url.toString());
-  if (response.ok) {
+const getData = async () => {
+  const url = `${baseUrl}/startupsInvestorView?limit=4`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
     const { data } = await response.json();
-
+    
     return data;
-  } else {
-    throw new Error('Failed to fetch data');
+  } catch (error) {
+    console.error(error);
+    throw error
   }
-}
+};
 
 const Dashboard = async () => {
   const {data:campaign}:{data: Campaign[]} =await getData()
