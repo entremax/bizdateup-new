@@ -17,6 +17,7 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
     <body className={inter.className}>
     <StyledComponentsRegistry>
       <ConfigProvider theme={theme}>
+        <Navbar type={"normal"}/>
         {children}
       </ConfigProvider>
     </StyledComponentsRegistry>
