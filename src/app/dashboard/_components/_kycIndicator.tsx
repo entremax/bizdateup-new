@@ -2,9 +2,8 @@
 import {Button, Progress, Space} from "antd";
 import {cn} from "@/lib/utils";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import {DataInner, KYCStatus} from "@/types";
+import { KYCStatus} from "@/types";
 import React, {ReactElement} from "react";
-import {useRouter} from "next/navigation";
 import {setKycCompletionPercentage} from "@/store/features/reducers/user/authSlice";
 import Link from "next/link";
 
@@ -17,29 +16,25 @@ import Link from "next/link";
  * @returns {ReactElement} The KYC Indicator component.
  */
 const KycIndicator = ({className, hidden}: { className?: string, hidden?: boolean }): ReactElement => {
-  const router=useRouter()
   const dispatch=useAppDispatch()
   const {user,token,kycStatus,kycCompletionPercentage}= useAppSelector((state) => state.authUser)
   React.useEffect(()=>{
-    if(token===''){
-      router.push('/login')
-    }
     const pendingStatuses: KYCStatus[] = [];
     const totalStatuses: KYCStatus[] = [ KYCStatus.profile,KYCStatus.pan, KYCStatus.aadhar, KYCStatus.bank, KYCStatus.other];
     
     totalStatuses.forEach((status) => {
-      console.log(status)
-      if (kycStatus.includes(status)) {
+      
+      if (kycStatus && (kycStatus.includes(status))) {
         pendingStatuses.push(status);
       }
     });
     const percentageComplete = ((totalStatuses.length - pendingStatuses.length) / totalStatuses.length) * 100;
-    console.log(percentageComplete,pendingStatuses)
-    dispatch(setKycCompletionPercentage(100-percentageComplete));
+    
+    dispatch(setKycCompletionPercentage(user?percentageComplete:0));
   },[token,])
   return (
     <>
-      {kycCompletionPercentage < 100 ?
+      {user ? (kycCompletionPercentage < 100 ?
         <div
           className={cn("grid gap-2 p-5 border_gray bg-light-shadow rounded-xl" + " " + className + (hidden ? "hidden" : ""))}>
           <div className={"flex"}>
@@ -75,7 +70,21 @@ const KycIndicator = ({className, hidden}: { className?: string, hidden?: boolea
             </Link>
           </div>
         </div>
-      }</>
+      ): (
+        <div
+          className={cn("grid gap-2 border_gray divide-y divide-solid divide-x-0 divide-gray-300 rounded-xl !bg-white shadow" + " " + className + (hidden ? "hidden" : ""))}>
+          <div className="grid justify-center items-center">
+            <Link
+              href={'/login'}
+              className={'text-primary py-2'}
+            >
+              Please login to Continue
+            </Link>
+          </div>
+        </div>
+      )}
+    
+    </>
   )
 }
 export default KycIndicator
