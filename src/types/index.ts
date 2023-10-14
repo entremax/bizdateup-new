@@ -103,12 +103,12 @@ export enum KYCCompletion {
 export type KYCStatusArray = KYCStatus[];
 
 export interface AuthUserState {
-  token: string;
-  investorUserId: string;
-  refId: string;
-  temp_auth_medium: string;
-  user: DataInner;
-  kycStatus: KYCStatusArray
+  token: string | null;
+  investorUserId: string | null;
+  refId: string |null;
+  temp_auth_medium: string|null;
+  user: DataInner|null;
+  kycStatus: KYCStatusArray | null
   isVerified: boolean;
   kycCompletionPercentage:number;
 }

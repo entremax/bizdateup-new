@@ -21,7 +21,6 @@ const AntNotification: React.FC = () => {
     });
   };
   React.useEffect(() => {
-    console.log(message);
     if (type!==null && message!==null) {
       openNotification(type,message);
       setTimeout(() => {
@@ -29,7 +28,7 @@ const AntNotification: React.FC = () => {
       }, 3000);
     }
   }, [type, message]);
-  const contextValue = useMemo(() => ({ name: description?description:'' }), []);
+  const contextValue = useMemo(() => ({ name: description?description:'' }), [description]);
 
   return (
     <Context.Provider value={contextValue}>{contextHolder}</Context.Provider>

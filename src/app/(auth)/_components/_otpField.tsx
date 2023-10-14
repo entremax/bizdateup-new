@@ -72,7 +72,7 @@ export default function OtpField({ id }: { id: string }) {
   React.useEffect(() => {
     if (!temp_auth_medium) {
       router.back();
-    } else if (id !== investorUserId.toString()) {
+    } else if (id !== investorUserId?.toString()) {
       router.back();
     }
   }, [temp_auth_medium, id, investorUserId]);
@@ -105,6 +105,13 @@ export default function OtpField({ id }: { id: string }) {
   }
 
   async function handleVerifyOtp() {
+    if(!investorUserId || otp===''){
+      dispatch(setNotification({
+        type: 'error',
+        message: 'Bad Request',
+      }))
+      return
+    }
     const reqData: OtpVerifyData = {
       code: otp,
       refId: investorUserId,
@@ -112,7 +119,11 @@ export default function OtpField({ id }: { id: string }) {
     const response = await verifyOtp(reqData);
     if('error' in response){
       const error=response.error
-      console.log(error)
+      dispatch(setNotification({
+        type: 'error',
+        message: 'OTP Verification Failed',
+        description: `The OTP you entered is invalid. Please check it and try again.(code:${error})`
+      }));
     }
     if ('data' in response) {
       const {
@@ -122,7 +133,7 @@ export default function OtpField({ id }: { id: string }) {
         refId = investorUserId,
         status,
       } = response.data;
-      dispatch(setNotification({type:'success',message:'OTP Verified'}))
+      
       const loginMethod = localStorage.getItem('loginMethod');
       const loginMethod2 = localStorage.getItem('loginMethod2');
       if (loginMethod === 'local' && loginMethod2 === 'signup') {

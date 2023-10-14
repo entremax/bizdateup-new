@@ -2,16 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {AuthUserState, DataInner, KYCStatusArray} from '@/types';
 
 
-const initialState: AuthUserState = {
-  token: '',
-  investorUserId: '',
-  refId: '',
-  temp_auth_medium: '',
-  user: {} as DataInner,
+const initialState = {
+  token: null,
+  investorUserId: null,
+  refId: null,
+  temp_auth_medium: null,
+  user: null,
   kycStatus: [] as KYCStatusArray,
   isVerified: false,
   kycCompletionPercentage:0
-};
+} as AuthUserState
 
 export const authUser = createSlice({
   name: 'authUser',

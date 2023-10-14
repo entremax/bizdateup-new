@@ -22,14 +22,14 @@ export const metadata: Metadata = {
 
 const getData = async () => {
   const url = `${baseUrl}/startupsInvestorView?limit=4`;
-  console.log(url)
+  
   try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch data');
     }
     const { data } = await response.json();
-    console.log(data)
+    
     return data;
   } catch (error) {
     console.error(error);
@@ -68,9 +68,12 @@ const Dashboard = async () => {
   return (
     <div className='pt-20 pb-3 ml-2 grid grid-cols-12 gap-2 px-3 xl:px-5'>
       <div className='my-6 md:mt-5 col-start-1 col-end-12 xl:col-start-2 xl:col-end-11'>
-        <ReduxProvider>
-          <Greet />
-        </ReduxProvider>
+        <div className='grid text-primary-dark'>
+          <ReduxProvider>
+            <Greet/>
+          </ReduxProvider>
+          <h2 className='hidden sm:inline sm:text-3xl md:text-4xl font-bold reset'>Check out Live Campaigns</h2>
+        </div>
       </div>
       <div className='col-span-full md:col-start-1 md:col-end-9 xl:col-start-2 xl:col-end-9 gap-7 flex flex-col'>
         <ReduxProvider>
