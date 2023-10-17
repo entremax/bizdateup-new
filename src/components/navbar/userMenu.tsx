@@ -7,9 +7,12 @@ import {cn} from "@/lib/utils";
 import {redirect} from "next/navigation";
 const UserMenu = () => {
   const {user}=useAppSelector(({authUser})=>authUser)
-  if(!user){
-    redirect('/login')
-  }
+  
+  React.useEffect(()=>{
+    if (!user) {
+      redirect('/login')
+    }
+  },[user])
   return (
     <>
       <Tooltip title={'Notifications'}>
@@ -25,9 +28,9 @@ const UserMenu = () => {
         </Badge>
       </Tooltip>
       <div className={"flex justify-center items-center gap-2"}>
-        <div className={cn(user.membership.isMember==="no"?"relative rounded-full":"relative outline outline-4 outline-yellow-500 rounded-full")}>
+        <div className={cn(user?.membership?.isMember!=="no"?"relative outline outline-4 outline-yellow-500 rounded-full":"relative rounded-full")}>
           <Avatar size={'large'}>U</Avatar>
-          {user.membership.isMember!=="no"?(
+          {user?.membership?.isMember!=="no"?(
             <>
             <Icons.Premium
             className={'absolute -top-4 right-0.5 z-[999] rotate-12'}

@@ -24,7 +24,9 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
   const [email, setEmail] = useState('')
   const [loader, setLoader] = useState(false); // Fix variable name
   useRef<HTMLInputElement | null>(null);
-  const [sendOtp,{error,isLoading}] = useSendOtpMutation()
+  const [sendOtp,{isLoading}] = useSendOtpMutation()
+  
+  
   
   const setLocalStorageValues = () => {
     if (requestType === 'login') {
