@@ -92,7 +92,7 @@ const Navbar: React.FC<NavbarProps> = ({ type }) => {
         <NavLink type={type} />
         {type !== 'normal' && <div className={'grow'} />}
         {type === 'normal' ? (
-          <div className='hidden h-full md:flex gap-2'>
+          <div className='hidden h-full lg:flex justify-center items-center gap-2'>
             <Link
               href={'/login'}
               className='p-[0.625rem_1.25rem] cursor-pointer bg-light-shadow outline-none border-0 text-primary rounded-lg'
@@ -107,7 +107,7 @@ const Navbar: React.FC<NavbarProps> = ({ type }) => {
             </Link>
           </div>
         ) : (
-            <div className={'hidden md:flex gap-8 justify-center items-center'}>
+            <div className={'hidden lg:flex gap-8 justify-center items-center'}>
               <Link
                 href={'/refer-earn'}
                 className='p-[0.625rem_1.25rem] cursor-pointer outline outline-primary outline-[0.022rem]  border-0 text-primary rounded-lg'
