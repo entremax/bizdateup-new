@@ -105,35 +105,35 @@ export type KYCStatusArray = KYCStatus[];
 export interface AuthUserState {
   token: string | null;
   investorUserId: string | null;
-  refId: string |null;
-  temp_auth_medium: string|null;
-  user: DataInner|null;
-  kycStatus: KYCStatusArray | null
+  refId: string | null;
+  temp_auth_medium: string | null;
+  user: DataInner | null;
+  kycStatus: KYCStatusArray | null;
   isVerified: boolean;
-  kycCompletionPercentage:number;
+  kycCompletionPercentage: number;
 }
 export interface Data {
   code: number;
   message: string;
   refId: string;
   data: DataInner;
-  status: KYCStatusArray
+  status: KYCStatusArray;
   token: string;
 }
 
 export type ISendOtpResponseData = {
-  code: number,
-  message: string,
-  refId?: string,
-  data: Data,
-  method: 'login' | 'signup'
-}
+  code: number;
+  message: string;
+  refId?: string;
+  data: Data;
+  method: 'login' | 'signup';
+};
 
 export type IResponse = {
-  code: number,
-  status: 'OK' | any,
-  error: boolean
-}
+  code: number;
+  status: 'OK' | any;
+  error: boolean;
+};
 
 export type QueryParams = {
   limit: number;
@@ -156,18 +156,66 @@ export interface Campaign {
   totalRaised: number;
 }
 export interface HeaderLink {
-  dashboard: ({
-    name: string;
-    icon: ({ ...props }: { [p: string]: any }) => JSX.Element;
-    link: string;
-  } | {
-    name: string;
-    icon: JSX.Element;
-    link: string;
-  })[];
+  dashboard: (
+    | {
+        name: string;
+        icon: ({ ...props }: { [p: string]: any }) => JSX.Element;
+        link: string;
+      }
+    | {
+        name: string;
+        icon: JSX.Element;
+        link: string;
+      }
+  )[];
   normal: {
     name: string;
     to: string;
   }[];
 }
 export type NotificationType = 'success' | 'info' | 'warning' | 'error';
+export interface IInvestmentApiResponse {
+  code: number;
+  status: string | 'OK';
+  data: {
+    code: number;
+    data: {
+      _id: string;
+      totalamount: number;
+    }[];
+  };
+  error: boolean;
+}
+export interface IInvestmentItem {
+  amountBreakdown: {
+    totalamount: number;
+    amount: number;
+    convenienceFee: number;
+    tds: number;
+    gst: number;
+  };
+  _id: string;
+  startup: string;
+  investor: string;
+  investorName: string;
+  companyName: string;
+  type: string;
+  orderId: string;
+  reference: string;
+  status: string;
+  dateOfpayment: string;
+  createdAt: string;
+  __v: number;
+  legal?: string;
+}
+
+export interface IInvestmentDataResponse {
+  code: number;
+  status: string;
+  data: {
+    code: number;
+    data: IInvestmentItem[];
+    message: string;
+  };
+  error: boolean;
+}
