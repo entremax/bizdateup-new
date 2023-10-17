@@ -1,5 +1,5 @@
 import React from 'react';
-import { Campaign, QueryParams } from '@/types';
+import { Campaign} from '@/types';
 import Greet from '@/dashboard/_greet';
 import LiveCampaigns from '@/dashboard/_liveCampaigns';
 import Plans from '@/dashboard/_plans';
@@ -26,7 +26,7 @@ const getData = async () => {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error('Failed to fetch data');
+       new Error('Failed to fetch data');
     }
     const { data } = await response.json();
     
