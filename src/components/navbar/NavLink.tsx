@@ -1,9 +1,10 @@
 'use client';
 import React, {useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import {redirect, usePathname} from 'next/navigation';
 import { Icons } from '@/icons';
 import { cn } from '@/lib/utils';
+import {useAppSelector} from "@/store/hooks";
 
 const linkStyle =
   'flex gap-2 items-center text-gray-400 font-medium text-md px-4 group-hover:text-primary h-full';
@@ -60,18 +61,24 @@ const headerType = {
 };
 
 const pathType = {
-  normal: ['/login', '/signup'],
-  dashboard: ['/dashboard', '/invest'],
+  unAuthenticated: [/\/login/, /\/signup/,/\/otp/],
+  authenticated: [/\/dashboard/, /\/invest/,/\/profile/],
 };
 
 const Links = ({ type }: { type: string }) => {
   const path = usePathname();
-
+  const {token}=useAppSelector(({authUser})=>authUser)
+  
+  const matchPath = (pathList: RegExp[]) => {
+    return pathList.some((pattern) => pattern.test(path));
+  }
+  
   useEffect(() => {
-    if (!pathType.normal.includes(path)) {
-      console.log(path);
+    if (token && matchPath(pathType.unAuthenticated)) {
+      redirect('/dashboard')
     }
-  }, []);
+  }, [path]);
+
   return (
     <div className='hidden h-full md:flex gap-4'>
       {(type !== 'normal' ? headerType.dashboard : headerType.normal).main.map(

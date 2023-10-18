@@ -5,6 +5,7 @@ import { Avatar,Badge, Button, Tooltip } from 'antd';
 import {useAppSelector} from "@/store/hooks";
 import {cn} from "@/lib/utils";
 import {redirect} from "next/navigation";
+
 const UserMenu = () => {
   const {user}=useAppSelector(({authUser})=>authUser)
   
@@ -33,9 +34,10 @@ const UserMenu = () => {
           {user?.membership?.isMember!=="no"?(
             <>
             <Icons.Premium
-            className={'absolute -top-4 right-0.5 z-[999] rotate-12'}
-            height={'1.5rem'}
-            width={'1.5rem'}/>
+              className={'absolute -top-4 right-0.5 z-[999] rotate-12'}
+              height={'1.5rem'}
+              width={'1.5rem'}
+            />
             <div className={'absolute rounded-full bg-primary text-white font-semibold text-xs -bottom-2 left-[0.2rem] px-2'}>VIP</div></>):null}
         </div>
         <Icons.ArrowDown/>

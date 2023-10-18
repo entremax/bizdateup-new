@@ -31,7 +31,7 @@ export const headerType = {
       },
     ],
   },
-  normal: {
+  unauthenticated: {
     main: [
       {
         name: 'Invest',
@@ -57,13 +57,9 @@ export const headerType = {
   },
 };
 
-export const pathType = {
-  normal: ['/login', '/signup'],
-  dashboard: ['/dashboard', '/invest'],
-};
 
 type NavbarProps = {
-  type: 'dashboard' | 'normal'; // Specify the valid types for 'type'
+  type: 'authenticated' | 'unauthenticated'; // Specify the valid types for 'type'
 };
 
 const Navbar: React.FC<NavbarProps> = ({ type }) => {
@@ -71,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({ type }) => {
     <div className='fixed flex px-8 items-center left-0 right-0  h-[4.5rem] z-[999] bg-white shadow-[0px_1px_0px_0px_#E5E9F2]'>
       <Link
         href={'/'}
-        className={type === 'normal' ? 'flex-grow' : ''}
+        className={type === 'unauthenticated' ? 'flex-grow' : ''}
       >
         <Image
           className='md:pl-8'
@@ -83,15 +79,17 @@ const Navbar: React.FC<NavbarProps> = ({ type }) => {
       </Link>
       <div
         className={
-          type === 'normal'
+          type === 'unauthenticated'
             ? 'flex gap-12 items-center h-full'
             : 'w-full h-full flex items-center'
         }
       >
-        {type !== 'normal' && <div className={'grow'} />}
-        <NavLink type={type} />
-        {type !== 'normal' && <div className={'grow'} />}
-        {type === 'normal' ? (
+        {type !== 'unauthenticated' && <div className={'grow'} />}
+        <ReduxProvider>
+          <NavLink type={type} />
+        </ReduxProvider>
+        {type !== 'unauthenticated' && <div className={'grow'} />}
+        {type === 'unauthenticated' ? (
           <div className='hidden h-full lg:flex justify-center items-center gap-2'>
             <Link
               href={'/login'}
