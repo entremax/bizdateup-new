@@ -138,6 +138,7 @@ export default function OtpField({ id }: { id: string }) {
       const loginMethod2 = localStorage.getItem('loginMethod2');
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
         dispatch(setVerify(false));
+        localStorage.setItem("token",token);
         dispatch(
           setUser({
             userData: investorData,

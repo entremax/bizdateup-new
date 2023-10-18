@@ -1,5 +1,6 @@
 import authUserSlice from './features/reducers/user/authSlice';
 import Notify from './features/reducers/others/notificationSlice'
+import investor from './features/reducers/user/investorSlice'
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -21,6 +22,7 @@ export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     authUser,
+    investor,
     Notify
   },
   middleware: (getDefaultMiddleware) =>

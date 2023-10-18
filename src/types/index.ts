@@ -174,18 +174,20 @@ export interface HeaderLink {
   }[];
 }
 export type NotificationType = 'success' | 'info' | 'warning' | 'error';
-export interface IInvestmentApiResponse {
+interface TotalAmount{
+  code: number;
+  data: {
+    _id: string;
+    totalamount: number;
+  }
+}
+export interface ITotalInvestmentResponse {
   code: number;
   status: string | 'OK';
-  data: {
-    code: number;
-    data: {
-      _id: string;
-      totalamount: number;
-    }[];
-  };
+  data:[]|TotalAmount[];
   error: boolean;
 }
+
 export interface IInvestmentItem {
   amountBreakdown: {
     totalamount: number;
@@ -208,7 +210,13 @@ export interface IInvestmentItem {
   __v: number;
   legal?: string;
 }
-
+export interface IInvestorSlice{
+  totalamount:number,
+  investedStartups:{
+    pending:IInvestmentItem[],
+    approved:IInvestmentItem[]
+  }
+}
 export interface IInvestmentDataResponse {
   code: number;
   status: string;

@@ -2,7 +2,7 @@
 import { Button, Progress, Space } from 'antd';
 import { cn } from '@/lib/utils';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { KYCStatus } from '@/types';
+import {IInvestmentItem, KYCStatus} from '@/types';
 import React, { ReactElement } from 'react';
 import { setKycCompletionPercentage } from '@/store/features/reducers/user/authSlice';
 import Link from 'next/link';
@@ -10,6 +10,7 @@ import {
   useGetInvestmentDetailsQuery,
   useGetTotalInvestmentQuery,
 } from '@/store/features/services/apiSlice';
+import {setInvestmentDetails} from "@/reducers/user/investorSlice";
 
 /**
  * Represents a KYC Indicator component.
@@ -29,13 +30,14 @@ const KycIndicator = ({
   const dispatch = useAppDispatch();
   const { user, token, kycStatus, kycCompletionPercentage, refId } =
     useAppSelector((state) => state.authUser);
+  const {totalamount,investedStartups}=useAppSelector(({investor})=>investor)
   const {
     data: amount,
   } = useGetTotalInvestmentQuery(refId);
   const {
-    data: investMentDetails,
+    data: investmentDetails,
   } = useGetInvestmentDetailsQuery(refId);
-  console.log(amount);
+  
   React.useEffect(() => {
     const pendingStatuses: KYCStatus[] = [];
     const totalStatuses: KYCStatus[] = [
@@ -57,7 +59,28 @@ const KycIndicator = ({
 
     dispatch(setKycCompletionPercentage(user ? percentageComplete : 0));
   }, [token, kycStatus]);
-
+  React.useEffect(()=>{
+    if(investmentDetails){
+      let pending=[] as IInvestmentItem[]
+      let approved=[] as IInvestmentItem[]
+      investmentDetails.map((item)=>{
+        if(item.status==="pending"){
+          pending.push(item)
+        }else{
+          approved.push(item)
+        }
+      })
+      dispatch(setInvestmentDetails(
+        {
+          totalamount:amount?amount:0,
+          investedStartups:{
+            pending,
+            approved
+          }
+        }
+      ))
+    }
+  },[investmentDetails])
   return (
     <>
       {user ? (
@@ -111,10 +134,10 @@ const KycIndicator = ({
             )}
           >
             <div className={'py-3 px-4 grid gap-2'}>
-              <h3 className={'text-3xl reset'}>₹ {amount?amount:0}</h3>
+              <h3 className={'text-3xl reset'}>₹ {totalamount}</h3>
               <p className={'reset text-gray-400 text-sm'}>
                 total amount invested in{' '}
-                {investMentDetails ? investMentDetails.length : 0} startups
+                {investedStartups.approved.length} startups
               </p>
             </div>
             <div className='grid justify-center items-center'>

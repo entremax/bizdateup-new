@@ -89,6 +89,7 @@ const Navbar: React.FC<NavbarProps> = ({ type }) => {
           <NavLink type={type} />
         </ReduxProvider>
         {type !== 'unauthenticated' && <div className={'grow'} />}
+        
         {type === 'unauthenticated' ? (
           <div className='hidden h-full lg:flex justify-center items-center gap-2'>
             <Link

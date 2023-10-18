@@ -65,7 +65,7 @@ const pathType = {
   authenticated: [/\/dashboard/, /\/invest/,/\/profile/],
 };
 
-const Links = ({ type }: { type: string }) => {
+const Links = ({ type }: { type: 'unauthenticated'|'authenticated' }) => {
   const path = usePathname();
   const {token}=useAppSelector(({authUser})=>authUser)
   
@@ -80,8 +80,8 @@ const Links = ({ type }: { type: string }) => {
   }, [path]);
 
   return (
-    <div className='hidden h-full md:flex gap-4'>
-      {(type !== 'normal' ? headerType.dashboard : headerType.normal).main.map(
+    <>
+      {(type !== 'unauthenticated' ? headerType.dashboard : headerType.normal).main.map(
         (link, index) => (
           <div
             key={index}
@@ -108,7 +108,7 @@ const Links = ({ type }: { type: string }) => {
           </div>
         )
       )}
-    </div>
+    </>
   );
 };
 export default Links;

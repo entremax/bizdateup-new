@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
-  IInvestmentApiResponse,
+  ITotalInvestmentResponse,
   IInvestmentDataResponse,
   ISendOtpResponseData,
 } from '@/types';
@@ -10,7 +10,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).authUser.token;
-    console.log(token);
+    
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
@@ -87,9 +87,7 @@ export const api = createApi({
           investor: refId,
         },
       }),
-      transformResponse: (response: IInvestmentApiResponse,) => {
-        return response.data.data[0].totalamount;
-      },
+      transformResponse: (response: ITotalInvestmentResponse,) =>response.data.length > 0 ? response.data[0].data.totalamount : 0,
       transformErrorResponse: (
         response: { status: string | number },
        
