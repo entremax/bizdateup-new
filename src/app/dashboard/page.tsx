@@ -12,8 +12,6 @@ import FrequentlyAsked from '@/components/faq';
 import type { Metadata } from 'next';
 import { Membership } from '@/dashboard/_membership';
 import ReduxProvider from "@/store/Provider";
-import {cookies} from "next/headers";
-import {redirect} from "next/navigation";
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL || '';
 
@@ -26,7 +24,7 @@ const getData = async () => {
   const url = `${baseUrl}/startupsInvestorView?limit=4`;
   
   try {
-    const response = await fetch(url);
+    const response = await fetch(url,{ next: { revalidate: 3600 } });
     if (!response.ok) {
        new Error('Failed to fetch data');
     }
