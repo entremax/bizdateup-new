@@ -166,7 +166,7 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
           <Button
             type="default"
             size="large"
-            disabled={email==='' || (validateEmailOrPhone(email) !== false)||isLoading}
+            disabled={email==='' && (validateEmailOrPhone(email) !== false)||isLoading}
             className="!h-10 !bg-primary !flex !justify-between gap-2 disabled:text-primary"
             onClick={requestType === 'login' ? handleLogin : handleRegister}
           >
