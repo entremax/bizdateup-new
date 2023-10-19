@@ -20,20 +20,6 @@ const baseQuery = fetchBaseQuery({
 
 export const api = createApi({
   baseQuery,
-  // extractRehydrationInfo(action, { reducerPath }) {
-  //   // when persisting the root reducer
-  //   if (action.type === REHYDRATE) {
-  //     return action.payload[reducerPath]
-  //   }
-  //
-  //   // when persisting the api reducer
-  //   if (
-  //     action.type === REHYDRATE &&
-  //     action.key === 'root'
-  //   ) {
-  //     return action.payload
-  //   }
-  // },
   endpoints: (builder) => ({
     sendOtp: builder.mutation({
       query: ({ emailData, url }) => ({
@@ -60,7 +46,6 @@ export const api = createApi({
         },
       }),
       transformResponse: (response: ISendOtpResponseData) => {
-        console.log(response);
         return {
           responseCode: response.data.code,
           token: response.data.token,

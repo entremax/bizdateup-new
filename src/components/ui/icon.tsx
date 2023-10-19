@@ -374,5 +374,6 @@ export const Icons = {
         fill="black"
       />
     </svg>
-  )
+  ),
+  
 };

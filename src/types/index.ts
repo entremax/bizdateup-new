@@ -227,3 +227,11 @@ export interface IInvestmentDataResponse {
   };
   error: boolean;
 }
+
+export interface ILogoutStatus{
+  status:number,
+  data:{
+    status:boolean,
+    message:string
+  }
+}

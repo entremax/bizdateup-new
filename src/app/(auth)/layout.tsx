@@ -2,12 +2,12 @@ import React from 'react';
 import Navbar from "@/components/navbar";
 import ReduxProvider from "@/store/Provider";
 const DashboardLayout = ({ children }: React.PropsWithChildren) => (
-  <section>
+  <main className={'w-full'}>
     <Navbar type={"unauthenticated"}/>
     <ReduxProvider>
         {children}
     </ReduxProvider>
-  </section>
+  </main>
 );
 
 export default DashboardLayout;

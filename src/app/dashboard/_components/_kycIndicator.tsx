@@ -59,6 +59,7 @@ const KycIndicator = ({
 
     dispatch(setKycCompletionPercentage(user ? percentageComplete : 0));
   }, [token, kycStatus]);
+  
   React.useEffect(()=>{
     if(investmentDetails){
       let pending=[] as IInvestmentItem[]
@@ -81,6 +82,7 @@ const KycIndicator = ({
       ))
     }
   },[investmentDetails])
+  
   return (
     <>
       {user ? (

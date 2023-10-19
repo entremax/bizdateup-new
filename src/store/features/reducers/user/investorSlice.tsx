@@ -29,6 +29,7 @@ export const investorSlice = createSlice({
       state.totalamount=totalamount;
       state.investedStartups=investedStartups
     },
+    reset:()=>initialState
   },
 });
 export const {setInvestmentDetails} =

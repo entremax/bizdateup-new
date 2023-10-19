@@ -23,7 +23,7 @@ export const authUser = createSlice({
     setInvestorId(state, action) {
       state.investorUserId = action.payload;
     },
-    logoutUser: () => initialState,
+    reset: () => initialState,
     setUser: (
       state,
       {
@@ -48,7 +48,7 @@ export const authUser = createSlice({
     }
   },
 });
-export const { temp_values, setVerify, logoutUser, setInvestorId, setUser ,setKycCompletionPercentage} =
+export const { temp_values, setVerify, reset, setInvestorId, setUser ,setKycCompletionPercentage} =
   authUser.actions;
 
 export default authUser.reducer;

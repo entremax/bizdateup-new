@@ -12,6 +12,8 @@ import FrequentlyAsked from '@/components/faq';
 import type { Metadata } from 'next';
 import { Membership } from '@/dashboard/_membership';
 import ReduxProvider from "@/store/Provider";
+import {cookies} from "next/headers";
+import {redirect} from "next/navigation";
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL || '';
 
@@ -38,9 +40,10 @@ const getData = async () => {
 };
 
 const Dashboard = async () => {
+  // const cookieStore = cookies()
   const {data:campaign}:{data: Campaign[]} =await getData()
   // const campaign = data.campaignData;
-  
+  // const token = cookieStore.get('token')
 
   const menu = [
     {

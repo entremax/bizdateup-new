@@ -1,10 +1,9 @@
 'use client';
 import React, {useEffect } from 'react';
 import Link from 'next/link';
-import {redirect, usePathname} from 'next/navigation';
+import { usePathname} from 'next/navigation';
 import { Icons } from '@/icons';
 import { cn } from '@/lib/utils';
-import {useAppSelector} from "@/store/hooks";
 
 const linkStyle =
   'flex gap-2 items-center text-gray-400 font-medium text-md px-4 group-hover:text-primary h-full';
@@ -60,24 +59,8 @@ const headerType = {
   },
 };
 
-const pathType = {
-  unAuthenticated: [/\/login/, /\/signup/,/\/otp/],
-  authenticated: [/\/dashboard/, /\/invest/,/\/profile/],
-};
-
 const Links = ({ type }: { type: 'unauthenticated'|'authenticated' }) => {
   const path = usePathname();
-  const {token}=useAppSelector(({authUser})=>authUser)
-  
-  const matchPath = (pathList: RegExp[]) => {
-    return pathList.some((pattern) => pattern.test(path));
-  }
-  
-  useEffect(() => {
-    if (token && matchPath(pathType.unAuthenticated)) {
-      redirect('/dashboard')
-    }
-  }, [path]);
 
   return (
     <>
@@ -85,7 +68,7 @@ const Links = ({ type }: { type: 'unauthenticated'|'authenticated' }) => {
         (link, index) => (
           <div
             key={index}
-            className={'group h-full'}
+            className={'group h-full hidden lg:inline'}
           >
             <Link
               href={link.to}
