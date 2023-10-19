@@ -22,7 +22,7 @@ const Startups = ({data}: { data: Campaign[] }) => {
   return (
     <div className={"grid"}>
       <h3 className={"text-primary-dark text-2xl md:text-4xl font-bold !m-0 !p-0"}>Invest with Confidence</h3>
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 justify-center py-6 ">
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-2 justify-center py-6 ">
         {getData(data).map((startup) => (
           <div
             key={startup._id}

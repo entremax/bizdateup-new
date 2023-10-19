@@ -375,5 +375,44 @@ export const Icons = {
       />
     </svg>
   ),
-  
+  InvestMobile:({...props})=> (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none" {...props}>
+      <path fillRule="evenodd" clipRule="evenodd"
+            d="M15.857 17.417C17.73 17.417 19.249 15.899 19.25 14.026V14.024V11.324C18.013 11.324 17.011 10.322 17.01 9.085C17.01 7.849 18.012 6.846 19.249 6.846H19.25V4.146C19.252 2.272 17.735 0.752 15.862 0.75H15.856H4.144C2.27 0.75 0.751 2.268 0.75 4.142V4.143V6.933C1.944 6.891 2.945 7.825 2.987 9.019C2.988 9.041 2.989 9.063 2.989 9.085C2.99 10.32 1.991 11.322 0.756 11.324H0.75V14.024C0.749 15.897 2.268 17.417 4.141 17.417H4.142H15.857Z"
+            stroke={props.stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  PortfolioMobile:({...props})=> (
+    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none" {...props}>
+      <path d="M5.24512 13.7815L8.23825 9.89137L11.6524 12.5733L14.5815 8.79297" stroke={props.stroke} strokeWidth="1.5"
+            strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="17.9954" cy="3.20027" r="1.9222" stroke={props.stroke} strokeWidth="1.5" strokeLinecap="round"
+              strokeLinejoin="round"/>
+      <path
+        d="M12.9248 2.12012H5.65704C2.6456 2.12012 0.77832 4.25284 0.77832 7.26428V15.3467C0.77832 18.3581 2.60898 20.4817 5.65704 20.4817H14.2612C17.2726 20.4817 19.1399 18.3581 19.1399 15.3467V8.30776"
+        stroke={props.stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  Profile:({...props})=> (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20" fill="none" {...props}>
+      <mask id="mask0_1126_4444" style={{maskType:"luminance"}}  maskUnits="userSpaceOnUse" x="0" y="12" width="16"
+            height="8">
+        <path fillRule="evenodd" clipRule="evenodd" d="M0 12.4961H15.8399V19.8701H0V12.4961Z" fill="white"/>
+      </mask>
+      <g mask="url(#mask0_1126_4444)">
+        <path fillRule="evenodd" clipRule="evenodd"
+              d="M7.921 13.9961C3.66 13.9961 1.5 14.7281 1.5 16.1731C1.5 17.6311 3.66 18.3701 7.921 18.3701C12.181 18.3701 14.34 17.6381 14.34 16.1931C14.34 14.7351 12.181 13.9961 7.921 13.9961M7.921 19.8701C5.962 19.8701 0 19.8701 0 16.1731C0 12.8771 4.521 12.4961 7.921 12.4961C9.88 12.4961 15.84 12.4961 15.84 16.1931C15.84 19.4891 11.32 19.8701 7.921 19.8701"
+              fill="#8F8FA5"/>
+      </g>
+      <mask id="mask1_1126_4444" style={{maskType:"luminance"}} maskUnits="userSpaceOnUse" x="2" y="0" width="12"
+            height="11">
+        <path fillRule="evenodd" clipRule="evenodd" d="M2.61035 0H13.2304V10.6186H2.61035V0Z" fill="white"/>
+      </mask>
+      <g mask="url(#mask1_1126_4444)">
+        <path fillRule="evenodd" clipRule="evenodd"
+              d="M7.92138 1.42751C5.78038 1.42751 4.03838 3.16851 4.03838 5.30951C4.03138 7.44351 5.76038 9.18351 7.89238 9.19151L7.92138 9.90551V9.19151C10.0614 9.19151 11.8024 7.44951 11.8024 5.30951C11.8024 3.16851 10.0614 1.42751 7.92138 1.42751M7.92138 10.6185H7.88938C4.96738 10.6095 2.60038 8.22651 2.61038 5.30651C2.61038 2.38151 4.99238 -0.000488281 7.92138 -0.000488281C10.8494 -0.000488281 13.2304 2.38151 13.2304 5.30951C13.2304 8.23751 10.8494 10.6185 7.92138 10.6185"
+              fill="#8F8FA5"/>
+      </g>
+    </svg>
+  )
 };

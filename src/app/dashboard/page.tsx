@@ -221,7 +221,7 @@ const Dashboard = async () => {
         </div>
       </div>
       <div className='col-span-full mt-4'>
-        <div className='bg-gray-smoke grid grid-cols-12'>
+        <div className='lg:bg-gray-smoke grid grid-cols-12'>
           <div className='grid col-span-full md:col-start-2 md:col-end-11 xl:col-start-3 xl:col-end-11 my-16 md:my-32'>
             <h4 className='text-3xl md:text-4xl font-bold text-center reset'>
               Frequently Asked Questions
