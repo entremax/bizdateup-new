@@ -75,7 +75,11 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
         if ('data' in response) {
           const data = response.data;
           if(data.code===404){
-            dispatch(setNotification({type:'error',message:data.message}))
+            dispatch(setNotification({
+              type:'error',
+              message:data.message,
+              description:`Please create an account using ${(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "email" : "phone")} ${email} before proceeding.`
+            }))
           }else if (data.code === 200) {
             dispatch(setNotification({type:'success',message:'OTP Sent Successfully'}))
             setLoader(false);
@@ -156,13 +160,13 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
               htmlFor="FormControlInputEmailLabel"
               className="font-medium bg-white !text-gray-900 pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out -translate-y-[1.1rem] scale-[0.8]"
             >
-              Email
+              {email !== "" ? (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "Email" : "Phone") : "Email/Phone"}
             </label>
           </div>
           <Button
             type="default"
             size="large"
-            disabled={email===''||isLoading}
+            disabled={email==='' && validateEmailOrPhone(email)||isLoading}
             className="!h-10 !bg-primary !flex !justify-between gap-2 disabled:text-primary"
             onClick={requestType === 'login' ? handleLogin : handleRegister}
           >
@@ -182,7 +186,7 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
         >
           <Icons.Email height={22} width={22}/>
           <div className="grow"></div>
-          <span className="text-primary !justify-self-stretch">Continue with Email</span>
+          <span className="text-primary !justify-self-stretch">Continue with Email/Phone</span>
           <div className="grow"></div>
         </Button>
       )}

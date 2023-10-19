@@ -7,8 +7,6 @@ import UserMenu from './userMenu';
 import ReduxProvider from '@/store/Provider';
 import {cookies} from "next/headers";
 
-
-
 const Navbar: React.FC = () => {
   const cookieStore = cookies()
   const token = cookieStore.get('token')
@@ -37,7 +35,6 @@ const Navbar: React.FC = () => {
         }
       >
         {type !== 'unauthenticated' && <div className={'grow'} />}
-        
           <NavLink type={type} />
         {type !== 'unauthenticated' && <div className={'grow'} />}
         

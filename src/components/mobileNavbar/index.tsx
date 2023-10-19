@@ -40,12 +40,14 @@ const MobileNavbar=()=>{
         <Link className={cn(
           item.link === path
             ? linkStyle +
-            ' text-primary'
+            ' text-primary font-bold'
             : linkStyle
         )} href={item.link}>
-          <item.icon className='stroke-current group-hover:stroke-primary justify-self-center shrink'
-                     width='1rem'
-                     height='1rem'/>
+          <item.icon
+            className={cn(item.link === '/dashboard' ? 'fill-current stroke-current group-hover:fill-primary justify-self-center shrink':'stroke-current group-hover:fill-primary justify-self-center shrink')}
+            width='1rem'
+            height='1rem'
+          />
           <span className={"shrink text-xs font-light"}>{item.name}</span>
         </Link>
         </div>

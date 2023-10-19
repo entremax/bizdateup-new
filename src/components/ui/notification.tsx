@@ -25,7 +25,7 @@ const AntNotification: React.FC = () => {
       openNotification(type,message);
       setTimeout(() => {
         dispatch(destroyNotification());
-      }, 3000);
+      }, 5000);
     }
   }, [type, message]);
   const contextValue = useMemo(() => ({ name: description?description:'' }), [description]);

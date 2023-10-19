@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useRouter, useSearchParams} from 'next/navigation';
+import {permanentRedirect, useRouter, useSearchParams} from 'next/navigation';
 import { Button } from 'antd';
 import { setUser, setVerify } from '@/store/features/reducers/user/authSlice';
 import {
@@ -166,7 +166,7 @@ export default function OtpField({ id }: { id: string }) {
 
         // for (const key in navigationData) {
         //   if (status.length === 0) {
-        router.push('/dashboard/');
+        permanentRedirect('/dashboard')
         //     return;
         //   }
         //   const kycStatus = convertNavigationKeyToKYCStatus(
