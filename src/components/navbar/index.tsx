@@ -5,64 +5,16 @@ import React from 'react';
 import NavLink from '@/components/navbar/NavLink';
 import UserMenu from './userMenu';
 import ReduxProvider from '@/store/Provider';
-
-export const headerType = {
-  dashboard: {
-    main: [
-      {
-        name: 'Dashboard',
-        icon: Icons.Dashboard,
-        to: '/dashboard',
-      },
-      {
-        name: 'Invest',
-        icon: Icons.Invest,
-        to: '/invest',
-      },
-      {
-        name: 'Portfolio',
-        icon: Icons.Portfolio,
-        to: '/portfolio',
-      },
-    ],
-    userMenu: [
-      {
-        name: 'Refer & Earn',
-      },
-    ],
-  },
-  unauthenticated: {
-    main: [
-      {
-        name: 'Invest',
-        icon: null,
-        to: '/invest',
-      },
-      {
-        name: 'Raise Funds',
-        icon: null,
-        to: '/raise',
-      },
-      {
-        name: 'Dashboard',
-        icon: null,
-        to: '/dashboard',
-      },
-      {
-        name: 'Learn',
-        icon: null,
-        to: '/learn',
-      },
-    ],
-  },
-};
+import {cookies} from "next/headers";
 
 
-type NavbarProps = {
-  type: 'authenticated' | 'unauthenticated'; // Specify the valid types for 'type'
-};
 
-const Navbar: React.FC<NavbarProps> = ({ type }) => {
+const Navbar: React.FC = () => {
+  const cookieStore = cookies()
+  const token = cookieStore.get('token')
+  
+  const type=token?'authenticated':'unauthenticated'
+ 
   return (
     <div className='fixed flex px-8 items-center left-0 right-0  h-[4.5rem] z-[999] bg-white shadow-[0px_1px_0px_0px_#E5E9F2]'>
       <Link
@@ -85,9 +37,8 @@ const Navbar: React.FC<NavbarProps> = ({ type }) => {
         }
       >
         {type !== 'unauthenticated' && <div className={'grow'} />}
-        <ReduxProvider>
+        
           <NavLink type={type} />
-        </ReduxProvider>
         {type !== 'unauthenticated' && <div className={'grow'} />}
         
         {type === 'unauthenticated' ? (
@@ -111,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({ type }) => {
                 href={'/refer-earn'}
                 className='p-[0.625rem_1.25rem] cursor-pointer outline outline-primary outline-[0.022rem]  border-0 text-primary rounded-lg'
               >
-                {headerType.dashboard.userMenu[0].name}
+                Refer & Earn
               </Link>
               <ReduxProvider>
                 <UserMenu />
