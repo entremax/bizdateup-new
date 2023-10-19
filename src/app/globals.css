@@ -52,7 +52,7 @@ a {
   }
 
   .auth_container {
-    @apply mx-auto md:border_gray flex flex-col justify-center items-center space-y-2 bg-white md:shadow-lg rounded-2xl mt-32 md:w-auto  md:px-12 py-10;
+    @apply mx-auto md:border_gray flex flex-col justify-center text-center items-center space-y-2 bg-white md:shadow-lg rounded-2xl mt-32 md:w-auto  md:px-12 py-10;
   }
 
   .button_primary {

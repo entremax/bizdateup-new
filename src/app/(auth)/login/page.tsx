@@ -3,7 +3,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next'
-import ReduxProvider from "@/store/Provider";
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
 
@@ -33,26 +32,28 @@ const Login = () => {
         Take a first step towards investing journey with bizdateup
       </p>
       <UserAuthForm requestType={"login"}/>
-      <div className='flex text-gray-400 text-sm !my-6 justify-center items-center'>
-        <p className='flex gap-1 '>
+      <div className=' warp text-gray-400 text-sm !my-6 justify-center items-center'>
+        
           By signing up I agree to
+        {" "}
           <Link
-            href='/privacy_policy'
+            href={'/privacy-policy'}
             className=' underline text-brust'
           >
             Privacy policy
           </Link>
+        {" "}
           &
+        {" "}
           <Link
             href={'/terms'}
             className=' underline text-brust'
           >
             Terms of Service
           </Link>
-        </p>
       </div>
-      <div className='flex text-gray-950 font-medium gap-1'>
-        <p className='text-md !p-0 !m-0'>Don&apos;t have an account? </p>
+      <div className=' text-gray-950 font-medium gap-1'>
+        Don&apos;t have an account?
         {" "}
         <Link
           href={'/signup'}
