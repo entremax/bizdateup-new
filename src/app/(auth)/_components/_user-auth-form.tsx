@@ -160,7 +160,7 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
               htmlFor="FormControlInputEmailLabel"
               className="font-medium bg-white !text-gray-900 pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out -translate-y-[1.1rem] scale-[0.8]"
             >
-              {email !== "" ? (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "Email" : "Phone") : "Email/Phone"}
+              {email !== "" ? (validateEmailOrPhone(email)===false ? "Email/Phone" :(validateEmailOrPhone(email)==='email' ?"Email":"Phone")) : "Email/Phone"}
             </label>
           </div>
           <Button
