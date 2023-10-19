@@ -116,6 +116,9 @@ export default function OtpField({ id }: { id: string }) {
       refId: investorUserId,
     };
     const response = await verifyOtp(reqData);
+    if(response){
+      setOtp("")
+    }
     if('error' in response){
       const error=response.error
       dispatch(setNotification({
@@ -166,7 +169,7 @@ export default function OtpField({ id }: { id: string }) {
 
         // for (const key in navigationData) {
         //   if (status.length === 0) {
-        permanentRedirect('/dashboard')
+        router.push('/dashboard')
         //     return;
         //   }
         //   const kycStatus = convertNavigationKeyToKYCStatus(
