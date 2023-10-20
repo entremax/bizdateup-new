@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import {permanentRedirect, useRouter, useSearchParams} from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 import { Button } from 'antd';
 import { setUser, setVerify } from '@/store/features/reducers/user/authSlice';
 import {
@@ -146,10 +146,10 @@ export default function OtpField({ id }: { id: string }) {
             userData: investorData,
             token,
             refId,
-            kycStatus: [],
+            kycStatus: status,
           })
         );
-        router.push('/dashboard/');
+        router.push('/dashboard');
       } else {
         if (responseCode === 200) {
           dispatch(setVerify(true));
@@ -162,11 +162,11 @@ export default function OtpField({ id }: { id: string }) {
               kycStatus: status,
             })
           );
+          
+          router.push('/dashboard')
         } else {
-          dispatch(setVerify(false));
-          return;
+          router.push('/dashboard')
         }
-        router.push('/dashboard')
       }
     }
   }
