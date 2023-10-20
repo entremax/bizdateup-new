@@ -1,13 +1,13 @@
-
 import {cookies} from "next/headers";
 import {VerifyOtpServerResponse} from "@/types";
-const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}`;
+import { NextRequest } from "next/server";
 interface OtpVerifyData {
   code: string;
   refId: string;
 }
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}`;
   const otpData = (await req.json()) as OtpVerifyData;
   if (!otpData) {
     return Response.json({
@@ -42,6 +42,8 @@ export async function POST(req: Request) {
     return Response.json({ success: true, data: response.data });
   }else if (response.data && 'error' in response.data && response.data.error) {
     return Response.json({status: false, error: response.data.message },{status:response.data.httpCode});
+  }else{
+    return Response.json({ success: true, data: response });
   }}
   catch (e) {
     console.log(e)
