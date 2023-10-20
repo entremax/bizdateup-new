@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   );
   const response = (await res.json()) as VerifyOtpServerResponse;
   if(!response.data && 'status' in response  ){
-    return NextResponse.json({ success: false, error: response.status,message:'message' in response?response.message:'Invalid Code' },{status:parseInt(response.status)});
+    return NextResponse.json({ success: false, error: response.status,message:'Invalid Code' },{status:parseInt(response.status)});
   }
    else if(response.data && 'token' in response.data && 'code' in response.data && response.data.code === 200){
     cookies().set({
@@ -42,7 +42,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, data: response.data });
   }else if (response.data && 'error' in response.data && response.data.error) {
     return NextResponse.json({status: false, error: response.data.message },{status:response.data.httpCode});
-  }}catch (e) {
+  }}
+  catch (e) {
     console.log(e)
     return NextResponse.json({status:false,error:"Something went wrong"},{status:500});
   }
