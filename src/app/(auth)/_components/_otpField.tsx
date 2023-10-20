@@ -139,7 +139,6 @@ export default function OtpField({ id }: { id: string }) {
       const loginMethod = localStorage.getItem('loginMethod');
       const loginMethod2 = localStorage.getItem('loginMethod2');
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
-        dispatch(setVerify(false));
         localStorage.setItem("token",token);
         dispatch(
           setUser({
@@ -152,8 +151,6 @@ export default function OtpField({ id }: { id: string }) {
         router.push('/dashboard');
       } else {
         if (responseCode === 200) {
-          dispatch(setVerify(true));
-          
           dispatch(
             setUser({
               token,
@@ -163,8 +160,6 @@ export default function OtpField({ id }: { id: string }) {
             })
           );
           
-          router.push('/dashboard')
-        } else {
           router.push('/dashboard')
         }
       }
