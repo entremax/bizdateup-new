@@ -5,8 +5,6 @@ import { usePathname} from 'next/navigation';
 import { Icons } from '@/icons';
 import { cn } from '@/lib/utils';
 
-const linkStyle =
-  'flex gap-2 items-center text-gray-400 font-medium text-md px-4 group-hover:text-primary h-full';
 
 const headerType = {
   dashboard: {
@@ -61,7 +59,9 @@ const headerType = {
 
 const Links = ({ type }: { type: 'unauthenticated'|'authenticated' }) => {
   const path = usePathname();
-
+  const linkStyle =
+    'flex gap-2 items-center text-gray-400 font-medium text-sm md:text-md px-4 group-hover:text-primary h-full';
+  
   return (
     <>
       {(type !== 'unauthenticated' ? headerType.dashboard : headerType.normal).main.map(

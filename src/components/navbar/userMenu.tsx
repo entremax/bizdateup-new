@@ -61,9 +61,9 @@ const UserMenu = () => {
         <Dropdown menu={{items,onClick}}>
           <Space>
         <div
-          className={cn(user?.membership?.isMember !== "no" ? "relative outline outline-4 outline-yellow-500 rounded-full" : "relative rounded-full")}>
+          className={cn(user && user?.membership?.isMember !== "no" ? "relative outline outline-4 outline-yellow-500 rounded-full" : "relative rounded-full")}>
           <Avatar size={'large'}>U</Avatar>
-          {user?.membership?.isMember !== "no" ? (
+          {user && user?.membership?.isMember !== "no" ? (
             <>
               <Icons.Premium
                 className={'absolute -top-4 right-0.5 z-[999] rotate-12'}

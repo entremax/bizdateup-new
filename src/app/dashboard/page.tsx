@@ -29,7 +29,6 @@ const getData = async () => {
        new Error('Failed to fetch data');
     }
     const { data } = await response.json();
-    
     return data;
   } catch (error) {
     console.error(error);
@@ -226,7 +225,9 @@ const Dashboard = async () => {
             <h4 className='text-3xl md:text-4xl font-bold text-center reset'>
               Frequently Asked Questions
             </h4>
+            <ReduxProvider>
               <FrequentlyAsked />
+            </ReduxProvider>
           </div>
         </div>
       </div>

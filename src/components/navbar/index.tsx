@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
             </Link>
             <Link
               href={'/get-started'}
-              className='p-[0.625rem_1.25rem] cursor-pointer items-center text-md outline-none border-0 !bg-primary rounded-lg text-white'
+              className='p-[0.625rem_1.25rem] cursor-pointer text-center text-md outline-none border-0 !bg-primary rounded-lg text-white'
             >
               Get Started
             </Link>
