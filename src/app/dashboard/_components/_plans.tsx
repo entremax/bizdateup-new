@@ -86,7 +86,7 @@ const Plans = () => {
           </tr>
         </thead>
         <tbody
-          className={'!divide-y !divide-solid !divide-x-0 !divide-gray-300'}
+          className={'divide !divide-y !divide-solid !divide-x-0 !divide-gray-300'}
         >
           {tableData.features.map((rowData, index) => (
             <tr

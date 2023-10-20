@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import {useRouter, useSearchParams} from 'next/navigation';
+import { useRouter, useSearchParams} from 'next/navigation';
 import { Button } from 'antd';
-import { setUser, setVerify } from '@/store/features/reducers/user/authSlice';
+import { setUser} from '@/store/features/reducers/user/authSlice';
 import {
   useSendOtpMutation
 } from '@/store/features/services/apiSlice';

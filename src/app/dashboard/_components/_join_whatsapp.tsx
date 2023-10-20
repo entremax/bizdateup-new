@@ -11,10 +11,24 @@ const JoinWhatsApp = ({className, hidden}: { className?: string, hidden: boolean
       <div
         className={'sm:hidden flex xl:flex xl:col-span-1 items-center justify-center lg:relative lg:w-[8rem] lg:h-[3rem] pt-2'}>
         <Image
+          src='/tikla_whatsapp.svg'
+          height={56}
+          width={56}
+          className={'w-42 md:absolute md:-left-0  md:-top-[50%]'}
+          alt={'chote whatsapp'}
+        />
+        <Image
+          src='/tikla_whatsapp.svg'
+          height={22}
+          width={22}
+          className={'w-42 md:absolute  md:-top-[40%]'}
+          alt={'chote whatsapp'}
+        />
+        <Image
           src='/people_whatsapp.svg'
           height={93}
           width={120}
-          className={'w-42 md:absolute  md:-top-[40%]'}
+          className={'w-42 md:absolute md:-left-4  md:-top-[20%]'}
           alt={'Whatsapp'}
         />
       </div>

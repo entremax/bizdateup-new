@@ -150,7 +150,7 @@ export default function UserAuthForm({className, requestType}: UserAuthFormProps
             <Input
               size="large"
               type={"text"}
-              className="peer block min-h-[auto] !outline-gray-300 w-full text-[#000] rounded-sm border-0 bg-transparent px-3 py-[0.28rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-400 peer-focus:text-black-lighter data-[te-input-state-active]:!placeholder:opacity-400 motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-500 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 font-medium focus:outline-none focus:border-sky-500" id="FormControlInputEmail"
+              className="peer block min-h-[auto] !outline-gray-300 w-full text-[#000] rounded-sm border-0 bg-transparent px-3 py-[0.28rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-400 peer-focus:text-black-lighter data-[te-input-state-active]:!placeholder:opacity-400 motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 font-medium focus:outline-none focus:border-sky-500" id="FormControlInputEmail"
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
               placeholder="Enter your email or phone number"
