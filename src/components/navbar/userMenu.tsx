@@ -18,7 +18,7 @@ const UserMenu = () => {
   const [logout,{isError,isLoading}]=useLogoutMutation()
   const onClick: MenuProps['onClick'] = async({ key }) => {
     logout('').unwrap()
-      .then((res) => {
+      .then(() => {
         dispatch(authReset())
         dispatch(investReset())
         dispatch(setNotification({

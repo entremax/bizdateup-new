@@ -166,22 +166,7 @@ export default function OtpField({ id }: { id: string }) {
           dispatch(setVerify(false));
           return;
         }
-
-        // for (const key in navigationData) {
-        //   if (status.length === 0) {
         router.push('/dashboard')
-        //     return;
-        //   }
-        //   const kycStatus = convertNavigationKeyToKYCStatus(
-        //     key as NavigationKey
-        //   );
-        //
-        //   if (kycStatus && status.includes(kycStatus)) {
-        //     console.error(navigationData[key].error);
-        //     router.push(navigationData[key].route);
-        //     break;
-        //   }
-        // }
       }
     }
   }

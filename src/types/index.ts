@@ -235,3 +235,35 @@ export interface ILogoutStatus{
     message:string
   }
 }
+export interface VerifyOtpErrorResponseDetail {
+  message: string;
+  path: string[];
+  type: string;
+  context: {
+    label: string;
+    key: string;
+  };
+}
+
+export interface VerifyOtpErrorResponseData {
+  _original: Object;
+  details: VerifyOtpErrorResponseDetail[];
+}
+
+export interface VerifyOtpEResponseData {
+  code: number;
+  httpCode: number;
+  error: boolean;
+  message: string;
+  data: VerifyOtpErrorResponseData;
+}
+export interface VerifyInvalid{
+  status:string,
+  message:string
+}
+export interface VerifyOtpServerResponse {
+  code: number;
+  status: string;
+  data: ISendOtpResponseData|VerifyOtpEResponseData|VerifyInvalid;
+  error: boolean;
+}

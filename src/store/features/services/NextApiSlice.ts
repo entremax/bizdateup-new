@@ -44,8 +44,8 @@ export const NextApi = createApi({
         };
       },
       transformErrorResponse: (
-        response: { status: string | number },
-      ) => response.status,
+        response: { status: number,data: { error: string, message?: string } }
+      ) => response,
     }),
     logout: builder.mutation({
       query: () => ({
