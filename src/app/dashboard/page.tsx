@@ -1,5 +1,5 @@
 import React from 'react';
-import { Campaign, QueryParams } from '@/types';
+import { Campaign} from '@/types';
 import Greet from '@/dashboard/_greet';
 import LiveCampaigns from '@/dashboard/_liveCampaigns';
 import Plans from '@/dashboard/_plans';
@@ -22,14 +22,13 @@ export const metadata: Metadata = {
 
 const getData = async () => {
   const url = `${baseUrl}/startupsInvestorView?limit=4`;
-  console.log(url)
+  
   try {
-    const response = await fetch(url);
+    const response = await fetch(url,{ next: { revalidate: 3600 } });
     if (!response.ok) {
-      throw new Error('Failed to fetch data');
+       new Error('Failed to fetch data');
     }
     const { data } = await response.json();
-    console.log(data)
     return data;
   } catch (error) {
     console.error(error);
@@ -38,9 +37,10 @@ const getData = async () => {
 };
 
 const Dashboard = async () => {
+  // const cookieStore = cookies()
   const {data:campaign}:{data: Campaign[]} =await getData()
   // const campaign = data.campaignData;
-  
+  // const token = cookieStore.get('token')
 
   const menu = [
     {
@@ -68,9 +68,12 @@ const Dashboard = async () => {
   return (
     <div className='pt-20 pb-3 ml-2 grid grid-cols-12 gap-2 px-3 xl:px-5'>
       <div className='my-6 md:mt-5 col-start-1 col-end-12 xl:col-start-2 xl:col-end-11'>
-        <ReduxProvider>
-          <Greet />
-        </ReduxProvider>
+        <div className='grid text-primary-dark'>
+          <ReduxProvider>
+            <Greet/>
+          </ReduxProvider>
+          <h2 className='hidden sm:inline sm:text-3xl md:text-4xl font-bold reset'>Check out Live Campaigns</h2>
+        </div>
       </div>
       <div className='col-span-full md:col-start-1 md:col-end-9 xl:col-start-2 xl:col-end-9 gap-7 flex flex-col'>
         <ReduxProvider>
@@ -217,7 +220,7 @@ const Dashboard = async () => {
         </div>
       </div>
       <div className='col-span-full mt-4'>
-        <div className='bg-gray-smoke grid grid-cols-12'>
+        <div className='lg:bg-gray-smoke grid grid-cols-12'>
           <div className='grid col-span-full md:col-start-2 md:col-end-11 xl:col-start-3 xl:col-end-11 my-16 md:my-32'>
             <h4 className='text-3xl md:text-4xl font-bold text-center reset'>
               Frequently Asked Questions

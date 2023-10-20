@@ -2,16 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {AuthUserState, DataInner, KYCStatusArray} from '@/types';
 
 
-const initialState: AuthUserState = {
-  token: '',
-  investorUserId: '',
-  refId: '',
-  temp_auth_medium: '',
-  user: {} as DataInner,
+const initialState = {
+  token: null,
+  investorUserId: null,
+  refId: null,
+  temp_auth_medium: null,
+  user: null,
   kycStatus: [] as KYCStatusArray,
   isVerified: false,
   kycCompletionPercentage:0
-};
+} as AuthUserState
 
 export const authUser = createSlice({
   name: 'authUser',
@@ -23,7 +23,7 @@ export const authUser = createSlice({
     setInvestorId(state, action) {
       state.investorUserId = action.payload;
     },
-    logoutUser: () => initialState,
+    reset: () => initialState,
     setUser: (
       state,
       {
@@ -48,7 +48,7 @@ export const authUser = createSlice({
     }
   },
 });
-export const { temp_values, setVerify, logoutUser, setInvestorId, setUser ,setKycCompletionPercentage} =
+export const { temp_values, setVerify, reset, setInvestorId, setUser ,setKycCompletionPercentage} =
   authUser.actions;
 
 export default authUser.reducer;

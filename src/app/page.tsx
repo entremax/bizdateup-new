@@ -1,13 +1,9 @@
-import Navbar from "@/components/navbar";
 import React from "react";
-import AntNotification from "@/ui/notification";
-import ReduxProvider from "@/store/Provider";
-
+import Navbar from "@/components/navbar";
 export default function Home() {
   return (
     <main className=''>
-      <Navbar type={"normal"}/>
-     
+      <Navbar/>
     </main>
   );
 }

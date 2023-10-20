@@ -1,10 +1,12 @@
 import authUserSlice from './features/reducers/user/authSlice';
 import Notify from './features/reducers/others/notificationSlice'
+import investor from './features/reducers/user/investorSlice'
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {api} from '@/store/features/services/apiSlice';
 import {setupListeners} from '@reduxjs/toolkit/query';
+import {NextApi} from "@/store/features/services/NextApiSlice";
 
 /**
  * Configuration options for data persistence.
@@ -20,11 +22,13 @@ const authUser = persistReducer(persistConfig, authUserSlice);
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
+    [NextApi.reducerPath]:NextApi.reducer,
     authUser,
+    investor,
     Notify
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware().concat(api.middleware,NextApi.middleware),
 });
 
 export const persistor = persistStore(store);

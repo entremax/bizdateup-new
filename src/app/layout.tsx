@@ -6,6 +6,7 @@ import {ConfigProvider} from "antd";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
 import ReduxProvider from "@/store/Provider";
 import AntNotification from "@/ui/notification";
+import Navbar from "@/components/navbar";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -18,6 +19,7 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
     <body className={inter.className}>
     <StyledComponentsRegistry>
       <ConfigProvider theme={theme}>
+        <Navbar/>
         {children}
         <ReduxProvider>
           <AntNotification/>

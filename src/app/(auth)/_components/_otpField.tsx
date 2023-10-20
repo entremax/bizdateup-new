@@ -2,18 +2,17 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams} from 'next/navigation';
 import { Button } from 'antd';
-import { setUser, setVerify } from '@/store/features/reducers/user/authSlice';
+import { setUser} from '@/store/features/reducers/user/authSlice';
 import {
-  useSendOtpMutation,
-  useVerifyOtpMutation,
+  useSendOtpMutation
 } from '@/store/features/services/apiSlice';
 import {
-  convertNavigationKeyToKYCStatus,
   validateEmailOrPhone,
 } from '@/lib/utils';
 import { setNotification } from '@/store/features/reducers/others/notificationSlice';
+import {useVerifyOtpMutation} from "@/store/features/services/NextApiSlice";
 
 interface OtpVerifyData {
   code: string;
@@ -72,7 +71,7 @@ export default function OtpField({ id }: { id: string }) {
   React.useEffect(() => {
     if (!temp_auth_medium) {
       router.back();
-    } else if (id !== investorUserId.toString()) {
+    } else if (id !== investorUserId?.toString()) {
       router.back();
     }
   }, [temp_auth_medium, id, investorUserId]);
@@ -105,14 +104,28 @@ export default function OtpField({ id }: { id: string }) {
   }
 
   async function handleVerifyOtp() {
+    if(!investorUserId || otp===''){
+      dispatch(setNotification({
+        type: 'error',
+        message: 'Bad Request',
+      }))
+      return
+    }
     const reqData: OtpVerifyData = {
       code: otp,
       refId: investorUserId,
     };
     const response = await verifyOtp(reqData);
+    if(response){
+      setOtp("")
+    }
     if('error' in response){
       const error=response.error
-      console.log(error)
+      dispatch(setNotification({
+        type: 'error',
+        message: 'OTP Verification Failed',
+        description: `The OTP you entered is invalid. Please check it and try again.(code:${error})`
+      }));
     }
     if ('data' in response) {
       const {
@@ -122,24 +135,22 @@ export default function OtpField({ id }: { id: string }) {
         refId = investorUserId,
         status,
       } = response.data;
-      dispatch(setNotification({type:'success',message:'OTP Verified'}))
+      
       const loginMethod = localStorage.getItem('loginMethod');
       const loginMethod2 = localStorage.getItem('loginMethod2');
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
-        dispatch(setVerify(false));
+        localStorage.setItem("token",token);
         dispatch(
           setUser({
             userData: investorData,
             token,
             refId,
-            kycStatus: [],
+            kycStatus: status,
           })
         );
-        router.push('/dashboard/');
+        router.push('/dashboard');
       } else {
         if (responseCode === 200) {
-          dispatch(setVerify(true));
-          
           dispatch(
             setUser({
               token,
@@ -148,26 +159,9 @@ export default function OtpField({ id }: { id: string }) {
               kycStatus: status,
             })
           );
-        } else {
-          dispatch(setVerify(false));
-          return;
+          
+          router.push('/dashboard')
         }
-
-        // for (const key in navigationData) {
-        //   if (status.length === 0) {
-        router.push('/dashboard/');
-        //     return;
-        //   }
-        //   const kycStatus = convertNavigationKeyToKYCStatus(
-        //     key as NavigationKey
-        //   );
-        //
-        //   if (kycStatus && status.includes(kycStatus)) {
-        //     console.error(navigationData[key].error);
-        //     router.push(navigationData[key].route);
-        //     break;
-        //   }
-        // }
       }
     }
   }
