@@ -28,28 +28,28 @@ export interface NavigationDict {
 
 export type NavigationKey = 'profile' | 'pan' | 'aadhar' | 'bank' | 'other';
 
-const navigationData: NavigationDict = {
-  profile: {
-    error: 'Please complete your profile',
-    route: '/layoutprofile/',
-  },
-  pan: {
-    error: 'Please complete your KYC details',
-    route: '/layoutprofile/kyc',
-  },
-  aadhar: {
-    error: 'Please complete your KYC details',
-    route: '/layoutprofile/kyc',
-  },
-  bank: {
-    error: 'Please complete your bank details',
-    route: '/layoutprofile/bankdetail',
-  },
-  other: {
-    error: 'Please complete your profile',
-    route: '/layoutprofile/others',
-  },
-};
+// const navigationData: NavigationDict = {
+//   profile: {
+//     error: 'Please complete your profile',
+//     route: '/layoutprofile/',
+//   },
+//   pan: {
+//     error: 'Please complete your KYC details',
+//     route: '/layoutprofile/kyc',
+//   },
+//   aadhar: {
+//     error: 'Please complete your KYC details',
+//     route: '/layoutprofile/kyc',
+//   },
+//   bank: {
+//     error: 'Please complete your bank details',
+//     route: '/layoutprofile/bankdetail',
+//   },
+//   other: {
+//     error: 'Please complete your profile',
+//     route: '/layoutprofile/others',
+//   },
+// };
 
 /**
  *
@@ -59,14 +59,14 @@ export default function OtpField({ id }: { id: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
-  const [verifyOtp, { isLoading, error: verificationError }] =
+  const [verifyOtp, { isLoading }] =
     useVerifyOtpMutation();
   const [otp, setOtp] = useState('');
   const actionType = searchParams.get('type');
   const { temp_auth_medium, investorUserId } = useAppSelector(
     ({ authUser }) => authUser
   );
-  const [sendOtp, { isLoading: reSending,error:sendOtpError }] = useSendOtpMutation();
+  const [sendOtp, { isLoading: reSending }] = useSendOtpMutation();
 
   React.useEffect(() => {
     if (!temp_auth_medium) {
@@ -103,6 +103,7 @@ export default function OtpField({ id }: { id: string }) {
     }
   }
 
+  // TODO - Fix redirection issue (partially fixed)
   async function handleVerifyOtp() {
     if(!investorUserId || otp===''){
       dispatch(setNotification({
@@ -111,6 +112,8 @@ export default function OtpField({ id }: { id: string }) {
       }))
       return
     }
+    
+    // TODO- Refactor the use of verifyOTP api
     const reqData: OtpVerifyData = {
       code: otp,
       refId: investorUserId,
@@ -148,7 +151,7 @@ export default function OtpField({ id }: { id: string }) {
             kycStatus: status,
           })
         );
-        router.push('/dashboard');
+        router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           dispatch(
