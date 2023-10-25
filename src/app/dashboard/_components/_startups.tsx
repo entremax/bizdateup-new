@@ -60,7 +60,7 @@ const Startups = ({data}: { data: Campaign[] }) => {
         <Button
           type={"default"}
           size={"large"}
-          className={"p-[0.625rem_1.25rem] my-9 text-lg font-semibold  cursor-pointer bg-light-shadow outline-none border-0  text-primary rounded-lg"}
+          className={"p-[0.625rem_1.25rem] my-9 text-lg font-semibold  cursor-pointer !bg-light-shadow outline-none border-0  text-primary rounded-lg"}
           block
         >
           View All Startups

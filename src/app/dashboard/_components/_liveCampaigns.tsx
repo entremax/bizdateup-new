@@ -48,7 +48,7 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
         <h3 className='!m-0  !p-0 sm:hidden text-primary-dark col-span-full text-2xl font-bold'>
           Live Campaigns
         </h3>
-        {campaignData.map((startup, index) => (
+        {campaignData.slice(0,4).map((startup, index) => (
           <div
             key={startup._id}
             className={cn(
