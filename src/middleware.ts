@@ -23,7 +23,7 @@ export function middleware(req: NextRequest) {
   if(!token && matchPath(pathType.authenticated)){
     const url = req.nextUrl.clone()
     url.pathname = '/login'
-    return NextResponse.redirect(url)
+    return NextResponse.rewrite(url)
   }
   return NextResponse.next()
 }
