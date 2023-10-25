@@ -41,3 +41,12 @@ export function convertNavigationKeyToKYCStatus(navKey: NavigationKey): KYCStatu
       return undefined; // Handle the case where navKey doesn't match any KYCStatus
   }
 }
+
+export function baseUrl() {
+  const baseUrl=process.env.NEXT_PUBLIC_APP_TEST_URL
+  if(baseUrl){
+    return baseUrl
+  }else{
+    return ''
+  }
+}

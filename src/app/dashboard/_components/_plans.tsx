@@ -42,12 +42,17 @@ const Plans = () => {
       )}
     >
       <div className='flex justify-center items-center py-4 pb-3 px-4 shadow'>
-        <div className={'flex justify-center'}>
+        <div className={'relative w-20 grid justify-center items-end'}>
+          <Icons.Premium
+            className={'absolute -top-[25%] left-[34%] bottom-[10%]'}
+            height={'25'}
+            width={'25'}
+          />
           <Image
-            src={Icons.Logo}
-            alt={'logo'}
-            height={38}
-            width={80}
+            src={'/logo.svg'}
+            height={50}
+            width={60}
+            alt={'BizDateup Logo'}
           />
         </div>
         <h4
@@ -57,7 +62,7 @@ const Plans = () => {
         >
           10x benefits with membership plan
         </h4>
-        <div className='grow' />
+        <div className='grow'/>
         <Button
           type={'default'}
           className={
@@ -70,7 +75,7 @@ const Plans = () => {
 
       <table
         className={
-          '!table-fixed divide-y !divide-solid !divide-x-0 !divide-gray-300'
+          '!table-fixed !divide-y !divide-solid !divide-x-0 !divide-gray-300'
         }
       >
         <thead>
