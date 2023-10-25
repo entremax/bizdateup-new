@@ -12,6 +12,7 @@ import FrequentlyAsked from '@/components/faq';
 import type { Metadata } from 'next';
 import { Membership } from '@/dashboard/_membership';
 import ReduxProvider from "@/store/Provider";
+import Model from "@/ui/model";
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL || '';
 
@@ -21,8 +22,7 @@ export const metadata: Metadata = {
 };
 
 const getData = async () => {
-  const url = `${baseUrl}/startupsInvestorView?limit=4`;
-  
+  const url = `${baseUrl}/startupsInvestorView?limit=6`;
   try {
     const response = await fetch(url,{ next: { revalidate: 3600 } });
     if (!response.ok) {
@@ -37,10 +37,7 @@ const getData = async () => {
 };
 
 const Dashboard = async () => {
-  // const cookieStore = cookies()
   const {data:campaign}:{data: Campaign[]} =await getData()
-  // const campaign = data.campaignData;
-  // const token = cookieStore.get('token')
 
   const menu = [
     {
@@ -232,6 +229,7 @@ const Dashboard = async () => {
         </div>
       </div>
       {/*<MobileAppAds/>*/}
+      <Model/>
     </div>
   );
 };
