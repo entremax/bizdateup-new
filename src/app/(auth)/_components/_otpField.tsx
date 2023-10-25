@@ -151,7 +151,7 @@ export default function OtpField({ id }: { id: string }) {
             kycStatus: status,
           })
         );
-        router.refresh()
+        return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           dispatch(
@@ -162,8 +162,8 @@ export default function OtpField({ id }: { id: string }) {
               kycStatus: status,
             })
           );
+          return router.push('/dashboard')
           
-          router.refresh()
         }
       }
     }
