@@ -15,7 +15,7 @@ const UserMenu = () => {
   const {user}=useAppSelector(({authUser})=>authUser)
   const dispatch=useAppDispatch()
   const router=useRouter()
-  const [logout,{isError,isLoading}]=useLogoutMutation()
+  const [logout,{isLoading}]=useLogoutMutation()
   
   const onClick: MenuProps['onClick'] = async({ key }) => {
     logout('').unwrap()

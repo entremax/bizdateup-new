@@ -40,7 +40,6 @@
         "./src/components/navbar/*",
         "./src/components/*"
       ],
-      "@/components": ["@/components/*"],
       "@/types/*": [
         "./src/types/*",
         "./src/app/invest/*",

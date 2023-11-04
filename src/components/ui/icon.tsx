@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 export const Icons = {
   ArrowLeft: ({...props}) => (
     <svg

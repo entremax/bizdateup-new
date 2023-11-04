@@ -2,7 +2,7 @@ import {StartupData} from "@/app/invest/_type";
 import Link from "next/link";
 import {Icons} from "@/icons";
 import React from "react";
-import {apiUri, capitalizeFirstLetter} from "@/lib/utils";
+import {capitalizeFirstLetter} from "@/lib/utils";
 
 export default function CompanyInfo({startup}:{startup:StartupData}) {
   const companyRegisteredName=capitalizeFirstLetter(startup.registeredCompanyName.trim().split(" "))

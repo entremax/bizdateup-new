@@ -1,7 +1,7 @@
 import React from "react";
 import {StartupData} from "@/app/invest/_type";
 import Image from "next/image";
-import {apiUri, capitalizeFirstLetter, cn} from "@/lib/utils";
+import {apiUri, capitalizeFirstLetter} from "@/lib/utils";
 import {Avatar} from "antd";
 
 interface Props {

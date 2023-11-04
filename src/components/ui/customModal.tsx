@@ -43,9 +43,9 @@ const CustomModal: React.FC<Props> = ({location="defaultCentered",children,openW
   console.log("location:",location,"\n Styles",)
   const defaultStyle=modalStyle["defaultCentered"]
   const [modalOpen, setModalOpen] = useState(!openWithButton);
-  const [styleForModal,setStyleForModal]=useState<CSS.Properties>(modalStyle[location]?.modalStyle || defaultStyle.modalStyle)
-  const [stylesForModalContent,setStylesForModalContent]=useState<{}>(modalStyle[location]?.contentStyle || defaultStyle.contentStyle)
-  const [modalProps,setModalProps]=useState<ModalFuncProps>(modalStyle[location]?.modalProps || defaultStyle.modalProps)
+  const [styleForModal]=useState<CSS.Properties>(modalStyle[location]?.modalStyle || defaultStyle.modalStyle)
+  const [stylesForModalContent]=useState<{}>(modalStyle[location]?.contentStyle || defaultStyle.contentStyle)
+  const [modalProps]=useState<ModalFuncProps>(modalStyle[location]?.modalProps || defaultStyle.modalProps)
   
   const handleClose=()=>{
     setModalOpen(!modalOpen)

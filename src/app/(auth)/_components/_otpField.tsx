@@ -19,13 +19,6 @@ interface OtpVerifyData {
   refId: string;
 }
 
-export interface NavigationDict {
-  [key: string]: {
-    error: string;
-    route: string;
-  };
-}
-
 export type NavigationKey = 'profile' | 'pan' | 'aadhar' | 'bank' | 'other';
 
 // const navigationData: NavigationDict = {

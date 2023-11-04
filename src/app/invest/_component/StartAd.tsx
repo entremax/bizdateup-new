@@ -1,6 +1,4 @@
-import {DueDiligenceFile} from "@/app/invest/_type";
-import {cn, getFileName} from "@/lib/utils";
-import {Icons} from "@/icons";
+import {cn} from "@/lib/utils";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";

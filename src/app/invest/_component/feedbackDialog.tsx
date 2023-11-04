@@ -8,18 +8,13 @@ import {useParams, useSearchParams} from "next/navigation";
 import {Interest} from "@/types/_type";
 import {setNotification} from "@/reducers/others/notificationSlice";
 import {useStartupFeedbackMutation} from "@/services/apiSlice";
-const buttonTypes=[
-  {
-    type:"Yes",
-    
-  }
-]
+
 export default function FeedbackDialog(){
   const params = useParams()
   const dispatch=useAppDispatch()
   const searchParams = useSearchParams();
   const {user}=useAppSelector(({authUser})=>authUser)
-  const [startupFeedback,{isLoading,isError}]=useStartupFeedbackMutation()
+  const [startupFeedback]=useStartupFeedbackMutation()
   const [show, setShow] = useState(false)
   const  startupName=searchParams.get('name')
   const {id}=params

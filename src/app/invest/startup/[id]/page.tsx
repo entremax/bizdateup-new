@@ -1,12 +1,10 @@
 import {
   apiUri,
-  calculatePercentage,
   capitalizeFirstLetter,
-  formatIndianValuation,
-  getFileName
+  formatIndianValuation
 } from "@/lib/utils";
 import {IInterestCheckResponse, securityType, StartupDataResponse} from "@/types/_type";
-import {Avatar, Button,  Input} from "antd";
+import {Button,  Input} from "antd";
 import type { Metadata, ResolvingMetadata } from 'next'
 import Link from "next/link";
 import React from 'react';

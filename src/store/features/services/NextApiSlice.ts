@@ -1,7 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
-  ITotalInvestmentResponse,
-  IInvestmentDataResponse,
   ISendOtpResponseData, ILogoutStatus,
 } from '@/types';
 import { RootState } from '@/store';

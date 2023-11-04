@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { StartupData } from "@/types/_type";
 import Image from "next/image";
-import { apiUri, capitalizeFirstLetter, cn } from "@/lib/util";
+import { apiUri, capitalizeFirstLetter } from "@/lib/util";
 import {Button} from "antd";
 
 const StickyCompanyIntro: React.FC<{ startup: StartupData }> = ({ startup }) => {

@@ -1,4 +1,6 @@
-import {DataInner, KYCStatus, KYCStatusArray} from '@/types';
+// noinspection JSUnusedGlobalSymbols
+
+import {KYCStatus} from '@/types';
 import {type ClassValue, clsx} from 'clsx';
 import {twMerge} from 'tailwind-merge';
 import {NavigationKey} from "@/app/(auth)/_components/_otpField";

@@ -1,5 +1,4 @@
 import React from "react";
-import {Campaign} from "@/types";
 
 export function StartupTag({tags}: { tags: string[] }) {
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Campaign } from '@/types';
 import Image from 'next/image';
 import { capitalizeFirstLetter, cn, formatIndianValuation } from '@/lib/utils';
