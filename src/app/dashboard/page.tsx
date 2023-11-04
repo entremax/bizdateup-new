@@ -24,17 +24,21 @@ export const metadata: Metadata = {
 
 const getData = async () => {
   const url = `${baseUrl}/startupsInvestorView?limit=6`;
-  try {
-    const response = await fetch(url,{ next: { revalidate: 3600 } });
+    const response =
+      await fetch(url,{ next: { revalidate: 0 } })
+      .then((res)=> {
+        console.log(res)
+        return res.json()
+      })
+        .catch((e)=> {
+          console.error(e);
+          throw new Error(e.message)
+        })
     if (!response.ok) {
        new Error('Failed to fetch data');
     }
-    const { data } = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Something went wrong while getting startup data")
-  }
+    console.log(response.data.data)
+    return  { data :response.data.data} ;
 };
 
 const Dashboard = async () => {
@@ -62,7 +66,13 @@ const Dashboard = async () => {
       link: '/policy',
     },
   ];
-
+  if(!campaign){
+    return(
+      <>
+        Something is wrong
+      </>
+    )
+  }
   return (
     <div className='pt-20 pb-3 ml-2 grid grid-cols-12 gap-2 px-3 xl:px-5'>
       <div className='my-6 md:mt-5 col-start-1 col-end-12 xl:col-start-2 xl:col-end-11'>
