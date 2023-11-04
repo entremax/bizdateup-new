@@ -1,20 +1,21 @@
 import React from 'react';
 import { Campaign} from '@/types';
-import Greet from '@/dashboard/_greet';
-import LiveCampaigns from '@/dashboard/_liveCampaigns';
-import Plans from '@/dashboard/_plans';
-import Startups from '@/dashboard/_startups';
-import KycIndicator from '@/dashboard/_kycIndicator';
+import Greet from '@/components/_greet';
+import LiveCampaigns from '@/components/_liveCampaigns';
+import Plans from '@/components/_plans';
+import Startups from '@/components/_startups';
+import KycIndicator from '@/components/_kycIndicator';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Icons } from '@/icons';
 import FrequentlyAsked from '@/components/faq';
 import type { Metadata } from 'next';
-import { Membership } from '@/dashboard/_membership';
+import { Membership } from '@/components/_membership';
 import ReduxProvider from "@/store/Provider";
-import Model from "@/ui/model";
+import {apiUri} from "@/lib/utils";
+import RiskDisclosure from "@/components/riskDisclosure";
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL || '';
+const baseUrl = apiUri().v0;
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -229,7 +230,9 @@ const Dashboard = async () => {
         </div>
       </div>
       {/*<MobileAppAds/>*/}
-      <Model/>
+      <ReduxProvider>
+        <RiskDisclosure/>
+      </ReduxProvider>
     </div>
   );
 };

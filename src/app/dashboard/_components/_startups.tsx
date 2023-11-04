@@ -1,13 +1,14 @@
 import React from 'react'
 import {Campaign} from "@/types";
 import Image from 'next/image'
-import {capitalizeFirstLetter} from "@/lib/utils";
+import {apiUri, capitalizeFirstLetter} from "@/lib/utils";
 import {StartupTag} from "@/components/tag";
-import JoinWhatsApp from "@/dashboard/_join_whatsapp";
+import JoinWhatsApp from "@/components/_join_whatsapp";
 import {Button} from 'antd'
+import Link from "next/link";
 
 const Startups = ({data}: { data: Campaign[] }) => {
-  const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/`
+  const baseUrl = apiUri().v1
   
   function getData(data: any[]) {
     let startupData = data.length > 4 ? data.slice(0, 4) : data;
@@ -23,8 +24,9 @@ const Startups = ({data}: { data: Campaign[] }) => {
     <div className={"grid"}>
       <h3 className={"text-primary-dark text-2xl md:text-4xl font-bold !m-0 !p-0"}>Invest with Confidence</h3>
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-2 justify-center py-6 ">
-        {getData(data).map((startup) => (
-          <div
+        {getData(data).map((startup:Campaign) => (
+          <Link
+            href={`/invest/startup/${startup._id}?name=${startup.registeredCompanyName}`}
             key={startup._id}
             className={"relative rounded-2xl border_gray overflow-clip shadow-lg"}
           >
@@ -50,9 +52,9 @@ const Startups = ({data}: { data: Campaign[] }) => {
               </h5>
               <p
                 className={"text-base text-[#828F99] text-ellipsis leading-normal"}>{startup.shortDescription}</p>
-              <StartupTag startup={startup}/>
+              <StartupTag tags={startup.tags}/>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <JoinWhatsApp hidden/>

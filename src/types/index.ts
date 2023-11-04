@@ -111,6 +111,7 @@ export interface AuthUserState {
   kycStatus: KYCStatusArray | null;
   isVerified: boolean;
   kycCompletionPercentage: number;
+  riskAccepted:boolean
 }
 export interface Data {
   code: number;

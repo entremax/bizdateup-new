@@ -31,6 +31,7 @@ a {
 
 @layer base {
   html, body {
+    font-size: 16px;
     font-family: Helvetica Neue, sans-serif;
       margin: 0;
       padding: 0;
@@ -66,4 +67,16 @@ a {
 
 .ant-collapse-header-text {
   font-weight: 700 !important;
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
