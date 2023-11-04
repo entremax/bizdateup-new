@@ -4,9 +4,9 @@ import {Button, Divider,Input} from 'antd';
 import {useRouter} from 'next/navigation'; // Import the correct router
 import {useAppDispatch} from '@/store/hooks';
 import {Icons} from '@/icons';
-import {setInvestorId, temp_values} from "@/store/features/reducers/user/authSlice";
+import {setInvestorId, temp_values} from "@/reducers/user/authSlice";
 import {validateEmailOrPhone} from "@/lib/utils";
-import {useSendOtpMutation} from "@/store/features/services/apiSlice";
+import {useSendOtpMutation} from "@/services/apiSlice";
 import {setNotification} from "@/reducers/others/notificationSlice";
 
 interface UserAuthFormProps {

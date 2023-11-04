@@ -4,15 +4,15 @@ import OtpInput from 'react-otp-input';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter, useSearchParams} from 'next/navigation';
 import { Button } from 'antd';
-import { setUser} from '@/store/features/reducers/user/authSlice';
+import { setUser} from '@/reducers/user/authSlice';
 import {
   useSendOtpMutation
-} from '@/store/features/services/apiSlice';
+} from '@/services/apiSlice';
 import {
   validateEmailOrPhone,
 } from '@/lib/utils';
-import { setNotification } from '@/store/features/reducers/others/notificationSlice';
-import {useVerifyOtpMutation} from "@/store/features/services/NextApiSlice";
+import { setNotification } from '@/reducers/others/notificationSlice';
+import {useVerifyOtpMutation} from "@/services/NextApiSlice";
 
 interface OtpVerifyData {
   code: string;
