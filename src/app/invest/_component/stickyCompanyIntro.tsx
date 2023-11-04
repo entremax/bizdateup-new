@@ -1,9 +1,9 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import { StartupData } from "@/types";
+import { StartupData } from "@/types/_type";
 import Image from "next/image";
 import { apiUri, capitalizeFirstLetter, cn } from "@/lib/util";
-import {Affix, Button} from "antd";
+import {Button} from "antd";
 
 const StickyCompanyIntro: React.FC<{ startup: StartupData }> = ({ startup }) => {
   const [isFixed, setIsFixed] = useState(false);
