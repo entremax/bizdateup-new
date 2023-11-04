@@ -52,7 +52,7 @@ export const authUser = createSlice({
     }
   },
 });
-export const { setRiskAccept,temp_values, setVerify, reset, setInvestorId, setUser ,setKycCompletionPercentage} =
+export const { setRiskAccept,temp_values, reset, setInvestorId, setUser ,setKycCompletionPercentage} =
   authUser.actions;
 
 export default authUser.reducer;

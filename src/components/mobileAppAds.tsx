@@ -13,7 +13,7 @@ export default function MobileAppAds({...props}) {
               </h5>
               <p className="!p-0 !m-0 text-xl">
                 With Bizdateup you get a Strong Community of Top 1% Investors who live & Breathe Angel Investing! To
-                top it up Signing up takes hardly 5 mins of your time. So, Join the Community Now!
+                top it up Signing up takes hardly 5 min's of your time. So, Join the Community Now!
               </p>
             </div>
             <div className="col-span-3">

@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { Button, ConfigProvider, Modal, Space } from 'antd';
+import { Button, Modal } from 'antd';
 import { createStyles, useTheme } from 'antd-style';
 
 const useStyle = createStyles(({ token }) => ({

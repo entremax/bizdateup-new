@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 export interface Aadhar {
   aadharNo: string;
   status: string;

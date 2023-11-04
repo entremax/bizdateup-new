@@ -2,7 +2,7 @@ import Image from "next/image";
 import {StartupTag} from "@/components/tag";
 import React from "react";
 import {apiUri, calculatePercentage, capitalizeFirstLetter, formatIndianValuation} from "@/lib/utils";
-import {Button, Divider, Input, Progress} from "antd";
+import {Button, Divider, Progress} from "antd";
 import {StartupData} from "@/app/invest/_type";
 import Description from "@/components/Readmore";
 import {Icons} from "@/icons";
@@ -48,7 +48,6 @@ export default function CompanyIntro({startup}:{startup:StartupData}){
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            frameBorder="0"
             className="aspect-video w-full rounded-xl"
           ></iframe>
         ) : (

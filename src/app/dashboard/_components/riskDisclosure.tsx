@@ -3,7 +3,7 @@ import CustomModal from "@/ui/customModal";
 import React from "react";
 import {Button} from "antd";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import {authUser, setRiskAccept} from "@/reducers/user/authSlice";
+import {setRiskAccept} from "@/reducers/user/authSlice";
 
 export default function RiskDisclosure(){
   const dispatch=useAppDispatch()
