@@ -100,7 +100,6 @@ const checkInterest=async(id:string)=>{
       throw Error(response.message)
     }
 }
-// TODO: Startup
 const Startup: React.FC<{ params: { id: string } }> = async({ params: { id } }) => {
   const { details: { data: startupData } } = await getStartupDetails(id);
   const {interested}=(await checkInterest(id)) as IInterestCheckResponse
