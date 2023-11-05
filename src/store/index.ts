@@ -8,7 +8,8 @@ import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {api} from '@/store/features/services/apiSlice';
 import {setupListeners} from '@reduxjs/toolkit/query';
-import {NextApi} from "@/store/features/services/NextApiSlice";
+import {NextApi} from "@/services/NextApiSlice";
+import {paymentApi} from "@/services/paymentSlice";
 
 /**
  * Configuration options for data persistence.
@@ -25,6 +26,7 @@ export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     [NextApi.reducerPath]:NextApi.reducer,
+    [paymentApi.reducerPath]:paymentApi.reducer,
     authUser,
     investor,
     Notify

@@ -113,7 +113,8 @@ export interface AuthUserState {
   kycStatus: KYCStatusArray | null;
   isVerified: boolean;
   kycCompletionPercentage: number;
-  riskAccepted:boolean
+  riskAccepted:boolean,
+  premiumMember:boolean
 }
 export interface Data {
   code: number;
@@ -270,3 +271,20 @@ export interface VerifyOtpServerResponse {
   data: ISendOtpResponseData|VerifyOtpEResponseData|VerifyInvalid;
   error: boolean;
 }
+
+export type PaymentData = {
+  order_amount: number;
+  order_currency: string;
+  order_note: string;
+  customer_id: string;
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  startupId: string;
+  amount: number;
+  dateOfpayment?: string;
+  reference?: string;
+  tds: number;
+  convenienceFee: number;
+  gst: number;
+};

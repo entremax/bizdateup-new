@@ -60,7 +60,7 @@ export default function OtpField({ id }: { id: string }) {
     ({ authUser }) => authUser
   );
   const [sendOtp, { isLoading: reSending }] = useSendOtpMutation();
-
+  
   React.useEffect(() => {
     if (!temp_auth_medium) {
       router.back();
@@ -68,7 +68,7 @@ export default function OtpField({ id }: { id: string }) {
       router.back();
     }
   }, [temp_auth_medium, id, investorUserId]);
-
+  
   async function handleResend() {
     if (!temp_auth_medium) {
       return;
@@ -95,7 +95,7 @@ export default function OtpField({ id }: { id: string }) {
       dispatch(setNotification({ type: 'error', message: '' }));
     }
   }
-
+  
   // TODO - Fix redirection issue (partially fixed)
   async function handleVerifyOtp() {
     if(!investorUserId || otp===''){
@@ -142,6 +142,7 @@ export default function OtpField({ id }: { id: string }) {
             token,
             refId,
             kycStatus: status,
+            premiumMember:investorData.membership.isMember !== "no"
           })
         );
         return router.push('/dashboard')
@@ -153,6 +154,7 @@ export default function OtpField({ id }: { id: string }) {
               userData: investorData,
               refId,
               kycStatus: status,
+              premiumMember:investorData.membership.isMember !== "no"
             })
           );
           return router.push('/dashboard')
@@ -161,7 +163,7 @@ export default function OtpField({ id }: { id: string }) {
       }
     }
   }
-
+  
   return (
     <>
       <div className='grid justify-center items-center text-center w-full md:min-w-max'>

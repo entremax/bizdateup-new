@@ -80,3 +80,8 @@ a {
     scrollbar-width: none; /* Firefox */
   }
 }
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: rgb(var(--lavender-blue)) !important;
+  border-color: rgb(var(--lavender-blue)) !important;
+}
