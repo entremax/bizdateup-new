@@ -32,7 +32,7 @@ const getData = async () => {
     return data;
   } catch (error) {
     console.error(error);
-    throw error
+    throw new Error("Something went wrong while getting startup data")
   }
 };
 
