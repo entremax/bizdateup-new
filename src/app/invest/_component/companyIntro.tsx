@@ -7,12 +7,13 @@ import {StartupData} from "@/app/invest/_type";
 import Description from "@/components/Readmore";
 import {Icons} from "@/icons";
 import CustomModal from "@/ui/customModal";
-import InvestForm from "@/components/investForm";
+import InvestForm from "@/components/investModal";
+import ReduxProvider from "@/store/Provider";
+import InvestTransactionModal from "@/components/investModal";
 
 export default function CompanyIntro({startup}:{startup:StartupData}){
   const apiV1=apiUri().v1
   const isClosed=(startup.activeStatus.status==="closed")
-  
   return (
     <>
       <div className="flex flex-col col-span-full xl:col-start-2 xl:col-end-12 py-4">
@@ -83,27 +84,7 @@ export default function CompanyIntro({startup}:{startup:StartupData}){
             <Icons.Locked/> Campaign ended
           </Button>
           :
-          <CustomModal
-            title={
-            <div className="flex items-center gap-4">
-              <div className="h-11 w-11 border border-gray-400 rounded-xl overflow-clip">
-                <Image
-                  src={apiV1 + '/logo/' + startup.logo}
-                  height={45}
-                  width={45}
-                  alt={startup.companyName}
-                />
-              </div>
-              <h5
-                className="text-xl font-bold leading-normaltext-primary-dark reset">
-                {capitalizeFirstLetter(startup.registeredCompanyName.trim().split(" "))}
-              </h5>
-            </div>}
-            location={"investLeft"}
-            openWithButton
-          >
-            <InvestForm startup={startup}/>
-          </CustomModal>
+          <InvestTransactionModal startup={startup}/>
         }
         <span className="text-sm md:text-lg text-center">
           Minimum investment ₹ {formatIndianValuation(startup.dealTerms.minimumInvestment)}

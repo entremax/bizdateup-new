@@ -29,12 +29,16 @@ export const InvestContentStyle= {
   body: {
     padding:0,
     margin:0,
+    height:"calc(100% - 7rem)"
   },
   content:{
-    height:"100%"
+    height:"100%",
+    padding:0,
+    borderRadius:0
   },
   header:{
-    fontSize:"24px"
+    padding:0,
+    margin:0,
   }
 }
 export const InvestModalStyle:CSS.Properties= {
@@ -43,11 +47,13 @@ export const InvestModalStyle:CSS.Properties= {
   top: 0,
   bottom:0,
   margin:0 ,
-  padding:0
+  padding:0,
+  height:"calc(100%)"
 }
 export const InvestModalCustomProps:ModalFuncProps={
   footer:null,
   closeIcon:null,
+  width:"35%"
   // title:<div className={"text-xl"}>
   //   Hey
   //   </div>
