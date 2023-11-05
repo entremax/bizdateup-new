@@ -1,19 +1,21 @@
 import React from 'react';
 import { Campaign} from '@/types';
-import Greet from '@/dashboard/_greet';
-import LiveCampaigns from '@/dashboard/_liveCampaigns';
-import Plans from '@/dashboard/_plans';
-import Startups from '@/dashboard/_startups';
-import KycIndicator from '@/dashboard/_kycIndicator';
+import Greet from '@/components/_greet';
+import LiveCampaigns from '@/components/_liveCampaigns';
+import Plans from '@/components/_plans';
+import Startups from '@/components/_startups';
+import KycIndicator from '@/components/_kycIndicator';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Icons } from '@/icons';
 import FrequentlyAsked from '@/components/faq';
 import type { Metadata } from 'next';
-import { Membership } from '@/dashboard/_membership';
+import { Membership } from '@/components/_membership';
 import ReduxProvider from "@/store/Provider";
+import {apiUri} from "@/lib/utils";
+import RiskDisclosure from "@/components/riskDisclosure";
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL || '';
+const baseUrl = apiUri().v1;
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -21,26 +23,24 @@ export const metadata: Metadata = {
 };
 
 const getData = async () => {
-  const url = `${baseUrl}/startupsInvestorView?limit=4`;
-  
-  try {
-    const response = await fetch(url,{ next: { revalidate: 3600 } });
-    if (!response.ok) {
+  const url = `${baseUrl}/startupsInvestorView?limit=2`;
+    const response =
+      await fetch(url,{ next: { revalidate: 0 } })
+      .then((res)=> {
+        return res.json()
+      })
+        .catch((e)=> {
+          console.error(e);
+          throw new Error(e.message)
+        })
+    if (response.data.code===200) {
        new Error('Failed to fetch data');
     }
-    const { data } = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Something went wrong while getting startup data")
-  }
+    return  { data :response.data.data} ;
 };
 
 const Dashboard = async () => {
-  // const cookieStore = cookies()
   const {data:campaign}:{data: Campaign[]} =await getData()
-  // const campaign = data.campaignData;
-  // const token = cookieStore.get('token')
 
   const menu = [
     {
@@ -64,7 +64,7 @@ const Dashboard = async () => {
       link: '/policy',
     },
   ];
-
+  
   return (
     <div className='pt-20 pb-3 ml-2 grid grid-cols-12 gap-2 px-3 xl:px-5'>
       <div className='my-6 md:mt-5 col-start-1 col-end-12 xl:col-start-2 xl:col-end-11'>
@@ -232,6 +232,9 @@ const Dashboard = async () => {
         </div>
       </div>
       {/*<MobileAppAds/>*/}
+      <ReduxProvider>
+        <RiskDisclosure/>
+      </ReduxProvider>
     </div>
   );
 };

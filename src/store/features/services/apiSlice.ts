@@ -5,7 +5,10 @@ import {
   ISendOtpResponseData,
 } from '@/types';
 import { RootState } from '@/store';
-const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/`;
+import {apiUri} from "@/lib/utils";
+import {addInterest} from "@/types/apiEndpoint";
+import {IInterestCheckResponse, IStartupFeedBackResponse} from "@/types/_type";
+const baseUrl = apiUri().v0
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
@@ -50,7 +53,7 @@ export const api = createApi({
           responseCode: response.data.code,
           token: response.data.token,
           refId: response.refId,
-
+          
           status: response.data.status,
           investorData: {
             ...response.data.data,
@@ -63,7 +66,7 @@ export const api = createApi({
     }),
     getTotalInvestment: builder.query({
       query: (refId) => ({
-        url: baseUrl + 'investment/totalInvestmentbyinvestor',
+        url: baseUrl + '/investment/totalInvestmentbyinvestor',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -75,12 +78,12 @@ export const api = createApi({
       transformResponse: (response: ITotalInvestmentResponse,) =>response.data.length > 0 ? response.data[0].data.totalamount : 0,
       transformErrorResponse: (
         response: { status: string | number },
-       
+      
       ) => response.status,
     }),
     getInvestmentDetails: builder.query({
       query: (refId) => ({
-        url: baseUrl + 'investment/investmentbyinvestor',
+        url: baseUrl + '/investment/investmentbyinvestor',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -95,12 +98,33 @@ export const api = createApi({
         response: { status: string | number },
       ) => response.status,
     }),
+    startupFeedback:builder.mutation({
+      query:(data:IInterestCheckResponse)=>{
+        console.log(data)
+        return {
+        url:addInterest(),
+        method:"POST",
+        body:{
+          ...data
+        }
+      }},
+      transformResponse: (response:IStartupFeedBackResponse) => {
+        if(response.data?.code===200 ){
+          return response.data;
+        }else{
+          return response.data?.message?response.data?.message:"Thank you for your feedback!"
+        }
+      },
+      transformErrorResponse: (
+        response: { status: string | number },
+      ) => response.status,
+    })
   }),
 });
 
 export const {
   useSendOtpMutation,
-  useVerifyOtpMutation,
   useGetTotalInvestmentQuery,
   useGetInvestmentDetailsQuery,
+  useStartupFeedbackMutation
 } = api;

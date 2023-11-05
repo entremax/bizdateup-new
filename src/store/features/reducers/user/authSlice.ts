@@ -10,7 +10,9 @@ const initialState = {
   user: null,
   kycStatus: [] as KYCStatusArray,
   isVerified: false,
-  kycCompletionPercentage:0
+  kycCompletionPercentage:0,
+  riskAccepted:false,
+  premiumMember:false
 } as AuthUserState
 
 export const authUser = createSlice({
@@ -27,28 +29,33 @@ export const authUser = createSlice({
     setUser: (
       state,
       {
-        payload: { token, userData, refId, kycStatus },
+        payload: { token, userData, refId, kycStatus ,premiumMember},
       }: PayloadAction<{
         token: string;
         userData: DataInner;
         refId: string;
         kycStatus: KYCStatusArray;
+        premiumMember:boolean
       }>
     ) => {
       state.token = token;
       state.user = userData;
       state.refId = refId;
       state.kycStatus = kycStatus;
+      state.premiumMember=premiumMember
     },
     setVerify(state, { payload }: PayloadAction<boolean>) {
       state.isVerified = payload;
     },
     setKycCompletionPercentage(state,{payload}: PayloadAction<number>){
       state.kycCompletionPercentage=payload
+    },
+    setRiskAccept(state){
+      state.riskAccepted=true
     }
   },
 });
-export const { temp_values, setVerify, reset, setInvestorId, setUser ,setKycCompletionPercentage} =
+export const { setRiskAccept,temp_values, reset, setInvestorId, setUser ,setKycCompletionPercentage} =
   authUser.actions;
 
 export default authUser.reducer;

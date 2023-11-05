@@ -27,7 +27,8 @@ const config: Config = {
         },
         lemon:{
           DEFAULT:'rgb(var(--lemon-green),1)',
-          lighter:'rgb(var(--lemon-green),0.2)'
+          lighter:'rgb(var(--lemon-green),0.2)',
+          dark:'rgba(28, 184, 109, 1)'
         },
         brust: 'rgb(var(--cloud-brust))',
         typography: {

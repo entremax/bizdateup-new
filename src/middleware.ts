@@ -11,14 +11,20 @@ export function middleware(req: NextRequest) {
   let token=req.cookies.get('token')
   const path=req.nextUrl.pathname
   
+  
   const matchPath = (pathList: RegExp[]) => {
     return pathList.some((pattern) => pattern.test(path));
   }
   if(token && matchPath(pathType.unAuthenticated)){
-    return NextResponse.redirect(new URL('/dashboard',req.url))
+    const url = req.nextUrl.clone()
+    url.pathname = '/dashboard'
+    return NextResponse.redirect(url)
   }
   if(!token && matchPath(pathType.authenticated)){
-    return NextResponse.redirect(new URL('/login',req.url))
+    const url = req.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.rewrite(url)
   }
+  return NextResponse.next()
 }
 

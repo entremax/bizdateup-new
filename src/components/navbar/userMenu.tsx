@@ -15,7 +15,8 @@ const UserMenu = () => {
   const {user}=useAppSelector(({authUser})=>authUser)
   const dispatch=useAppDispatch()
   const router=useRouter()
-  const [logout,{isError,isLoading}]=useLogoutMutation()
+  const [logout,{isLoading}]=useLogoutMutation()
+  
   const onClick: MenuProps['onClick'] = async({ key }) => {
     logout('').unwrap()
       .then(() => {
@@ -43,6 +44,7 @@ const UserMenu = () => {
       label: <p className={'text-red-500 reset px-4'}>{isLoading?'Exiting...':'Sign Out'}</p>,
       key: '1',
     }]
+  
   return (
     <>
       <Tooltip title={'Notifications'}>

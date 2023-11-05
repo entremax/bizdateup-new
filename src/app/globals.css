@@ -31,6 +31,7 @@ a {
 
 @layer base {
   html, body {
+    font-size: 16px;
     font-family: Helvetica Neue, sans-serif;
       margin: 0;
       padding: 0;
@@ -60,10 +61,27 @@ a {
   }
 
   .reset{
-    @apply !m-0 !p-0;
+    @apply m-0 p-0;
   }
 }
 
 .ant-collapse-header-text {
   font-weight: 700 !important;
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: rgb(var(--lavender-blue)) !important;
+  border-color: rgb(var(--lavender-blue)) !important;
 }

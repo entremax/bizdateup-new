@@ -4,52 +4,45 @@ import OtpInput from 'react-otp-input';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter, useSearchParams} from 'next/navigation';
 import { Button } from 'antd';
-import { setUser} from '@/store/features/reducers/user/authSlice';
+import { setUser} from '@/reducers/user/authSlice';
 import {
   useSendOtpMutation
-} from '@/store/features/services/apiSlice';
+} from '@/services/apiSlice';
 import {
   validateEmailOrPhone,
 } from '@/lib/utils';
-import { setNotification } from '@/store/features/reducers/others/notificationSlice';
-import {useVerifyOtpMutation} from "@/store/features/services/NextApiSlice";
+import { setNotification } from '@/reducers/others/notificationSlice';
+import {useVerifyOtpMutation} from "@/services/NextApiSlice";
 
 interface OtpVerifyData {
   code: string;
   refId: string;
 }
 
-export interface NavigationDict {
-  [key: string]: {
-    error: string;
-    route: string;
-  };
-}
-
 export type NavigationKey = 'profile' | 'pan' | 'aadhar' | 'bank' | 'other';
 
-const navigationData: NavigationDict = {
-  profile: {
-    error: 'Please complete your profile',
-    route: '/layoutprofile/',
-  },
-  pan: {
-    error: 'Please complete your KYC details',
-    route: '/layoutprofile/kyc',
-  },
-  aadhar: {
-    error: 'Please complete your KYC details',
-    route: '/layoutprofile/kyc',
-  },
-  bank: {
-    error: 'Please complete your bank details',
-    route: '/layoutprofile/bankdetail',
-  },
-  other: {
-    error: 'Please complete your profile',
-    route: '/layoutprofile/others',
-  },
-};
+// const navigationData: NavigationDict = {
+//   profile: {
+//     error: 'Please complete your profile',
+//     route: '/layoutprofile/',
+//   },
+//   pan: {
+//     error: 'Please complete your KYC details',
+//     route: '/layoutprofile/kyc',
+//   },
+//   aadhar: {
+//     error: 'Please complete your KYC details',
+//     route: '/layoutprofile/kyc',
+//   },
+//   bank: {
+//     error: 'Please complete your bank details',
+//     route: '/layoutprofile/bankdetail',
+//   },
+//   other: {
+//     error: 'Please complete your profile',
+//     route: '/layoutprofile/others',
+//   },
+// };
 
 /**
  *
@@ -59,15 +52,15 @@ export default function OtpField({ id }: { id: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
-  const [verifyOtp, { isLoading, error: verificationError }] =
+  const [verifyOtp, { isLoading }] =
     useVerifyOtpMutation();
   const [otp, setOtp] = useState('');
   const actionType = searchParams.get('type');
   const { temp_auth_medium, investorUserId } = useAppSelector(
     ({ authUser }) => authUser
   );
-  const [sendOtp, { isLoading: reSending,error:sendOtpError }] = useSendOtpMutation();
-
+  const [sendOtp, { isLoading: reSending }] = useSendOtpMutation();
+  
   React.useEffect(() => {
     if (!temp_auth_medium) {
       router.back();
@@ -75,7 +68,7 @@ export default function OtpField({ id }: { id: string }) {
       router.back();
     }
   }, [temp_auth_medium, id, investorUserId]);
-
+  
   async function handleResend() {
     if (!temp_auth_medium) {
       return;
@@ -102,7 +95,8 @@ export default function OtpField({ id }: { id: string }) {
       dispatch(setNotification({ type: 'error', message: '' }));
     }
   }
-
+  
+  // TODO - Fix redirection issue (partially fixed)
   async function handleVerifyOtp() {
     if(!investorUserId || otp===''){
       dispatch(setNotification({
@@ -111,6 +105,8 @@ export default function OtpField({ id }: { id: string }) {
       }))
       return
     }
+    
+    // TODO- Refactor the use of verifyOTP api
     const reqData: OtpVerifyData = {
       code: otp,
       refId: investorUserId,
@@ -146,9 +142,10 @@ export default function OtpField({ id }: { id: string }) {
             token,
             refId,
             kycStatus: status,
+            premiumMember:investorData.membership.isMember !== "no"
           })
         );
-        router.push('/dashboard');
+        return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           dispatch(
@@ -157,15 +154,16 @@ export default function OtpField({ id }: { id: string }) {
               userData: investorData,
               refId,
               kycStatus: status,
+              premiumMember:investorData.membership.isMember !== "no"
             })
           );
+          return router.push('/dashboard')
           
-          router.push('/dashboard')
         }
       }
     }
   }
-
+  
   return (
     <>
       <div className='grid justify-center items-center text-center w-full md:min-w-max'>

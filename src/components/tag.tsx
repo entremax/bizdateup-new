@@ -1,11 +1,10 @@
 import React from "react";
-import {Campaign} from "@/types";
 
-export function StartupTag({startup}: { startup: Campaign }) {
+export function StartupTag({tags}: { tags: string[] }) {
   return (
     <>
       <div className='flex flex-wrap gap-2 mt-2'>
-        {startup.tags.map((tag) =>
+        {tags.map((tag) =>
           tag.split(',').map((t) => (
             <span
               key={t}

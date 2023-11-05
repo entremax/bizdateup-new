@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Campaign } from '@/types';
 import Image from 'next/image';
-import { capitalizeFirstLetter, cn } from '@/lib/utils';
+import { capitalizeFirstLetter, cn, formatIndianValuation } from '@/lib/utils';
 import { StartupTag } from '@/components/tag';
-import JoinWhatsApp from '@/dashboard/_join_whatsapp';
+import JoinWhatsApp from '@/components/_join_whatsapp';
 import '../dashboard.css';
+import Link from "next/link";
 /**
  * Renders a list of live startup campaigns.
  *
@@ -17,22 +18,7 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
   let itemGrid =
     'card_article grid relative border_gray rounded-xl overflow-hidden col-span-2 xl:col-span-1'; // placeholder value for itemGri
   const campaignData = data;
-  function formatIndianValuation(value: number) {
-    if (value >= 10000000) {
-      // Convert to crores (Cr)
-      return `${value / 10000000}Cr`;
-    } else if (value >= 100000) {
-      // Convert to lakhs (L)
-      return `${value / 100000}L`;
-    }
-    // else if (value >= 1000) {
-    //   // Convert to thousands (k)
-    //   return `${value / 1000}k`;
-    // }
-    else {
-      return value.toString(); // Convert to a string and return as is
-    }
-  }
+  
   function truncateText(input: string, limit = 16) {
     const words = input.split(' ');
 
@@ -48,8 +34,9 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
         <h3 className='!m-0  !p-0 sm:hidden text-primary-dark col-span-full text-2xl font-bold'>
           Live Campaigns
         </h3>
-        {campaignData.map((startup, index) => (
-          <div
+        {campaignData.slice(0,4).map((startup, index) => (
+          <Link
+            href={`/invest/startup/${startup._id}?name=${startup.registeredCompanyName}`}
             key={startup._id}
             className={cn(
               campaignData.length % 2 !== 0 && index === campaignData.length - 1
@@ -73,7 +60,7 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
                     startup.registeredCompanyName.split(' ')
                   )}
                 </h5>
-                <StartupTag startup={startup} />
+                <StartupTag tags={startup.tags} />
               </div>
             </div>
             <div className='grid grid-cols-1 max-h-min p-3 pt-0'>
@@ -122,7 +109,7 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <JoinWhatsApp

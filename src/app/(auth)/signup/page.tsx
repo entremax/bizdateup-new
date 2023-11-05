@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import UserAuthForm from "../_components/_user-auth-form";
 import type { Metadata } from 'next'
-import ReduxProvider from "@/store/Provider";
 
 export const metadata: Metadata = {
   title: ' Signup | Bizdateup ',

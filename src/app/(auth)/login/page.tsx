@@ -3,19 +3,17 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next'
-import {cookies} from "next/headers";
-import {redirect} from "next/navigation";
 
 export const metadata: Metadata = {
   title: 'Login | Bizdateup',
   description: 'Login to Bizdateup site',
 }
 const Login = () => {
-  const cookieStore = cookies()
-  const token = cookieStore.get('token')
-  if(token){
-    redirect('/dashboard')
-  }
+  // const cookieStore = cookies()
+  // const token = cookieStore.get('token')
+  // if(token){
+  //   redirect('/dashboard')
+  // }
   return (
     <div className='auth'>
     <div
