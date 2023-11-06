@@ -14,7 +14,7 @@ import { Membership } from '@/components/_membership';
 import ReduxProvider from "@/store/Provider";
 import {apiUri} from "@/lib/utils";
 import RiskDisclosure from "@/components/riskDisclosure";
-import data from '@/data'
+
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -25,7 +25,7 @@ const getData = async () => {
   
   const url = `${apiUri().v0}/startupsInvestorView?limit=2`;
     const response =
-      await fetch(`${process.env.NEXT_PUBLIC_APP_TEST_URL}/v0/startupsInvestorView?limit=2`,{ next: { revalidate: 0 } })
+      await fetch(url,{ next: { revalidate: 0 } })
       .then((res)=> {
         return res?.json()
       })
@@ -40,8 +40,8 @@ const getData = async () => {
 };
 
 const Dashboard = async () => {
-  // const {data:campaign}:{data: Campaign[]} =await getData()
-const campaign=data.campaignData
+  const {data:campaign}:{data: Campaign[]} =await getData()
+
   const menu = [
     {
       name: 'Tutorials',
