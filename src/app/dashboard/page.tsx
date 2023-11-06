@@ -1,4 +1,3 @@
-'use client'
 import React from 'react';
 import { Campaign} from '@/types';
 import Greet from '@/components/_greet';
@@ -15,12 +14,12 @@ import { Membership } from '@/components/_membership';
 import ReduxProvider from "@/store/Provider";
 import {apiUri} from "@/lib/utils";
 import RiskDisclosure from "@/components/riskDisclosure";
+import data from '@/data'
 
-
-// export const metadata: Metadata = {
-//   title: 'Dashboard - Investor | Bizdateup',
-//   description: 'Dashboard for investor',
-// };
+export const metadata: Metadata = {
+  title: 'Dashboard - Investor | Bizdateup',
+  description: 'Dashboard for investor',
+};
 
 const getData = async () => {
   
@@ -41,8 +40,8 @@ const getData = async () => {
 };
 
 const Dashboard = async () => {
-  const {data:campaign}:{data: Campaign[]} =await getData()
-
+  // const {data:campaign}:{data: Campaign[]} =await getData()
+const campaign=data.campaignData
   const menu = [
     {
       name: 'Tutorials',
