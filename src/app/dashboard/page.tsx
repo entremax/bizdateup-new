@@ -27,7 +27,7 @@ const getData = async () => {
     const response =
       await fetch(url,{ next: { revalidate: 0 } })
       .then((res)=> {
-        return res.json()
+        return res?.json()
       })
         .catch((e)=> {
           console.error(e);

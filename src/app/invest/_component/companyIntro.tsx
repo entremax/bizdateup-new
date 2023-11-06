@@ -6,9 +6,6 @@ import {Button, Divider, Progress} from "antd";
 import {StartupData} from "@/app/invest/_type";
 import Description from "@/components/Readmore";
 import {Icons} from "@/icons";
-import CustomModal from "@/ui/customModal";
-import InvestForm from "@/components/investModal";
-import ReduxProvider from "@/store/Provider";
 import InvestTransactionModal from "@/components/investModal";
 
 export default function CompanyIntro({startup}:{startup:StartupData}){
