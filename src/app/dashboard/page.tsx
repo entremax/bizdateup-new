@@ -15,7 +15,7 @@ import ReduxProvider from "@/store/Provider";
 import {apiUri} from "@/lib/utils";
 import RiskDisclosure from "@/components/riskDisclosure";
 
-const baseUrl = apiUri().v1;
+const baseUrl = apiUri().v0;
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
