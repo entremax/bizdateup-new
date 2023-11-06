@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { Campaign} from '@/types';
 import Greet from '@/components/_greet';
@@ -16,10 +17,10 @@ import {apiUri} from "@/lib/utils";
 import RiskDisclosure from "@/components/riskDisclosure";
 
 
-export const metadata: Metadata = {
-  title: 'Dashboard - Investor | Bizdateup',
-  description: 'Dashboard for investor',
-};
+// export const metadata: Metadata = {
+//   title: 'Dashboard - Investor | Bizdateup',
+//   description: 'Dashboard for investor',
+// };
 
 const getData = async () => {
   
