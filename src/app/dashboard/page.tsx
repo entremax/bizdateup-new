@@ -25,7 +25,7 @@ const getData = async () => {
   
   const url = `${apiUri().v0}/startupsInvestorView?limit=2`;
     const response =
-      await fetch(url,{ next: { revalidate: 0 } })
+      await fetch(`${process.env.NEXT_PUBLIC_APP_TEST_URL}/v0/startupsInvestorView?limit=2`,{ next: { revalidate: 0 } })
       .then((res)=> {
         return res?.json()
       })
