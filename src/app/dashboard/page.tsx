@@ -15,7 +15,6 @@ import ReduxProvider from "@/store/Provider";
 import {apiUri} from "@/lib/utils";
 import RiskDisclosure from "@/components/riskDisclosure";
 
-const baseUrl = apiUri().v1;
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -23,11 +22,12 @@ export const metadata: Metadata = {
 };
 
 const getData = async () => {
-  const url = `${baseUrl}/startupsInvestorView?limit=2`;
+  
+  const url = `${apiUri().v0}/startupsInvestorView?limit=2`;
     const response =
       await fetch(url,{ next: { revalidate: 0 } })
       .then((res)=> {
-        return res.json()
+        return res?.json()
       })
         .catch((e)=> {
           console.error(e);

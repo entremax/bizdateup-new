@@ -75,7 +75,7 @@ export function convertNavigationKeyToKYCStatus(navKey: NavigationKey): KYCStatu
  *                   If the base URL is available, the URIs are appended with the respective API versions.
  *                   Otherwise, empty strings are returned for both URIs.
  */
-export function apiUri() {
+export function apiUri(): { v0:string,v1:string } {
   const baseUrl=process.env.NEXT_PUBLIC_APP_TEST_URL
   if(baseUrl){
     return {v0:baseUrl+"v0",v1:baseUrl+"v1"}
