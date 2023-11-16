@@ -1,18 +1,18 @@
+import NavLink from '@/components/navbar/NavLink';
+import ReduxProvider from '@/store/Provider';
+import { cookies } from "next/headers";
 import Image from 'next/image';
 import Link from 'next/link';
-import { Icons } from '@/icons';
 import React from 'react';
-import NavLink from '@/components/navbar/NavLink';
+import Sidebar from '../Sidebar';
 import UserMenu from './userMenu';
-import ReduxProvider from '@/store/Provider';
-import {cookies} from "next/headers";
 
 const Navbar: React.FC = () => {
   const cookieStore = cookies()
   const token = cookieStore.get('token')
-  
-  const type=token?'authenticated':'unauthenticated'
-  
+
+  const type = token ? 'authenticated' : 'unauthenticated'
+
   return (
     <div className='fixed flex px-8 items-center left-0 right-0  h-[4.5rem] z-[999] bg-white shadow-[0px_1px_0px_0px_#E5E9F2]'>
       <Link
@@ -35,9 +35,9 @@ const Navbar: React.FC = () => {
         }
       >
         {type !== 'unauthenticated' && <div className={'grow'} />}
-          <NavLink type={type} />
+        <NavLink type={type} />
         {type !== 'unauthenticated' && <div className={'grow'} />}
-        
+
         {type === 'unauthenticated' ? (
           <div className='hidden h-full lg:flex justify-center items-center gap-2'>
             <Link
@@ -54,24 +54,20 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
         ) : (
-            <div className={'hidden lg:flex gap-8 justify-center items-center'}>
-              <Link
-                href={'/refer-earn'}
-                className='p-[0.625rem_1.25rem] cursor-pointer outline outline-primary outline-[0.022rem]  border-0 text-primary rounded-lg'
-              >
-                Refer & Earn
-              </Link>
-              <ReduxProvider>
-                <UserMenu />
-              </ReduxProvider>
-            </div>
+          <div className={'hidden lg:flex gap-8 justify-center items-center'}>
+            <Link
+              href={'/refer-earn'}
+              className='p-[0.625rem_1.25rem] cursor-pointer outline outline-primary outline-[0.022rem]  border-0 text-primary rounded-lg'
+            >
+              Refer & Earn
+            </Link>
+            <ReduxProvider>
+              <UserMenu />
+            </ReduxProvider>
+          </div>
         )}
-        <div className='flex-shrink md:hidden'>
-          <Icons.BurgerMenu
-            height={28}
-            width={28}
-            alt='Menu'
-          />
+        <div className='flex-shrink lg:hidden'>
+          <Sidebar />
         </div>
       </div>
     </div>

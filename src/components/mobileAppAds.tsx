@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from "next/image";
 
-export default function MobileAppAds({...props}) {
+export default function MobileAppAds({ ...props }) {
   return (
     <>
       <div className="hidden md:inline col-span-12 my-4" hidden={props.hidden}>
