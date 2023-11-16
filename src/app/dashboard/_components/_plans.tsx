@@ -1,13 +1,13 @@
-'use client';
-import React from 'react';
-import { Icons } from '@/icons';
-import { Button } from 'antd';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import { useAppSelector } from '@/store/hooks';
+'use client'
+import React from 'react'
+import { Icons } from '@/icons'
+import { Button } from 'antd'
+import Image from 'next/image'
+import { cn } from '@/lib/utils'
+import { useAppSelector } from '@/store/hooks'
 
 const Plans = () => {
-  const { user } = useAppSelector(({ authUser }) => authUser);
+  const { user } = useAppSelector(({ authUser }) => authUser)
   const tableData = {
     headers: ['Features', 'Free', 'Membership'],
     features: [
@@ -32,16 +32,16 @@ const Plans = () => {
         needMembership: 'Up to 20 Users',
       },
     ],
-  };
+  }
   return (
     <div
       className={cn(
         user?.membership?.isMember === 'no'
           ? 'hidden md:grid border_gray pt-0 rounded-2xl bg-white shadow-md'
-          : 'hidden'
+          : 'hidden',
       )}
     >
-      <div className='flex justify-center items-center py-4 pb-3 px-4 shadow'>
+      <div className="flex justify-center items-center py-4 pb-3 px-4 shadow">
         <div className={'relative w-20 grid justify-center items-end'}>
           <Icons.Premium
             className={'absolute -top-[25%] left-[34%] bottom-[10%]'}
@@ -62,7 +62,7 @@ const Plans = () => {
         >
           10x benefits with membership plan
         </h4>
-        <div className='grow'/>
+        <div className="grow" />
         <Button
           type={'default'}
           className={
@@ -91,13 +91,12 @@ const Plans = () => {
           </tr>
         </thead>
         <tbody
-          className={'divide !divide-y !divide-solid !divide-x-0 !divide-gray-300'}
+          className={
+            'divide !divide-y !divide-solid !divide-x-0 !divide-gray-300'
+          }
         >
           {tableData.features.map((rowData, index) => (
-            <tr
-              key={index}
-              className={'text-left'}
-            >
+            <tr key={index} className={'text-left'}>
               <td className={'px-6 py-5 font-medium text-sm text-gray-500'}>
                 {rowData.name}
               </td>
@@ -121,6 +120,6 @@ const Plans = () => {
         </tbody>
       </table>
     </div>
-  );
-};
-export default Plans;
+  )
+}
+export default Plans

@@ -1,25 +1,25 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   ITotalInvestmentResponse,
   IInvestmentDataResponse,
   ISendOtpResponseData,
-} from '@/types';
-import { RootState } from '@/store';
-import {apiUri} from "@/lib/utils";
-import {addInterest} from "@/types/apiEndpoint";
-import {IInterestCheckResponse, IStartupFeedBackResponse} from "@/types/_type";
+} from '@/types'
+import { RootState } from '@/store'
+import { apiUri } from '@/lib/utils'
+import { addInterest } from '@/types/apiEndpoint'
+import { IInterestCheckResponse, IStartupFeedBackResponse } from '@/types/_type'
 const baseUrl = apiUri().v0
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).authUser.token;
-    
+    const token = (getState() as RootState).authUser.token
+
     if (token) {
-      headers.set('authorization', `Bearer ${token}`);
+      headers.set('authorization', `Bearer ${token}`)
     }
-    return headers;
+    return headers
   },
-});
+})
 
 export const api = createApi({
   baseQuery,
@@ -30,14 +30,11 @@ export const api = createApi({
         method: 'POST',
         body: emailData,
       }),
-      transformResponse: (
-        response: { data: ISendOtpResponseData },
-      ) => {
-        return response.data;
+      transformResponse: (response: { data: ISendOtpResponseData }) => {
+        return response.data
       },
-      transformErrorResponse: (
-        response: { status: string | number },
-      ) => response.status,
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
     }),
     verifyOtp: builder.mutation({
       query: (otpData) => ({
@@ -53,16 +50,15 @@ export const api = createApi({
           responseCode: response.data.code,
           token: response.data.token,
           refId: response.refId,
-          
+
           status: response.data.status,
           investorData: {
             ...response.data.data,
           },
-        };
+        }
       },
-      transformErrorResponse: (
-        response: { status: string | number },
-      ) => response.status,
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
     }),
     getTotalInvestment: builder.query({
       query: (refId) => ({
@@ -75,11 +71,10 @@ export const api = createApi({
           investor: refId,
         },
       }),
-      transformResponse: (response: ITotalInvestmentResponse,) =>response.data.length > 0 ? response.data[0].data.totalamount : 0,
-      transformErrorResponse: (
-        response: { status: string | number },
-      
-      ) => response.status,
+      transformResponse: (response: ITotalInvestmentResponse) =>
+        response.data.length > 0 ? response.data[0].data.totalamount : 0,
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
     }),
     getInvestmentDetails: builder.query({
       query: (refId) => ({
@@ -92,39 +87,40 @@ export const api = createApi({
         },
       }),
       transformResponse: (response: IInvestmentDataResponse) => {
-        return response.data.data;
+        return response.data.data
       },
-      transformErrorResponse: (
-        response: { status: string | number },
-      ) => response.status,
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
     }),
-    startupFeedback:builder.mutation({
-      query:(data:IInterestCheckResponse)=>{
+    startupFeedback: builder.mutation({
+      query: (data: IInterestCheckResponse) => {
         console.log(data)
         return {
-        url:addInterest(),
-        method:"POST",
-        body:{
-          ...data
-        }
-      }},
-      transformResponse: (response:IStartupFeedBackResponse) => {
-        if(response.data?.code===200 ){
-          return response.data;
-        }else{
-          return response.data?.message?response.data?.message:"Thank you for your feedback!"
+          url: addInterest(),
+          method: 'POST',
+          body: {
+            ...data,
+          },
         }
       },
-      transformErrorResponse: (
-        response: { status: string | number },
-      ) => response.status,
-    })
+      transformResponse: (response: IStartupFeedBackResponse) => {
+        if (response.data?.code === 200) {
+          return response.data
+        } else {
+          return response.data?.message
+            ? response.data?.message
+            : 'Thank you for your feedback!'
+        }
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
+    }),
   }),
-});
+})
 
 export const {
   useSendOtpMutation,
   useGetTotalInvestmentQuery,
   useGetInvestmentDetailsQuery,
-  useStartupFeedbackMutation
-} = api;
+  useStartupFeedbackMutation,
+} = api

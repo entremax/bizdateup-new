@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {AuthUserState, DataInner, KYCStatusArray} from '@/types';
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AuthUserState, DataInner, KYCStatusArray } from '@/types'
 
 const initialState = {
   token: null,
@@ -10,9 +9,9 @@ const initialState = {
   user: null,
   kycStatus: [] as KYCStatusArray,
   isVerified: false,
-  kycCompletionPercentage:0,
-  riskAccepted:false,
-  premiumMember:false
+  kycCompletionPercentage: 0,
+  riskAccepted: false,
+  premiumMember: false,
 } as AuthUserState
 
 export const authUser = createSlice({
@@ -20,42 +19,48 @@ export const authUser = createSlice({
   initialState,
   reducers: {
     temp_values(state, action) {
-      state.temp_auth_medium = action.payload;
+      state.temp_auth_medium = action.payload
     },
     setInvestorId(state, action) {
-      state.investorUserId = action.payload;
+      state.investorUserId = action.payload
     },
     reset: () => initialState,
     setUser: (
       state,
       {
-        payload: { token, userData, refId, kycStatus ,premiumMember},
+        payload: { token, userData, refId, kycStatus, premiumMember },
       }: PayloadAction<{
-        token: string;
-        userData: DataInner;
-        refId: string;
-        kycStatus: KYCStatusArray;
-        premiumMember:boolean
-      }>
+        token: string
+        userData: DataInner
+        refId: string
+        kycStatus: KYCStatusArray
+        premiumMember: boolean
+      }>,
     ) => {
-      state.token = token;
-      state.user = userData;
-      state.refId = refId;
-      state.kycStatus = kycStatus;
-      state.premiumMember=premiumMember
+      state.token = token
+      state.user = userData
+      state.refId = refId
+      state.kycStatus = kycStatus
+      state.premiumMember = premiumMember
     },
     setVerify(state, { payload }: PayloadAction<boolean>) {
-      state.isVerified = payload;
+      state.isVerified = payload
     },
-    setKycCompletionPercentage(state,{payload}: PayloadAction<number>){
-      state.kycCompletionPercentage=payload
+    setKycCompletionPercentage(state, { payload }: PayloadAction<number>) {
+      state.kycCompletionPercentage = payload
     },
-    setRiskAccept(state){
-      state.riskAccepted=true
-    }
+    setRiskAccept(state) {
+      state.riskAccepted = true
+    },
   },
-});
-export const { setRiskAccept,temp_values, reset, setInvestorId, setUser ,setKycCompletionPercentage} =
-  authUser.actions;
+})
+export const {
+  setRiskAccept,
+  temp_values,
+  reset,
+  setInvestorId,
+  setUser,
+  setKycCompletionPercentage,
+} = authUser.actions
 
-export default authUser.reducer;
+export default authUser.reducer

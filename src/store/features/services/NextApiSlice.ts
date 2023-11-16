@@ -1,23 +1,21 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {
-  ISendOtpResponseData, ILogoutStatus,
-} from '@/types';
-import { RootState } from '@/store';
-const baseUrl = `/`;
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { ISendOtpResponseData, ILogoutStatus } from '@/types'
+import { RootState } from '@/store'
+const baseUrl = `/`
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).authUser.token;
-    
+    const token = (getState() as RootState).authUser.token
+
     if (token) {
-      headers.set('authorization', `Bearer ${token}`);
+      headers.set('authorization', `Bearer ${token}`)
     }
-    return headers;
+    return headers
   },
-});
+})
 
 export const NextApi = createApi({
-  reducerPath:'NextApi',
+  reducerPath: 'NextApi',
   baseQuery,
   endpoints: (builder) => ({
     verifyOtp: builder.mutation({
@@ -34,16 +32,17 @@ export const NextApi = createApi({
           responseCode: response.data.code,
           token: response.data.token,
           refId: response.refId,
-          
+
           status: response.data.status,
           investorData: {
             ...response.data.data,
           },
-        };
+        }
       },
-      transformErrorResponse: (
-        response: { status: number,data: { error: string, message?: string } }
-      ) => response,
+      transformErrorResponse: (response: {
+        status: number
+        data: { error: string; message?: string }
+      }) => response,
     }),
     logout: builder.mutation({
       query: () => ({
@@ -52,13 +51,9 @@ export const NextApi = createApi({
           'Content-Type': 'application/json',
         },
       }),
-      transformErrorResponse: (
-        response: ILogoutStatus,
-      ) => response,
+      transformErrorResponse: (response: ILogoutStatus) => response,
     }),
   }),
-});
+})
 
-export const {
-  useVerifyOtpMutation,useLogoutMutation
-} = NextApi;
+export const { useVerifyOtpMutation, useLogoutMutation } = NextApi

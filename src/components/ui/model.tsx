@@ -1,7 +1,7 @@
 'use client'
-import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
-import { createStyles, useTheme } from 'antd-style';
+import React, { useState } from 'react'
+import { Button, Modal } from 'antd'
+import { createStyles, useTheme } from 'antd-style'
 
 const useStyle = createStyles(({ token }) => ({
   'modal-body': {
@@ -20,20 +20,20 @@ const useStyle = createStyles(({ token }) => ({
   'modal-content': {
     border: '1px solid #333',
   },
-}));
+}))
 
 const App: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState( false);
-  const { styles } = useStyle();
-  const token = useTheme();
-  
+  const [isModalOpen, setModalOpen] = useState(false)
+  const { styles } = useStyle()
+  const token = useTheme()
+
   const classNames = {
     body: styles['modal-body'],
     mask: styles['modal-mask'],
     header: styles['modal-header'],
     footer: styles['modal-footer'],
     content: styles['modal-content'],
-  };
+  }
 
   const modalStyles = {
     header: {
@@ -54,16 +54,16 @@ const App: React.FC = () => {
     content: {
       boxShadow: '0 0 30px #999',
     },
-  };
-  
+  }
+
   React.useEffect(() => {
-    const okClicked = localStorage.getItem('okClicked');
+    const okClicked = localStorage.getItem('okClicked')
     if (okClicked === 'true') {
-      setModalOpen(false);
+      setModalOpen(false)
     } else {
-      setModalOpen(true);
+      setModalOpen(true)
     }
-  }, []);
+  }, [])
   return (
     <>
       <Modal
@@ -84,7 +84,7 @@ const App: React.FC = () => {
         <li className="list-disk"></li>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

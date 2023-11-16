@@ -1,5 +1,5 @@
 // theme/themeConfig.ts
-import type {ThemeConfig} from 'antd';
+import type { ThemeConfig } from 'antd'
 
 const theme: ThemeConfig = {
   token: {
@@ -7,6 +7,6 @@ const theme: ThemeConfig = {
     // colorPrimary: 'rgba(var(--lavender-blue), 0.10)',
     // colorText: '#000',
   },
-};
+}
 
-export default theme;
+export default theme

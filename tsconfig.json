@@ -21,10 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/theme/*": ["./src/theme/*"],
-      "@/lib/*": [
-        "./src/lib/*",
-        "./src/lib/utils.ts"
-      ],
+      "@/lib/*": ["./src/lib/*", "./src/lib/utils.ts"],
       "@/ui/*": ["./src/components/ui/*"],
       "@/store/*": ["./src/store/*"],
       "@/reducers/*": ["./src/store/features/reducers/*"],

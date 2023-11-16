@@ -1,25 +1,21 @@
-'use client';
-import React, { useState } from 'react';
-import OtpInput from 'react-otp-input';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useRouter, useSearchParams} from 'next/navigation';
-import { Button } from 'antd';
-import { setUser} from '@/reducers/user/authSlice';
-import {
-  useSendOtpMutation
-} from '@/services/apiSlice';
-import {
-  validateEmailOrPhone,
-} from '@/lib/utils';
-import { setNotification } from '@/reducers/others/notificationSlice';
-import {useVerifyOtpMutation} from "@/services/NextApiSlice";
+'use client'
+import React, { useState } from 'react'
+import OtpInput from 'react-otp-input'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Button } from 'antd'
+import { setUser } from '@/reducers/user/authSlice'
+import { useSendOtpMutation } from '@/services/apiSlice'
+import { validateEmailOrPhone } from '@/lib/utils'
+import { setNotification } from '@/reducers/others/notificationSlice'
+import { useVerifyOtpMutation } from '@/services/NextApiSlice'
 
 interface OtpVerifyData {
-  code: string;
-  refId: string;
+  code: string
+  refId: string
 }
 
-export type NavigationKey = 'profile' | 'pan' | 'aadhar' | 'bank' | 'other';
+export type NavigationKey = 'profile' | 'pan' | 'aadhar' | 'bank' | 'other'
 
 // const navigationData: NavigationDict = {
 //   profile: {
@@ -49,79 +45,82 @@ export type NavigationKey = 'profile' | 'pan' | 'aadhar' | 'bank' | 'other';
  * @constructor
  */
 export default function OtpField({ id }: { id: string }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const dispatch = useAppDispatch();
-  const [verifyOtp, { isLoading }] =
-    useVerifyOtpMutation();
-  const [otp, setOtp] = useState('');
-  const actionType = searchParams.get('type');
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const dispatch = useAppDispatch()
+  const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
+  const [otp, setOtp] = useState('')
+  const actionType = searchParams.get('type')
   const { temp_auth_medium, investorUserId } = useAppSelector(
-    ({ authUser }) => authUser
-  );
-  const [sendOtp, { isLoading: reSending }] = useSendOtpMutation();
-  
+    ({ authUser }) => authUser,
+  )
+  const [sendOtp, { isLoading: reSending }] = useSendOtpMutation()
+
   React.useEffect(() => {
     if (!temp_auth_medium) {
-      router.back();
+      router.back()
     } else if (id !== investorUserId?.toString()) {
-      router.back();
+      router.back()
     }
-  }, [temp_auth_medium, id, investorUserId]);
-  
+  }, [temp_auth_medium, id, investorUserId])
+
   async function handleResend() {
     if (!temp_auth_medium) {
-      return;
+      return
     }
-    const emailOrPhone = validateEmailOrPhone(temp_auth_medium);
+    const emailOrPhone = validateEmailOrPhone(temp_auth_medium)
     const endpoint =
       emailOrPhone === 'email'
         ? `${actionType === 'login' ? 'login/email' : 'email-signup'}`
-        : `${actionType === 'login' ? 'login/phone' : 'phone-signup'}`;
+        : `${actionType === 'login' ? 'login/phone' : 'phone-signup'}`
     try {
       const emailData = {
         [emailOrPhone ? emailOrPhone : 'email']: temp_auth_medium,
         role: 'investor',
-      };
-      await sendOtp({ emailData, url: endpoint });
+      }
+      await sendOtp({ emailData, url: endpoint })
       dispatch(
         setNotification({
           type: 'success',
           message: 'OTP Sent Successfully',
-        })
-      );
+        }),
+      )
     } catch (e) {
-      console.log(e);
-      dispatch(setNotification({ type: 'error', message: '' }));
+      console.log(e)
+      dispatch(setNotification({ type: 'error', message: '' }))
     }
   }
-  
+
   // TODO - Fix redirection issue (partially fixed)
   async function handleVerifyOtp() {
-    if(!investorUserId || otp===''){
-      dispatch(setNotification({
-        type: 'error',
-        message: 'Bad Request',
-      }))
+    if (!investorUserId || otp === '') {
+      dispatch(
+        setNotification({
+          type: 'error',
+          message: 'Bad Request',
+        }),
+      )
       return
     }
-    
+
     // TODO- Refactor the use of verifyOTP api
     const reqData: OtpVerifyData = {
       code: otp,
       refId: investorUserId,
-    };
-    const response = await verifyOtp(reqData);
-    if(response){
-      setOtp("")
     }
-    if('error' in response){
-      const error=response.error
-      dispatch(setNotification({
-        type: 'error',
-        message: 'OTP Verification Failed',
-        description: `The OTP you entered is invalid. Please check it and try again.(code:${error})`
-      }));
+    const response = await verifyOtp(reqData)
+    if (response) {
+      setOtp('')
+    }
+    if ('error' in response) {
+      const error = response.error
+      dispatch(
+        setNotification({
+          type: 'error',
+          message: 'OTP Verification Failed',
+          description: `The OTP you entered is invalid. Please check it and try again.(code:${error})`,
+        }),
+      )
     }
     if ('data' in response) {
       const {
@@ -130,21 +129,21 @@ export default function OtpField({ id }: { id: string }) {
         token,
         refId = investorUserId,
         status,
-      } = response.data;
-      
-      const loginMethod = localStorage.getItem('loginMethod');
-      const loginMethod2 = localStorage.getItem('loginMethod2');
+      } = response.data
+
+      const loginMethod = localStorage.getItem('loginMethod')
+      const loginMethod2 = localStorage.getItem('loginMethod2')
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
-        localStorage.setItem("token",token);
+        localStorage.setItem('token', token)
         dispatch(
           setUser({
             userData: investorData,
             token,
             refId,
             kycStatus: status,
-            premiumMember:investorData.membership.isMember !== "no"
-          })
-        );
+            premiumMember: investorData.membership.isMember !== 'no',
+          }),
+        )
         return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
@@ -154,20 +153,19 @@ export default function OtpField({ id }: { id: string }) {
               userData: investorData,
               refId,
               kycStatus: status,
-              premiumMember:investorData.membership.isMember !== "no"
-            })
-          );
+              premiumMember: investorData.membership.isMember !== 'no',
+            }),
+          )
           return router.push('/dashboard')
-          
         }
       }
     }
   }
-  
+
   return (
     <>
-      <div className='grid justify-center items-center text-center w-full md:min-w-max'>
-        <h2 className='text-primary-dark font-bold text-center !m-0'>
+      <div className="grid justify-center items-center text-center w-full md:min-w-max">
+        <h2 className="text-primary-dark font-bold text-center !m-0">
           OTP Verification
         </h2>
         <p
@@ -193,11 +191,11 @@ export default function OtpField({ id }: { id: string }) {
             shouldAutoFocus
           />
         </div>
-        <div className='px-12 mt-8'>
+        <div className="px-12 mt-8">
           <Button
             type={'default'}
             size={'large'}
-            disabled={otp===''||isLoading}
+            disabled={otp === '' || isLoading}
             className={'!bg-primary !text-white w-full hover:!text-white'}
             onClick={handleVerifyOtp}
             block
@@ -218,5 +216,5 @@ export default function OtpField({ id }: { id: string }) {
         </div>
       </div>
     </>
-  );
+  )
 }
