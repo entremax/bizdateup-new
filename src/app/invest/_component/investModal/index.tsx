@@ -127,7 +127,11 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
           message: 'Redirecting to payment page',
         }),
       )
-      router.push('/payment/' + session_id + `?order_id=${order_id}`)
+      router.push(
+        '/payment/' +
+          session_id +
+          `?order_id=${order_id}&startup_id=${startup._id}`,
+      )
     }
   }
 
@@ -162,7 +166,7 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
         </div>
       }
       location={'investLeft'}
-      openWithButton
+      openType={'button'}
     >
       {transactionType === 'offline' ? (
         <>

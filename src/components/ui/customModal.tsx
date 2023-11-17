@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactNode, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Button, ConfigProvider, Modal } from 'antd'
 import {
   DefaultCenteredContentStyle,
@@ -12,17 +12,7 @@ import {
   RiskDisclosureCustomProps,
   RiskDisclosureModalStyle,
 } from '@/ui/config/modalConfig'
-import type * as CSS from 'csstype'
-import { ModalFuncProps } from 'antd/lib/modal'
-
-type Where = 'investLeft' | 'defaultCentered' | 'riskDisclosure'
-
-interface Props extends ModalFuncProps {
-  location?: Where
-  children: React.ReactNode
-  openWithButton?: boolean
-  title?: ReactNode
-}
+import { CustomModelProps } from '@/ui/config/types'
 
 const modalStyle = {
   defaultCentered: {
@@ -42,33 +32,48 @@ const modalStyle = {
   },
 }
 
-const CustomModal: React.FC<Props> = ({
+const CustomModal: React.FC<CustomModelProps> = ({
   location = 'defaultCentered',
   children,
-  openWithButton = false,
+  openType,
+  onConditionalOpen,
   title,
   ...props
 }) => {
-  console.log('location:', location, '\n Styles')
   const defaultStyle = modalStyle['defaultCentered']
-  const [modalOpen, setModalOpen] = useState(!openWithButton)
-  const [styleForModal] = useState<CSS.Properties>(
-    modalStyle[location]?.modalStyle || defaultStyle.modalStyle,
+  const modelState = useMemo(() => {
+    if (openType === 'button') {
+      return false
+    }
+    if (openType === 'conditional') {
+      return onConditionalOpen ? onConditionalOpen() : false
+    }
+    return true
+  }, [onConditionalOpen, openType])
+
+  const [modalOpen, setModalOpen] = useState(modelState)
+
+  const styleForModal = useMemo(
+    () => modalStyle[location]?.modalStyle || defaultStyle.modalStyle,
+    [location, defaultStyle],
   )
-  const [stylesForModalContent] = useState<{}>(
-    modalStyle[location]?.contentStyle || defaultStyle.contentStyle,
+
+  const stylesForModalContent = useMemo(
+    () => modalStyle[location]?.contentStyle || defaultStyle.contentStyle,
+    [location, defaultStyle],
   )
-  const [modalProps] = useState<ModalFuncProps>(
-    modalStyle[location]?.modalProps || defaultStyle.modalProps,
+
+  const modalProps = useMemo(
+    () => modalStyle[location]?.modalProps || defaultStyle.modalProps,
+    [location, defaultStyle],
   )
 
   const handleClose = () => {
     setModalOpen(!modalOpen)
   }
-
   return (
     <>
-      {openWithButton ? (
+      {openType === 'button' ? (
         <Button
           onClick={handleClose}
           className="!bg-primary !text-white"

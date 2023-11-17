@@ -29,10 +29,12 @@ import StickyCompanyIntro from '@/components/stickyCompanyIntro'
 import { isInterested } from '@/lib/endpoints/apiEndpoint'
 import { cookies } from 'next/headers'
 import ReduxProvider from '@/store/Provider'
+import PaymentStatusModal from '@/components/paymentStatusModal'
 
 const { v1: apiV1 } = apiUri()
 
 export const revalidate = 0
+
 export async function generateMetadata(
   {
     params,
@@ -117,8 +119,10 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
   const {
     details: { data: startupData },
   } = await getStartupDetails(id)
+
   const { interested } = (await checkInterest(id)) as IInterestCheckResponse
   const isClosed = startupData.activeStatus.status === 'closed'
+
   return (
     <main className={'w-screen'}>
       <StickyCompanyIntro startup={startupData} />
@@ -206,6 +210,9 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
           <FeedbackDialog />
         </ReduxProvider>
       )}
+      <ReduxProvider>
+        <PaymentStatusModal startup={startupData} />
+      </ReduxProvider>
     </main>
   )
 }

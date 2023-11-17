@@ -8,11 +8,11 @@ import {
 } from '@/types/_type'
 
 const baseUrl = apiUri().v0
+
 type IPaymentRequest = {
   payment_mode: 'online' | 'offline'
   paymentData: OnlinePaymentData | OfflinePayments
 }
-
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
@@ -76,12 +76,14 @@ export const paymentApi = createApi({
       }) => response,
     }),
     onlinePaymentVerify: builder.mutation({
-      query: (orderId: { order_id: string }) => ({
+      query: ({ order_id }: { order_id: string }) => ({
         url: '/payment/verifyPaymentOrder',
         method: 'POST',
-        body: orderId,
+        body: { order_id },
       }),
-      transformResponse: (response: any) => {
+      transformResponse: (response: {
+        data: { code: number; message: string }
+      }) => {
         return response.data
       },
       transformErrorResponse: (response: {
