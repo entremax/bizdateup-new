@@ -23,17 +23,17 @@ const Login = () => {
           Take a first step towards investing journey with bizdateup
         </p>
         <UserAuthForm requestType={'login'} />
-        <div className=" warp text-gray-400 text-sm !my-6 justify-center items-center">
+        <div className=" warp !my-6 items-center justify-center text-sm text-gray-400">
           By signing up I agree to{' '}
-          <Link href={'/privacy-policy'} className=" underline text-brust">
+          <Link href={'/privacy-policy'} className=" text-brust underline">
             Privacy policy
           </Link>{' '}
           &{' '}
-          <Link href={'/terms'} className=" underline text-brust">
+          <Link href={'/terms'} className=" text-brust underline">
             Terms of Service
           </Link>
         </div>
-        <div className=" text-gray-950 font-medium gap-1">
+        <div className=" gap-1 font-medium text-gray-950">
           Don&apos;t have an account?{' '}
           <Link href={'/signup'} className="text-primary">
             Create account

@@ -16,6 +16,7 @@ export default function RiskDisclosure() {
             Risk disclosure for start up investment
           </h4>
         }
+        className={'!risk-modal'}
         closeIcon={true}
         open={!riskAccepted}
         closable={false}
@@ -24,20 +25,17 @@ export default function RiskDisclosure() {
           <div>
             <Button
               onClick={() => {
-                console.log('Setting ')
                 dispatch(setRiskAccept())
               }}
               className={'!bg-primary !text-white'}
               size={'large'}
-              block
-            >
+              block>
               Okay,I understand
             </Button>
           </div>
-        }
-      >
+        }>
         <ul className={'list-disc'}>
-          <li className="text-[#444] text-sm font-normal">To be updated</li>
+          <li className="text-sm font-normal text-[#444]">To be updated</li>
         </ul>
       </CustomModal>
     </>

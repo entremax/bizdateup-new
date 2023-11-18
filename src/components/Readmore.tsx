@@ -39,7 +39,7 @@ export default function Description({ text }: { text: string }) {
       <p
         ref={contentRef}
         className={cn(
-          'text-sm md:text-base text-gray-400 font-normal reset pb-2',
+          'reset pb-2 text-sm font-normal text-gray-400 md:text-base',
         )}
         // style={{ WebkitLineClamp: overflowing ? "unset" : 2 }}
       >

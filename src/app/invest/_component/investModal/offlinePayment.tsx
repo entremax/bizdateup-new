@@ -24,7 +24,7 @@ const OfflinePayment: React.FC<Props> = ({
   return (
     <div className={'flex flex-col gap-4'}>
       <div className="grid gap-4 p-8 pb-4">
-        <p className="reset text-sm xl:text-md text-gray-700 font-medium">
+        <p className="reset xl:text-md text-sm font-medium text-gray-700">
           Use the below details to transfer money using RTGS, NEFT OR IMPS.
         </p>
         <div className={'grid gap-6'}>
@@ -47,8 +47,8 @@ const OfflinePayment: React.FC<Props> = ({
         </div>
       </div>
       <Divider style={{ margin: 0 }} />
-      <div className="grid p-8 pt-4 gap-4">
-        <p className="reset text-sm xl:text-md text-gray-700 font-medium">
+      <div className="grid gap-4 p-8 pt-4">
+        <p className="reset xl:text-md text-sm font-medium text-gray-700">
           Please enter transaction reference ID
         </p>
         <div className="grid gap-4">
@@ -63,8 +63,7 @@ const OfflinePayment: React.FC<Props> = ({
             onClick={() => handlePayment('offline', referenceId)}
             className={'!primary_button !text-white'}
             size={'large'}
-            block
-          >
+            block>
             Submit Reference ID
           </Button>
           <p className="reset text-center text-sm font-medium italic">
@@ -96,12 +95,12 @@ const BankDetail = ({
   }
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <div className="flex flex-col gap-1">
-        <p className="reset flex sm:text-base xl:text-md items-center text-[#828F99]">
+        <p className="reset xl:text-md flex items-center text-[#828F99] sm:text-base">
           {label}
         </p>
-        <p className="reset sm:text-base xl:text-md text-[#252525] font-medium">
+        <p className="reset xl:text-md font-medium text-[#252525] sm:text-base">
           {value}
         </p>
       </div>

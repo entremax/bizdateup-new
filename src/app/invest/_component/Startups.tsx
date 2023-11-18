@@ -2,14 +2,15 @@ import { securityType, StartupDataByType } from '@/app/invest/_type'
 import { apiUri } from '@/lib/utils'
 import { cookies } from 'next/headers'
 import StartupCard from '@/app/invest/_component/startupCard'
+
 interface Props {
   header: string
   type: securityType
 }
+
 const getStartups = async (type: string) => {
   const cookie = cookies()
   const tokenKey = cookie.get('token')?.value
-  console.log(tokenKey)
   const res = await fetch(
     apiUri().v0 + `/startup/fetchStartupByType?tos=${type}`,
     {
@@ -33,15 +34,14 @@ export default async function StartupToInvest({ header, type }: Props) {
     await getStartups(type)
 
   return (
-    <div className="max-w-screen col-span-full xl:col-start-2 grid grid-cols-12 px-3 xl:px-5">
-      <h3 className="p-0 m-0 text-2xl xl:text-4xl col-span-full xl:col-start-1 pb-8">
+    <div className="max-w-screen col-span-full grid grid-cols-12 px-3 xl:col-start-2 xl:px-5">
+      <h3 className="col-span-full m-0 p-0 pb-8 text-2xl xl:col-start-1 xl:text-4xl">
         {header}
       </h3>
-      <div className="scrollbar  xl:col-start-1 col-span-full w-full md:overflow-x-auto">
+      <div className="scrollbar  col-span-full w-full md:overflow-x-auto xl:col-start-1">
         <div
-          className="flex flex-col md:flex-row gap-4"
-          style={{ display: 'inline-flex' }}
-        >
+          className="flex flex-col gap-4 md:flex-row"
+          style={{ display: 'inline-flex' }}>
           {startups?.map((startup) => (
             <StartupCard startup={startup} key={startup._id} />
           ))}

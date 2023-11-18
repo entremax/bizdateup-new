@@ -1,6 +1,6 @@
 'use client'
-import React, { useMemo, useState } from 'react'
-import { Button, ConfigProvider, Modal } from 'antd'
+import React, { useEffect, useMemo, useState } from 'react'
+import { ConfigProvider, Modal } from 'antd'
 import {
   DefaultCenteredContentStyle,
   DefaultCenteredCustomProps,
@@ -12,6 +12,7 @@ import {
   RiskDisclosureCustomProps,
   RiskDisclosureModalStyle,
 } from '@/ui/config/modalConfig'
+
 import { CustomModelProps } from '@/ui/config/types'
 
 const modalStyle = {
@@ -36,23 +37,25 @@ const CustomModal: React.FC<CustomModelProps> = ({
   location = 'defaultCentered',
   children,
   openType,
+  customOpenButton,
   onConditionalOpen,
   title,
+  reset,
   ...props
 }) => {
   const defaultStyle = modalStyle['defaultCentered']
+
   const modelState = useMemo(() => {
-    if (openType === 'button') {
+    if (openType === 'conditional' && onConditionalOpen) {
+      return onConditionalOpen ? onConditionalOpen() : false
+    } else if (openType === 'custom button') {
       return false
     }
-    if (openType === 'conditional') {
-      return onConditionalOpen ? onConditionalOpen() : false
-    }
     return true
-  }, [onConditionalOpen, openType])
+  }, [openType])
 
   const [modalOpen, setModalOpen] = useState(modelState)
-
+  const [childrenVisible, setChildrenVisible] = useState(true)
   const styleForModal = useMemo(
     () => modalStyle[location]?.modalStyle || defaultStyle.modalStyle,
     [location, defaultStyle],
@@ -70,32 +73,32 @@ const CustomModal: React.FC<CustomModelProps> = ({
 
   const handleClose = () => {
     setModalOpen(!modalOpen)
+    setChildrenVisible(false)
   }
+  useEffect(() => {
+    if (modalOpen) {
+      setChildrenVisible(true)
+    }
+  }, [modalOpen])
+  useEffect(() => {
+    if (openType === 'conditional') {
+      setModalOpen(onConditionalOpen)
+    }
+  }, [onConditionalOpen, openType])
   return (
     <>
-      {openType === 'button' ? (
-        <Button
-          onClick={handleClose}
-          className="!bg-primary !text-white"
-          type="default"
-          size="large"
-          block
-        >
-          I am ready to invest
-        </Button>
-      ) : null}
+      {openType === 'custom button' && customOpenButton}
       <ConfigProvider
-        modal={{ styles: stylesForModalContent, style: styleForModal }}
-      >
+        modal={{ styles: stylesForModalContent, style: styleForModal }}>
         <Modal
           title={title}
           open={modalOpen}
-          onOk={() => setModalOpen(false)}
-          onCancel={() => setModalOpen(false)}
+          onOk={handleClose}
+          onCancel={handleClose}
           {...modalProps}
           {...props}
-        >
-          {children}
+          destroyOnClose={true}>
+          {(childrenVisible && children) || (reset && children)}
         </Modal>
       </ConfigProvider>
     </>

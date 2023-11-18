@@ -79,8 +79,7 @@ const App: React.FC = () => {
         ]}
         //@ts-ignore
         classNames={classNames}
-        styles={modalStyles}
-      >
+        styles={modalStyles}>
         <li className="list-disk"></li>
       </Modal>
     </>

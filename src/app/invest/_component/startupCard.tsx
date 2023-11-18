@@ -15,9 +15,8 @@ export default function StartupCard({
     <div
       key={startup._id}
       className={
-        'relative w-full md:w-[24rem] rounded-2xl border_gray overflow-clip shadow'
-      }
-    >
+        'border_gray relative w-full overflow-clip rounded-2xl shadow md:w-[24rem]'
+      }>
       <Image
         src={apiUri().v1 + '/banner/' + startup.banner}
         alt={startup.registeredCompanyName}
@@ -30,17 +29,16 @@ export default function StartupCard({
         height={40}
         width={40}
         alt={startup.registeredCompanyName}
-        className={'absolute top-52 rounded-xl left-5 w-16 h-16 border_gray'}
+        className={'border_gray absolute left-5 top-52 h-16 w-16 rounded-xl'}
       />
-      <div className={'p-5 pt-8 grid gap-4'}>
+      <div className={'grid gap-4 p-5 pt-8'}>
         <h5 className="reset text-xl font-bold text-black-lighter">
           {capitalizeFirstLetter(startup.registeredCompanyName.split(' '))}
         </h5>
         <p
           className={
-            'reset text-sm text-[#828F99] text-ellipsis leading-normal line-clamp-3'
-          }
-        >
+            'reset line-clamp-3 text-ellipsis text-sm leading-normal text-[#828F99]'
+          }>
           {startup.shortDescription}
         </p>
         <StartupTag tags={startup.tags} />

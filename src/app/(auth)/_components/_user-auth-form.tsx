@@ -92,7 +92,6 @@ export default function UserAuthForm({
               }),
             )
             setLoader(false)
-            console.log(data)
             dispatch(
               setInvestorId(data.data?.refId ? data.data.refId : data.refId),
             )
@@ -103,7 +102,6 @@ export default function UserAuthForm({
             )
           } else if (actionType === 'signup') {
             if (data.code === 200) {
-              console.log(data)
               dispatch(
                 setInvestorId(data.data?.refId ? data.data.refId : data.refId),
               )
@@ -147,18 +145,17 @@ export default function UserAuthForm({
   }
 
   return (
-    <div className={`grid col-6 w-full px-12 ${className}`}>
-      <div className="grid gap-4 mt-4">
+    <div className={`col-6 grid w-full px-12 ${className}`}>
+      <div className="mt-4 grid gap-4">
         <Button
           onClick={usingGoogle}
           type="default"
           block
           size="large"
-          className="!h-12 !flex !justify-between items-center gap-2 !text-gray-900"
-        >
+          className="!flex !h-12 items-center !justify-between gap-2 !text-gray-900">
           <Icons.Google height={22} width={22} />
           <div className="grow"></div>
-          <span className=" font-semibold !justify-self-stretch">
+          <span className=" !justify-self-stretch font-semibold">
             Continue with Google
           </span>
           <div className="grow"></div>
@@ -168,18 +165,17 @@ export default function UserAuthForm({
           type="default"
           block
           size="large"
-          className="!h-12 !flex !justify-between gap-2 items-center !text-gray-900"
-        >
+          className="!flex !h-12 items-center !justify-between gap-2 !text-gray-900">
           <Icons.Facebook height={22} width={22} />
           <div className="grow"></div>
-          <span className=" font-semibold !justify-self-stretch">
+          <span className=" !justify-self-stretch font-semibold">
             Continue with Facebook
           </span>
           <div className="grow"></div>
         </Button>
       </div>
       <Divider className="my-3">
-        <span className="bg-background px-2 text-textPrimary">OR</span>
+        <span className="bg-background text-textPrimary px-2">OR</span>
       </Divider>
       {withEmail ? (
         <div className="grid w-full">
@@ -187,7 +183,7 @@ export default function UserAuthForm({
             <Input
               size="large"
               type={'text'}
-              className="peer block min-h-[auto] !outline-gray-300 w-full text-[#000] rounded-sm border-0 bg-transparent px-3 py-[0.28rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-400 peer-focus:text-black-lighter data-[te-input-state-active]:!placeholder:opacity-400 motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 font-medium focus:outline-none focus:border-sky-500"
+              className="focus:placeholder:opacity-400 data-[te-input-state-active]:!placeholder:opacity-400 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 peer block min-h-[auto] w-full rounded-sm border-0 bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none !outline-gray-300 transition-all duration-200 ease-linear focus:border-sky-500 focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary"
               id="FormControlInputEmail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -196,8 +192,7 @@ export default function UserAuthForm({
 
             <label
               htmlFor="FormControlInputEmailLabel"
-              className="font-medium bg-white !text-gray-900 pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out -translate-y-[1.1rem] scale-[0.8]"
-            >
+              className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white pt-[0.37rem] font-medium leading-[1.6] !text-gray-900 text-black transition-all duration-200 ease-out">
               {email !== ''
                 ? validateEmailOrPhone(email) === false
                   ? 'Email/Phone'
@@ -214,11 +209,10 @@ export default function UserAuthForm({
               (email === '' && validateEmailOrPhone(email) !== false) ||
               isLoading
             }
-            className="!h-10 !bg-primary !flex !justify-between gap-2 disabled:text-primary"
-            onClick={requestType === 'login' ? handleLogin : handleRegister}
-          >
+            className="!flex !h-10 !justify-between gap-2 !bg-primary disabled:text-primary"
+            onClick={requestType === 'login' ? handleLogin : handleRegister}>
             <div className="grow"></div>
-            <span className="text-primary !justify-self-stretch text-white">
+            <span className="!justify-self-stretch text-primary text-white">
               {loader ? 'Sending OTP' : 'Send OTP'}
             </span>
             <div className="grow"></div>
@@ -230,12 +224,11 @@ export default function UserAuthForm({
           type="default"
           block
           size="large"
-          className="!h-12 !flex !justify-between items-center gap-2 !bg-light-shadow"
-          onClick={() => setWithEmail(!withEmail)}
-        >
+          className="!flex !h-12 items-center !justify-between gap-2 !bg-light-shadow"
+          onClick={() => setWithEmail(!withEmail)}>
           <Icons.Email height={22} width={22} />
           <div className="grow"></div>
-          <span className="text-primary !justify-self-stretch">
+          <span className="!justify-self-stretch text-primary">
             Continue with Email/Phone
           </span>
           <div className="grow"></div>

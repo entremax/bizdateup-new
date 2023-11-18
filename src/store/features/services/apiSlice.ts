@@ -1,13 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
-  ITotalInvestmentResponse,
   IInvestmentDataResponse,
   ISendOtpResponseData,
+  ITotalInvestmentResponse,
 } from '@/types'
 import { RootState } from '@/store'
 import { apiUri } from '@/lib/utils'
 import { addInterest } from '@/types/apiEndpoint'
 import { IInterestCheckResponse, IStartupFeedBackResponse } from '@/types/_type'
+
 const baseUrl = apiUri().v0
 const baseQuery = fetchBaseQuery({
   baseUrl,
@@ -94,7 +95,6 @@ export const api = createApi({
     }),
     startupFeedback: builder.mutation({
       query: (data: IInterestCheckResponse) => {
-        console.log(data)
         return {
           url: addInterest(),
           method: 'POST',

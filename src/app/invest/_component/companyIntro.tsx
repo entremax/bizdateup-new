@@ -7,27 +7,27 @@ import {
   capitalizeFirstLetter,
   formatIndianValuation,
 } from '@/lib/utils'
-import { Button, Divider, Progress } from 'antd'
+import { Divider, Progress } from 'antd'
 import { StartupData } from '@/app/invest/_type'
 import Description from '@/components/Readmore'
 import { Icons } from '@/icons'
-import InvestTransactionModal from '@/components/investModal'
-import ReduxProvider from '@/store/Provider'
+import InvestButton from '@/components/InvestButton'
+
 export default function CompanyIntro({ startup }: { startup: StartupData }) {
   const { v1: apiV1 } = apiUri()
   const isClosed = startup.activeStatus.status === 'closed'
   return (
     <>
-      <div className="flex flex-col col-span-full xl:col-start-2 xl:col-end-12 py-4">
+      <div className="col-span-full flex flex-col py-4 xl:col-start-2 xl:col-end-12">
         {isClosed && (
           <Divider>
-            <div className="bg-[#F5F5F5] px-6 text-[#858585] flex py-1 text-base justify-center items-center gap-2 rounded-lg">
+            <div className="flex items-center justify-center gap-2 rounded-lg bg-[#F5F5F5] px-6 py-1 text-base text-[#858585]">
               <Icons.Locked /> Campaign ended
             </div>
           </Divider>
         )}
         <div className="flex items-center gap-4 py-4">
-          <div className="h-11 w-11 border border-gray-400 rounded-xl overflow-clip">
+          <div className="h-11 w-11 overflow-clip rounded-xl border border-gray-400">
             <Image
               src={apiV1 + '/logo/' + startup.logo}
               height={45}
@@ -35,7 +35,7 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
               alt={startup.companyName}
             />
           </div>
-          <h3 className="text-2xl md:text-4xl font-bold leading-normal lg:leading-[4rem] text-primary-dark reset py-2 lg:py-4">
+          <h3 className="reset py-2 text-2xl font-bold leading-normal text-primary-dark md:text-4xl lg:py-4 lg:leading-[4rem]">
             {capitalizeFirstLetter(
               startup.registeredCompanyName.trim().split(' '),
             )}
@@ -44,41 +44,40 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
         <Description text={startup.shortDescription} />
         <StartupTag tags={startup.tags} />
       </div>
-      <div className="flex justify-center aspect-video col-span-full md:col-end-8 xl:col-start-2 xl:col-end-8 justify-self-center w-full md:pb-8">
+      <div className="col-span-full flex aspect-video w-full justify-center justify-self-center md:col-end-8 md:pb-8 xl:col-start-2 xl:col-end-8">
         {startup?.youtubeVideoUrl?.includes('embed') ? (
           <iframe
             src={startup?.youtubeVideoUrl}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="aspect-video w-full rounded-xl"
-          ></iframe>
+            className="aspect-video w-full rounded-xl"></iframe>
         ) : (
           ''
         )}
       </div>
-      <div className="flex flex-col col-span-full md:col-start-8 xl:col-end-12 md:pl-8 xl:px-12 gap-4 justify-center md:pb-8">
+      <div className="col-span-full flex flex-col justify-center gap-4 md:col-start-8 md:pb-8 md:pl-8 xl:col-end-12 xl:px-12">
         <div className="grid grid-cols-2 lg:grid-cols-1 lg:gap-2 xl:gap-4">
           <div className="grid justify-self-start">
-            <p className="font-bold text-2xl lg:text-4xl reset tracking-wide">
+            <p className="reset text-2xl font-bold tracking-wide lg:text-4xl">
               13
             </p>
-            <p className="text-sm text-gray-400 font-medium reset">investors</p>
+            <p className="reset text-sm font-medium text-gray-400">investors</p>
           </div>
           <div className="grid justify-self-end md:justify-self-start">
-            <p className="font-bold text-2xl lg:text-4xl reset tracking-wide">
+            <p className="reset text-2xl font-bold tracking-wide lg:text-4xl">
               28 days
             </p>
-            <p className="text-sm text-gray-400 reset font-medium">
+            <p className="reset text-sm font-medium text-gray-400">
               Left to invest
             </p>
           </div>
         </div>
         <div className="grid justify-self-start">
-          <p className="font-bold text-2xl lg:text-4xl reset tracking-wide">
+          <p className="reset text-2xl font-bold tracking-wide lg:text-4xl">
             ₹ {formatIndianValuation(startup.totalRaised)}
           </p>
-          <p className="text-sm text-gray-400 font-medium reset">
+          <p className="reset text-sm font-medium text-gray-400">
             {calculatePercentage(
               startup.totalRaised,
               startup.dealTerms.targetAmount,
@@ -96,26 +95,7 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
             }}
           />
         </div>
-        {isClosed ? (
-          <Button
-            className={
-              '!bg-[#F5F5F5] px-6 !text-[#858585] flex items-center gap-2 justify-center'
-            }
-            disabled
-            size="large"
-            block
-          >
-            <Icons.Locked /> Campaign ended
-          </Button>
-        ) : (
-          <ReduxProvider>
-            <InvestTransactionModal startup={startup} />
-          </ReduxProvider>
-        )}
-        <span className="text-sm md:text-lg text-center">
-          Minimum investment ₹{' '}
-          {formatIndianValuation(startup.dealTerms.minimumInvestment)}
-        </span>
+        <InvestButton startup={startup} isClosed={isClosed} intro />
       </div>
     </>
   )

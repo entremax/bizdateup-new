@@ -13,7 +13,7 @@ export default function VerifyEmail({ params }: { params: { id: string } }) {
           <GoBack />
           <OtpField id={id} />
         </ReduxProvider>
-        <div className="flex font-semibold gap-1">
+        <div className="flex gap-1 font-semibold">
           <p className={'reset'}>Already have an account?</p>
           {'  '}
           <Link href={'/login'} className={'text-primary'}>

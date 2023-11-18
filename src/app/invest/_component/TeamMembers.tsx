@@ -8,16 +8,15 @@ import { apiUri } from '@/lib/utils'
 export default function TeamMembers({ startup }: { startup: StartupData }) {
   const api = apiUri().v1
   return (
-    <div className="border_gray shadow rounded-xl px-4 lg:px-7 py-4 lg:py-5">
-      <h4 className="text-xl lg:text-2xl font-bold reset flex-grow">
+    <div className="border_gray rounded-xl px-4 py-4 shadow lg:px-7 lg:py-5">
+      <h4 className="reset flex-grow text-xl font-bold lg:text-2xl">
         Meet the Team
       </h4>
       <div className="grid md:grid-cols-2">
         {startup.teamMembers.map((member: TeamMember) => (
           <div
             key={member.fullName}
-            className={'flex gap-4 lg:gap-2 items-center py-4'}
-          >
+            className={'flex items-center gap-4 py-4 lg:gap-2'}>
             <Avatar
               size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
               src={api + '/teammember/' + member.profileImage}
@@ -31,9 +30,8 @@ export default function TeamMembers({ startup }: { startup: StartupData }) {
               </p>
               <Link
                 href={member.linkedinUrl}
-                className="reset text-primary flex items-center  gap-1 text-sm font-medium leading-normal"
-              >
-                <Icons.LinkedIn className={'w-4 h-4'} />{' '}
+                className="reset flex items-center gap-1  text-sm font-medium leading-normal text-primary">
+                <Icons.LinkedIn className={'h-4 w-4'} />{' '}
                 <span className={'text-[#0066C8]'}>linkedin</span>
               </Link>
             </div>

@@ -13,29 +13,27 @@ export default function DownloadFiles({
 }) {
   const fileName =
     startup?.dueDiligenceFiles[startup?.dueDiligenceFiles?.length - 1]?.name
-  console.log('fileName', fileName)
+
   return (
     <div
       className={cn(
-        'border_gray shadow rounded-xl px-4 lg:px-7 py-4 lg:py-5 ' + className,
-      )}
-    >
+        'border_gray rounded-xl px-4 py-4 shadow lg:px-7 lg:py-5 ' + className,
+      )}>
       <div className="flex items-center">
-        <h4 className="text-xl lg:text-2xl font-bold reset flex-grow">
+        <h4 className="reset flex-grow text-xl font-bold lg:text-2xl">
           Documents
         </h4>
         <Link
           download={fileName}
           href={apiUri().v1 + '/dueFile/' + fileName}
           target={'_blank'}
-          className="reset text-primary font-bold flex items-center gap-2 text-sm lg:text-base"
-        >
-          <Icons.Download className={'w-6 h-6'} /> Download all
+          className="reset flex items-center gap-2 text-sm font-bold text-primary lg:text-base">
+          <Icons.Download className={'h-6 w-6'} /> Download all
         </Link>
       </div>
       <div className="flex flex-col">
         {startup.dueDiligenceFiles.map((file: DueDiligenceFile) => (
-          <div className="flex gap-2 font-medium py-4" key={file._id}>
+          <div className="flex gap-2 py-4 font-medium" key={file._id}>
             <Icons.TextFile />
             {getFileName(file.name)}
           </div>

@@ -11,7 +11,7 @@ import ReduxProvider from '@/store/Provider'
 import OfflinePayment from '@/components/investModal/offlinePayment'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { usePaymentMutation } from '@/services/paymentSlice'
-import { setNotification } from '@/reducers/others/notificationSlice'
+import { setNotification, showModal } from '@/reducers/others/notificationSlice'
 import { useRouter } from 'next/navigation'
 
 type TransactionTypes = 'online' | 'offline' | null
@@ -28,10 +28,9 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
   const [amount, setAmount] = useState<number>(0)
   const [transactionType, setTransactionType] =
     useState<TransactionTypes>('online')
+  const [open, setOpen] = useState(false)
   const [amountToPay, setAmountToPay] = useState(0)
   const { premiumMember, user } = useAppSelector((state) => state.authUser)
-  // const [onlinePayment, {isLoading:OnlinePaymentLoading}]=useOnlinePaymentMutation()
-  // const [offlinePayment,{isLoading:OfflinePaymentLoading}]=useOfflinePaymentMutation()
   const [payment, { isLoading: paymentLoading }] = usePaymentMutation()
   const calculateConvenienceFee = (amount: number) => Math.ceil(amount * 0.02)
   const calculateGst = (amount: number) =>
@@ -100,7 +99,6 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
         return res.data
       })
       .catch((e) => {
-        console.log(e)
         dispatch(
           setNotification({
             type: 'error',
@@ -112,42 +110,53 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
         )
         return
       })
-    console.log(payment_res)
     if (!payment_res) {
-      console.log('returning')
       return
     }
-    console.log(transactionType)
     if (transactionType === 'online') {
-      console.log(transactionType)
       const { order_id, payment_session_id: session_id } = payment_res
-      dispatch(
-        setNotification({
-          type: 'success',
-          message: 'Redirecting to payment page',
-        }),
-      )
       router.push(
         '/payment/' +
           session_id +
           `?order_id=${order_id}&startup_id=${startup._id}`,
       )
+    } else {
+      // dispatch(
+      //   setNotification({
+      //     type: 'success',
+      //     message: 'Redirecting to payment page',
+      //   }),
+      // )
+      handleClose()
+      dispatch(
+        showModal({
+          status: 'success',
+          startup_id: startup._id,
+        }),
+      )
     }
   }
-
+  const handleOpen = () => {
+    setOpen(!open)
+  }
+  const handleClose = () => {
+    setTransactionType('online')
+    setAmount(0)
+    setOpen(false)
+  }
   return (
     <CustomModal
       title={
         <div className="flex items-center gap-4 p-4 shadow">
           {transactionType === 'offline' ? (
             <Button
-              className={'!outline-none !border-none !shadow-none '}
+              className={'!border-none !shadow-none !outline-none '}
               icon={<Icons.ArrowLeft height={13} width={13} />}
               onClick={() => setTransactionType(null)}
               ghost
             />
           ) : (
-            <div className="h-11 w-11 border border-gray-400 rounded-xl flex justify-center items-center">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-400">
               <Image
                 src={apiUri().v1 + '/logo/' + startup.logo}
                 height={45}
@@ -156,7 +165,7 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
               />
             </div>
           )}
-          <h5 className="text-xl font-bold leading-normaltext-primary-dark reset">
+          <h5 className="leading-normaltext-primary-dark reset text-xl font-bold">
             {transactionType === 'offline'
               ? 'Offline Payment'
               : capitalizeFirstLetter(
@@ -166,8 +175,23 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
         </div>
       }
       location={'investLeft'}
-      openType={'button'}
-    >
+      openType={'custom button'}
+      className={'!invest-modal'}
+      customOpenButton={
+        <Button
+          onClick={handleOpen}
+          className="!bg-primary !text-white"
+          type="default"
+          size="large"
+          block>
+          I am ready to invest
+        </Button>
+      }
+      closable
+      closeIcon
+      open={open}
+      onOk={handleClose}
+      onCancel={handleClose}>
       {transactionType === 'offline' ? (
         <>
           <OfflinePayment

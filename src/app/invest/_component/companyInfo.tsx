@@ -10,22 +10,22 @@ export default function CompanyInfo({ startup }: { startup: StartupData }) {
   )
 
   return (
-    <div className="border_gray shadow rounded-xl px-4 lg:px-7 py-4 lg:py-5">
-      <h4 className="text-xl lg:text-2xl font-bold reset flex-grow">
+    <div className="border_gray rounded-xl px-4 py-4 shadow lg:px-7 lg:py-5">
+      <h4 className="reset flex-grow text-xl font-bold lg:text-2xl">
         About Company
       </h4>
-      <div className="grid grid-cols-1 lg:grid-cols-2 py-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 py-4 lg:grid-cols-2">
         <div className="flex flex-col">
           <p className="reset text-gray-40 text-sm lg:text-base ">
             Registered Name
           </p>
-          <p className="reset text-base lg:text-lg font-medium leading-normal">
+          <p className="reset text-base font-medium leading-normal lg:text-lg">
             {companyRegisteredName}
           </p>
         </div>
         <div className="flex flex-col">
           <p className="reset text-gray-40 text-sm lg:text-base ">Founded</p>
-          <p className="reset text-base lg:text-lg font-medium leading-normal">
+          <p className="reset text-base font-medium leading-normal lg:text-lg">
             {capitalizeFirstLetter(
               (startup.founderFirstName + ' ' + startup.founderLastName)
                 .trim()
@@ -35,7 +35,7 @@ export default function CompanyInfo({ startup }: { startup: StartupData }) {
         </div>
         <div className="flex flex-col">
           <p className="reset text-gray-40 text-sm lg:text-base ">Employees</p>
-          <p className="reset text-base lg:text-lg font-medium leading-normal">
+          <p className="reset text-base font-medium leading-normal lg:text-lg">
             {startup.teamCapacity}
           </p>
         </div>
@@ -43,8 +43,7 @@ export default function CompanyInfo({ startup }: { startup: StartupData }) {
           <p className="reset text-gray-40 text-sm lg:text-base ">Website</p>
           <Link
             href={startup.website}
-            className="reset text-primary underlinetext-base lg:text-lg font-medium leading-normal"
-          >
+            className="reset underlinetext-base font-medium leading-normal text-primary lg:text-lg">
             {startup.website}
           </Link>
         </div>
@@ -54,17 +53,16 @@ export default function CompanyInfo({ startup }: { startup: StartupData }) {
           </p>
           <Link
             href={startup.companyLinkedinUrl}
-            className="reset text-primary flex items-center gap-1text-base lg:text-lg font-medium leading-normal"
-          >
-            <Icons.LinkedIn className={'w-4 h-4'} />{' '}
-            <span className={'text-[#0066C8] whitespace-pre'}> linkedin</span>
+            className="reset gap-1text-base flex items-center font-medium leading-normal text-primary lg:text-lg">
+            <Icons.LinkedIn className={'h-4 w-4'} />{' '}
+            <span className={'whitespace-pre text-[#0066C8]'}> linkedin</span>
           </Link>
         </div>
         <div className="flex flex-col">
           <p className="reset text-gray-40 text-sm lg:text-base ">
             Headquarters
           </p>
-          <p className="reset text-base lg:text-lg font-medium leading-normal">
+          <p className="reset text-base font-medium leading-normal lg:text-lg">
             {startup.companyBased}
           </p>
         </div>

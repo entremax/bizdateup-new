@@ -24,7 +24,6 @@ const baseUrl = apiUri().v0
  * @returns {String} - The extended URL with query parameters.
  */
 const extendUrl = (params?: { [key: string]: string }[]): string => {
-  console.log(params)
   const query = params
     ?.map((param) =>
       Object.entries(param)

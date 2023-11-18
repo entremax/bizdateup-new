@@ -1,10 +1,7 @@
 import React from 'react'
-import MobileNavbar from '@/components/mobileNavbar'
+
 const DashboardLayout = ({ children }: React.PropsWithChildren) => (
-  <main>
-    {children}
-    <MobileNavbar />
-  </main>
+  <main>{children}</main>
 )
 
 export default DashboardLayout

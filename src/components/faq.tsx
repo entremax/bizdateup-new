@@ -38,7 +38,7 @@ const FrequentlyAsked: React.FC<{
   }
   return (
     <Collapse
-      className={'text-black-lighter !rounded-none bg-transparent mt-12'}
+      className={'mt-12 !rounded-none bg-transparent text-black-lighter'}
       expandIconPosition={'end'}
       expandIcon={({ isActive }) => (
         <Icons.ArrowRight

@@ -4,12 +4,12 @@ import Image from 'next/image'
 
 export default function PitchDeck() {
   return (
-    <div className="border_gray shadow rounded-xl px-4 lg:px-7 py-4 lg:py-5 grid grid-cols-12">
-      <div className="flex  col-span-full">
-        <h4 className="text-xl lg:text-2xl font-bold reset flex-grow">
+    <div className="border_gray grid grid-cols-12 rounded-xl px-4 py-4 shadow lg:px-7 lg:py-5">
+      <div className="col-span-full  flex">
+        <h4 className="reset flex-grow text-xl font-bold lg:text-2xl">
           Pitch Deck
         </h4>
-        <p className="reset text-primary font-bold flex items-center gap-2 text-sm lg:text-base">
+        <p className="reset flex items-center gap-2 text-sm font-bold text-primary lg:text-base">
           <Icons.Expand />
           <span className={'hidden lg:inline'}>View in full screen</span>
           <span className={'lg:hidden'}>Full Screen</span>

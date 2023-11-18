@@ -27,9 +27,7 @@ export default function FeedbackDialog() {
     }, 10000)
   }, [])
   const handleAddInterest = (interest: Interest) => {
-    console.log('clicked')
     if (!user) {
-      console.log('No User Returning')
       return
     }
     const data = {
@@ -40,7 +38,6 @@ export default function FeedbackDialog() {
       investorEmail: user?.email,
       interested: interest,
     }
-    console.log(data)
     startupFeedback(data)
       .unwrap()
       .then((res) => {
@@ -78,11 +75,10 @@ export default function FeedbackDialog() {
     <div
       className={cn(
         show
-          ? 'xl:fixed bottom-4 right-5 border-[0.015rem] border-solid  border-primary rounded-xl p-3 bg-gray-100'
+          ? 'bottom-4 right-5 rounded-xl border-[0.015rem] border-solid  border-primary bg-gray-100 p-3 xl:fixed'
           : 'collapse',
-      )}
-    >
-      <div className="w-full flex justify-end items-center">
+      )}>
+      <div className="flex w-full items-center justify-end">
         <Button
           size={'small'}
           type={'text'}
@@ -99,28 +95,25 @@ export default function FeedbackDialog() {
         <Button
           onClick={() => handleAddInterest('yes')}
           className={
-            '!outline-none hover:cursor-pointer hover:bg-primary text-primary  hover:!text-white font-medium'
+            'font-medium text-primary !outline-none hover:cursor-pointer  hover:bg-primary hover:!text-white'
           }
-          size={'large'}
-        >
+          size={'large'}>
           Yes
         </Button>
         <Button
           onClick={() => handleAddInterest('no')}
           className={
-            '!outline-none hover:cursor-pointer hover:bg-primary text-primary hover:!text-white font-medium'
+            'font-medium text-primary !outline-none hover:cursor-pointer hover:bg-primary hover:!text-white'
           }
-          size={'large'}
-        >
+          size={'large'}>
           No
         </Button>
         <Button
           onClick={() => handleAddInterest('maybe')}
           className={
-            '!outline-none hover:cursor-pointer hover:bg-primary text-primary hover:!text-white font-medium'
+            'font-medium text-primary !outline-none hover:cursor-pointer hover:bg-primary hover:!text-white'
           }
-          size={'large'}
-        >
+          size={'large'}>
           Maybe
         </Button>
       </div>

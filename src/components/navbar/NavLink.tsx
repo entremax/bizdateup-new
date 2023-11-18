@@ -67,16 +67,15 @@ const Links = ({ type }: { type: 'unauthenticated' | 'authenticated' }) => {
         ? headerType.dashboard
         : headerType.normal
       ).main.map((link, index) => (
-        <div key={index} className={'group h-full hidden lg:inline'}>
+        <div key={index} className={'group hidden h-full lg:inline'}>
           <Link
             href={link.to}
             className={cn(
               path.startsWith(link.to)
                 ? linkStyle +
-                    ' text-primary h-[98%] border-solid border-0 border-b-2 border-primary'
+                    ' h-[98%] border-0 border-b-2 border-solid border-primary text-primary'
                 : linkStyle,
-            )}
-          >
+            )}>
             {link.icon ? (
               <link.icon
                 className="fill-current group-hover:fill-blue-500"

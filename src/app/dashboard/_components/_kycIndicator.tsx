@@ -87,20 +87,18 @@ const KycIndicator = ({
         kycCompletionPercentage < 100 ? (
           <div
             className={cn(
-              'grid gap-2 p-5 border_gray bg-light-shadow rounded-xl' +
+              'border_gray grid gap-2 rounded-xl bg-light-shadow p-5' +
                 ' ' +
                 className +
                 (hidden ? 'hidden' : ''),
-            )}
-          >
+            )}>
             <div className={'flex'}>
               <div className="grid">
                 <h5
-                  className={'text-lg font-semibold text-black-lighter reset'}
-                >
+                  className={'reset text-lg font-semibold text-black-lighter'}>
                   Complete your KYC
                 </h5>
-                <p className={'!p-0 !m-0 text-sm text-typography-gray-400'}>
+                <p className={'!m-0 !p-0 text-sm text-typography-gray-400'}>
                   To allow payments we require you to complete KYC
                 </p>
               </div>
@@ -118,30 +116,28 @@ const KycIndicator = ({
             <Button
               type={'default'}
               size={'large'}
-              className={'button_primary !text-white !my-3 !mb-0 !text-sm'}
-              block
-            >
+              className={'button_primary !my-3 !mb-0 !text-sm !text-white'}
+              block>
               Continue procedure
             </Button>
           </div>
         ) : (
           <div
             className={cn(
-              'grid gap-2 border_gray divide-y divide-solid divide-x-0 divide-gray-300 rounded-xl !bg-white shadow' +
+              'border_gray grid gap-2 divide-x-0 divide-y divide-solid divide-gray-300 rounded-xl !bg-white shadow' +
                 ' ' +
                 className +
                 (hidden ? 'hidden' : ''),
-            )}
-          >
-            <div className={'py-3 px-4 grid gap-2'}>
-              <h3 className={'text-3xl reset'}>₹ {totalamount}</h3>
-              <p className={'reset text-gray-400 text-sm'}>
+            )}>
+            <div className={'grid gap-2 px-4 py-3'}>
+              <h3 className={'reset text-3xl'}>₹ {totalamount}</h3>
+              <p className={'reset text-sm text-gray-400'}>
                 total amount invested in {investedStartups.approved.length}{' '}
                 startups
               </p>
             </div>
-            <div className="grid justify-center items-center">
-              <Link href={'/portfolio'} className={'text-primary py-2'}>
+            <div className="grid items-center justify-center">
+              <Link href={'/portfolio'} className={'py-2 text-primary'}>
                 Check Portfolio
               </Link>
             </div>
@@ -150,14 +146,13 @@ const KycIndicator = ({
       ) : (
         <div
           className={cn(
-            'grid gap-2 border_gray divide-y divide-solid divide-x-0 divide-gray-300 rounded-xl !bg-white shadow' +
+            'border_gray grid gap-2 divide-x-0 divide-y divide-solid divide-gray-300 rounded-xl !bg-white shadow' +
               ' ' +
               className +
               (hidden ? 'hidden' : ''),
-          )}
-        >
-          <div className="grid justify-center items-center">
-            <Link href={'/login'} className={'text-primary py-2'}>
+          )}>
+          <div className="grid items-center justify-center">
+            <Link href={'/login'} className={'py-2 text-primary'}>
               Please login to Continue
             </Link>
           </div>

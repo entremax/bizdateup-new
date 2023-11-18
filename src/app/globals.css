@@ -52,21 +52,67 @@ a {
   }
 
   .auth {
-    @apply min-h-full flex justify-center items-center w-screen flex-col;
+    @apply flex min-h-full w-screen flex-col items-center justify-center;
   }
 
   .auth_container {
-    @apply mx-auto md:border_gray flex flex-col justify-center text-center items-center space-y-2 bg-white md:shadow-lg rounded-2xl mt-32 md:w-auto  md:px-12 py-10;
+    @apply md:border_gray mx-auto mt-32 flex flex-col items-center justify-center space-y-2 rounded-2xl bg-white py-10 text-center md:w-auto  md:px-12 md:shadow-lg;
   }
 
   .button_primary {
-    @apply p-[0.625rem_1.25rem] my-9 text-lg font-semibold  cursor-pointer bg-primary outline-none border-0  text-primary rounded-lg;
+    @apply my-9 cursor-pointer rounded-lg border-0  bg-primary p-[0.625rem_1.25rem] text-lg font-semibold  text-primary outline-none;
   }
+
   .primary_button {
-    @apply bg-primary text-white border-primary;
+    @apply border-primary bg-primary text-white;
   }
+
+  .primary_link {
+    @apply flex w-full items-center justify-center rounded border-primary bg-primary py-2 text-white;
+  }
+
   .reset {
     @apply m-0 p-0;
+  }
+
+  .invest-modal {
+    @apply fixed bottom-0 left-0 right-0 top-12 !max-w-full rounded-none p-0 md:left-[auto] md:top-0;
+
+    .ant-modal-content {
+      @apply h-full rounded-none rounded-t-lg p-0 text-primary lg:rounded-none;
+
+      .ant-modal-close {
+        @apply !top-[1.8rem];
+      }
+
+      .ant-modal-body {
+        @apply grid text-primary;
+      }
+    }
+  }
+
+  .risk-modal {
+    @apply fixed !top-8 bottom-0 left-0 right-0 !max-w-full md:bottom-auto;
+
+    .ant-modal-content {
+      @apply h-full rounded-none rounded-t-lg p-0 text-primary md:rounded-xl;
+
+      .ant-modal-close {
+        @apply !top-[1.5rem];
+      }
+
+      .ant-modal-header {
+        @apply border_gray px-4 py-2 text-base;
+      }
+
+      .ant-modal-body {
+        @apply grid px-2 text-primary;
+      }
+
+      .ant-modal-footer {
+        @apply p-4;
+      }
+    }
   }
 }
 
@@ -89,4 +135,49 @@ a {
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: rgb(var(--lavender-blue)) !important;
   border-color: rgb(var(--lavender-blue)) !important;
+}
+
+/* width and height are required for Firefox */
+/* Track */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+/* Track */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For Firefox */
+/* Track */
+/* width and height are required for Firefox */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+/* Handle on hover */
+body:hover {
+  scrollbar-color: #555 transparent;
 }

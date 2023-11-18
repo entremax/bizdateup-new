@@ -14,11 +14,10 @@ const Navbar: React.FC = () => {
   const type = token ? 'authenticated' : 'unauthenticated'
 
   return (
-    <div className="fixed flex px-8 items-center left-0 right-0  h-[4.5rem] z-[999] bg-white shadow-[0px_1px_0px_0px_#E5E9F2]">
+    <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white px-8 shadow-[0px_1px_0px_0px_#E5E9F2]">
       <Link
         href={'/'}
-        className={type === 'unauthenticated' ? 'flex-grow' : ''}
-      >
+        className={type === 'unauthenticated' ? 'flex-grow' : ''}>
         <Image
           className="md:pl-8"
           src={'/logo_full.svg'}
@@ -30,35 +29,31 @@ const Navbar: React.FC = () => {
       <div
         className={
           type === 'unauthenticated'
-            ? 'flex gap-12 items-center h-full'
-            : 'w-full h-full flex items-center'
-        }
-      >
+            ? 'flex h-full items-center gap-12'
+            : 'flex h-full w-full items-center'
+        }>
         {type !== 'unauthenticated' && <div className={'grow'} />}
         <NavLink type={type} />
         {type !== 'unauthenticated' && <div className={'grow'} />}
 
         {type === 'unauthenticated' ? (
-          <div className="hidden h-full lg:flex justify-center items-center gap-2">
+          <div className="hidden h-full items-center justify-center gap-2 lg:flex">
             <Link
               href={'/login'}
-              className="p-[0.625rem_1.25rem] cursor-pointer bg-light-shadow outline-none border-0 text-primary rounded-lg"
-            >
+              className="cursor-pointer rounded-lg border-0 bg-light-shadow p-[0.625rem_1.25rem] text-primary outline-none">
               Login
             </Link>
             <Link
               href={'/get-started'}
-              className="p-[0.625rem_1.25rem] cursor-pointer text-center text-md outline-none border-0 !bg-primary rounded-lg text-white"
-            >
+              className="text-md cursor-pointer rounded-lg border-0 !bg-primary p-[0.625rem_1.25rem] text-center text-white outline-none">
               Get Started
             </Link>
           </div>
         ) : (
-          <div className={'hidden lg:flex gap-8 justify-center items-center'}>
+          <div className={'hidden items-center justify-center gap-8 lg:flex'}>
             <Link
               href={'/refer-earn'}
-              className="p-[0.625rem_1.25rem] cursor-pointer outline outline-primary outline-[0.022rem]  border-0 text-primary rounded-lg"
-            >
+              className="cursor-pointer rounded-lg border-0 p-[0.625rem_1.25rem] text-primary  outline outline-[0.022rem] outline-primary">
               Refer & Earn
             </Link>
             <ReduxProvider>

@@ -13,18 +13,16 @@ const JoinWhatsApp = ({
     <>
       <div
         className={cn(
-          'border-gray bg-white md:grid justify-center items-center p-5 py-2 rounded-2xl grid-cols-7' +
+          'grid-cols-7 items-center justify-center rounded-2xl border-gray bg-white p-5 py-2 md:grid' +
             ' ' +
             className +
             (hidden ? ' hidden' : ''),
         )}
-        style={{ backgroundColor: 'rgba(36, 37, 82, 0.1)' }}
-      >
+        style={{ backgroundColor: 'rgba(36, 37, 82, 0.1)' }}>
         <div
           className={
-            'sm:hidden flex xl:flex xl:col-span-1 items-center justify-center lg:relative lg:w-[8rem] lg:h-[3rem] pt-2'
-          }
-        >
+            'flex items-center justify-center pt-2 sm:hidden lg:relative lg:h-[3rem] lg:w-[8rem] xl:col-span-1 xl:flex'
+          }>
           <Image
             src="/tikla_whatsapp.svg"
             height={56}
@@ -49,29 +47,27 @@ const JoinWhatsApp = ({
         </div>
         <div
           className={
-            'grid md:col-span-5 xl:col-span-4 gap-2 grow justify-center items-center text-center xl:text-left py-4'
-          }
-        >
-          <h4 className={'text-xl xl:text-2xl font-bold m-0 p-0'}>
+            'grid grow items-center justify-center gap-2 py-4 text-center md:col-span-5 xl:col-span-4 xl:text-left'
+          }>
+          <h4 className={'m-0 p-0 text-xl font-bold xl:text-2xl'}>
             Join our whatsapp investor community
           </h4>
-          <p className={'text-sm text-gray-lighter m-0 p-0'}>
+          <p className={'m-0 p-0 text-sm text-gray-lighter'}>
             Get all updates Get daily updates regarding Investments on WhatsApp
           </p>
         </div>
         <div className={'col-span-2 px-4'}>
           <Link
             className={
-              'bg-green-500 justify-self-center flex text-center  px-16 py-3 mt-2 my-4 md:my-0 md:py-2 md:px-2 gap-2 items-center justify-center !text-white font-bold rounded'
+              'my-4 mt-2 flex items-center  justify-center gap-2 justify-self-center rounded bg-green-500 px-16 py-3 text-center font-bold !text-white md:my-0 md:px-2 md:py-2'
             }
-            href={'https://wa.me'}
-          >
+            href={'https://wa.me'}>
             <Image
               src={'/whatsapp.svg'}
               height={24}
               width={24}
               alt="whatsapp"
-              className={'hidden xl:inline rounded-xl'}
+              className={'hidden rounded-xl xl:inline'}
             />
             Join on whatsapp
           </Link>

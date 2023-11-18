@@ -14,10 +14,9 @@ export default function DealTerms({
   return (
     <div
       className={cn(
-        'border_gray shadow rounded-xl px-4 lg:px-7 py-4 lg:py-5 ' + className,
-      )}
-    >
-      <h4 className="text-xl lg:text-2xl font-bold reset flex-grow">
+        'border_gray rounded-xl px-4 py-4 shadow lg:px-7 lg:py-5 ' + className,
+      )}>
+      <h4 className="reset flex-grow text-xl font-bold lg:text-2xl">
         Deal Terms
       </h4>
       <div className="grid divide-y">
@@ -31,7 +30,7 @@ export default function DealTerms({
             </div>
             <Icons.Info />
           </div>
-          <p className={'reset text-sm text-gray-400 font-medium'}>
+          <p className={'reset text-sm font-medium text-gray-400'}>
             The maximum valuation at which your investment converts into equity
             shares or cash.
           </p>

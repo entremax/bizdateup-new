@@ -164,18 +164,17 @@ export default function OtpField({ id }: { id: string }) {
 
   return (
     <>
-      <div className="grid justify-center items-center text-center w-full md:min-w-max">
-        <h2 className="text-primary-dark font-bold text-center !m-0">
+      <div className="grid w-full items-center justify-center text-center md:min-w-max">
+        <h2 className="!m-0 text-center font-bold text-primary-dark">
           OTP Verification
         </h2>
         <p
           className={
-            'text-gray-400 text-sm font-light grid md:flex mt-2 sm:justify-center gap-2'
-          }
-        >
+            'mt-2 grid gap-2 text-sm font-light text-gray-400 sm:justify-center md:flex'
+          }>
           Enter your OTP sent to your email <strong>{temp_auth_medium}</strong>
         </p>
-        <div className={'flex justify-center items-center otp m-0 p-0 px-6'}>
+        <div className={'otp m-0 flex items-center justify-center p-0 px-6'}>
           <OtpInput
             value={otp}
             onChange={setOtp}
@@ -191,15 +190,14 @@ export default function OtpField({ id }: { id: string }) {
             shouldAutoFocus
           />
         </div>
-        <div className="px-12 mt-8">
+        <div className="mt-8 px-12">
           <Button
             type={'default'}
             size={'large'}
             disabled={otp === '' || isLoading}
-            className={'!bg-primary !text-white w-full hover:!text-white'}
+            className={'w-full !bg-primary !text-white hover:!text-white'}
             onClick={handleVerifyOtp}
-            block
-          >
+            block>
             {isLoading ? 'Verifying...' : 'Continue'}
           </Button>
           <Button
@@ -207,10 +205,9 @@ export default function OtpField({ id }: { id: string }) {
             size={'small'}
             disabled={reSending}
             className={
-              'bg-transparent !text-primary font-semibold my-4 hover:!bg-transparent hover:!text-primary'
+              'my-4 bg-transparent font-semibold !text-primary hover:!bg-transparent hover:!text-primary'
             }
-            onClick={handleResend}
-          >
+            onClick={handleResend}>
             {reSending ? 'Resending...' : 'RESEND OTP'}
           </Button>
         </div>

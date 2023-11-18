@@ -2,10 +2,12 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { apiUri } from '@/lib/utils'
 import { VerifyOtpServerResponse } from '@/types'
+
 interface OtpVerifyData {
   code: string
   refId: string
 }
+
 export async function POST(req: NextRequest) {
   try {
     const baseUrl = apiUri().v0
@@ -64,7 +66,6 @@ export async function POST(req: NextRequest) {
           { status: response.data.httpCode },
         )
       } else {
-        console.log(response)
         return NextResponse.json({ success: true, data: response })
       }
     } catch (e) {

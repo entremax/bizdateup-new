@@ -15,7 +15,6 @@ import { useRouter } from 'next/navigation'
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 const UserMenu = ({ token }: { token: RequestCookie | undefined }) => {
-  console.log(token)
   const { user } = useAppSelector(({ authUser }) => authUser)
   const dispatch = useAppDispatch()
   const router = useRouter()
@@ -52,7 +51,7 @@ const UserMenu = ({ token }: { token: RequestCookie | undefined }) => {
   const items: MenuProps['items'] = [
     {
       label: (
-        <p className={'text-red-500 reset px-4'}>
+        <p className={'reset px-4 text-red-500'}>
           {isLoading ? 'Exiting...' : 'Sign Out'}
         </p>
       ),
@@ -74,16 +73,15 @@ const UserMenu = ({ token }: { token: RequestCookie | undefined }) => {
           />
         </Badge>
       </Tooltip>
-      <div className={'flex justify-center items-center gap-2'}>
+      <div className={'flex items-center justify-center gap-2'}>
         <Dropdown menu={{ items, onClick }}>
           <Space>
             <div
               className={cn(
                 user && user?.membership?.isMember !== 'no'
-                  ? 'relative outline outline-4 outline-yellow-500 rounded-full'
+                  ? 'relative rounded-full outline outline-4 outline-yellow-500'
                   : 'relative rounded-full',
-              )}
-            >
+              )}>
               <Avatar size={'large'}>U</Avatar>
               {user && user?.membership?.isMember !== 'no' ? (
                 <>
@@ -94,9 +92,8 @@ const UserMenu = ({ token }: { token: RequestCookie | undefined }) => {
                   />
                   <div
                     className={
-                      'absolute rounded-full bg-primary text-white font-semibold text-xs -bottom-2 left-[0.2rem] px-2'
-                    }
-                  >
+                      'absolute -bottom-2 left-[0.2rem] rounded-full bg-primary px-2 text-xs font-semibold text-white'
+                    }>
                     VIP
                   </div>
                 </>

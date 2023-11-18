@@ -35,31 +35,28 @@ const MobileNavbar = () => {
   return (
     <nav
       className={
-        'fixed md:hidden bottom-0 left-0 right-0 h-16 z-[999] bg-white border_gray border-0 border-t-2 shadow-lg grid grid-cols-4 gap-8'
-      }
-    >
+        'border_gray fixed bottom-0 left-0 right-0 z-[999] grid h-16 grid-cols-4 gap-8 border-0 border-t-2 bg-white shadow-lg md:hidden'
+      }>
       {mobileNavMenu.map((item, key) => (
         <div
           className={cn(
-            item.link === path
-              ? groupStyle + ' border-solid border-0 border-t-2 border-primary'
+            path.startsWith(item.link)
+              ? groupStyle + ' border-0 border-t-2 border-solid border-primary'
               : groupStyle,
           )}
-          key={key}
-        >
+          key={key}>
           <Link
             className={cn(
-              item.link === path
-                ? linkStyle + ' text-primary font-bold'
+              path.startsWith(item.link)
+                ? linkStyle + ' font-bold text-primary'
                 : linkStyle,
             )}
-            href={item.link}
-          >
+            href={item.link}>
             <item.icon
               className={cn(
                 item.link === '/dashboard'
-                  ? 'fill-current stroke-current group-hover:fill-primary justify-self-center shrink'
-                  : 'stroke-current group-hover:fill-primary justify-self-center shrink',
+                  ? 'shrink justify-self-center fill-current stroke-current group-hover:fill-primary'
+                  : 'shrink justify-self-center stroke-current group-hover:fill-primary',
               )}
               width="1rem"
               height="1rem"

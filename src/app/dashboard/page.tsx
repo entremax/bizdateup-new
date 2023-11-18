@@ -63,18 +63,18 @@ const Dashboard = async () => {
   ]
 
   return (
-    <div className="pt-20 pb-3 ml-2 grid grid-cols-12 gap-2 px-3 xl:px-5">
-      <div className="my-6 md:mt-5 col-start-1 col-end-12 xl:col-start-2 xl:col-end-11">
+    <div className="ml-2 grid grid-cols-12 gap-2 px-3 pb-3 pt-20 xl:px-5">
+      <div className="col-start-1 col-end-12 my-6 md:mt-5 xl:col-start-2 xl:col-end-11">
         <div className="grid text-primary-dark">
           <ReduxProvider>
             <Greet />
           </ReduxProvider>
-          <h2 className="hidden sm:inline sm:text-3xl md:text-4xl font-bold reset">
+          <h2 className="reset hidden font-bold sm:inline sm:text-3xl md:text-4xl">
             Check out Live Campaigns
           </h2>
         </div>
       </div>
-      <div className="col-span-full md:col-start-1 md:col-end-9 xl:col-start-2 xl:col-end-9 gap-7 flex flex-col">
+      <div className="col-span-full flex flex-col gap-7 md:col-start-1 md:col-end-9 xl:col-start-2 xl:col-end-9">
         <ReduxProvider>
           <KycIndicator className={'md:hidden'} hidden={false} />
         </ReduxProvider>
@@ -86,18 +86,16 @@ const Dashboard = async () => {
       </div>
       <div
         className={
-          'col-span-full md:col-start-9 md:col-end xl:col-start-9 xl:col-end-12 xl:pl-12'
-        }
-      >
+          'md:col-end col-span-full md:col-start-9 xl:col-start-9 xl:col-end-12 xl:pl-12'
+        }>
         <ReduxProvider>
           <KycIndicator className={'hidden md:grid'} />
           <Membership />
         </ReduxProvider>
         <div
           className={
-            'grid md:text-left text-center  md:items-left items-center justify-center md:justify-left border_gray p-3 gap-2  rounded-xl my-4 shadow'
-          }
-        >
+            'md:items-left md:justify-left border_gray  my-4 grid items-center justify-center gap-2 rounded-xl p-3  text-center shadow md:text-left'
+          }>
           <Image
             src={'/person_with_money.png'}
             width={250}
@@ -105,22 +103,21 @@ const Dashboard = async () => {
             alt={'Person Viewing  a paper'}
             className={'w-full rounded'}
           />
-          <div className="px-4 grid gap-2">
-            <h5 className="text-lg font-bold !p-0 !m-0">
+          <div className="grid gap-2 px-4">
+            <h5 className="!m-0 !p-0 text-lg font-bold">
               Master Startup Investments
             </h5>
-            <p className={'text-typography-gray-400 text-md !p-0 !m-0'}>
+            <p className={'text-md !m-0 !p-0 text-typography-gray-400'}>
               Learn more about our platform offering
             </p>
             <Link
               href={'/learn-more'}
-              className={'text-primary font-bold text-sm py-4'}
-            >
+              className={'py-4 text-sm font-bold text-primary'}>
               Learn more {'>'}
             </Link>
           </div>
         </div>
-        <div className="grid md:text-left text-center justify-center items-center border_gray gap-2  rounded-xl my-4 shadow">
+        <div className="border_gray my-4 grid items-center justify-center gap-2 rounded-xl  text-center shadow md:text-left">
           <div className={'flex'}>
             <div className="grow"></div>
             <Image
@@ -136,31 +133,28 @@ const Dashboard = async () => {
           </div>
           <div
             className={
-              'grid justify-center divide-y divide-solid divide-x-0 divide-gray-300'
-            }
-          >
+              'grid justify-center divide-x-0 divide-y divide-solid divide-gray-300'
+            }>
             <div className="text-center">
-              <h5 className="text-lg font-bold !p-0 !m-0">
+              <h5 className="!m-0 !p-0 text-lg font-bold">
                 Become an Accelerator
               </h5>
               <p
                 className={
-                  'text-typography-gray-400 text-md p-0 !m-0  py-2 pb-4'
-                }
-              >
+                  'text-md !m-0 p-0 py-2  pb-4 text-typography-gray-400'
+                }>
                 Join our accelerator program and fuel your entrepreneurial
                 journey
               </p>
             </div>
             <Link
               href={'/learn-more'}
-              className={'text-primary text-center  text-base py-4'}
-            >
+              className={'py-4 text-center  text-base text-primary'}>
               Join now
             </Link>
           </div>
         </div>
-        <div className="grid md:text-left text-center justify-center items-center border_gray gap-2  rounded-xl my-4 shadow">
+        <div className="border_gray my-4 grid items-center justify-center gap-2 rounded-xl  text-center shadow md:text-left">
           <div className={'flex'}>
             <div className="grow"></div>
             <Image
@@ -174,36 +168,33 @@ const Dashboard = async () => {
             />
             <div className="grow"></div>
           </div>
-          <div className={'grid justify-center py-2 px-3'}>
+          <div className={'grid justify-center px-3 py-2'}>
             <div className="text-center">
-              <h5 className="text-lg font-bold !p-0 !m-0">Calculators</h5>
+              <h5 className="!m-0 !p-0 text-lg font-bold">Calculators</h5>
               <p
                 className={
-                  'text-typography-gray-400 text-md p-0 !m-0  py-2 pb-4'
-                }
-              >
+                  'text-md !m-0 p-0 py-2  pb-4 text-typography-gray-400'
+                }>
                 Calculate your return on investments(ROI) with Bizdateup
               </p>
             </div>
             <Link
               href={'/learn-more'}
               className={
-                'text-primary bg-light-shadow text-center  text-base py-4 w-full rounded-xl'
-              }
-            >
+                'w-full rounded-xl bg-light-shadow  py-4 text-center text-base text-primary'
+              }>
               Get now
             </Link>
           </div>
         </div>
-        <div className="hidden md:inline py-4 px-4">
+        <div className="hidden px-4 py-4 md:inline">
           {menu.map((item, index) => (
             <Link
               href={item.link}
               key={index}
               className={
-                'text-black-lighter hover:text-primary font-medium text-center flex  text-base py-2'
-              }
-            >
+                'flex py-2 text-center text-base font-medium  text-black-lighter hover:text-primary'
+              }>
               {item.name}
               <div className="grow"></div>
               <Icons.ArrowRight
@@ -216,9 +207,9 @@ const Dashboard = async () => {
         </div>
       </div>
       <div className="col-span-full mt-4">
-        <div className="lg:bg-gray-smoke grid grid-cols-12">
-          <div className="grid col-span-full md:col-start-2 md:col-end-11 xl:col-start-3 xl:col-end-11 my-16 md:my-32">
-            <h4 className="text-3xl md:text-4xl font-bold text-center reset">
+        <div className="grid grid-cols-12 lg:bg-gray-smoke">
+          <div className="col-span-full my-16 grid md:col-start-2 md:col-end-11 md:my-32 xl:col-start-3 xl:col-end-11">
+            <h4 className="reset text-center text-3xl font-bold md:text-4xl">
               Frequently Asked Questions
             </h4>
             <ReduxProvider>

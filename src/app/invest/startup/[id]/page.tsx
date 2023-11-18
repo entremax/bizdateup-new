@@ -125,36 +125,35 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
 
   return (
     <main className={'w-screen'}>
-      <StickyCompanyIntro startup={startupData} />
-      <div className="pb-3 xl:ml-2 grid grid-cols-12 gap-2 px-3 xl:py-20 pt-12 md:pt-20 xl:px-5">
+      {!isClosed && <StickyCompanyIntro startup={startupData} />}
+      <div className="grid grid-cols-12 gap-2 px-3 pb-3 pt-12 md:pt-20 xl:ml-2 xl:px-5 xl:py-20">
         <CompanyIntro startup={startupData} />
 
-        <div className="col-span-full md:col-start-1 md:col-end-8 xl:col-start-2 xl:col-end-8 gap-7 flex flex-col">
+        <div className="col-span-full flex flex-col gap-7 md:col-start-1 md:col-end-8 xl:col-start-2 xl:col-end-8">
           <Highlights startup={startupData} />
           <DealTerms className={'md:hidden'} startup={startupData} />
           <PitchDeck />
           <TeamMembers startup={startupData} />
           <DownloadFiles className={'md:hidden'} startup={startupData} />
-          <div className="hidden lg:inline !bg-light-shadow shadow rounded-xl px-4 lg:px-7 py-4 lg:py-5">
-            <h4 className="text-2xl font-bold reset flex-grow">
+          <div className="hidden rounded-xl !bg-light-shadow px-4 py-4 shadow lg:inline lg:px-7 lg:py-5">
+            <h4 className="reset flex-grow text-2xl font-bold">
               Made up your mind?
             </h4>
-            <div className="grid grid-cols-2 w-full gap-4 py-2">
+            <div className="grid w-full grid-cols-2 gap-4 py-2">
               <Input
                 size={'large'}
                 type={'text'}
                 placeholder={`₹ ${formatIndianValuation(
                   startupData.dealTerms.minimumInvestment,
                 )} min`}
-                className={' !py-2 placeholder-gray-300 font-medium text-lg'}
+                className={' !py-2 text-lg font-medium placeholder-gray-300'}
               />
               <Link
                 href={'/link'}
                 type={'default'}
                 className={
-                  'bg-primary text-white text-center text-sm lg:text-base  font-medium leading-[1.57563rem] outline-none flex items-center justify-center rounded-lg px-2 py-2'
-                }
-              >
+                  'flex items-center justify-center rounded-lg bg-primary  px-2 py-2 text-center text-sm font-medium leading-[1.57563rem] text-white outline-none lg:text-base'
+                }>
                 Invest in{' '}
                 {capitalizeFirstLetter(
                   startupData.registeredCompanyName.trim().split(' '),
@@ -167,18 +166,16 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
         </div>
         <div
           className={
-            'hidden col-span-full md:col-start-8 md:col-end xl:col-start-8 md:pl-8 xl:px-12 xl:col-end-12 md:flex flex-col gap-4'
-          }
-        >
+            'md:col-end col-span-full hidden flex-col gap-4 md:col-start-8 md:flex md:pl-8 xl:col-start-8 xl:col-end-12 xl:px-12'
+          }>
           <DealTerms startup={startupData} />
           <Button
             className={
-              '!bg-light-shadow !text-primary !font-medium !outline-none !border-0  text-whit text-sm lg:text-base   leading-[1.57563rem]  flex items-center justify-center rounded-lg !px-2 !py-2'
+              'text-whit flex items-center justify-center rounded-lg  !border-0 !bg-light-shadow !px-2   !py-2  text-sm !font-medium leading-[1.57563rem] !text-primary !outline-none lg:text-base'
             }
             size={'large'}
             block
-            type={'default'}
-          >
+            type={'default'}>
             How it works
           </Button>
           <DownloadFiles startup={startupData} />
@@ -189,15 +186,15 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
       </div>
       {!isClosed && (
         <>
-          <div className="lg:bg-gray-smoke grid grid-cols-12 py-20">
+          <div className="grid grid-cols-12 py-20 lg:bg-gray-smoke">
             <StartupToInvest
               header={'Recommended'}
               type={startupData.dealTerms.typeOfSecurity as securityType}
             />
           </div>
           <div className=" grid grid-cols-12">
-            <div className="grid col-span-full md:col-start-2 md:col-end-11 xl:col-start-3 xl:col-end-11 my-16 md:my-32">
-              <h4 className="text-3xl md:text-4xl font-bold text-center reset">
+            <div className="col-span-full my-16 grid md:col-start-2 md:col-end-11 md:my-32 xl:col-start-3 xl:col-end-11">
+              <h4 className="reset text-center text-3xl font-bold md:text-4xl">
                 Frequently Asked Questions
               </h4>
               <FrequentlyAsked custom={true} faqData={startupData.faq} />

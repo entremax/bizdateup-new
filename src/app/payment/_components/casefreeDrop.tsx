@@ -25,6 +25,10 @@ const CaseFreeDrop: React.FC<Props> = ({ session_id, searchParams }) => {
     fontFamily: 'Lato',
     errorColor: '#ff0000',
     theme: 'light',
+    borderRadius: '10px',
+    boxShadow: '1px #fff',
+    webKitScrollbar: 'none',
+    width: '100%',
   }
   React.useEffect(() => renderDrop(), [])
 
@@ -41,18 +45,11 @@ const CaseFreeDrop: React.FC<Props> = ({ session_id, searchParams }) => {
       })
   }
   const paymentSuccess = async (data: any) => {
-    console.log(data)
     if (data.order && data.order.status === 'PAID') {
       // alert("paid")
       const update = await paymentUpdate()
       if (update?.code === 200) {
         store.dispatch(
-          setNotification({
-            type: 'success',
-            message: 'Payment Verified ✅',
-          }),
-        )
-        await store.dispatch(
           showModal({
             status: 'success',
             startup_id,
@@ -118,7 +115,9 @@ const CaseFreeDrop: React.FC<Props> = ({ session_id, searchParams }) => {
   return (
     <div
       id="drop_in_container"
-      className={'md:w-2/4 m-auto shadow border-0 '}
+      className={
+        'md:w-4/4 scrollbar w-full rounded-[10px] border-0  caret-transparent shadow '
+      }
     />
   )
 }
