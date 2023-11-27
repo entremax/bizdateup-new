@@ -14,7 +14,11 @@ import { useLogoutMutation } from '@/store/features/services/NextApiSlice'
 import { useRouter } from 'next/navigation'
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowRightArrowLeft,
+  faRightFromBracket,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'
 import useUser from '@/context/useUser'
 
 interface Props {
@@ -50,6 +54,9 @@ const UserMenu: React.FC<Props> = () => {
       return router.push('/profile/investor')
     }
     if (key === '2') {
+      return router.push('/transactions')
+    }
+    if (key === '3') {
       logoutUser()
     }
   }
@@ -65,6 +72,11 @@ const UserMenu: React.FC<Props> = () => {
       label: <p className={'reset text-bla px-4'}>Profile</p>,
       key: '1',
       icon: <FontAwesomeIcon icon={faUser} className={'text-primary'} />,
+    },
+    {
+      label: <p className={'reset text-bla px-4'}>Transactions</p>,
+      key: '2',
+      icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
     },
     {
       label: (

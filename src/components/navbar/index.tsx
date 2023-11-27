@@ -5,7 +5,6 @@ import React from 'react'
 import NavLink from '@/components/navbar/NavLink'
 import UserMenu from './userMenu'
 import { cookies } from 'next/headers'
-import ReduxProvider from '@/store/Provider'
 
 const Navbar: React.FC = () => {
   const cookieStore = cookies()
@@ -56,9 +55,7 @@ const Navbar: React.FC = () => {
               className="cursor-pointer rounded-lg border-0 p-[0.625rem_1.25rem] text-primary  outline outline-[0.022rem] outline-primary">
               Refer & Earn
             </Link>
-            <ReduxProvider>
-              <UserMenu token={token} />
-            </ReduxProvider>
+            <UserMenu token={token} />
           </div>
         )}
         <div className="flex-shrink md:hidden">

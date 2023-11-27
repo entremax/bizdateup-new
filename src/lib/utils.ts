@@ -19,7 +19,7 @@ export function cn(...inputs: ClassValue[]): string {
  * Validates if the given value is a valid email or phone number.
  *
  * @param {string} value - The value to be validated.
- * @return {false|"email"|"phone"} - Returns 'email' if the value is a valid email address, 'phone' if it is a valid phone number, and false otherwise.
+ * @return {false|'email'|'phone'} - Returns 'email' if the value is a valid email address, 'phone' if it is a valid phone number, and false otherwise.
  */
 export function validateEmailOrPhone(value: string): false | 'email' | 'phone' {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -139,4 +139,33 @@ export function getFileName(fileName: string): string | undefined {
   const parts = fileName.split('_')
   // Remove and get the last part
   return parts.pop()
+}
+
+/**
+ * Formats a date input string into a custom date format.
+ *
+ *
+ */
+export function formatCustomDate(inputDateString: string) {
+  const date = new Date(inputDateString)
+
+  const day = date.getDate()
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+  const monthIndex = date.getMonth()
+  const year = date.getFullYear()
+
+  return `${day} ${monthNames[monthIndex]} ${year}`
 }

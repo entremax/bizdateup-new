@@ -28,7 +28,7 @@ const useUser = () => {
     }
     fetchUserDetails()
     // Returning a cleanup function is optional. You may omit the return statement if not needed.
-  }, [user])
+  }, [])
 
   return user
 }

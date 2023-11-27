@@ -80,7 +80,7 @@ const Links = ({ type }: { type: 'unauthenticated' | 'authenticated' }) => {
             )}>
             {link.icon ? (
               <link.icon
-                className="fill-current group-hover:fill-blue-500"
+                className="fill-current group-hover:fill-primary"
                 width="1rem"
                 height="1rem"
               />
