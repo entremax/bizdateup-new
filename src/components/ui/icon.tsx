@@ -493,7 +493,8 @@ export const Icons = {
       width="18"
       height="18"
       viewBox="0 0 18 18"
-      fill="none">
+      fill="none"
+      {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -548,7 +549,8 @@ export const Icons = {
       width="19"
       height="20"
       viewBox="0 0 19 20"
-      fill="none">
+      fill="none"
+      {...props}>
       <path
         d="M12.7161 14.2236H5.49609"
         stroke="black"
@@ -604,7 +606,8 @@ export const Icons = {
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="none">
+      fill="none"
+      {...props}>
       <path
         d="M6 18L18 6M6 6L18 18"
         stroke="black"

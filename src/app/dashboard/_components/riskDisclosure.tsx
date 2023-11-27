@@ -5,11 +5,14 @@ import { Button } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { setRiskAccept } from '@/reducers/user/authSlice'
 
+export const dynamic = 'force-dynamic'
+
 export default function RiskDisclosure() {
   const dispatch = useAppDispatch()
   const { riskAccepted } = useAppSelector((state) => state.authUser)
+
   return (
-    <>
+    <div>
       <CustomModal
         title={
           <h4 className={'m-0 p-0 text-2xl font-bold text-gray-900'}>
@@ -38,6 +41,6 @@ export default function RiskDisclosure() {
           <li className="text-sm font-normal text-[#444]">To be updated</li>
         </ul>
       </CustomModal>
-    </>
+    </div>
   )
 }

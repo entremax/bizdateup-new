@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,16 +23,40 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/theme/*": ["./src/theme/*"],
-      "@/lib/*": ["./src/lib/*", "./src/lib/utils.ts"],
-      "@/ui/*": ["./src/components/ui/*"],
-      "@/store/*": ["./src/store/*"],
-      "@/reducers/*": ["./src/store/features/reducers/*"],
-      "@/services/*": ["./src/store/features/services/*"],
-      "@/icons": ["./src/components/ui/icon"],
-      "@/data": ["./src/data/index.tsx"],
-      "@/endpoint": ["./src/lib/endpoint/apiEndpoint.ts"],
+      "@/*": [
+        "./src/*"
+      ],
+      "@/theme/*": [
+        "./src/theme/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*",
+        "./src/lib/utils.ts"
+      ],
+      "@/ui/*": [
+        "./src/components/ui/*"
+      ],
+      "@/store/*": [
+        "./src/store/*"
+      ],
+      "@/reducers/*": [
+        "./src/store/features/reducers/*"
+      ],
+      "@/services/*": [
+        "./src/store/features/services/*"
+      ],
+      "@/icon": [
+        "./src/components/ui/icon"
+      ],
+      "@/icons/*": [
+        "./src/components/ui/icons/*"
+      ],
+      "@/data": [
+        "./src/data/index.tsx"
+      ],
+      "@/endpoint": [
+        "./src/lib/endpoint/apiEndpoint.ts"
+      ],
       "@/components/*": [
         "./src/app/(auth)/_components/*",
         "./src/app/dashboard/_components/*",
@@ -37,13 +65,31 @@
         "./src/components/navbar/*",
         "./src/components/*"
       ],
+      "@/form-component/*": [
+        "./src/app/profile/(profiles)/investor/_components/form_components/*"
+      ],
+      "@/profile-components/*": [
+        "./src/app/profile/(profiles)/investor/_components/*",
+        "./src/app/profile/(profiles)/investor/bank/components/*"
+      ],
       "@/types/*": [
         "./src/types/*",
         "./src/app/invest/*",
         "./src/lib/endpoints/*"
+      ],
+      "@/typ": [
+        "./src/types/profile",
+        "./src/types"
       ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

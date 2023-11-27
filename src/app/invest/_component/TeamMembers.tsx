@@ -1,7 +1,7 @@
 import { StartupData, TeamMember } from '@/app/invest/_type'
 import { Avatar } from 'antd'
 import Link from 'next/link'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import React from 'react'
 import { apiUri } from '@/lib/utils'
 
@@ -17,10 +17,12 @@ export default function TeamMembers({ startup }: { startup: StartupData }) {
           <div
             key={member.fullName}
             className={'flex items-center gap-4 py-4 lg:gap-2'}>
-            <Avatar
-              size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
-              src={api + '/teammember/' + member.profileImage}
-            />
+            <div className="min-w-[32px]">
+              <Avatar
+                size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+                src={api + '/teammember/' + member.profileImage}
+              />
+            </div>
             <div className="flex flex-col gap-0.5 lg:gap-1">
               <h5 className="reset text-gray-40 text-sm lg:text-lg ">
                 {member.fullName}

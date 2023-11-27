@@ -9,6 +9,7 @@ import { useSendOtpMutation } from '@/services/apiSlice'
 import { validateEmailOrPhone } from '@/lib/utils'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import { useVerifyOtpMutation } from '@/services/NextApiSlice'
+import { setUserInLocal } from '@/lib/getToken'
 
 interface OtpVerifyData {
   code: string
@@ -55,7 +56,7 @@ export default function OtpField({ id }: { id: string }) {
     ({ authUser }) => authUser,
   )
   const [sendOtp, { isLoading: reSending }] = useSendOtpMutation()
-
+  
   React.useEffect(() => {
     if (!temp_auth_medium) {
       router.back()
@@ -63,7 +64,7 @@ export default function OtpField({ id }: { id: string }) {
       router.back()
     }
   }, [temp_auth_medium, id, investorUserId])
-
+  
   async function handleResend() {
     if (!temp_auth_medium) {
       return
@@ -90,7 +91,7 @@ export default function OtpField({ id }: { id: string }) {
       dispatch(setNotification({ type: 'error', message: '' }))
     }
   }
-
+  
   // TODO - Fix redirection issue (partially fixed)
   async function handleVerifyOtp() {
     if (!investorUserId || otp === '') {
@@ -102,7 +103,7 @@ export default function OtpField({ id }: { id: string }) {
       )
       return
     }
-
+    
     // TODO- Refactor the use of verifyOTP api
     const reqData: OtpVerifyData = {
       code: otp,
@@ -130,38 +131,61 @@ export default function OtpField({ id }: { id: string }) {
         refId = investorUserId,
         status,
       } = response.data
-
+      
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
         localStorage.setItem('token', token)
-        dispatch(
-          setUser({
+        // dispatch(
+        //   setUser({
+        //     userData: investorData,
+        //     token,
+        //     refId,
+        //     kycStatus: status,
+        //     premiumMember: investorData.membership.isMember !== 'no',
+        //   }),
+        // )
+        setUserInLocal({
+          dispatch,
+          setUser,
+          user: {
             userData: investorData,
             token,
             refId,
             kycStatus: status,
             premiumMember: investorData.membership.isMember !== 'no',
-          }),
-        )
+          },
+        })
         return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
-          dispatch(
-            setUser({
-              token,
+          // dispatch(
+          //   setUser({
+          //     token,
+          //     userData: investorData,
+          //     refId,
+          //     kycStatus: status,
+          //     premiumMember: investorData.membership.isMember !== 'no',
+          //   }),
+          // )
+          
+          setUserInLocal({
+            dispatch,
+            setUser,
+            user: {
               userData: investorData,
+              token,
               refId,
               kycStatus: status,
               premiumMember: investorData.membership.isMember !== 'no',
-            }),
-          )
+            },
+          })
           return router.push('/dashboard')
         }
       }
     }
   }
-
+  
   return (
     <>
       <div className="grid w-full items-center justify-center text-center md:min-w-max">

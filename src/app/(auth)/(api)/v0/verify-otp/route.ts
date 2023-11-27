@@ -39,6 +39,13 @@ export async function POST(req: NextRequest) {
         response.data.code === 200 &&
         'refId' in response.data
       ) {
+        // cookies().set({
+        //   name: 'user',
+        //   value: JSON.stringify(response.data),
+        //   httpOnly: true,
+        //   path: '/',
+        //   maxAge: 60 * 60,
+        // })
         cookies().set({
           name: 'user_id',
           value: response.data.refId as string,

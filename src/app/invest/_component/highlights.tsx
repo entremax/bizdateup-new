@@ -1,5 +1,5 @@
 import { StartupData } from '@/app/invest/_type'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import React from 'react'
 
 export default function Highlights({ startup }: { startup: StartupData }) {

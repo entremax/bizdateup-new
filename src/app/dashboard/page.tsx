@@ -7,19 +7,21 @@ import Startups from '@/components/_startups'
 import KycIndicator from '@/components/_kycIndicator'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Icons } from '@/icons'
-import FrequentlyAsked from '@/components/faq'
+import { Icons } from '@/icon'
 import type { Metadata } from 'next'
 import { Membership } from '@/components/_membership'
 import ReduxProvider from '@/store/Provider'
 import { apiUri } from '@/lib/utils'
-import RiskDisclosure from '@/components/riskDisclosure'
+import FrequentlyAsked from '@/components/faq'
+import dynamic from 'next/dynamic'
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
   description: 'Dashboard for investor',
 }
-
+const RiskDisclosure = dynamic(() => import('@/components/riskDisclosure'), {
+  ssr: false,
+})
 const getData = async () => {
   const url = `${apiUri().v0}/startupsInvestorView?limit=2`
   const response = await fetch(url, { next: { revalidate: 0 } })
@@ -38,7 +40,7 @@ const getData = async () => {
 
 const Dashboard = async () => {
   const { data: campaign }: { data: Campaign[] } = await getData()
-
+  
   const menu = [
     {
       name: 'Tutorials',
@@ -61,14 +63,12 @@ const Dashboard = async () => {
       link: '/policy',
     },
   ]
-
+  
   return (
     <div className="ml-2 grid grid-cols-12 gap-2 px-3 pb-3 pt-20 xl:px-5">
       <div className="col-start-1 col-end-12 my-6 md:mt-5 xl:col-start-2 xl:col-end-11">
         <div className="grid text-primary-dark">
-          <ReduxProvider>
-            <Greet />
-          </ReduxProvider>
+          <Greet />
           <h2 className="reset hidden font-bold sm:inline sm:text-3xl md:text-4xl">
             Check out Live Campaigns
           </h2>
@@ -117,7 +117,8 @@ const Dashboard = async () => {
             </Link>
           </div>
         </div>
-        <div className="border_gray my-4 grid items-center justify-center gap-2 rounded-xl  text-center shadow md:text-left">
+        <div
+          className="border_gray my-4 grid items-center justify-center gap-2 rounded-xl  text-center shadow md:text-left">
           <div className={'flex'}>
             <div className="grow"></div>
             <Image
@@ -154,7 +155,8 @@ const Dashboard = async () => {
             </Link>
           </div>
         </div>
-        <div className="border_gray my-4 grid items-center justify-center gap-2 rounded-xl  text-center shadow md:text-left">
+        <div
+          className="border_gray my-4 grid items-center justify-center gap-2 rounded-xl  text-center shadow md:text-left">
           <div className={'flex'}>
             <div className="grow"></div>
             <Image
@@ -212,13 +214,10 @@ const Dashboard = async () => {
             <h4 className="reset text-center text-3xl font-bold md:text-4xl">
               Frequently Asked Questions
             </h4>
-            <ReduxProvider>
-              <FrequentlyAsked />
-            </ReduxProvider>
+            <FrequentlyAsked />
           </div>
         </div>
       </div>
-      {/*<MobileAppAds/>*/}
       <ReduxProvider>
         <RiskDisclosure />
       </ReduxProvider>

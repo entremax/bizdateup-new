@@ -2,21 +2,6 @@ import { apiUri } from '../utils'
 import { EndpointProps } from './endPointTypes'
 
 const baseUrl = apiUri().v0
-
-// const callApi=async(uri:string)=>{
-//   const res=await fetch(apiUri().v0+`/startup/fetchStartupByType?tos=${type}`,{
-//     headers:{
-//       Authorization:tokenKey?"Bearer "+tokenKey:""
-//     }
-//   })
-//     .then((res)=> {
-//       return res.json()
-//     })
-//     .catch((e)=> {
-//       console.log(e)
-//       throw new Error("Something went wrong check server terminal")
-//     })
-// }
 /**
  * Extends a base URL by appending query parameters.
  *

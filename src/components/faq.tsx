@@ -1,14 +1,19 @@
 'use client'
-import React from 'react'
-import type { CollapseProps } from 'antd'
-import { Collapse } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Collapse, CollapseProps } from 'antd'
 import data from '@/data'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
+
+export const dynamic = 'force-dynamic'
 
 const FrequentlyAsked: React.FC<{
   custom?: boolean
   faqData?: { _id: string; question: string; answer: string }[]
 }> = ({ custom = false, faqData }) => {
+  const [items, setItems] = useState<any>([])
+
+  // Opt out of caching for all data requests in the route segment
+
   function getRandomFourItems({ array }: { array: CollapseProps['items'] }) {
     if (!array) {
       return
@@ -21,10 +26,19 @@ const FrequentlyAsked: React.FC<{
       const j = Math.floor(Math.random() * (i + 1))
       ;[copyArr[i], copyArr[j]] = [copyArr[j], copyArr[i]]
     }
-
+    // console.log(copyArr)
     // Return the first 4 items
     return copyArr.slice(0, 4)
   }
+
+  useEffect(() => {
+    if (custom) {
+      setItems(convertToCollapseFormat(faqData))
+    } else {
+      setItems(getRandomFourItems({ array: data.faqData }))
+    }
+  }, [])
+
   function convertToCollapseFormat(
     collapseData?: { _id: string; question: string; answer: string }[],
   ) {
@@ -36,6 +50,7 @@ const FrequentlyAsked: React.FC<{
       }),
     )
   }
+
   return (
     <Collapse
       className={'mt-12 !rounded-none bg-transparent text-black-lighter'}
@@ -45,11 +60,7 @@ const FrequentlyAsked: React.FC<{
           style={{ transform: `rotate(${isActive ? '270deg' : '90deg'})` }}
         />
       )}
-      items={
-        custom
-          ? convertToCollapseFormat(faqData)
-          : getRandomFourItems({ array: data.faqData })
-      }
+      items={items}
       bordered={false}
       defaultActiveKey={['1']}
       size={'large'}

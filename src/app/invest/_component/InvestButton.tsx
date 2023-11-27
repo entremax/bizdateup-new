@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import ReduxProvider from '@/store/Provider'
 import InvestTransactionModal from '@/components/investModal'
 import { StartupData } from '@/types/_type'

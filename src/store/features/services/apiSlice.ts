@@ -115,6 +115,68 @@ export const api = createApi({
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
     }),
+    updateUser: builder.mutation({
+      query: (updatedData) => ({
+        url: baseUrl + '/auth/email-signup-complete',
+        method: 'POST',
+        body: updatedData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      transformResponse: (response: ISendOtpResponseData) => {
+        return {
+          responseCode: response.data.code,
+          token: response.data.token,
+          refId: response.refId,
+
+          status: response.data.status,
+          investorData: {
+            ...response.data.data,
+          },
+        }
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
+    }),
+    updateOtherDetails: builder.mutation({
+      query: (updatedData) => ({
+        url: baseUrl + '/kyc/add_other',
+        method: 'POST',
+        body: updatedData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      transformResponse: (response: any) => {
+        return {
+          responseCode: response.data.code,
+          message: response.data.message,
+          status: response.data.status,
+        }
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
+    updateBankDetails: builder.mutation({
+      query: (updatedData) => ({
+        url: baseUrl + '/kyc/verify_and_add_bank',
+        method: 'POST',
+        body: updatedData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      transformResponse: (response: ISendOtpResponseData) => {
+        console.log(response)
+        return {
+          message: response.data.message,
+          status: response.data.status,
+        }
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
   }),
 })
 
@@ -123,4 +185,7 @@ export const {
   useGetTotalInvestmentQuery,
   useGetInvestmentDetailsQuery,
   useStartupFeedbackMutation,
+  useUpdateUserMutation,
+  useUpdateOtherDetailsMutation,
+  useUpdateBankDetailsMutation,
 } = api

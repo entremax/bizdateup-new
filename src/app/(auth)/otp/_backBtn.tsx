@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Button } from 'antd'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import { useRouter } from 'next/navigation'
 
 const GoBack = () => {

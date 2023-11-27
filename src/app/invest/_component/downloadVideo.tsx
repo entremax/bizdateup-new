@@ -1,4 +1,4 @@
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import { StartupData } from '@/app/invest/_type'
 import React from 'react'
 

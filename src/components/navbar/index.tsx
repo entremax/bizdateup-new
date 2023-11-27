@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import React from 'react'
 import NavLink from '@/components/navbar/NavLink'
 import UserMenu from './userMenu'
-import ReduxProvider from '@/store/Provider'
 import { cookies } from 'next/headers'
+import ReduxProvider from '@/store/Provider'
 
 const Navbar: React.FC = () => {
   const cookieStore = cookies()

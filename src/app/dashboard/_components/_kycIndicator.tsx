@@ -2,15 +2,13 @@
 import { Button, Progress, Space } from 'antd'
 import { cn } from '@/lib/utils'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { IInvestmentItem, KYCStatus } from '@/types'
+import { AuthUserState, IInvestmentItem, KYCStatus } from '@/types'
 import React, { ReactElement } from 'react'
-import { setKycCompletionPercentage } from '@/store/features/reducers/user/authSlice'
+import { setKycCompletionPercentage, setUser } from '@/store/features/reducers/user/authSlice'
 import Link from 'next/link'
-import {
-  useGetInvestmentDetailsQuery,
-  useGetTotalInvestmentQuery,
-} from '@/store/features/services/apiSlice'
+import { useGetInvestmentDetailsQuery, useGetTotalInvestmentQuery } from '@/store/features/services/apiSlice'
 import { setInvestmentDetails } from '@/reducers/user/investorSlice'
+import { getUserData } from '@/lib/getToken'
 
 /**
  * Represents a KYC Indicator component.
@@ -28,8 +26,13 @@ const KycIndicator = ({
   hidden?: boolean
 }): ReactElement => {
   const dispatch = useAppDispatch()
-  const { user, token, kycStatus, kycCompletionPercentage, refId } =
-    useAppSelector((state) => state.authUser)
+  let userData: AuthUserState = useAppSelector((state) => state.authUser)
+  const { user, token, kycStatus, kycCompletionPercentage, refId } = userData
+  React.useEffect(() => {
+    if (!userData.token) {
+      userData = getUserData(dispatch, setUser, useAppSelector)
+    }
+  }, [user])
   const { totalamount, investedStartups } = useAppSelector(
     ({ investor }) => investor,
   )

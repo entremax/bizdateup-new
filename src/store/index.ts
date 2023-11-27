@@ -4,30 +4,17 @@ import authUserSlice from './features/reducers/user/authSlice'
 import Notify from './features/reducers/others/notificationSlice'
 import investor from './features/reducers/user/investorSlice'
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
-import { persistReducer, persistStore } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 import { api } from '@/store/features/services/apiSlice'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { NextApi } from '@/services/NextApiSlice'
 import { paymentApi } from '@/services/paymentSlice'
-
-/**
- * Configuration options for data persistence.
- */
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage,
-}
-
-const authUser = persistReducer(persistConfig, authUserSlice)
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     [NextApi.reducerPath]: NextApi.reducer,
     [paymentApi.reducerPath]: paymentApi.reducer,
-    authUser,
+    authUser: authUserSlice,
     investor,
     Notify,
   },
@@ -38,8 +25,6 @@ export const store = configureStore({
       paymentApi.middleware,
     ),
 })
-
-export const persistor = persistStore(store)
 
 export type RootState = ReturnType<typeof store.getState>
 

@@ -1,4 +1,4 @@
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import { DueDiligenceFile, StartupData } from '@/app/invest/_type'
 import { apiUri, cn, getFileName } from '@/lib/utils'
 import React from 'react'

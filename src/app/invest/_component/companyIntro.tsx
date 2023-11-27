@@ -10,7 +10,7 @@ import {
 import { Divider, Progress } from 'antd'
 import { StartupData } from '@/app/invest/_type'
 import Description from '@/components/Readmore'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import InvestButton from '@/components/InvestButton'
 
 export default function CompanyIntro({ startup }: { startup: StartupData }) {

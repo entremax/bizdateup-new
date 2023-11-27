@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Icons } from '@/icons'
+import { usePathname, useSelectedLayoutSegment } from 'next/navigation'
+import { Icons } from '@/icon'
 import { cn } from '@/lib/utils'
 
 const headerType = {
@@ -58,6 +58,8 @@ const headerType = {
 
 const Links = ({ type }: { type: 'unauthenticated' | 'authenticated' }) => {
   const path = usePathname()
+  const segment = useSelectedLayoutSegment()
+  console.log('Segment', segment, '/n Path:', path)
   const linkStyle =
     'flex gap-2 items-center text-gray-400 font-medium text-sm md:text-md lg:text-lg px-4 group-hover:text-primary h-full'
 

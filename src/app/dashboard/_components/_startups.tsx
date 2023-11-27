@@ -9,17 +9,17 @@ import Link from 'next/link'
 
 const Startups = ({ data }: { data: Campaign[] }) => {
   const baseUrl = apiUri().v1
-
+  
   function getData(data: any[]) {
     let startupData = data.length > 4 ? data.slice(0, 4) : data
-
+    
     if (startupData.length % 2 !== 0) {
       startupData = data.slice(0, 2)
     }
-
+    
     return startupData
   }
-
+  
   return (
     <div className={'grid'}>
       <h3
@@ -37,14 +37,14 @@ const Startups = ({ data }: { data: Campaign[] }) => {
               'border_gray relative overflow-clip rounded-2xl shadow-lg'
             }>
             <Image
-              src={baseUrl + 'banner/' + startup.banner}
+              src={baseUrl + '/banner/' + startup.banner}
               alt={startup.registeredCompanyName}
               height={250}
               width={340}
               className={'w-full'}
             />
             <Image
-              src={baseUrl + 'logo/' + startup.logo}
+              src={baseUrl + '/logo/' + startup.logo}
               height={40}
               width={40}
               alt={startup.registeredCompanyName}

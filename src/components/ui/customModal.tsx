@@ -15,6 +15,8 @@ import {
 
 import { CustomModelProps } from '@/ui/config/types'
 
+export const dynamic = 'force-dynamic'
+
 const modalStyle = {
   defaultCentered: {
     modalStyle: DefaultCenteredModalStyle,

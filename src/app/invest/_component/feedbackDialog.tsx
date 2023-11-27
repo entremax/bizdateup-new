@@ -1,6 +1,6 @@
 'use client'
 import { Button } from 'antd'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import { useEffect, useState } from 'react'
 import { capitalizeFirstLetter, cn } from '@/lib/utils'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'

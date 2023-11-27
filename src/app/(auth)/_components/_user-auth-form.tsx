@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import { Button, Divider, Input } from 'antd'
 import { useRouter } from 'next/navigation' // Import the correct router
 import { useAppDispatch } from '@/store/hooks'
-import { Icons } from '@/icons'
+import { Icons } from '@/icon'
 import { setInvestorId, temp_values } from '@/reducers/user/authSlice'
 import { validateEmailOrPhone } from '@/lib/utils'
 import { useSendOtpMutation } from '@/services/apiSlice'
