@@ -1,6 +1,6 @@
-import { StartupData } from '@/app/invest/_type'
+import { StartupData } from '@/types/invest'
 import Link from 'next/link'
-import { Icons } from '@/icon'
+import { Icons } from '@/components/icons/icon'
 import React from 'react'
 import { capitalizeFirstLetter } from '@/lib/utils'
 

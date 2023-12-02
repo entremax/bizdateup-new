@@ -2,10 +2,10 @@ import { cn } from '@/lib/utils'
 import { Input as AntDInput } from 'antd'
 import React, { ForwardRefRenderFunction } from 'react'
 import { InputRef } from 'antd/lib/input'
-import { ForwardRefProps } from '@/typ'
+import { ForwardRefProps } from '@/types/profile'
 
 const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
-  { type = 'text', label, name, className, ...props },
+  { type = 'text', label, name, className, labelClassName, ...props },
   ref,
 ) => {
   return (
@@ -28,7 +28,10 @@ const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
 
       <label
         htmlFor={name}
-        className="pointer-events-none absolute left-3 top-[0.5rem] mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white p-0 px-[0.022rem] font-medium !text-gray-900 text-black transition-all duration-200 ease-out">
+        className={cn(
+          'pointer-events-none absolute left-3 top-[0.5rem] mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white p-0 px-[0.022rem] font-medium !text-gray-900 text-black transition-all duration-200 ease-out' +
+            (labelClassName && labelClassName),
+        )}>
         {label}
       </label>
     </div>

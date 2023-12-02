@@ -1,6 +1,6 @@
 import React from 'react'
 import { DataInner } from '@/types'
-import getUserDetails from '@/lib/helpers/getUserDetails'
+import getUserDetails from '@/action/user'
 import OtherDetailsForm from '@/app/profile/(profiles)/investor/other/components/otherDetailsForm'
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 
 export default async function OtherDetails({ searchParams }: Props) {
   const editState: boolean = !searchParams.edit
-  
+
   const { user }: { user: DataInner } = await getUserDetails()
   if (!user) {
     return <>Loading</>

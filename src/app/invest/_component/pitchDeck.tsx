@@ -1,4 +1,4 @@
-import { Icons } from '@/icon'
+import { Icons } from '@/components/icons/icon'
 import React from 'react'
 import Image from 'next/image'
 

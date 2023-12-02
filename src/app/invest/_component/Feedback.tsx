@@ -1,4 +1,4 @@
-import { StartupData } from '@/app/invest/_type'
+import { StartupData } from '@/types/invest'
 import Image from 'next/image'
 import { Button } from 'antd'
 

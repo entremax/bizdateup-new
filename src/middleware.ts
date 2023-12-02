@@ -1,10 +1,16 @@
 // middleware.ts
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 const pathType = {
-  unAuthenticated: [/\/login/, /\/signup/, /\/otp/],
-  authenticated: [/\/dashboard/, /\/invest/, /\/profile/],
+  unAuthenticated: [/\/login/, /\/signup/, /\/otp.*/],
+  authenticated: [
+    /\/dashboard.*/,
+    /\/invest.*/,
+    /\/profile.*/,
+    /\/transactions.*/,
+    /\/referral.*/,
+  ],
 }
 
 export function middleware(req: NextRequest) {

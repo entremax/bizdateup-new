@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { StartupData } from '@/types/_type'
+import { StartupData } from '@/types/invest'
 import Image from 'next/image'
-import { apiUri, capitalizeFirstLetter } from '@/lib/util'
-import InvestButton from '@/components/InvestButton'
+import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
+import InvestButton from '@/components/invest/InvestButton'
 
 const StickyCompanyIntro: React.FC<{ startup: StartupData }> = ({
   startup,

@@ -1,8 +1,8 @@
 import { Button } from 'antd'
-import { Icons } from '@/icon'
+import { Icons } from '@/components/icons/icon'
 import ReduxProvider from '@/store/Provider'
-import InvestTransactionModal from '@/components/investModal'
-import { StartupData } from '@/types/_type'
+import InvestTransactionModal from '@/components/invest/investModal'
+import { StartupData } from '@/types/invest'
 import { cn, formatIndianValuation } from '@/lib/utils'
 
 type Props = {

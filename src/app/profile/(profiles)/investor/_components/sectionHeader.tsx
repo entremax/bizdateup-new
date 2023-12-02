@@ -1,6 +1,6 @@
 'use client'
 import { Button } from 'antd'
-import Edit from '@/icons/Edit'
+import Edit from '@/components/icons/Edit'
 import React, { useState } from 'react'
 import {
   useRouter,
@@ -8,7 +8,7 @@ import {
   useSelectedLayoutSegment,
 } from 'next/navigation'
 import { useAppSelector } from '@/store/hooks'
-import { Icons } from '@/icon'
+import { Icons } from '@/components/icons/icon'
 
 type sectionType =
   | 'general-info'

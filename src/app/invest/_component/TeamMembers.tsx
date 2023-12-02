@@ -1,7 +1,7 @@
-import { StartupData, TeamMember } from '@/app/invest/_type'
+import { StartupData, TeamMember } from '@/types/invest'
 import { Avatar } from 'antd'
 import Link from 'next/link'
-import { Icons } from '@/icon'
+import { Icons } from '@/components/icons/icon'
 import React from 'react'
 import { apiUri } from '@/lib/utils'
 

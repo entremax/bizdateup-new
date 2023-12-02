@@ -2,10 +2,10 @@ import React from 'react'
 import { Campaign } from '@/types'
 import Image from 'next/image'
 import { capitalizeFirstLetter, cn, formatIndianValuation } from '@/lib/utils'
-import { StartupTag } from '@/components/tag'
-import JoinWhatsApp from '@/components/_join_whatsapp'
+import JoinWhatsApp from '@/components/dashboard/_join_whatsapp'
 import '../dashboard.css'
 import Link from 'next/link'
+import { StartupTag } from '@/components/tag'
 
 /**
  * Renders a list of live startup campaigns.

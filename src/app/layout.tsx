@@ -5,9 +5,9 @@ import theme from '@/theme/themeConfig'
 import { ConfigProvider } from 'antd'
 import StyledComponentsRegistry from '@/lib/AntdRegistry'
 import ReduxProvider from '@/store/Provider'
-import AntNotification from '@/ui/notification'
-import MobileNavbar from '@/components/index'
-import Navbar from '@/components/navbar'
+import AntNotification from '@/components/notification'
+import MobileNavbar from '@/components/navbar/navbar_mobile'
+import Navbar from '@/components/navbar/navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 

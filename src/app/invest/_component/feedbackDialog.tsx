@@ -1,11 +1,11 @@
 'use client'
 import { Button } from 'antd'
-import { Icons } from '@/icon'
+import { Icons } from '@/components/icons/icon'
 import { useEffect, useState } from 'react'
 import { capitalizeFirstLetter, cn } from '@/lib/utils'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { useParams, useSearchParams } from 'next/navigation'
-import { Interest } from '@/types/_type'
+import { Interest } from '@/types/invest'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import { useStartupFeedbackMutation } from '@/services/apiSlice'
 

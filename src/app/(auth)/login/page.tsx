@@ -1,4 +1,4 @@
-import UserAuthForm from '../_components/_user-auth-form'
+import UserAuthForm from '../components/_user-auth-form'
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'

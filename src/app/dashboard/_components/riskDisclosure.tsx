@@ -1,5 +1,5 @@
 'use client'
-import CustomModal from '@/ui/customModal'
+import CustomModal from '@/components/modal/customModal'
 import React from 'react'
 import { Button } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'

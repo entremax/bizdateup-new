@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Icons } from '@/icon'
+import { Icons } from '@/icons/icon'
 import { useAppSelector } from '@/store/hooks'
 import capitalize from 'antd/lib/_util/capitalize'
 

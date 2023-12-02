@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
 import { StartupTag } from '@/components/tag'
 import React from 'react'
-import { StartupData, StartupDataByType } from '@/app/invest/_type'
+import { StartupData, StartupDataByType } from '@/types/invest'
 
 export default function StartupCard({
   startup,

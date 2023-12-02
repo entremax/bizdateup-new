@@ -5,7 +5,7 @@ import {
   IPaymentResponse,
   OfflinePayments,
   OnlinePaymentData,
-} from '@/types/_type'
+} from '@/types/invest'
 
 const baseUrl = apiUri().v0
 

@@ -1,5 +1,5 @@
-import { Icons } from '@/icon'
-import { StartupData } from '@/app/invest/_type'
+import { Icons } from '@/components/icons/icon'
+import { StartupData } from '@/types/invest'
 import React from 'react'
 
 export default function DownloadVideo({ startup }: { startup: StartupData }) {

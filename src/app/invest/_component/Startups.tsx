@@ -1,7 +1,7 @@
-import { securityType, StartupDataByType } from '@/app/invest/_type'
+import { securityType, StartupDataByType } from '@/types/invest'
 import { apiUri } from '@/lib/utils'
 import { cookies } from 'next/headers'
-import StartupCard from '@/app/invest/_component/startupCard'
+import StartupCard from '@/components/invest/startupCard'
 
 interface Props {
   header: string

@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { Icons } from '@/icon'
+import { Icons } from '@/components/icons/icon'
 import { Button, Divider, Input, Tooltip } from 'antd'
 
 type Props = {

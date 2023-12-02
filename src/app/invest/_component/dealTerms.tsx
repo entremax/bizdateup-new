@@ -1,5 +1,5 @@
-import { StartupData } from '@/app/invest/_type'
-import { Icons } from '@/icon'
+import { StartupData } from '@/types/invest'
+import { Icons } from '@/components/icons/icon'
 import { Divider } from 'antd'
 import { cn, formatIndianValuation } from '@/lib/utils'
 import React from 'react'

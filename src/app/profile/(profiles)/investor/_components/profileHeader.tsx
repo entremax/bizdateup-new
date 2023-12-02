@@ -1,7 +1,7 @@
 import { Button } from 'antd'
 import ImageUploader from '@/profile-components/profileImageUploader'
 import ReduxProvider from '@/store/Provider'
-import getUserDetails from '@/lib/helpers/getUserDetails'
+import getUserDetails from '@/action/user'
 import { DataInner } from '@/types'
 
 export default async function ProfileHeader() {

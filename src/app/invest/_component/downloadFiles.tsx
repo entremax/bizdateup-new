@@ -1,5 +1,5 @@
-import { Icons } from '@/icon'
-import { DueDiligenceFile, StartupData } from '@/app/invest/_type'
+import { Icons } from '@/components/icons/icon'
+import { DueDiligenceFile, StartupData } from '@/types/invest'
 import { apiUri, cn, getFileName } from '@/lib/utils'
 import React from 'react'
 import Link from 'next/link'

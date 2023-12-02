@@ -3,7 +3,7 @@ import { Campaign } from '@/types'
 import Image from 'next/image'
 import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
 import { StartupTag } from '@/components/tag'
-import JoinWhatsApp from '@/components/_join_whatsapp'
+import JoinWhatsApp from '@/components/dashboard/_join_whatsapp'
 import { Button } from 'antd'
 import Link from 'next/link'
 

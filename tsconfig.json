@@ -29,9 +29,12 @@
       "@/theme/*": [
         "./src/theme/*"
       ],
+      "@/action/*": [
+        "./src/app/actions/*",
+        "./src/app/referral/actions/*"
+      ],
       "@/lib/*": [
-        "./src/lib/*",
-        "./src/lib/utils.ts"
+        "./src/lib/*"
       ],
       "@/ui/*": [
         "./src/components/ui/*"
@@ -45,41 +48,45 @@
       "@/services/*": [
         "./src/store/features/services/*"
       ],
-      "@/icon": [
-        "./src/components/ui/icon"
-      ],
       "@/icons/*": [
-        "./src/components/ui/icons/*"
+        "./src/components/icons/*"
       ],
       "@/data": [
         "./src/data/index.tsx"
       ],
-      "@/endpoint": [
-        "./src/lib/endpoint/apiEndpoint.ts"
+      "@/components/common/*": [
+        "./src/components/*",
+        "./src/components/navbar/*"
       ],
-      "@/components/*": [
-        "./src/app/(auth)/_components/*",
-        "./src/app/dashboard/_components/*",
-        "./src/app/invest/_component/*",
-        "./src/components/mobileNavbar/*",
-        "./src/components/navbar/*",
-        "./src/components/*"
+      "@/components/auth/*": [
+        "./src/app/(auth)/components/*",
+        "./src/app/(auth)/otp/_backBtn.tsx"
       ],
-      "@/form-component/*": [
-        "./src/app/profile/(profiles)/investor/_components/form_components/*"
+      "@/components/dashboard/*": [
+        "./src/app/dashboard/_components/*"
       ],
-      "@/profile-components/*": [
+      "@/components/invest/*": [
+        "./src/app/invest/_component/*"
+      ],
+      "@/components/payment/*": [
+        "./src/app/payment/_components/*"
+      ],
+      "@/components/profile/*": [
         "./src/app/profile/(profiles)/investor/_components/*",
-        "./src/app/profile/(profiles)/investor/bank/components/*"
+        "./src/app/profile/(profiles)/investor/bank/components/*",
+        "./src/app/profile/(profiles)/investor/other/components/*"
+      ],
+      "@/components/referral/*": [
+        "./src/app/referral/components/*"
+      ],
+      "@/context/profile/*": [
+        "./src/app/profile/(profiles)/investor/_components/context/*"
+      ],
+      "@/hooks/common/*": [
+        "./src/hooks/*"
       ],
       "@/types/*": [
-        "./src/types/*",
-        "./src/app/invest/*",
-        "./src/lib/endpoints/*"
-      ],
-      "@/typ": [
-        "./src/types/profile",
-        "./src/types"
+        "./src/types/*"
       ]
     }
   },

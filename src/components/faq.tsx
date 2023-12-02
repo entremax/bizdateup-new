@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Collapse, CollapseProps } from 'antd'
 import data from '@/data'
-import { Icons } from '@/icon'
+import { Icons } from '@/components/icons/icon'
 
 export const dynamic = 'force-dynamic'
 

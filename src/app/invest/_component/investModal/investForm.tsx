@@ -1,12 +1,12 @@
-import { StartupData } from '@/types/_type'
+import { StartupData } from '@/types/invest'
 import React, { useRef, useState } from 'react'
 import { Button, Checkbox, Form, Input, Tooltip } from 'antd'
 import { InputRef } from 'antd/lib/input'
 import { useAppSelector } from '@/store/hooks'
 import { cn, formatIndianValuation } from '@/lib/utils'
-import { Icons } from '@/components/ui/icon'
+import { Icons } from '@/components/icons/icon'
 import { useRouter } from 'next/navigation'
-import TermsModal from '@/components/termsModals'
+import TermsModal from '@/components/invest/termsModals'
 import Link from 'next/link'
 
 type TransactionTypes = 'online' | 'offline' | null

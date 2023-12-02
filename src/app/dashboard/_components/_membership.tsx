@@ -2,7 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { useAppSelector } from '@/store/hooks'
-import { Icons } from '@/icon'
+import { Icons } from '@/icons/icon'
 import { Button, Collapse, ConfigProvider } from 'antd'
 
 export const Membership = () => {

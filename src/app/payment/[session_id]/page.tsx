@@ -1,6 +1,6 @@
 import React from 'react'
 import ReduxProvider from '@/store/Provider'
-import CaseFreeDrop from '@/app/payment/_components/casefreeDrop'
+import CaseFreeDrop from '@/app/payment/components/casefreeDrop'
 import { redirect } from 'next/navigation'
 
 type Props = {

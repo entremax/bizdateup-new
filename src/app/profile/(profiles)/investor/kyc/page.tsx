@@ -1,6 +1,6 @@
 import React from 'react'
 import { DataInner } from '@/types'
-import getUserDetails from '@/lib/helpers/getUserDetails'
+import getUserDetails from '@/action/user'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }

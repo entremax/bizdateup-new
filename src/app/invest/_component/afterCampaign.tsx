@@ -1,5 +1,5 @@
 import React from 'react'
-import { StartupData } from '@/app/invest/_type'
+import { StartupData } from '@/types/invest'
 import Image from 'next/image'
 import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
 import { Avatar } from 'antd'

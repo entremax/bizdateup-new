@@ -41,6 +41,7 @@ export interface ForwardRefProps extends InputProps {
   name: string
   className?: string
   label: string
+  labelClassName?: string
 }
 
 export interface CustomSelectProps extends SelectProps {

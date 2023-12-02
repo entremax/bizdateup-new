@@ -6,8 +6,11 @@ import {
 } from '@/types'
 import { RootState } from '@/store'
 import { apiUri } from '@/lib/utils'
-import { addInterest } from '@/types/apiEndpoint'
-import { IInterestCheckResponse, IStartupFeedBackResponse } from '@/types/_type'
+import { addInterest } from '@/lib/api_endpoint'
+import {
+  IInterestCheckResponse,
+  IStartupFeedBackResponse,
+} from '@/types/invest'
 
 const baseUrl = apiUri().v0
 const baseQuery = fetchBaseQuery({

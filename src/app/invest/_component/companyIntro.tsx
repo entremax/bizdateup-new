@@ -8,10 +8,10 @@ import {
   formatIndianValuation,
 } from '@/lib/utils'
 import { Divider, Progress } from 'antd'
-import { StartupData } from '@/app/invest/_type'
-import Description from '@/components/Readmore'
-import { Icons } from '@/icon'
-import InvestButton from '@/components/InvestButton'
+import { StartupData } from '@/types/invest'
+import Description from '@/components/readmore'
+import { Icons } from '@/icons/icon'
+import InvestButton from '@/components/invest/InvestButton'
 
 export default function CompanyIntro({ startup }: { startup: StartupData }) {
   const { v1: apiV1 } = apiUri()

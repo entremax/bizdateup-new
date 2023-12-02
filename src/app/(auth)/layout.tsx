@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '@/components/navbar'
+import Navbar from '@/components/common/navbar'
 import ReduxProvider from '@/store/Provider'
 
 const DashboardLayout = ({ children }: React.PropsWithChildren) => (

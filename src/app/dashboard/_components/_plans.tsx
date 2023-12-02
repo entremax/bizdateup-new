@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Icons } from '@/icon'
+import { Icons } from '@/icons/icon'
 import { Button } from 'antd'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ILogoutStatus, ISendOtpResponseData } from '@/types'
-
+// there's a bug here if you add '/api' here the end url will be look like this 'http://127.0.0.1:3000/api/api/v0/verify-otp'
 const baseUrl = `/`
 const baseQuery = fetchBaseQuery({
   baseUrl,
@@ -12,7 +12,7 @@ export const NextApi = createApi({
   endpoints: (builder) => ({
     verifyOtp: builder.mutation({
       query: (otpData) => ({
-        url: baseUrl + 'v0/verify-otp',
+        url: baseUrl + 'verify-otp',
         method: 'POST',
         body: otpData,
         headers: {
@@ -24,7 +24,7 @@ export const NextApi = createApi({
           responseCode: response.data.code,
           token: response.data.token,
           refId: response.refId,
-          
+
           status: response.data.status,
           investorData: {
             ...response.data.data,
@@ -38,7 +38,7 @@ export const NextApi = createApi({
     }),
     logout: builder.mutation({
       query: () => ({
-        url: 'v0/logout',
+        url: 'logout',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -47,7 +47,7 @@ export const NextApi = createApi({
     }),
     getUser: builder.mutation<any, void>({
       query: () => ({
-        url: baseUrl + 'v0/me',
+        url: baseUrl + 'me',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -56,7 +56,7 @@ export const NextApi = createApi({
         return {
           token: response.data.token,
           refId: response.data.refId,
-          
+
           status: response.data.status ?? [],
           investorData: {
             ...response.data.user,
