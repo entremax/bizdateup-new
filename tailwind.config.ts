@@ -7,7 +7,7 @@ const config: Config = {
     './src/page/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   corePlugins: { preflight: false },
-  important: true,
+
   theme: {
     font: 'Helvetica Neue',
     extend: {
