@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '@/store'
 import { apiUri } from '@/lib/utils'
-import { acceleratorApis } from '@/lib/accelerator'
-import { RedeemResponse } from '@/types/referral'
+import { startupApis } from '@/lib/startup'
+import { IStartupUpdatesResponse } from '@/types/startup'
 
 const baseUrl = apiUri().v0
 const baseQuery = fetchBaseQuery({
@@ -17,17 +17,16 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
-export const acceleratorApi = createApi({
-  reducerPath: 'accelerator-api',
+export const startupsApiSlice = createApi({
+  reducerPath: 'startup-api',
   baseQuery,
   endpoints: (builder) => ({
-    redeemCommission: builder.mutation({
-      query: (data) => ({
-        url: acceleratorApis.redeemCommission,
-        method: 'POST',
-        body: data,
+    fetchStartupUpdates: builder.mutation({
+      query: () => ({
+        url: startupApis.fetchStartupsUpdate,
+        method: 'GET',
       }),
-      transformResponse: (response: RedeemResponse) => {
+      transformResponse: (response: IStartupUpdatesResponse) => {
         console.log(response)
         return response.data
       },
@@ -37,4 +36,4 @@ export const acceleratorApi = createApi({
   }),
 })
 
-export const { useRedeemCommissionMutation } = acceleratorApi
+export const { useFetchStartupUpdatesMutation } = startupsApiSlice
