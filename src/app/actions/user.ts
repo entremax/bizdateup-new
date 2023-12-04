@@ -9,6 +9,7 @@ import { Cookies } from '@/types/referral'
 export default async function getUserDetails() {
   const token = cookies().get('token')?.value
   const user_id = cookies().get('user_id')?.value
+
   if (!user_id || !token) {
     redirect('/login', 'push' as RedirectType)
   }
@@ -59,8 +60,8 @@ export async function getCookieData() {
   const user_id = cookies().get('user_id')?.value
   const accelerator_id = cookies().get('accelerator_id')?.value
   const referrer_id = cookies().get('referrer_id')?.value
-
-  if (!token || !user_id || !(accelerator_id && referrer_id)) {
+  const role = cookies().get('role')?.value
+  if (!token || !user_id || !(accelerator_id && referrer_id) || !role) {
     return redirect('/login')
   }
   return {
@@ -68,5 +69,6 @@ export async function getCookieData() {
     user_id,
     accelerator_id,
     referrer_id,
+    role,
   } as Cookies
 }
