@@ -1,6 +1,6 @@
 import React from 'react'
 import { Select as AntDSelect } from 'antd'
-import { CustomSelectProps } from '@/typ'
+import { CustomSelectProps } from '@/types/profile'
 import { BaseSelectRef } from 'rc-select'
 
 const Select: React.ForwardRefRenderFunction<
