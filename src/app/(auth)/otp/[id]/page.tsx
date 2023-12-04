@@ -1,7 +1,7 @@
 import React from 'react'
-import OtpField from '../../components/otp_field'
+import OtpField from '@/components/auth/otp_field'
 import Link from 'next/link'
-import GoBack from '../_backBtn'
+import GoBack from '@/components/auth/_backBtn'
 
 export default function VerifyEmail({ params }: { params: { id: string } }) {
   const { id } = params

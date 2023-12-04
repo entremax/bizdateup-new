@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Divider, Input } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useAppDispatch } from '@/store/hooks'
@@ -8,15 +8,19 @@ import { setInvestorId, temp_values } from '@/reducers/user/authSlice'
 import { validateEmailOrPhone } from '@/lib/utils'
 import { useSendOtpMutation } from '@/services/apiSlice'
 import { setNotification } from '@/reducers/others/notificationSlice'
+import { UserRole } from '@/types'
+import { notifyUser } from '@/components/notification'
 
 interface UserAuthFormProps {
   className?: string
   requestType: 'login' | 'signup'
+  role: UserRole
 }
 
 export default function UserAuthForm({
   className,
   requestType,
+  role,
 }: UserAuthFormProps) {
   const dispatch = useAppDispatch()
   const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/auth/`
@@ -25,7 +29,7 @@ export default function UserAuthForm({
   const [withEmail, setWithEmail] = useState(false)
   const [email, setEmail] = useState('')
   const [loader, setLoader] = useState(false) // Fix variable name
-  useRef<HTMLInputElement | null>(null)
+
   const [sendOtp, { isLoading }] = useSendOtpMutation()
 
   const setLocalStorageValues = () => {
@@ -69,62 +73,47 @@ export default function UserAuthForm({
         emailOrPhone === 'email'
           ? `${actionType === 'login' ? 'login/email' : 'email-signup'}`
           : `${actionType === 'login' ? 'login/phone' : 'phone-signup'}`
-      try {
-        const emailData = { [emailOrPhone]: email, role: 'investor' }
-        const response = await sendOtp({ emailData, url: endpoint })
-        if ('data' in response) {
-          const data = response.data
-          if (data.code === 404) {
-            dispatch(
-              setNotification({
-                type: 'error',
-                message: data.message,
-                description: `Please create an account using ${
-                  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'email' : 'phone'
-                } ${email} before proceeding.`,
-              }),
-            )
-          } else if (data.code === 200) {
-            dispatch(
-              setNotification({
-                type: 'success',
-                message: 'OTP Sent Successfully',
-              }),
-            )
+      const emailData = { [emailOrPhone]: email, role: role }
+      sendOtp({ emailData, url: endpoint })
+        .unwrap()
+        .then((res) => {
+          if (res.code === 200) {
+            notifyUser('success', 'OTP Sent Successfully')
             setLoader(false)
             dispatch(
-              setInvestorId(data.data?.refId ? data.data.refId : data.refId),
+              setInvestorId(res.data?.refId ? res.data.refId : res.refId),
             )
             router.push(
               `/otp/${
-                data.data?.refId ? data.data.refId : data.refId
-              }?type=${actionType}`,
+                res.data?.refId ?? res.refId
+              }?type=${actionType}?role=${role}`,
             )
-          } else if (actionType === 'signup') {
-            if (data.code === 200) {
-              dispatch(
-                setInvestorId(data.data?.refId ? data.data.refId : data.refId),
-              )
-              router.push(
-                `/otp/${
-                  data.data?.refId ? data.data.refId : data.refId
-                }?type=${actionType}`,
-              )
-            } else if (data.code === 401 && data.message === 'ALREADY_EXIST') {
-              dispatch(
-                setNotification({
-                  type: 'error',
-                  message: 'OTP Delivery Failed',
-                  description:
-                    'This user already exists. Please try to log in instead.',
-                }),
-              )
-            }
+          } else if (res.code === 404) {
+            notifyUser(
+              'error',
+              res.message ?? 'Something went wrong',
+              `Please create an account using ${
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'email' : 'phone'
+              } ${email} before proceeding.`,
+            )
+            setLoader(false)
+          } else if (res.code === 401 && res.message === 'ALREADY_EXIST') {
+            notifyUser(
+              'error',
+              'OTP Delivery Failed',
+              'This user already exists. Please try to log in instead.',
+            )
+          } else {
+            notifyUser(
+              'error',
+              'Something is wrong!!',
+              res.message ?? undefined,
+            )
           }
-        }
-      } catch (e) {
-        console.log(e)
-      }
+        })
+        .catch((e) => {
+          notifyUser('error', 'Something Went wrong', e.message ?? undefined)
+        })
     } else {
       dispatch(
         setNotification({
