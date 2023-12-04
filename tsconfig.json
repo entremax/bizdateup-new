@@ -58,12 +58,15 @@
         "./src/components/*",
         "./src/components/navbar/*"
       ],
+      "@/components/form/*": [
+        "./src/app/profile/(profiles)/investor/_components/form_components/*"
+      ],
       "@/components/auth/*": [
-        "./src/app/(auth)/components/*",
-        "./src/app/(auth)/otp/_backBtn.tsx"
+        "./src/app/(auth)/components/*"
       ],
       "@/components/dashboard/*": [
-        "./src/app/dashboard/_components/*"
+        "./src/app/dashboard/(dashboards)/investor/_components/*",
+        "./src/app/dashboard/(dashboards)/startup/components/*"
       ],
       "@/components/invest/*": [
         "./src/app/invest/_component/*"
