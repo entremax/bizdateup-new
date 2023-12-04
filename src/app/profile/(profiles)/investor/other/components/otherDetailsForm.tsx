@@ -2,12 +2,12 @@
 import { Button } from 'antd'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
-import Select from '@/form-component/Select'
-import Input from '@/form-component/Input'
-import UploadCheck from '@/profile-components/dropCheck'
+import Select from '@/components/form/Select'
+import Input from '@/components/form/Input'
+import UploadCheck from '@/components/profile/dropCheck'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
-import { useUpdateContext } from '@/profile-components/context'
+import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
 
 const sectorOptions = [
@@ -45,7 +45,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
     sectors: user.other.sector,
     'invested-before': user.other.investedFund,
   })
-  
+
   const inputFields = [
     {
       name: 'occupation',
@@ -96,7 +96,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       defaultValue: user.other.linkedlnUrl,
     },
   ]
-  
+
   const handleOtherUpdate = async () => {
     const linkedinUrl =
       linkedinUrlRef?.current?.input?.value ?? user.other.linkedlnUrl
@@ -107,19 +107,19 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       linkedlnUrl: linkedinUrl,
       investedFund: selected['invested-before'],
     } as unknown as DataInner
-    
+
     console.log(formData)
     await handleUpdate(formData, 'other')
     return router.refresh()
   }
-  
+
   const handleChange = (
     fieldName: any,
     value: DefaultOptionType | DefaultOptionType[],
   ) => {
     setSelected((prevState) => ({ ...prevState, [fieldName]: value }))
   }
-  
+
   return (
     <div className="grid grid-cols-1">
       <div className="grid grid-cols-2 gap-8 p-8">
@@ -136,9 +136,11 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
                 value: option.value,
                 label: option.label,
               }))}
-              onChange={(value) => handleChange(field.name, value)}
+              onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
+                handleChange(field.name, value)
+              }
               name={field.name}
-              
+
               // placeholder={field.placeholder}
             />
           ) : (
