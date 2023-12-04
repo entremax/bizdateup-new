@@ -14,6 +14,8 @@ export async function GET(req: NextRequest) {
     }
     cookies().delete('logged-in')
     cookies().delete('token')
+    cookies().delete('role')
+    cookies().delete('user_id')
 
     return NextResponse.json({
       success: true,

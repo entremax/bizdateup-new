@@ -80,6 +80,10 @@ export async function POST(req: NextRequest) {
           maxAge: 60 * 60,
         })
         cookies().set('logged-in', 'true', { maxAge: 60 * 60 })
+        //@ts-ignore
+        cookies().set('role', response.data.data?.role ?? '', {
+          maxAge: 60 * 60,
+        })
         console.log('Cookies set successfully')
         return NextResponse.json({ success: true, data: response.data })
       } else if (

@@ -21,7 +21,7 @@ const useUser = () => {
             token: data?.token ?? '',
             refId: data?.refId ?? '',
             kycStatus: data?.status ?? null,
-            premiumMember: data?.user.membership.isMember !== 'no',
+            premiumMember: data?.user?.membership?.isMember !== 'no',
           }),
         )
       }
