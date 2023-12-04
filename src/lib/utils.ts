@@ -3,7 +3,7 @@
 import { KYCStatus } from '@/types'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { NavigationKey } from '@/app/(auth)/components/_otpField'
+import { NavigationKey } from '@/components/auth/otp_field'
 
 /**
  * Combines multiple class values into a single string.
@@ -148,7 +148,7 @@ export function getFileName(fileName: string): string | undefined {
  */
 export function formatCustomDate(inputDateString: string) {
   const date = new Date(inputDateString)
-  
+
   const day = date.getDate()
   const monthNames = [
     'Jan',
@@ -166,6 +166,6 @@ export function formatCustomDate(inputDateString: string) {
   ]
   const monthIndex = date.getMonth()
   const year = date.getFullYear()
-  
+
   return `${day} ${monthNames[monthIndex]} ${year}`
 }
