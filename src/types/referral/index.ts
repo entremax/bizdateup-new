@@ -1,3 +1,5 @@
+import { UserRole } from '@/types'
+
 export type FetchAcceleratorResponse = {
   code: number | string
   status: 'OK' | any
@@ -64,6 +66,7 @@ export type RedeemResponse = {
 export type BaseCookies = {
   token: string
   user_id: string
+  role: UserRole
 }
 
 export type AcceleratorCookies = {

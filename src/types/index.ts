@@ -1,4 +1,5 @@
 // noinspection JSUnusedGlobalSymbols
+export type UserRole = 'investor' | 'admin' | 'startup'
 
 export interface Aadhar {
   aadharNo: string
@@ -95,12 +96,14 @@ export enum KYCStatus {
   bank = 'bank',
   other = 'other',
 }
+
 export enum KYCCompletion {
   pan = 'pan',
   aadhar = 'aadhar',
   bank = 'bank',
   other = 'other',
 }
+
 // Create a type for KYCStatus array
 export type KYCStatusArray = KYCStatus[]
 
@@ -116,6 +119,7 @@ export interface AuthUserState {
   riskAccepted: boolean
   premiumMember: boolean
 }
+
 export interface Data {
   code: number
   message: string
@@ -159,6 +163,7 @@ export interface Campaign {
   }
   totalRaised: number
 }
+
 export interface HeaderLink {
   dashboard: (
     | {
@@ -177,7 +182,9 @@ export interface HeaderLink {
     to: string
   }[]
 }
+
 export type NotificationType = 'success' | 'info' | 'warning' | 'error'
+
 interface TotalAmount {
   code: number
   data: {
@@ -185,6 +192,7 @@ interface TotalAmount {
     totalamount: number
   }
 }
+
 export interface ITotalInvestmentResponse {
   code: number
   status: string | 'OK'
@@ -214,6 +222,7 @@ export interface IInvestmentItem {
   __v: number
   legal?: string
 }
+
 export interface IInvestorSlice {
   totalamount: number
   investedStartups: {
@@ -221,6 +230,7 @@ export interface IInvestorSlice {
     approved: IInvestmentItem[]
   }
 }
+
 export interface IInvestmentDataResponse {
   code: number
   status: string
@@ -239,6 +249,7 @@ export interface ILogoutStatus {
     message: string
   }
 }
+
 export interface VerifyOtpErrorResponseDetail {
   message: string
   path: string[]
@@ -261,10 +272,12 @@ export interface VerifyOtpEResponseData {
   message: string
   data: VerifyOtpErrorResponseData
 }
+
 export interface VerifyInvalid {
   status: string
   message: string
 }
+
 export interface VerifyOtpServerResponse {
   code: number
   status: string
