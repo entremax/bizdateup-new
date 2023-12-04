@@ -3,8 +3,12 @@ import React, { useMemo } from 'react'
 import { notification } from 'antd'
 import { useAppSelector } from '@/store/hooks'
 import { useDispatch } from 'react-redux'
-import { destroyNotification } from '@/reducers/others/notificationSlice'
+import {
+  destroyNotification,
+  setNotification,
+} from '@/reducers/others/notificationSlice'
 import { NotificationType } from '@/types'
+import { store } from '@/store'
 
 const Context = React.createContext({ name: 'Default' })
 
@@ -40,5 +44,11 @@ const AntNotification: React.FC = () => {
     <Context.Provider value={contextValue}>{contextHolder}</Context.Provider>
   )
 }
-
+export const notifyUser = (
+  type: 'success' | 'error',
+  message: string,
+  description?: string,
+) => {
+  store.dispatch(setNotification({ type, message, description }))
+}
 export default AntNotification
