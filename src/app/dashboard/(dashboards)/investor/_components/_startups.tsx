@@ -3,23 +3,23 @@ import { Campaign } from '@/types'
 import Image from 'next/image'
 import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
 import { StartupTag } from '@/components/tag'
-import JoinWhatsApp from '@/components/dashboard/_join_whatsapp'
+import JoinWhatsApp from '@/app/dashboard/(dashboards)/investor/_components/_join_whatsapp'
 import { Button } from 'antd'
 import Link from 'next/link'
 
 const Startups = ({ data }: { data: Campaign[] }) => {
   const baseUrl = apiUri().v1
-  
+
   function getData(data: any[]) {
     let startupData = data.length > 4 ? data.slice(0, 4) : data
-    
+
     if (startupData.length % 2 !== 0) {
       startupData = data.slice(0, 2)
     }
-    
+
     return startupData
   }
-  
+
   return (
     <div className={'grid'}>
       <h3

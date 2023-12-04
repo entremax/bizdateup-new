@@ -2,6 +2,7 @@ import { apiUri } from '@/lib/utils'
 import { cookies } from 'next/headers'
 import { IInvestmentItem } from '@/types'
 import Transaction from '@/app/transactions/transaction'
+import type { Metadata } from 'next'
 
 const getTransactions = async () => {
   const cookie = cookies()
@@ -30,7 +31,10 @@ const getTransactions = async () => {
 
   return { transactions: response.data.data }
 }
-
+export const metadata: Metadata = {
+  title: 'Transactions | Bizdateup',
+  description: 'This pages holds your transactions details.',
+}
 export default async function TransactionsPage() {
   const data = await getTransactions()
 

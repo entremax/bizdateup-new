@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { AuthUserState, IInvestmentItem, KYCStatus } from '@/types'
 import React, { ReactElement } from 'react'
-import { setKycCompletionPercentage, setUser } from '@/reducers/user/authSlice'
+import { setKycCompletionPercentage } from '@/reducers/user/authSlice'
 import Link from 'next/link'
 import { useGetInvestmentDetailsQuery, useGetTotalInvestmentQuery } from '@/services/apiSlice'
 import { setInvestmentDetails } from '@/reducers/user/investorSlice'
@@ -27,7 +27,7 @@ const KycIndicator = ({
   const dispatch = useAppDispatch()
   let userData: AuthUserState = useAppSelector((state) => state.authUser)
   const { user, token, kycStatus, kycCompletionPercentage, refId } = userData
-  
+
   const { totalamount, investedStartups } = useAppSelector(
     ({ investor }) => investor,
   )
