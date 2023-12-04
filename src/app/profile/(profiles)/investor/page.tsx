@@ -1,12 +1,16 @@
 import React from 'react'
-import GeneralForm from '@/profile-components/generalForm'
+import GeneralForm from '@/components/profile/generalForm'
 import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
+import type { Metadata } from 'next'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
-
+export const metadata: Metadata = {
+  title: ' Profile | Bizdateup',
+  description: 'This pages holds your general profile details',
+}
 export default async function InvestorProfile({ searchParams }: Props) {
   const editState: boolean = !searchParams.edit
   const { user }: { user: DataInner } = await getUserDetails()

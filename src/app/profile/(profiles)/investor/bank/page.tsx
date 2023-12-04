@@ -1,10 +1,16 @@
 import React from 'react'
 import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
-import BankForm from '@/profile-components/bankForm'
+import BankForm from '@/components/profile/bankForm'
+import type { Metadata } from 'next'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export const metadata: Metadata = {
+  title: 'Bank Details - Profile | Bizdateup',
+  description: 'Your Bank Details Overview',
 }
 
 export default async function Bank({ searchParams }: Props) {

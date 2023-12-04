@@ -1,10 +1,10 @@
-import ProfileHeader from '@/profile-components/profileHeader'
+import ProfileHeader from '@/components/profile/profileHeader'
 import type { Metadata } from 'next'
-import SectionBar from '@/profile-components/sidebarSection'
+import SectionBar from '@/components/profile/sidebarSection'
 import React from 'react'
-import SectionHeader from '@/profile-components/sectionHeader'
+import SectionHeader from '@/components/profile/sectionHeader'
 import ReduxProvider from '@/store/Provider'
-import UpdateContextProvider from '@/profile-components/context'
+import UpdateContextProvider from '@/components/profile/context'
 
 export const metadata: Metadata = {
   title: 'Profile - Investor | Bizdateup',

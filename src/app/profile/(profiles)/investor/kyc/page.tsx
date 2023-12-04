@@ -1,9 +1,14 @@
 import React from 'react'
 import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
+import type { Metadata } from 'next'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
+}
+export const metadata: Metadata = {
+  title: 'KYC - Profile | Bizdateup',
+  description: 'Your kyc status',
 }
 
 export default async function KYC({ searchParams }: Props) {

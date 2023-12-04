@@ -2,11 +2,16 @@ import React from 'react'
 import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
 import OtherDetailsForm from '@/app/profile/(profiles)/investor/other/components/otherDetailsForm'
+import type { Metadata } from 'next'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
-
+export const metadata: Metadata = {
+  title: 'Other Details- Profile | Bizdateup',
+  description:
+    'This pages holds your other details like occupation,invest amount etc.',
+}
 export default async function OtherDetails({ searchParams }: Props) {
   const editState: boolean = !searchParams.edit
 

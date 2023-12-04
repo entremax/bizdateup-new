@@ -1,6 +1,12 @@
 import React from 'react'
 import { Avatar, Button } from 'antd'
 import { MessageOutlined } from '@ant-design/icons'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Invest Manager - Profile | Bizdateup',
+  description: 'Invest manager',
+}
 
 export default function InvestmentManager() {
   return (

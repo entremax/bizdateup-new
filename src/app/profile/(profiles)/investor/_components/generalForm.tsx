@@ -1,14 +1,15 @@
 'use client'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
-import { FieldNames, Fields, Refs } from '@/typ'
-import Select from '@/form-component/Select'
-import Input from '@/form-component/Input'
+import { FieldNames, Fields, Refs } from '@/types/profile'
+import Select from '@/components/form/Select'
+
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
-import { useUpdateContext } from '@/profile-components/context'
+import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
+import Input from '@/components/form/Input'
 
 const States = [
   { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
@@ -207,7 +208,9 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               }))}
               defaultValue={field.defaultValue}
               name={field.name}
-              onChange={(value) => handleChange(field.name, value)}
+              onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
+                handleChange(field.name, value)
+              }
               // placeholder={field.placeholder}
             />
           ) : (
@@ -239,7 +242,9 @@ export default function GeneralForm({ user }: { user: DataInner }) {
                 value: option.value,
                 label: option.label,
               }))}
-              onChange={(value) => handleChange(field.name, value)}
+              onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
+                handleChange(field.name, value)
+              }
               name={field.name}
             />
           ) : (

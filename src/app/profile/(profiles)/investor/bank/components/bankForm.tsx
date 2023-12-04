@@ -3,12 +3,12 @@ import { Button } from 'antd'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { bankNames } from '@/app/profile/(profiles)/investor/bank/data'
-import Select from '@/form-component/Select'
-import Input from '@/form-component/Input'
-import UploadCheck from '@/profile-components/dropCheck'
+import Select from '@/components/form/Select'
+import Input from '@/components/form/Input'
+import UploadCheck from '@/components/profile/dropCheck'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
-import { useUpdateContext } from '@/profile-components/context'
+import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
 
 export default function BankForm({ user }: { user: DataInner }) {
@@ -105,7 +105,9 @@ export default function BankForm({ user }: { user: DataInner }) {
                 label: option.label,
               }))}
               name={field.name}
-              onChange={(value) => handleChange(field.name, value)}
+              onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
+                handleChange(field.name, value)
+              }
               // placeholder={field.placeholder}
             />
           ) : (
