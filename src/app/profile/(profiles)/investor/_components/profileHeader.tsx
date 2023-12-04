@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import ImageUploader from '@/profile-components/profileImageUploader'
+import ImageUploader from '@/components/profile/profileImageUploader'
 import ReduxProvider from '@/store/Provider'
 import getUserDetails from '@/action/user'
 import { DataInner } from '@/types'
