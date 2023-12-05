@@ -136,10 +136,43 @@ p {
       @apply !rounded-lg border-0 px-3 py-[0.28rem] text-[#000]  !outline-gray-400 transition-all duration-200 ease-linear   peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary;
     }
   }
+
+  .how-to-use-steps {
+    .ant-steps-item:not(:where(:nth-child(3))) {
+      @apply mb-16;
+    }
+
+    .ant-steps-item {
+      .ant-steps-item-tail::after {
+        top: 3.5rem;
+        left: 3.5rem;
+      }
+
+      .ant-steps-item-title {
+        @apply text-xl font-semibold;
+      }
+
+      .ant-steps-item-description {
+        @apply text-[#6E6E73];
+      }
+
+      .ant-steps-item-icon {
+        @apply min-w-fit;
+      }
+    }
+  }
 }
 
 .ant-collapse-header-text {
   font-weight: 700 !important;
+}
+
+:where(.css-dev-only-do-not-override-xu9wm8).how-to-use-steps.ant-steps-vertical
+  > .ant-steps-item
+  > .ant-steps-item-container
+  > .ant-steps-item-tail {
+  top: 3.5rem !important;
+  left: 2.5rem !important;
 }
 
 @layer utilities {

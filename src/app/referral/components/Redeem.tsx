@@ -2,7 +2,7 @@
 import React from 'react'
 import { Button, Form } from 'antd'
 import Input from '@/components/profile/form_components/Input'
-import { useRedeemCommissionMutation } from '@/services/acceleratorSlice'
+import { useRedeemCommissionMutation } from '@/services/paymentSlice'
 
 type Props = {
   investorCommissionConfirmed: string

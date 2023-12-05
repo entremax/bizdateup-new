@@ -1,16 +1,5 @@
+//This file will be deleted as localstorage will be no longer be use
 import { DataInner, KYCStatusArray } from '@/types'
-
-export function getUserData(dispatch: any, setUser: any, useAppSelector: any) {
-  let userData
-  console.log('Redux', userData)
-  const storedUser = localStorage.getItem('user')
-  if (storedUser) {
-    userData = JSON.parse(storedUser)
-    dispatch(setUser({ ...userData }))
-  }
-
-  return userData
-}
 
 export function setUserInLocal({
   dispatch,
@@ -30,5 +19,3 @@ export function setUserInLocal({
   localStorage.setItem('user', JSON.stringify(user))
   dispatch(setUser({ ...user }))
 }
-
-export function getUser() {}

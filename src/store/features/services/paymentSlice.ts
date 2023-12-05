@@ -6,6 +6,8 @@ import {
   OfflinePayments,
   OnlinePaymentData,
 } from '@/types/invest'
+import { acceleratorApis } from '@/lib/accelerator'
+import { RedeemResponse } from '@/types/referral'
 
 const baseUrl = apiUri().v0
 
@@ -92,6 +94,19 @@ export const paymentApi = createApi({
         error?: string
       }) => response,
     }),
+    redeemCommission: builder.mutation({
+      query: (data) => ({
+        url: acceleratorApis.redeemCommission,
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: (response: RedeemResponse) => {
+        console.log(response)
+        return response.data
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
+    }),
   }),
 })
 
@@ -100,4 +115,5 @@ export const {
   // useOnlinePaymentMutation,
   usePaymentMutation,
   useOnlinePaymentVerifyMutation,
+  useRedeemCommissionMutation,
 } = paymentApi

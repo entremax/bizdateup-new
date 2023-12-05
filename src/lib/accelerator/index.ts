@@ -1,6 +1,7 @@
 import { apiUri } from '../utils'
 
 const baseUrl = apiUri().v0
+
 export const acceleratorApis = {
   create: baseUrl + '/accelerator/create',
   acceleratorDetails: baseUrl + '/accelerator/fetchdata?id=',

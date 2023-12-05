@@ -30,6 +30,7 @@ import { isInterested } from '@/lib/api_endpoint'
 import { cookies } from 'next/headers'
 import ReduxProvider from '@/store/Provider'
 import PaymentStatusModal from '@/components/invest/paymentStatusModal'
+import { startupApis } from '@/lib/startup'
 
 const { v1: apiV1 } = apiUri()
 
@@ -69,7 +70,7 @@ export async function generateMetadata(
 }
 
 const getStartupDetails = async (id: string) => {
-  const res = await fetch(apiV1 + `/startup/fetchStartupById?refId=${id}`, {
+  const res = await fetch(apiV1 + startupApis.fetchById + id, {
     next: { revalidate: 3600 },
   })
 

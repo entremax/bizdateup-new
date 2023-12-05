@@ -6,7 +6,12 @@ import { setUser } from '@/reducers/user/authSlice'
 import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
 
-const useUser = () => {
+/**
+ * Custom hook that provides access to the authenticated user's details.
+ *
+ * @returns {DataInner|null} The user object with details.
+ */
+const useUser = (): DataInner | null => {
   const dispatch = useDispatch()
   const { user } = useAppSelector(({ authUser }) => authUser)
 
@@ -14,7 +19,7 @@ const useUser = () => {
     const fetchUserDetails = async () => {
       if (!user) {
         const data = await getUserDetails()
-        console.log(data)
+
         dispatch(
           setUser({
             userData: data?.user as DataInner,

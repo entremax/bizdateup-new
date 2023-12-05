@@ -23,7 +23,7 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone()
   const matchPath = (patterns: RegExp[]) =>
     patterns.some((pattern) => pattern.test(path))
-
+  
   if (
     (token &&
       role &&
@@ -33,7 +33,7 @@ export function middleware(req: NextRequest) {
   ) {
     return NextResponse.next()
   }
-
+  
   if (token) {
     url.pathname = `/dashboard/${role}`
     return NextResponse.redirect(url)
@@ -52,5 +52,6 @@ export const config = {
      * - favicon.ico (favicon file)
      */
     '/((?!api|logout|me|verify-otp|_next/static|_next/image|favicon.ico).*)',
+    '/public/:path',
   ],
 }

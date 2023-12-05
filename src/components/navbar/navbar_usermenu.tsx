@@ -5,22 +5,18 @@ import type { MenuProps } from 'antd'
 import { Avatar, Badge, Button, Dropdown, Space, Tooltip } from 'antd'
 import { useAppDispatch } from '@/store/hooks'
 import { cn } from '@/lib/utils'
-import {
-  reset as authReset,
-  reset as investReset,
-} from '@/reducers/user/authSlice'
-import { setNotification } from '@/reducers/others/notificationSlice'
+import { reset as authReset, reset as investReset } from '@/reducers/user/authSlice'
 import { useLogoutMutation } from '@/store/features/services/NextApiSlice'
 import { useRouter } from 'next/navigation'
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faArrowRightArrowLeft,
-  faRightFromBracket,
-  faUser,
-} from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightArrowLeft, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import useUser from '@/hooks/useUser'
 import { createAccelerator } from '@/action/accelerator'
+import { useFetchStartupUpdatesMutation } from '@/services/startupApiSlice'
+import { setStartupUpdates } from '@/reducers/user/startupSlice'
+import StartupUpdatesDropDown from '@/components/navbar/startup_updates'
+import { notifyUser } from '@/components/notification'
 
 interface Props {
   token?: RequestCookie
@@ -31,7 +27,8 @@ const UserMenu: React.FC<Props> = () => {
   const user = useUser()
   const router = useRouter()
   const [logout, { isLoading }] = useLogoutMutation()
-  
+  const [fetchUpdates, { isLoading: fetching }] =
+    useFetchStartupUpdatesMutation()
   const logoutUser = () => {
     logout('')
       .unwrap()
@@ -62,9 +59,6 @@ const UserMenu: React.FC<Props> = () => {
     }
   }
   
-  const notifyUser = (type: 'success' | 'error', message: string) => {
-    dispatch(setNotification({ type, message }))
-  }
   
   const badgeTitle = 'Notifications'
   
@@ -88,6 +82,24 @@ const UserMenu: React.FC<Props> = () => {
       danger: true,
     },
   ]
+  const handleFetchUpdates = async () => {
+    fetchUpdates('')
+      .unwrap()
+      .then((res) => {
+        if (res.data) {
+          dispatch(setStartupUpdates({ updates: res.data }))
+        } else {
+          notifyUser('error', `Something went wrong`)
+        }
+      })
+      .catch((error) => {
+        const errorMessage = error.data?.message
+        const errorCode = error.status
+        if (errorMessage && errorCode) {
+          notifyUser('error', `${errorMessage} (code:${errorCode})`)
+        }
+      })
+  }
   
   const avatarClass =
     user && user?.membership?.isMember !== 'no'
@@ -112,14 +124,20 @@ const UserMenu: React.FC<Props> = () => {
         Refer & Earn
       </Button>
       <Tooltip title={badgeTitle}>
-        <Badge count={0}>
-          <Button
-            icon={<Icons.Bell />}
-            shape="circle"
-            className={'relative !outline-none'}
-          />
-        </Badge>
+        <Dropdown
+          dropdownRender={() => <StartupUpdatesDropDown />}
+          trigger={['click']}>
+          <Badge count={0}>
+            <Button
+              onClick={handleFetchUpdates}
+              icon={<Icons.Bell />}
+              shape="circle"
+              className={'relative !outline-none'}
+            />
+          </Badge>
+        </Dropdown>
       </Tooltip>
+      
       <div className={'flex items-center justify-center gap-2'}>
         <Dropdown menu={{ items, onClick }}>
           <Space>

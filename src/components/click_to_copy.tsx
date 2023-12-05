@@ -9,7 +9,7 @@ type Props = {
   description?: string
 }
 const CopyWrapper: React.FC<Props> = ({ text, children }) => {
-  const [title, setTitle] = React.useState(text)
+  const [title, setTitle] = React.useState('')
   const handleCopy = (text: string) => {
     setTitle(`Copied ${text}`)
     setTimeout(() => {

@@ -8,6 +8,14 @@ import { getInviteeDetails } from '@/action/accelerator'
 import { store } from '@/store'
 import { setAccelerator } from '@/reducers/user/accelerator'
 import TotalReferral from '@/components/referral/TotalReferral'
+import HowToUse from '@/components/referral/HowToUse'
+import TermsConditions from '@/components/referral/TermsConditions'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Accelerator | Bizdateup',
+  description: 'Become an accelerator and earn.',
+}
 
 const ReferralPage: React.FC = async () => {
   const { user } = await getUserDetails()
@@ -169,6 +177,8 @@ const ReferralPage: React.FC = async () => {
 
         <TotalReferral />
       </div>
+      <HowToUse />
+      <TermsConditions />
     </section>
   )
 }

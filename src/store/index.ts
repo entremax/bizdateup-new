@@ -9,15 +9,17 @@ import { api } from '@/services/apiSlice'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { NextApi } from '@/services/NextApiSlice'
 import { paymentApi } from '@/services/paymentSlice'
-import { acceleratorApi } from '@/services/acceleratorSlice'
+import { startupsApiSlice } from '@/services/startupApiSlice'
+import startupSlice from '@/reducers/user/startupSlice'
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     [NextApi.reducerPath]: NextApi.reducer,
     [paymentApi.reducerPath]: paymentApi.reducer,
-    [acceleratorApi.reducerPath]: acceleratorApi.reducer,
+    [startupsApiSlice.reducerPath]: startupsApiSlice.reducer,
     authUser: authUserSlice,
+    startup: startupSlice,
     investor,
     accelerator,
     Notify,
@@ -27,7 +29,7 @@ export const store = configureStore({
       api.middleware,
       NextApi.middleware,
       paymentApi.middleware,
-      acceleratorApi.middleware,
+      startupsApiSlice.middleware,
     ),
 })
 

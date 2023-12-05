@@ -1,11 +1,16 @@
 import React from 'react'
 import ReduxProvider from '@/store/Provider'
-import CaseFreeDrop from '@/app/payment/components/casefreeDrop'
+import CaseFreeDrop from '@/components/payment/casefreeDrop'
 import { redirect } from 'next/navigation'
+import type { Metadata } from 'next'
 
 type Props = {
   params: { session_id: string }
   searchParams: { order_id: string; startup_id: string }
+}
+export const metadata: Metadata = {
+  title: 'Payment | Bizdateup',
+  description: 'This pages holds your startup details.',
 }
 export default function Page({ params, searchParams }: Props) {
   const { session_id } = params

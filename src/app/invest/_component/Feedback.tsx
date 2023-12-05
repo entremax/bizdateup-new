@@ -2,7 +2,7 @@ import { StartupData } from '@/types/invest'
 import Image from 'next/image'
 import { Button } from 'antd'
 
-export default function StartupFeedback({ startup }: { startup: StartupData }) {
+export default function StartupFeedback({}: { startup: StartupData }) {
   return (
     <div className="border_gray grid gap-4 rounded-xl bg-primary-dark px-4 py-4 shadow md:hidden lg:px-7 lg:py-5">
       <Image
