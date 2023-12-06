@@ -433,5 +433,32 @@ const faqData: CollapseProps['items'] = [
     ),
   },
 ]
-const data = { campaignData, faqData }
+
+const sectorOptions = [
+  { value: 'Healthcare', label: 'Healthcare' },
+  { value: 'Technology', label: 'Technology' },
+  { value: 'Retail', label: 'Retail' },
+  { value: 'Fintech', label: 'Fintech' },
+  { value: 'Ecommerce', label: 'Ecommerce' },
+  {
+    value: 'Artificial intelligence ',
+    label: 'Artificial intelligence ',
+  },
+  { value: 'Educational technology', label: 'Educational technology' },
+  { value: 'Logistics', label: 'Logistics' },
+  { value: 'Financial services', label: 'Financial services' },
+  { value: 'Construction', label: 'Construction' },
+  { value: 'Health technology ', label: 'Health technology ' },
+  {
+    value: 'Education Entertainment ',
+    label: 'Education Entertainment ',
+  },
+  { value: 'Tourism', label: 'Tourism' },
+  { value: 'Cloud computing ', label: 'Cloud computing ' },
+  { value: 'Big data ', label: 'Big data ' },
+  { value: 'Aerospace', label: 'Aerospace' },
+  { value: 'Virtual reality', label: 'Virtual reality' },
+]
+
+const data = { campaignData, faqData ,sectorOptions}
 export default data

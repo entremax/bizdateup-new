@@ -10,7 +10,7 @@ type Props = {
 
 const roleBasedSetup = {
   investor: {
-    signup: '/signup/investor',
+    signup: '/signup',
     role: 'investor',
   },
   admin: {

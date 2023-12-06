@@ -9,11 +9,13 @@ import { Cookies } from '@/types/referral'
 export default async function getUserDetails() {
   const token = cookies().get('token')?.value
   const user_id = cookies().get('user_id')?.value
+  const role = cookies().get('role')?.value
 
   if (!user_id || !token) {
     redirect('/login', 'push' as RedirectType)
   }
-  const res = await fetch(apiUri().v0 + '/investor/fetchbyid', {
+  let url = '/investor/fetchbyid'
+  let config: any = {
     next: { revalidate: 0 },
     method: 'POST',
     headers: {
@@ -21,8 +23,21 @@ export default async function getUserDetails() {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ refId: user_id }),
-  })
+  }
+  if (role === 'startup') {
+    url = '/startup/fetchStartupById?refId=' + user_id
+    config = {
+      next: { revalidate: 0 },
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  }
+  const res = await fetch(apiUri().v0 + url, config)
     .then((res) => {
+      console.log(res)
       return res.json()
     })
     .catch((e) => {

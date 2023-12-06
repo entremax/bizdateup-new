@@ -18,20 +18,22 @@ interface UserAuthFormProps {
 }
 
 export default function UserAuthForm({
-  className,
-  requestType,
-  role,
-}: UserAuthFormProps) {
+                                       className,
+                                       requestType,
+                                       role,
+                                     }: UserAuthFormProps) {
+  const router = useRouter()
   const dispatch = useAppDispatch()
+  
   const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/auth/`
   const url = requestType === 'login' ? `${baseUrl}login/` : baseUrl
-  const router = useRouter()
+  
   const [withEmail, setWithEmail] = useState(false)
   const [email, setEmail] = useState('')
   const [loader, setLoader] = useState(false) // Fix variable name
-
+  
   const [sendOtp, { isLoading }] = useSendOtpMutation()
-
+  
   const setLocalStorageValues = () => {
     if (requestType === 'login') {
       localStorage.removeItem('loginMethod2')
@@ -43,29 +45,29 @@ export default function UserAuthForm({
       localStorage.setItem('loginMethod', 'social')
     }
   }
-
+  
   const redirectToUrl = (urlPath: string) => {
     window.open(`${url}${urlPath}`, '_self')
   }
-
+  
   const usingGoogle = () => {
     setLocalStorageValues()
     redirectToUrl('investor/google')
   }
-
+  
   const usingFacebook = () => {
     setLocalStorageValues()
     redirectToUrl('investor/facebook')
   }
-
+  
   async function performAuthentication(actionType: string) {
     localStorage.setItem('loginMethod', 'local')
     localStorage.setItem('loginMethod2', actionType)
-
+    
     if (email === '') {
       return
     }
-
+    
     const emailOrPhone = validateEmailOrPhone(email)
     if (emailOrPhone) {
       dispatch(temp_values(email))
@@ -124,15 +126,15 @@ export default function UserAuthForm({
       )
     }
   }
-
+  
   async function handleRegister() {
     await performAuthentication('signup')
   }
-
+  
   async function handleLogin() {
     await performAuthentication('login')
   }
-
+  
   return (
     <div className={`col-6 grid w-full px-12 ${className}`}>
       <div className="mt-4 grid gap-4">
@@ -178,7 +180,7 @@ export default function UserAuthForm({
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email or phone number"
             />
-
+            
             <label
               htmlFor="FormControlInputEmailLabel"
               className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white pt-[0.37rem] font-medium leading-[1.6] !text-gray-900 text-black transition-all duration-200 ease-out">

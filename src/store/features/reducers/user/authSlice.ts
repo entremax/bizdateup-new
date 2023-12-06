@@ -12,6 +12,7 @@ const initialState = {
   kycCompletionPercentage: 0,
   riskAccepted: false,
   premiumMember: false,
+  role: null,
 } as AuthUserState
 
 export const authUser = createSlice({
@@ -42,6 +43,7 @@ export const authUser = createSlice({
       state.refId = refId
       state.kycStatus = kycStatus
       state.premiumMember = premiumMember
+      state.role = userData?.role ?? ''
     },
     setVerify(state, { payload }: PayloadAction<boolean>) {
       state.isVerified = payload

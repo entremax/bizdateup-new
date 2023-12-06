@@ -65,8 +65,8 @@
         "./src/app/(auth)/components/*"
       ],
       "@/components/dashboard/*": [
-        "./src/app/dashboard/(dashboards)/investor/_components/*",
-        "./src/app/dashboard/(dashboards)/startup/components/*"
+        "./src/app/dashboard/_components/*",
+        "./src/app/dashboard/startup/components/*"
       ],
       "@/components/invest/*": [
         "./src/app/invest/_component/*"

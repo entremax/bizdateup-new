@@ -14,7 +14,7 @@ const roleBasedSetup: {
   }
 } = {
   investor: {
-    login: '/login/investor',
+    login: '/login',
     role: 'investor',
   },
   admin: {

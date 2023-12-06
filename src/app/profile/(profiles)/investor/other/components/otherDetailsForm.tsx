@@ -9,32 +9,8 @@ import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
+import data from '@/data'
 
-const sectorOptions = [
-  { value: 'Healthcare', label: 'Healthcare' },
-  { value: 'Technology', label: 'Technology' },
-  { value: 'Retail', label: 'Retail' },
-  { value: 'Fintech', label: 'Fintech' },
-  { value: 'Ecommerce', label: 'Ecommerce' },
-  {
-    value: 'Artificial intelligence ',
-    label: 'Artificial intelligence ',
-  },
-  { value: 'Educational technology', label: 'Educational technology' },
-  { value: 'Logistics', label: 'Logistics' },
-  { value: 'Financial services', label: 'Financial services' },
-  { value: 'Construction', label: 'Construction' },
-  { value: 'Health technology ', label: 'Health technology ' },
-  {
-    value: 'Education Entertainment ',
-    label: 'Education Entertainment ',
-  },
-  { value: 'Tourism', label: 'Tourism' },
-  { value: 'Cloud computing ', label: 'Cloud computing ' },
-  { value: 'Big data ', label: 'Big data ' },
-  { value: 'Aerospace', label: 'Aerospace' },
-  { value: 'Virtual reality', label: 'Virtual reality' },
-]
 const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
   const linkedinUrlRef = useRef<InputRef | null>(null)
   const { handleUpdate } = useUpdateContext()
@@ -52,7 +28,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       label: 'Occupation',
       defaultValue: user.other.occupation,
       fieldType: 'select',
-      options: sectorOptions,
+      options: data.sectorOptions,
     },
     {
       name: 'invest_amount',
@@ -72,7 +48,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       label: 'Select sectors',
       defaultValue: user.other.sector,
       fieldType: 'select',
-      options: sectorOptions,
+      options: data.sectorOptions,
     },
     {
       name: 'invested-before',
