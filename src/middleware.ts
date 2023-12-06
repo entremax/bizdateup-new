@@ -5,53 +5,53 @@ import { UserRole } from '@/types'
 
 const authenticated: { [key in UserRole]: RegExp[] } = {
   investor: [
-    /\/dashboard\/investor.*/,
+    /\/dashboard.*/,
     /\/invest.*/,
     /\/profile\/investor.*/,
     /\/transactions.*/,
     /\/referral.*/,
   ],
-  startup: [/\/dashboard\/startup.*/, /\/profile\/startup.*/],
+  startup: [/\/dashboard\/startup.*/, /\/profile\/startup.*/, /\/startup.*/],
   admin: [/\/dashboard\/investor.*/],
 }
-const publicPaths = [/^\/$/, /\/login/, /\/signup/, /\/otp.*/]
+
+const publicPaths = [/^\/$/, /\.(svg|png|jpeg)$/]
+const unauthenticated = [/\/login/, /\/signup/, /\/otp.*/]
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get('token')
   const role = req.cookies.get('role')?.value as UserRole
   const path = req.nextUrl.pathname
   const url = req.nextUrl.clone()
+  console.log('Requested URL', url)
   const matchPath = (patterns: RegExp[]) =>
     patterns.some((pattern) => pattern.test(path))
-  
+
+  if ((!token || !role) && !matchPath([...publicPaths, ...unauthenticated])) {
+    url.pathname = '/login'
+    return NextResponse.rewrite(url)
+  }
   if (
-    (token &&
-      role &&
-      role in authenticated &&
-      matchPath(authenticated[role])) ||
-    matchPath(publicPaths)
+    token &&
+    role &&
+    role in authenticated &&
+    !matchPath(authenticated[role])
+  ) {
+    url.pathname = role !== 'investor' ? `/dashboard/${role}` : '/dashboard'
+    return NextResponse.redirect(url)
+  }
+  if (
+    token &&
+    role &&
+    role in authenticated &&
+    matchPath(authenticated[role])
   ) {
     return NextResponse.next()
   }
-  
-  if (token) {
-    url.pathname = `/dashboard/${role}`
-    return NextResponse.redirect(url)
-  }
-  url.pathname = `/login`
-  return NextResponse.rewrite(url) // this line is reached if the token is not found
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!api|logout|me|verify-otp|_next/static|_next/image|favicon.ico).*)',
-    '/public/:path',
+    '/((?!api|logout|me|verify-otp|_next/static|_next/image|favicon.ico|public).*)',
   ],
 }
