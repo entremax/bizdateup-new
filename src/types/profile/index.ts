@@ -42,10 +42,12 @@ export interface ForwardRefProps extends InputProps {
   className?: string
   label: string
   labelClassName?: string
+  wrapperClassName?: string
 }
 
 export interface CustomSelectProps extends SelectProps {
   name: string
   label: string
   options: DefaultOptionType[]
+  wrapperClassName?: string
 }

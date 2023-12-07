@@ -33,7 +33,35 @@ export const startupsApiSlice = createApi({
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
     }),
+    onboarding: builder.mutation({
+      query: (body) => ({
+        url: startupApis.onboarding,
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: any) => {
+        console.log(response)
+        return response.data
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
+    fetchForm: builder.mutation({
+      query: (refId) => ({
+        url: startupApis.fetchForm + '?refId=' + refId,
+        method: 'GET',
+      }),
+      transformResponse: (response: any) => {
+        return response.data
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
   }),
 })
 
-export const { useFetchStartupUpdatesMutation } = startupsApiSlice
+export const {
+  useFetchStartupUpdatesMutation,
+  useOnboardingMutation,
+  useFetchFormMutation,
+} = startupsApiSlice

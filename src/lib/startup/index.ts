@@ -6,6 +6,8 @@
 export const startupApis = {
   fetchStartupsUpdate: '/fetchStartupUpdates',
   fetchById: '/startup/fetchStartupById?refId=',
+  onboarding: '/startup/register',
+  fetchForm: '/fetchForm',
 }
 
 /**

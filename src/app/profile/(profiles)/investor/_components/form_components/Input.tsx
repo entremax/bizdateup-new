@@ -5,13 +5,23 @@ import { InputRef } from 'antd/lib/input'
 import { ForwardRefProps } from '@/types/profile'
 
 const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
-  { type = 'text', label, name, className, labelClassName, ...props },
+  {
+    type = 'text',
+    wrapperClassName,
+    label,
+    name,
+    className,
+    labelClassName,
+    ...props
+  },
   ref,
 ) => {
   return (
     <div
       className={cn(
-        (name === 'address' && 'col-span-2 ') + ' relative w-full',
+        (name === 'address' && 'col-span-2 ') +
+          ' relative w-full ' +
+          wrapperClassName,
       )}>
       <AntDInput
         size="large"

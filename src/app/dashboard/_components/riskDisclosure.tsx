@@ -2,15 +2,20 @@
 import CustomModal from '@/components/modal/customModal'
 import React from 'react'
 import { Button } from 'antd'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { setRiskAccept } from '@/reducers/user/authSlice'
 
 export const dynamic = 'force-dynamic'
 
 export default function RiskDisclosure() {
-  const dispatch = useAppDispatch()
-  const { riskAccepted } = useAppSelector((state) => state.authUser)
-
+  let riskAccepted = true
+  const handler = () => {
+    localStorage.setItem('risk-accepted', 'yes')
+  }
+  React.useEffect(() => {
+    const risk = localStorage.getItem('risk-accepted')
+    if (risk !== 'yes') {
+      riskAccepted = false
+    }
+  }, [])
   return (
     <div>
       <CustomModal
@@ -27,9 +32,7 @@ export default function RiskDisclosure() {
         footer={
           <div>
             <Button
-              onClick={() => {
-                dispatch(setRiskAccept())
-              }}
+              onClick={handler}
               className={'!bg-primary !text-white'}
               size={'large'}
               block>

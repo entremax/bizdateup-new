@@ -71,6 +71,9 @@
       "@/components/invest/*": [
         "./src/app/invest/_component/*"
       ],
+      "@/components/startup/*": [
+        "./src/app/startup/components/*"
+      ],
       "@/components/payment/*": [
         "./src/app/payment/_components/*"
       ],

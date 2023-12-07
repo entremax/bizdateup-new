@@ -23,7 +23,7 @@ export function middleware(req: NextRequest) {
   const role = req.cookies.get('role')?.value as UserRole
   const path = req.nextUrl.pathname
   const url = req.nextUrl.clone()
-  console.log('Requested URL', url)
+
   const matchPath = (patterns: RegExp[]) =>
     patterns.some((pattern) => pattern.test(path))
 
@@ -37,6 +37,9 @@ export function middleware(req: NextRequest) {
     role in authenticated &&
     !matchPath(authenticated[role])
   ) {
+    if (matchPath(publicPaths)) {
+      return NextResponse.next()
+    }
     url.pathname = role !== 'investor' ? `/dashboard/${role}` : '/dashboard'
     return NextResponse.redirect(url)
   }

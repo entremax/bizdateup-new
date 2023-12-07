@@ -6,12 +6,12 @@ import { BaseSelectRef } from 'rc-select'
 const Select: React.ForwardRefRenderFunction<
   BaseSelectRef,
   CustomSelectProps
-> = ({ name, ...props }, ref) => {
+> = ({ name, wrapperClassName, ...props }, ref) => {
   // Any props with "ref" on them should be forwarded to the component that should
   // ultimately have the ref attached. In this case, it's `AntDSelect`.
 
   return (
-    <div className={' relative w-full '}>
+    <div className={' relative w-full ' + wrapperClassName}>
       <AntDSelect
         showSearch
         size={'large'}

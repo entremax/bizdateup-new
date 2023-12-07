@@ -1,7 +1,22 @@
 //This file will be deleted as localstorage will be no longer be use
 import { DataInner, KYCStatusArray } from '@/types'
 
-export function setUserInLocal({
+function getUserLocal(): {
+  token: string
+  userData: DataInner
+  refId: string
+  kycStatus: KYCStatusArray
+  premiumMember: boolean
+} | null {
+  const user = localStorage.getItem('user')
+  // If 'user' is not null then parse and dispatch
+  if (user) {
+    return JSON.parse(user)
+  }
+  return null
+}
+
+function setUserInLocal({
   dispatch,
   setUser,
   user,
@@ -19,3 +34,6 @@ export function setUserInLocal({
   localStorage.setItem('user', JSON.stringify(user))
   dispatch(setUser({ ...user }))
 }
+
+const localUser = { getUserLocal, setUserInLocal }
+export default localUser

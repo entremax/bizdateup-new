@@ -5,12 +5,19 @@ import type { MenuProps } from 'antd'
 import { Avatar, Badge, Button, Dropdown, Space, Tooltip } from 'antd'
 import { useAppDispatch } from '@/store/hooks'
 import { cn } from '@/lib/utils'
-import { reset as authReset, reset as investReset } from '@/reducers/user/authSlice'
+import {
+  reset as authReset,
+  reset as investReset,
+} from '@/reducers/user/authSlice'
 import { useLogoutMutation } from '@/store/features/services/NextApiSlice'
 import { useRouter } from 'next/navigation'
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightArrowLeft, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowRightArrowLeft,
+  faRightFromBracket,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'
 import useUser from '@/hooks/useUser'
 import { createAccelerator } from '@/action/accelerator'
 import { useFetchStartupUpdatesMutation } from '@/services/startupApiSlice'
@@ -35,6 +42,7 @@ const UserMenu: React.FC<Props> = () => {
       .then(() => {
         dispatch(authReset())
         dispatch(investReset())
+        localStorage.removeItem('user')
         notifyUser('success', 'Logout Successfully')
         router.push('/login')
       })
@@ -46,7 +54,7 @@ const UserMenu: React.FC<Props> = () => {
         }
       })
   }
-  
+
   const onClick: MenuProps['onClick'] = async ({ key }) => {
     if (key === '1') {
       return router.push('/profile/investor')
@@ -58,10 +66,9 @@ const UserMenu: React.FC<Props> = () => {
       logoutUser()
     }
   }
-  
-  
+
   const badgeTitle = 'Notifications'
-  
+
   const items = [
     {
       label: <p className={'reset text-bla px-4'}>Profile</p>,
@@ -100,12 +107,12 @@ const UserMenu: React.FC<Props> = () => {
         }
       })
   }
-  
+
   const avatarClass =
     user && user?.membership?.isMember !== 'no'
       ? 'relative rounded-full outline outline-4 outline-yellow-500'
       : 'relative rounded-full'
-  
+
   const handleCreateAccelerator = async () => {
     const success = await createAccelerator()
     if (success) {
@@ -137,7 +144,7 @@ const UserMenu: React.FC<Props> = () => {
           </Badge>
         </Dropdown>
       </Tooltip>
-      
+
       <div className={'flex items-center justify-center gap-2'}>
         <Dropdown menu={{ items, onClick }}>
           <Space>

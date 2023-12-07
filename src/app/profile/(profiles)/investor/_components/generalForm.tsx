@@ -155,7 +155,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       // placeholder: user.a
     },
   ]
-
+  
   const handleChange = (
     fieldName: any,
     value: DefaultOptionType | DefaultOptionType[],
@@ -165,7 +165,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       [fieldName]: value,
     }))
   }
-
+  
   const handleProfileUpdate = async () => {
     let values: { [key in FieldNames]: unknown | null } = {} as {
       [key in FieldNames]: unknown | null
@@ -186,11 +186,11 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       pincode: values['pin-code'],
       country: selected.country,
     } as unknown as DataInner
-
+    
     await handleUpdate(formData, 'general')
     return router.refresh()
   }
-
+  
   return (
     <div className="grid grid-cols-1">
       <div className="grid grid-cols-2 gap-8 p-8">
@@ -266,7 +266,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
           type={'default'}
           onClick={handleProfileUpdate}
           className={
-            'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+            'col-span-2 hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
           }>
           Save
         </Button>
