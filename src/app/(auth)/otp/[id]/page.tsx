@@ -2,7 +2,12 @@ import React from 'react'
 import OtpField from '@/components/auth/otp_field'
 import Link from 'next/link'
 import GoBack from '@/components/auth/_backBtn'
+import type { Metadata } from 'next'
 
+export const metadata: Metadata = {
+  title: ' Verify OTP | Bizdateup ',
+  description: 'Verify your OTP to explore Bizdateup',
+}
 export default function VerifyEmail({ params }: { params: { id: string } }) {
   const { id } = params
   return (
