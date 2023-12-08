@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
           </div>
         )}
         <div className='flex-shrink lg:hidden'>
-          <Sidebar />
+          <Sidebar type={type} token={token} />
         </div>
       </div>
     </div>

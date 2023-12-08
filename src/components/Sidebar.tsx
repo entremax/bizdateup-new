@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { Icons } from "./ui/icon"
 
-const Sidebar = () => {
+const Sidebar = ({ token, type }: { token?: string, type: string }) => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -28,7 +28,7 @@ const Sidebar = () => {
                         />
                     </div>
                     <div>
-                        Invest
+
                     </div>
                 </div>}
         </>
