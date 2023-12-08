@@ -29,11 +29,11 @@ export function middleware(req: NextRequest) {
     patterns.some((pattern) => pattern.test(path))
 
   if ((!token || !role) && !matchPath([...publicPaths, ...unauthenticated])) {
-    if (matchPath(authenticated['startup'])) {
-      url.pathname = '/login/startup'
-    } else {
-      url.pathname = '/login'
-    }
+    // if (matchPath(authenticated['startup'])) {
+    //   url.pathname = '/login/startup'
+    // } else {
+    url.pathname = '/login'
+    // }
     return NextResponse.redirect(url)
   }
   if (
