@@ -148,7 +148,7 @@ export function getFileName(fileName: string): string | undefined {
  */
 export function formatCustomDate(inputDateString: string) {
   const date = new Date(inputDateString)
-  
+
   const day = date.getDate()
   const monthNames = [
     'Jan',
@@ -166,7 +166,7 @@ export function formatCustomDate(inputDateString: string) {
   ]
   const monthIndex = date.getMonth()
   const year = date.getFullYear()
-  
+
   return `${day} ${monthNames[monthIndex]} ${year}`
 }
 
@@ -180,7 +180,7 @@ export function getCookieLocal(cookieName: string) {
   let name = cookieName + '='
   let decodedCookie = decodeURIComponent(document.cookie)
   let cookieArray = decodedCookie.split(';')
-  
+
   for (let i = 0; i < cookieArray.length; i++) {
     let cookie = cookieArray[i]
     while (cookie.charAt(0) == ' ') {

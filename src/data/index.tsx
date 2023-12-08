@@ -460,5 +460,5 @@ const sectorOptions = [
   { value: 'Virtual reality', label: 'Virtual reality' },
 ]
 
-const data = { campaignData, faqData ,sectorOptions}
+const data = { campaignData, faqData, sectorOptions }
 export default data

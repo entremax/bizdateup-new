@@ -168,16 +168,16 @@ export interface Campaign {
 export interface HeaderLink {
   dashboard: (
     | {
-    name: string
-    icon: ({ ...props }: { [p: string]: any }) => JSX.Element
-    link: string
-  }
+        name: string
+        icon: ({ ...props }: { [p: string]: any }) => JSX.Element
+        link: string
+      }
     | {
-    name: string
-    icon: JSX.Element
-    link: string
-  }
-    )[]
+        name: string
+        icon: JSX.Element
+        link: string
+      }
+  )[]
   normal: {
     name: string
     to: string

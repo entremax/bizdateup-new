@@ -15,7 +15,7 @@ export default function StartupFilters({ startupType }: Props) {
   const [category, setCategory] = useState('All Categories')
   const [minInvestment, setMinInvestment] = useState('50000')
   const dispatch = useDispatch()
-  
+
   const debouncedSearch = useCallback(
     debounce(
       (searchTerm: string) =>
@@ -26,13 +26,13 @@ export default function StartupFilters({ startupType }: Props) {
     ),
     [dispatch, startupType, minInvestment, category],
   )
-  
+
   useEffect(() => {
     if (keywords) {
       debouncedSearch(keywords)
     }
   }, [keywords, debouncedSearch])
-  
+
   return (
     <div className="flex items-center gap-4">
       <div className="lg:max-w-[40vw]">

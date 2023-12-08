@@ -9,6 +9,7 @@ import { useAppSelector } from '@/store/hooks'
 
 const Navbar: React.FC = () => {
   const { token } = useAppSelector(({ authUser }) => authUser)
+
   const type = token ? 'authenticated' : 'unauthenticated'
 
   return (
@@ -49,7 +50,7 @@ const Navbar: React.FC = () => {
           </div>
         ) : (
           <div className={'hidden items-center justify-center gap-8 lg:flex'}>
-            <UserMenu token={token} />
+            <UserMenu />
           </div>
         )}
         <div className="flex-shrink md:hidden">

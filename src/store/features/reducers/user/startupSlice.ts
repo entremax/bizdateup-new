@@ -36,7 +36,7 @@ export const startupSlice = createSlice({
       const { searchTerm, startupType, minInvestment } = action.payload
       state.search = state.startups[startupType].filter((startup) => {
         const { companyName, shortDescription, dealTerms } = startup
-        
+
         let matchesCompanyName = companyName
           ? companyName.toLowerCase().includes(searchTerm.toLowerCase())
           : false

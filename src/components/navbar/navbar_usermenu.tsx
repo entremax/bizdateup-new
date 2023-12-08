@@ -11,7 +11,6 @@ import {
 } from '@/reducers/user/authSlice'
 import { useLogoutMutation } from '@/store/features/services/NextApiSlice'
 import { useRouter } from 'next/navigation'
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowRightArrowLeft,
@@ -25,11 +24,7 @@ import { setStartupUpdates } from '@/reducers/user/startupSlice'
 import StartupUpdatesDropDown from '@/components/navbar/startup_updates'
 import { notifyUser } from '@/components/notification'
 
-interface Props {
-  token?: RequestCookie
-}
-
-const UserMenu: React.FC<Props> = () => {
+const UserMenu = () => {
   const dispatch = useAppDispatch()
   const user = useUser()
   const router = useRouter()

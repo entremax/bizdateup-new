@@ -6,7 +6,10 @@ import { AuthUserState, IInvestmentItem, KYCStatus } from '@/types'
 import React, { ReactElement } from 'react'
 import { setKycCompletionPercentage } from '@/reducers/user/authSlice'
 import Link from 'next/link'
-import { useGetInvestmentDetailsQuery, useGetTotalInvestmentQuery } from '@/services/apiSlice'
+import {
+  useGetInvestmentDetailsQuery,
+  useGetTotalInvestmentQuery,
+} from '@/services/apiSlice'
 import { setInvestmentDetails } from '@/reducers/user/investorSlice'
 
 /**

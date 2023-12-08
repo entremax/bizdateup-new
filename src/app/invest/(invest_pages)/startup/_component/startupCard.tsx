@@ -7,8 +7,8 @@ import { StartupData, StartupDataByType } from '@/types/invest'
 import { useRouter } from 'next/navigation'
 
 export default function StartupCard({
-                                      startup,
-                                    }: {
+  startup,
+}: {
   startup: StartupData | StartupDataByType
 }) {
   const router = useRouter()
