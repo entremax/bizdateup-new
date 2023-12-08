@@ -6,8 +6,10 @@ import React from 'react'
 import NavLink from '@/components/navbar/navbar_links'
 import UserMenu from './navbar_usermenu'
 import { useAppSelector } from '@/store/hooks'
+import useUser from '@/hooks/useUser'
 
 const Navbar: React.FC = () => {
+  const user = useUser()
   const { token } = useAppSelector(({ authUser }) => authUser)
 
   const type = token ? 'authenticated' : 'unauthenticated'
@@ -50,7 +52,7 @@ const Navbar: React.FC = () => {
           </div>
         ) : (
           <div className={'hidden items-center justify-center gap-8 lg:flex'}>
-            <UserMenu />
+            <UserMenu user={user} />
           </div>
         )}
         <div className="flex-shrink md:hidden">

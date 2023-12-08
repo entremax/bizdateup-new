@@ -17,16 +17,16 @@ import {
   faRightFromBracket,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
-import useUser from '@/hooks/useUser'
 import { createAccelerator } from '@/action/accelerator'
 import { useFetchStartupUpdatesMutation } from '@/services/startupApiSlice'
 import { setStartupUpdates } from '@/reducers/user/startupSlice'
 import StartupUpdatesDropDown from '@/components/navbar/startup_updates'
 import { notifyUser } from '@/components/notification'
+import { DataInner } from '@/types'
 
-const UserMenu = () => {
+const UserMenu = ({ user }: { user: DataInner | null }) => {
   const dispatch = useAppDispatch()
-  const user = useUser()
+
   const router = useRouter()
   const [logout, { isLoading }] = useLogoutMutation()
   const [fetchUpdates, { isLoading: fetching }] =
