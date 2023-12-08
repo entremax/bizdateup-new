@@ -17,7 +17,11 @@ export default function RecommendedStartups({ startupType }: Props) {
           className="flex flex-col gap-4 md:flex-row"
           style={{ display: 'inline-flex' }}>
           {startups[startupType]?.map((startup) => (
-            <StartupCard startup={startup} key={startup._id} />
+            <StartupCard
+              key={startup._id}
+              startup={startup}
+              key={startup._id}
+            />
           ))}
         </div>
       </div>

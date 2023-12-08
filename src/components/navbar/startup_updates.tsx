@@ -20,6 +20,7 @@ export default function StartupUpdatesDropDown() {
         updates.map(
           ({ _id, startup, logo, company_name, title, created_at }) => (
             <StartupUpdate
+              key={_id}
               component_type={'notification'}
               logo={logo}
               title={title}
