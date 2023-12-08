@@ -182,7 +182,6 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData.membership.isMember !== 'no',
             },
           })
-          router.refresh()
           return router.push('/dashboard')
         }
       }
