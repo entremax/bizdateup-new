@@ -1,15 +1,14 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Icons } from '@/components/icons/icon'
 import React from 'react'
 import NavLink from '@/components/navbar/navbar_links'
 import UserMenu from './navbar_usermenu'
-import { cookies } from 'next/headers'
+import { useAppSelector } from '@/store/hooks'
 
 const Navbar: React.FC = () => {
-  const cookieStore = cookies()
-  const token = cookieStore.get('token')
-
+  const { token } = useAppSelector(({ authUser }) => authUser)
   const type = token ? 'authenticated' : 'unauthenticated'
 
   return (
