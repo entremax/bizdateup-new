@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '@/store'
 import { apiUri } from '@/lib/utils'
 import { startupApis } from '@/lib/startup'
-import { IStartupUpdatesResponse } from '@/types/startup'
+import { IStartupUpdatesResponse, StartupParameters } from '@/types/startup'
 
 const baseUrl = apiUri().v0
 const baseQuery = fetchBaseQuery({
@@ -57,6 +57,17 @@ export const startupsApiSlice = createApi({
       transformErrorResponse: (response: { status: string | number }) =>
         response,
     }),
+    fetchByType: builder.mutation({
+      query: (param: StartupParameters) => ({
+        url: startupApis.fetchByType + param,
+        method: 'GET',
+      }),
+      transformResponse: (response: any) => {
+        return response.data
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
   }),
 })
 
@@ -64,4 +75,5 @@ export const {
   useFetchStartupUpdatesMutation,
   useOnboardingMutation,
   useFetchFormMutation,
+  useFetchByTypeMutation,
 } = startupsApiSlice
