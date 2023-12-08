@@ -2,14 +2,10 @@
 import { Button, Progress, Space } from 'antd'
 import { cn } from '@/lib/utils'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { AuthUserState, IInvestmentItem, KYCStatus } from '@/types'
+import { AuthUserState, IInvestmentItem } from '@/types'
 import React, { ReactElement } from 'react'
-import { setKycCompletionPercentage } from '@/reducers/user/authSlice'
 import Link from 'next/link'
-import {
-  useGetInvestmentDetailsQuery,
-  useGetTotalInvestmentQuery,
-} from '@/services/apiSlice'
+import { useGetInvestmentDetailsQuery, useGetTotalInvestmentQuery } from '@/services/apiSlice'
 import { setInvestmentDetails } from '@/reducers/user/investorSlice'
 
 /**
@@ -21,44 +17,22 @@ import { setInvestmentDetails } from '@/reducers/user/investorSlice'
  * @returns {ReactElement} The KYC Indicator component.
  */
 const KycIndicator = ({
-  className,
-  hidden,
-}: {
+                        className,
+                        hidden,
+                      }: {
   className?: string
   hidden?: boolean
 }): ReactElement => {
   const dispatch = useAppDispatch()
   let userData: AuthUserState = useAppSelector((state) => state.authUser)
   const { user, token, kycStatus, kycCompletionPercentage, refId } = userData
-
+  
   const { totalamount, investedStartups } = useAppSelector(
     ({ investor }) => investor,
   )
   const { data: amount } = useGetTotalInvestmentQuery(refId)
   const { data: investmentDetails } = useGetInvestmentDetailsQuery(refId)
-
-  React.useEffect(() => {
-    const pendingStatuses: KYCStatus[] = []
-    const totalStatuses: KYCStatus[] = [
-      KYCStatus.profile,
-      KYCStatus.pan,
-      KYCStatus.aadhar,
-      KYCStatus.bank,
-      KYCStatus.other,
-    ]
-
-    totalStatuses.forEach((status) => {
-      if (kycStatus && kycStatus.includes(status)) {
-        pendingStatuses.push(status)
-      }
-    })
-    const percentageComplete =
-      ((totalStatuses.length - pendingStatuses.length) / totalStatuses.length) *
-      100
-
-    dispatch(setKycCompletionPercentage(user ? percentageComplete : 0))
-  }, [token, kycStatus])
-
+  
   React.useEffect(() => {
     if (investmentDetails) {
       let pending = [] as IInvestmentItem[]
@@ -81,7 +55,7 @@ const KycIndicator = ({
       )
     }
   }, [investmentDetails])
-
+  
   return (
     <>
       {user ? (
@@ -89,9 +63,9 @@ const KycIndicator = ({
           <div
             className={cn(
               'border_gray grid gap-2 rounded-xl bg-light-shadow p-5' +
-                ' ' +
-                className +
-                (hidden ? 'hidden' : ''),
+              ' ' +
+              className +
+              (hidden ? 'hidden' : ''),
             )}>
             <div className={'flex'}>
               <div className="grid">
@@ -126,9 +100,9 @@ const KycIndicator = ({
           <div
             className={cn(
               'border_gray grid gap-2 divide-x-0 divide-y divide-solid divide-gray-300 rounded-xl !bg-white shadow' +
-                ' ' +
-                className +
-                (hidden ? 'hidden' : ''),
+              ' ' +
+              className +
+              (hidden ? 'hidden' : ''),
             )}>
             <div className={'grid gap-2 px-4 py-3'}>
               <h3 className={'reset text-3xl'}>₹ {totalamount}</h3>
@@ -148,9 +122,9 @@ const KycIndicator = ({
         <div
           className={cn(
             'border_gray grid gap-2 divide-x-0 divide-y divide-solid divide-gray-300 rounded-xl !bg-white shadow' +
-              ' ' +
-              className +
-              (hidden ? 'hidden' : ''),
+            ' ' +
+            className +
+            (hidden ? 'hidden' : ''),
           )}>
           <div className="grid items-center justify-center">
             <Link href={'/login'} className={'py-2 text-primary'}>

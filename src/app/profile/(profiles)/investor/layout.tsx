@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 }
 
 export default function InvestorProfileLayout({
-  children,
-}: React.PropsWithChildren) {
+                                                children,
+                                              }: React.PropsWithChildren) {
   return (
     <ReduxProvider>
       <section className="flex flex-col gap-4">

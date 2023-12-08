@@ -3,14 +3,14 @@ import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { FieldNames, Fields, Refs } from '@/types/profile'
 import Select from '@/components/form/Select'
-
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
-import Input from '@/components/form/Input'
+import dynamic from 'next/dynamic'
 
+const Input = dynamic(() => import('@/components/form/Input'), { ssr: false })
 const States = [
   { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
   { value: 'Arunachal Pradesh', label: 'Arunachal Pradesh' },

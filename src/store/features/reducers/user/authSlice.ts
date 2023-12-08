@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AuthUserState, DataInner, KYCStatusArray } from '@/types'
+import { AuthUserState, DataInner, KYCStatus, KYCStatusArray } from '@/types'
 
 const initialState = {
   token: null,
@@ -38,31 +38,40 @@ export const authUser = createSlice({
         premiumMember: boolean
       }>,
     ) => {
+      const pendingStatuses: KYCStatus[] = []
+      const totalStatuses: KYCStatus[] = [
+        KYCStatus.profile,
+        KYCStatus.pan,
+        KYCStatus.aadhar,
+        KYCStatus.bank,
+        KYCStatus.other,
+      ]
+
+      totalStatuses.forEach((status) => {
+        if (kycStatus && kycStatus.includes(status)) {
+          pendingStatuses.push(status)
+        }
+      })
       state.token = token
       state.user = userData
       state.refId = refId
       state.kycStatus = kycStatus
       state.premiumMember = premiumMember
       state.role = userData?.role ?? ''
+      state.kycCompletionPercentage =
+        ((totalStatuses.length - pendingStatuses.length) /
+          totalStatuses.length) *
+        100
     },
     setVerify(state, { payload }: PayloadAction<boolean>) {
       state.isVerified = payload
-    },
-    setKycCompletionPercentage(state, { payload }: PayloadAction<number>) {
-      state.kycCompletionPercentage = payload
     },
     setRiskAccept(state) {
       state.riskAccepted = true
     },
   },
 })
-export const {
-  setRiskAccept,
-  temp_values,
-  reset,
-  setInvestorId,
-  setUser,
-  setKycCompletionPercentage,
-} = authUser.actions
+export const { setRiskAccept, temp_values, reset, setInvestorId, setUser } =
+  authUser.actions
 
 export default authUser.reducer

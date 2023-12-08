@@ -9,6 +9,8 @@ import {
 } from 'next/navigation'
 import { useAppSelector } from '@/store/hooks'
 import { Icons } from '@/components/icons/icon'
+import useUser from '@/hooks/useUser'
+import { KYCStatus } from '@/types'
 
 type sectionType =
   | 'general-info'
@@ -31,7 +33,8 @@ export default function SectionHeader() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const editState = searchParams.get('edit')
-  const { user, kycCompletionPercentage, kycStatus } = useAppSelector(
+  const user = useUser()
+  const { kycCompletionPercentage, kycStatus } = useAppSelector(
     ({ authUser }) => authUser,
   )
   const sections: sectionsInterface = {
@@ -81,18 +84,19 @@ export default function SectionHeader() {
   return (
     <>
       <h4 className="flex-grow text-2xl text-primary-dark">{section.name}</h4>
-      {user && kycStatus && kycCompletionPercentage === 100 && (
-        <div
-          className={
-            'flex items-center justify-center gap-1 rounded-full bg-lemon-lighter p-1 text-lemon shadow'
-          }>
-          <Icons.FilledCheck />{' '}
-          <span className={'reset text-xs font-normal text-lemon'}>
-            {' '}
-            KYC Verified
-          </span>
-        </div>
-      )}
+      {(user && !kycStatus) ||
+        (kycStatus && !kycStatus.includes(KYCStatus.profile) && (
+          <div
+            className={
+              'flex items-center justify-center gap-1 rounded-full bg-lemon-lighter p-1 text-lemon shadow'
+            }>
+            <Icons.FilledCheck />{' '}
+            <span className={'reset text-xs font-normal text-lemon'}>
+              {' '}
+              KYC Verified
+            </span>
+          </div>
+        ))}
       {section.editable && (
         <Button
           icon={<Edit />}
