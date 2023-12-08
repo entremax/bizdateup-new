@@ -24,17 +24,17 @@ export function middleware(req: NextRequest) {
   const role = req.cookies.get('role')?.value as UserRole
   const path = req.nextUrl.pathname
   const url = req.nextUrl.clone()
-
+  
   const matchPath = (patterns: RegExp[]) =>
     patterns.some((pattern) => pattern.test(path))
-
+  
   if ((!token || !role) && !matchPath([...publicPaths, ...unauthenticated])) {
-    // if (matchPath(authenticated['startup'])) {
-    //   url.pathname = '/login/startup'
-    // } else {
-    url.pathname = '/login'
-    // }
-    return NextResponse.redirect(url)
+    if (matchPath(authenticated['startup'])) {
+      url.pathname = '/login/startup'
+    } else {
+      url.pathname = '/login'
+    }
+    return NextResponse.rewrite(url)
   }
   if (
     token &&
