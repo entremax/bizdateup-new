@@ -158,7 +158,8 @@ export default function OtpField({ id }: { id: string }) {
             premiumMember: investorData.membership.isMember !== 'no',
           },
         })
-        return router.push('/dashboard')
+        router.refresh()
+        // return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           // dispatch(
@@ -182,7 +183,8 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData.membership.isMember !== 'no',
             },
           })
-          return router.push('/dashboard')
+          router.refresh()
+          // return router.push('/dashboard')
         }
       }
     }
