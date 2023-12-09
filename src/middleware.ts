@@ -39,7 +39,7 @@ export function middleware(req: NextRequest) {
     } else {
       url.pathname = '/login'
     }
-    return NextResponse.rewrite(url)
+    return NextResponse.redirect(url)
   }
   if (
     token &&
