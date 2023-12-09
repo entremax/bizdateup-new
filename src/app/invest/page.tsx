@@ -4,7 +4,6 @@ import { apiUri, cn } from '@/lib/utils'
 import StartupFilters from '@/components/invest/StartupsFilter'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
-// import { useFetchByTypeMutation } from '@/services/startupApiSlice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { StartupParameters, StartupTypes } from '@/types/startup'
 import { startupApis } from '@/lib/startup'
@@ -17,7 +16,7 @@ export default function Invest() {
   const searchParams = useSearchParams()
   const startupType = searchParams?.get('type')
   const { token } = useAppSelector(({ authUser }) => authUser)
-  // const [fetchSearch] = useFetchByTypeMutation()
+
   const dispatch = useAppDispatch()
   const queryType = [
     {

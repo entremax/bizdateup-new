@@ -1,14 +1,12 @@
 import { useAppSelector } from '@/store/hooks'
 import React from 'react'
 import { StartupTypes } from '@/types/startup'
-import { useRouter } from 'next/navigation'
 import StartupCard from '@/components/invest/startupCard'
 
 type Props = {
   startupType: StartupTypes
 }
 export default function StartupResults({ startupType }: Props) {
-  const router = useRouter()
   const { search, startups } = useAppSelector(({ startup }) => startup)
 
   return (
