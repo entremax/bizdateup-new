@@ -57,6 +57,7 @@ export default function OtpField({ id }: { id: string }) {
   const { temp_auth_medium, investorUserId } = useAppSelector(
     ({ authUser }) => authUser,
   )
+  const { user } = useAppSelector(({ authUser }) => authUser)
   const [sendOtp, { isLoading: reSending }] = useSendOtpMutation()
 
   React.useEffect(() => {
@@ -158,7 +159,7 @@ export default function OtpField({ id }: { id: string }) {
             premiumMember: investorData.membership.isMember !== 'no',
           },
         })
-        redirect('/dashboard')
+        return redirect('/dashboard')
       } else {
         if (responseCode === 200) {
           // dispatch(
@@ -182,12 +183,17 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData.membership.isMember !== 'no',
             },
           })
-          redirect('/dashboard')
+          return redirect('/dashboard')
         }
       }
     }
   }
 
+  React.useEffect(() => {
+    if (user) {
+      return redirect('/dashboard')
+    }
+  }, [user])
   return (
     <>
       <div className="grid w-full items-center justify-center text-center md:min-w-max">
