@@ -37,7 +37,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       )
       return
     }
-    const updatedData = { ...formData, refId: user._id }
+    const updatedData = { ...formData, refId: user.userData._id }
     console.log('Updated Data', updatedData)
     if (updating === 'general') {
       updateUser(updatedData)
