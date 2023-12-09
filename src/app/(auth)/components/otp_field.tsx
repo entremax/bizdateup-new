@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import OtpInput from 'react-otp-input'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { redirect, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from 'antd'
 import { setUser } from '@/reducers/user/authSlice'
 import { useSendOtpMutation } from '@/services/apiSlice'
@@ -159,7 +159,7 @@ export default function OtpField({ id }: { id: string }) {
             premiumMember: investorData.membership.isMember !== 'no',
           },
         })
-        return redirect('/dashboard')
+        return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           // dispatch(
@@ -183,7 +183,7 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData.membership.isMember !== 'no',
             },
           })
-          return redirect('/dashboard')
+          return router.push('/dashboard')
         }
       }
     }
@@ -191,7 +191,7 @@ export default function OtpField({ id }: { id: string }) {
 
   React.useEffect(() => {
     if (user) {
-      return redirect('/dashboard')
+      return router.push('/dashboard')
     }
   }, [user])
   return (
