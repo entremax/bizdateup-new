@@ -159,7 +159,7 @@ export default function OtpField({ id }: { id: string }) {
           },
         })
         router.refresh()
-        // return router.push('/dashboard')
+        return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           // dispatch(
@@ -184,7 +184,7 @@ export default function OtpField({ id }: { id: string }) {
             },
           })
           router.refresh()
-          // return router.push('/dashboard')
+          return router.push('/dashboard')
         }
       }
     }
