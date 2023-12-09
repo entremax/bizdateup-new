@@ -9,7 +9,6 @@ import useUser from '@/hooks/useUser'
 
 const Navbar: React.FC = () => {
   const user = useUser()
-  console.log(user)
   const [type, setType] = useState<'authenticated' | 'unauthenticated'>(
     user?.token ? 'authenticated' : 'unauthenticated',
   )

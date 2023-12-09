@@ -7,7 +7,7 @@ import { DataInner, KYCStatusArray } from '@/types'
 import getUserDetails from '@/action/user'
 import { redirect } from 'next/navigation'
 import localUser from '@/lib/getToken'
-import { getCookieLocal } from '@/lib/utils'
+import getCookieLocal from '@/lib/useCookieLocal'
 
 type User = {
   token: string
