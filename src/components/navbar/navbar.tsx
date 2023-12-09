@@ -2,18 +2,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Icons } from '@/components/icons/icon'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavLink from '@/components/navbar/navbar_links'
 import UserMenu from './navbar_usermenu'
-import { useAppSelector } from '@/store/hooks'
 import useUser from '@/hooks/useUser'
 
 const Navbar: React.FC = () => {
   const user = useUser()
-  const { token } = useAppSelector(({ authUser }) => authUser)
-
-  const type = token ? 'authenticated' : 'unauthenticated'
-
+  console.log(user)
+  const [type, setType] = useState<'authenticated' | 'unauthenticated'>(
+    user?.token ? 'authenticated' : 'unauthenticated',
+  )
+  useEffect(() => {
+    setType(user?.token ? 'authenticated' : 'unauthenticated')
+  }, [user])
   return (
     <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white px-8 shadow-[0px_1px_0px_0px_#E5E9F2]">
       <Link
@@ -52,7 +54,7 @@ const Navbar: React.FC = () => {
           </div>
         ) : (
           <div className={'hidden items-center justify-center gap-8 lg:flex'}>
-            <UserMenu user={user} />
+            <UserMenu user={user?.userData ?? null} />
           </div>
         )}
         <div className="flex-shrink md:hidden">

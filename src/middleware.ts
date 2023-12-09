@@ -16,7 +16,12 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
   admin: [/\/dashboard\/investor.*/],
 }
 
-const publicPaths = [/^\/$/, /\.(svg|png|jpeg)$/]
+const publicPaths = [
+  /^\/$/,
+  /\.(svg|png|jpeg)$/,
+  /\.(js|css|map)$/, // <-- match js, css, map (sourcemap) files
+  /_next\//,
+] // <-- match next.js specific paths like static files]
 const unauthenticated = [/\/login/, /\/signup/, /\/otp.*/]
 
 export function middleware(req: NextRequest) {
@@ -24,10 +29,10 @@ export function middleware(req: NextRequest) {
   const role = req.cookies.get('role')?.value as UserRole
   const path = req.nextUrl.pathname
   const url = req.nextUrl.clone()
-  
+
   const matchPath = (patterns: RegExp[]) =>
     patterns.some((pattern) => pattern.test(path))
-  
+
   if ((!token || !role) && !matchPath([...publicPaths, ...unauthenticated])) {
     if (matchPath(authenticated['startup'])) {
       url.pathname = '/login/startup'
