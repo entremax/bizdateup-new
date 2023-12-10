@@ -6,15 +6,17 @@ import React, { useEffect, useState } from 'react'
 import NavLink from '@/components/navbar/navbar_links'
 import UserMenu from './navbar_usermenu'
 import useUser from '@/hooks/useUser'
+import { useAppSelector } from '@/store/hooks'
 
 const Navbar: React.FC = () => {
   const user = useUser()
+  const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
   const [type, setType] = useState<'authenticated' | 'unauthenticated'>(
     user?.token ? 'authenticated' : 'unauthenticated',
   )
   useEffect(() => {
     setType(user?.token ? 'authenticated' : 'unauthenticated')
-  }, [user])
+  }, [user, reduxUser])
   return (
     <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white px-8 shadow-[0px_1px_0px_0px_#E5E9F2]">
       <Link

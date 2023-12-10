@@ -15,6 +15,7 @@ const CaseFreeDrop: React.FC<Props> = ({ session_id, searchParams }) => {
   const router = useRouter()
   const order_id = searchParams?.order_id
   const startup_id = searchParams?.startup_id
+
   const [onlinePaymentVerify] = useOnlinePaymentVerifyMutation()
   const isProd = false
   const components = ['order-details', 'card', 'upi', 'app', 'netbanking']
@@ -46,7 +47,6 @@ const CaseFreeDrop: React.FC<Props> = ({ session_id, searchParams }) => {
   }
   const paymentSuccess = async (data: any) => {
     if (data.order && data.order.status === 'PAID') {
-      // alert("paid")
       const update = await paymentUpdate()
       if (update?.code === 200) {
         store.dispatch(

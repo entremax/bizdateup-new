@@ -162,16 +162,6 @@ export default function OtpField({ id }: { id: string }) {
         return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
-          // dispatch(
-          //   setUser({
-          //     token,
-          //     userData: investorData,
-          //     refId,
-          //     kycStatus: status,
-          //     premiumMember: investorData.membership.isMember !== 'no',
-          //   }),
-          // )
-
           setUserInLocal({
             dispatch,
             setUser,
