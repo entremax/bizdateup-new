@@ -11,6 +11,7 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
     /\/transactions.*/,
     /\/referral.*/,
     /\/payment.*/,
+    /\/portfolio.*/,
   ],
   startup: [/\/dashboard\/startup.*/, /\/profile\/startup.*/, /\/startup.*/],
   admin: [/\/dashboard\/investor.*/],
