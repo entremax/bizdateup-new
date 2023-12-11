@@ -159,7 +159,7 @@ export default function OtpField({ id }: { id: string }) {
             premiumMember: investorData.membership.isMember !== 'no',
           },
         })
-        return router.push('/dashboard')
+        router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           setUserInLocal({
@@ -173,7 +173,7 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData.membership.isMember !== 'no',
             },
           })
-          return router.push('/dashboard')
+          router.push('/dashboard')
         }
       }
     }
@@ -181,7 +181,7 @@ export default function OtpField({ id }: { id: string }) {
 
   React.useEffect(() => {
     if (user) {
-      return router.push('/dashboard')
+      router.push('/dashboard')
     }
   }, [user])
   return (

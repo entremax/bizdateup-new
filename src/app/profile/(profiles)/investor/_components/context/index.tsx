@@ -1,7 +1,7 @@
 'use client'
 import React, { createContext, useContext } from 'react'
 import { DataInner } from '@/types'
-import useUser from '@/hooks/useUser'
+import { useUser } from '@/hooks/useUser'
 import { useAppDispatch } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import {
