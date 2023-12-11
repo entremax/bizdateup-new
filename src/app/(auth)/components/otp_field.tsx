@@ -159,7 +159,7 @@ export default function OtpField({ id }: { id: string }) {
             premiumMember: investorData.membership.isMember !== 'no',
           },
         })
-        return router.push('/dashboard')
+        router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           setUserInLocal({
@@ -173,17 +173,17 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData.membership.isMember !== 'no',
             },
           })
-          return router.push('/dashboard')
+          router.push('/dashboard')
         }
       }
     }
   }
 
-  React.useEffect(() => {
-    if (user) {
-      return router.push('/dashboard')
-    }
-  }, [user])
+  // React.useEffect(() => {
+  //   if (user) {
+  //     router.push('/dashboard')
+  //   }
+  // }, [user])
   return (
     <>
       <div className="grid w-full items-center justify-center text-center md:min-w-max">

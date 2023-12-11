@@ -9,7 +9,7 @@ import {
 } from 'next/navigation'
 import { useAppSelector } from '@/store/hooks'
 import { Icons } from '@/components/icons/icon'
-import useUser from '@/hooks/useUser'
+import { useUser } from '@/hooks/useUser'
 import { KYCStatus } from '@/types'
 
 type sectionType =

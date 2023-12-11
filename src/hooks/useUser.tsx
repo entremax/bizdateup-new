@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { setUser } from '@/reducers/user/authSlice'
 import getUserDetails from '@/action/user'
@@ -16,12 +16,10 @@ type User = {
   premiumMember: boolean
 }
 
-/**
- * Custom hook that provides access to the authenticated user's details.
- *
- * Returns the user object with details.
- */
-const useUser = (): User | null => {
+// Create User context
+const UserContext = createContext<User | null>(null)
+
+const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [user, setUserState] = useState<User | null>(null)
   const role = useCookieLocal('role')
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
@@ -49,14 +47,19 @@ const useUser = (): User | null => {
         if (!data) return redirect('/login/startup')
 
         setUserState(data)
-        dispatch(setUser({ ...data }))
+        dispatch(
+          setUser({
+            ...data,
+          }),
+        )
       }
     }
 
     fetchUserDetails()
   }, [role, reduxUser])
 
-  return user
+  return <UserContext.Provider value={user}>{children}</UserContext.Provider>
 }
-
-export default useUser
+export default UserProvider
+// Hook for easy access to the UserContext
+export const useUser = () => useContext(UserContext)
