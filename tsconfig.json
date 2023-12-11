@@ -21,30 +21,43 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/theme/*": ["./src/theme/*"],
-      "@/lib/*": [
-        "./src/lib/*",
-        "./src/lib/utils.ts"
-      ],
+      "@/action/*": ["./src/app/actions/*", "./src/app/referral/actions/*"],
+      "@/lib/*": ["./src/lib/*"],
       "@/ui/*": ["./src/components/ui/*"],
       "@/store/*": ["./src/store/*"],
       "@/reducers/*": ["./src/store/features/reducers/*"],
       "@/services/*": ["./src/store/features/services/*"],
-      "@/icons": ["./src/components/ui/icon"],
+      "@/icons/*": ["./src/components/icons/*"],
       "@/data": ["./src/data/index.tsx"],
-      "@/endpoint": ["./src/lib/endpoint/apiEndpoint.ts"],
-      "@/components/*": [
-        "./src/app/(auth)/_components/*",
-        "./src/app/dashboard/_components/*",
-        "./src/app/invest/_component/*",
-        "./src/components/mobileNavbar/*",
-        "./src/components/navbar/*",
-        "./src/components/*"
+      "@/components/common/*": [
+        "./src/components/*",
+        "./src/components/navbar/*"
       ],
-      "@/types/*": [
-        "./src/types/*",
-        "./src/app/invest/*",
-        "./src/lib/endpoints/*"
-      ]
+      "@/components/form/*": [
+        "./src/app/profile/(profiles)/investor/_components/form_components/*"
+      ],
+      "@/components/auth/*": ["./src/app/(auth)/components/*"],
+      "@/components/dashboard/*": [
+        "./src/app/dashboard/_components/*",
+        "./src/app/dashboard/startup/components/*"
+      ],
+      "@/components/invest/*": [
+        "./src/app/invest/components/*",
+        "./src/app/invest/(invest_pages)/startup/_component/*"
+      ],
+      "@/components/startup/*": ["./src/app/startup/components/*"],
+      "@/components/payment/*": ["./src/app/payment/_components/*"],
+      "@/components/profile/*": [
+        "./src/app/profile/(profiles)/investor/_components/*",
+        "./src/app/profile/(profiles)/investor/bank/components/*",
+        "./src/app/profile/(profiles)/investor/other/components/*"
+      ],
+      "@/components/referral/*": ["./src/app/referral/components/*"],
+      "@/context/profile/*": [
+        "./src/app/profile/(profiles)/investor/_components/context/*"
+      ],
+      "@/hooks/common/*": ["./src/hooks/*"],
+      "@/types/*": ["./src/types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

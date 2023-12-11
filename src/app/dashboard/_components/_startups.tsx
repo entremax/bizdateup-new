@@ -1,73 +1,86 @@
 import React from 'react'
-import {Campaign} from "@/types";
+import { Campaign } from '@/types'
 import Image from 'next/image'
-import {apiUri, capitalizeFirstLetter} from "@/lib/utils";
-import {StartupTag} from "@/components/tag";
-import JoinWhatsApp from "@/components/_join_whatsapp";
-import {Button} from 'antd'
-import Link from "next/link";
+import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
+import { StartupTag } from '@/components/tag'
+import JoinWhatsApp from '@/app/dashboard/_components/_join_whatsapp'
+import { Button } from 'antd'
+import Link from 'next/link'
 
-const Startups = ({data}: { data: Campaign[] }) => {
+const Startups = ({ data }: { data: Campaign[] }) => {
   const baseUrl = apiUri().v1
-  
+
   function getData(data: any[]) {
-    let startupData = data.length > 4 ? data.slice(0, 4) : data;
-    
+    let startupData = data.length > 4 ? data.slice(0, 4) : data
+
     if (startupData.length % 2 !== 0) {
-      startupData = data.slice(0, 2);
+      startupData = data.slice(0, 2)
     }
-    
-    return startupData;
+
+    return startupData
   }
-  
+
   return (
-    <div className={"grid"}>
-      <h3 className={"text-primary-dark text-2xl md:text-4xl font-bold !m-0 !p-0"}>Invest with Confidence</h3>
-      <div className="grid gap-6 grid-cols-1 lg:grid-cols-2 justify-center py-6 ">
-        {getData(data).map((startup:Campaign) => (
+    <div className={'grid'}>
+      <h3
+        className={
+          '!m-0 !p-0 text-2xl font-bold text-primary-dark md:text-4xl'
+        }>
+        Invest with Confidence
+      </h3>
+      <div className="grid grid-cols-1 justify-center gap-6 py-6 lg:grid-cols-2 ">
+        {getData(data).map((startup: Campaign) => (
           <Link
             href={`/invest/startup/${startup._id}?name=${startup.registeredCompanyName}`}
             key={startup._id}
-            className={"relative rounded-2xl border_gray overflow-clip shadow-lg"}
-          >
+            className={
+              'border_gray relative overflow-clip rounded-2xl shadow-lg'
+            }>
             <Image
-              src={baseUrl + "banner/" + startup.banner}
+              src={baseUrl + '/banner/' + startup.banner}
               alt={startup.registeredCompanyName}
               height={250}
               width={340}
-              className={"w-full"}
+              className={'w-full'}
             />
             <Image
-              src={baseUrl + "logo/" + startup.logo}
+              src={baseUrl + '/logo/' + startup.logo}
               height={40}
               width={40}
               alt={startup.registeredCompanyName}
-              className={"absolute top-52 rounded-xl left-5 w-16 h-16 border_gray"}
+              className={
+                'border_gray absolute left-5 top-52 h-16 w-16 rounded-xl'
+              }
             />
-            <div className={"p-5 pt-8 grid gap-3"}>
-              <h5 className='text-2xl font-bold text-black-lighter m-0 p-0'>
+            <div className={'grid gap-3 p-5 pt-8'}>
+              <h5 className="m-0 p-0 text-2xl font-bold text-black-lighter">
                 {capitalizeFirstLetter(
-                  startup.registeredCompanyName.split(' ')
+                  startup.registeredCompanyName.split(' '),
                 )}
               </h5>
               <p
-                className={"text-base text-[#828F99] text-ellipsis leading-normal"}>{startup.shortDescription}</p>
-              <StartupTag tags={startup.tags}/>
+                className={
+                  'text-ellipsis text-base leading-normal text-[#828F99]'
+                }>
+                {startup.shortDescription}
+              </p>
+              <StartupTag tags={startup.tags} />
             </div>
           </Link>
         ))}
       </div>
-      <JoinWhatsApp hidden/>
-      {data.length % 2 === 0 && data.length > 4 ?
+      <JoinWhatsApp hidden />
+      {data.length % 2 === 0 && data.length > 4 ? (
         <Button
-          type={"default"}
-          size={"large"}
-          className={"p-[0.625rem_1.25rem] my-9 text-lg font-semibold  cursor-pointer !bg-light-shadow outline-none border-0  text-primary rounded-lg"}
-          block
-        >
+          type={'default'}
+          size={'large'}
+          className={
+            'my-9 cursor-pointer rounded-lg border-0  !bg-light-shadow p-[0.625rem_1.25rem] text-lg font-semibold  text-primary outline-none'
+          }
+          block>
           View All Startups
         </Button>
-        : null}
+      ) : null}
     </div>
   )
 }

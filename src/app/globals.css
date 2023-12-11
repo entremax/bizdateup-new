@@ -17,11 +17,22 @@
   --gray-900: 17, 24, 39;
   --active-light: 99, 115, 129;
   --gray-400: 100, 116, 139;
-  --lemon-green:31, 137, 44;
+  --lemon-green: 31, 137, 44;
 }
 
 a {
   text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0;
+  margin: 0;
 }
 
 .otp div input {
@@ -30,17 +41,23 @@ a {
 }
 
 @layer base {
-  html, body {
+  html,
+  body {
     font-size: 16px;
-    font-family: Helvetica Neue, sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100dvh !important;
-      width: 100vw !important;
-      overflow-x: hidden;
-      /*color: rgb(var(--foreground-rgb));*/
-      background-color: rgb(var(--background-end-rgb));
-    }
+    font-family:
+      Helvetica Neue,
+      sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100dvh !important;
+    width: 100vw !important;
+    overflow-x: hidden;
+    /*color: rgb(var(--foreground-rgb));*/
+    background-color: rgb(var(--background-end-rgb));
+  }
+
+  input {
+  }
 }
 
 @layer components {
@@ -49,24 +66,113 @@ a {
   }
 
   .auth {
-    @apply min-h-full flex justify-center items-center w-screen flex-col;
+    @apply flex min-h-full w-screen flex-col items-center justify-center;
   }
 
   .auth_container {
-    @apply mx-auto md:border_gray flex flex-col justify-center text-center items-center space-y-2 bg-white md:shadow-lg rounded-2xl mt-32 md:w-auto  md:px-12 py-10;
+    @apply md:border_gray mx-auto mt-32 flex flex-col items-center justify-center space-y-2 rounded-2xl bg-white py-10 text-center md:w-auto  md:px-12 md:shadow-lg;
   }
 
   .button_primary {
-    @apply p-[0.625rem_1.25rem] my-9 text-lg font-semibold  cursor-pointer bg-primary outline-none border-0  text-primary rounded-lg;
+    @apply my-9 cursor-pointer rounded-lg border-0  bg-primary p-[0.625rem_1.25rem] text-lg font-semibold  text-primary outline-none;
   }
 
-  .reset{
+  .primary_button {
+    @apply border-primary bg-primary text-white;
+  }
+
+  .primary_link {
+    @apply flex w-full items-center justify-center rounded border-primary bg-primary py-2 text-white;
+  }
+
+  .reset {
     @apply m-0 p-0;
+  }
+
+  .invest-modal {
+    @apply fixed bottom-0 left-0 right-0 top-12 !max-w-full rounded-none p-0 md:left-[auto] md:top-0;
+
+    .ant-modal-content {
+      @apply h-full rounded-none rounded-t-lg p-0 text-primary lg:rounded-none;
+
+      .ant-modal-close {
+        @apply !top-[1.8rem];
+      }
+
+      .ant-modal-body {
+        @apply grid text-primary;
+      }
+    }
+  }
+
+  .risk-modal {
+    @apply fixed !top-8 bottom-0 left-0 right-0 !max-w-full md:bottom-auto;
+
+    .ant-modal-content {
+      @apply h-full rounded-none rounded-t-lg p-0 text-primary md:rounded-xl;
+
+      .ant-modal-close {
+        @apply !top-[1.5rem];
+      }
+
+      .ant-modal-header {
+        @apply border_gray px-4 py-2 text-base;
+      }
+
+      .ant-modal-body {
+        @apply grid px-2 text-primary;
+      }
+
+      .ant-modal-footer {
+        @apply p-4;
+      }
+    }
+  }
+
+  .selector-profile {
+    @apply w-full outline-emerald-200;
+
+    .ant-select-selector {
+      @apply !rounded-lg border-0 px-3 py-[0.28rem] text-[#000]  !outline-gray-400 transition-all duration-200 ease-linear   peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary;
+    }
+  }
+
+  .how-to-use-steps {
+    .ant-steps-item:not(:where(:nth-child(3))) {
+      @apply mb-16;
+    }
+
+    .ant-steps-item {
+      .ant-steps-item-tail::after {
+        top: 3.5rem;
+        left: 3.5rem;
+      }
+
+      .ant-steps-item-title {
+        @apply text-xl font-semibold;
+      }
+
+      .ant-steps-item-description {
+        @apply text-[#6E6E73];
+      }
+
+      .ant-steps-item-icon {
+        @apply min-w-fit;
+      }
+    }
   }
 }
 
 .ant-collapse-header-text {
   font-weight: 700 !important;
+}
+
+:where(.css-dev-only-do-not-override-xu9wm8).how-to-use-steps.ant-steps-vertical
+  > .ant-steps-item
+  > .ant-steps-item-container
+  > .ant-steps-item-tail {
+  top: 3.5rem !important;
+  left: 2.5rem !important;
 }
 
 @layer utilities {
@@ -84,4 +190,49 @@ a {
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: rgb(var(--lavender-blue)) !important;
   border-color: rgb(var(--lavender-blue)) !important;
+}
+
+/* width and height are required for Firefox */
+/* Track */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+/* Track */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For Firefox */
+/* Track */
+/* width and height are required for Firefox */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+/* Handle on hover */
+body:hover {
+  scrollbar-color: #555 transparent;
 }
