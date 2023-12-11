@@ -14,6 +14,7 @@ import ReduxProvider from '@/store/Provider'
 import { apiUri } from '@/lib/utils'
 import FrequentlyAsked from '@/components/faq'
 import dynamic from 'next/dynamic'
+import { fetchData } from '@/lib/fetchApi'
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -27,7 +28,7 @@ const RiskDisclosure = dynamic(
 )
 const getData = async () => {
   const url = `${apiUri().v0}/startupsInvestorView?limit=2`
-  const response = await fetch(url, { next: { revalidate: 0 } })
+  const response = await fetch(url)
     .then((res) => {
       return res?.json()
     })
@@ -42,7 +43,11 @@ const getData = async () => {
 }
 
 const Dashboard = async () => {
-  const { data: campaign }: { data: Campaign[] } = await getData()
+  const campaign = (await fetchData(
+    `/startupsInvestorView?limit=2`,
+    'get',
+    0,
+  )) as Campaign[]
 
   const menu = [
     {
