@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
@@ -7,6 +7,7 @@ const config: Config = {
     './src/page/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   corePlugins: { preflight: false },
+
   theme: {
     font: 'Helvetica Neue',
     extend: {
@@ -21,14 +22,14 @@ const config: Config = {
         },
         gray: {
           DEFAULT: 'rgb(var(--gray-500))',
-          400:'rgba(100, 116, 139, 1)',
+          400: 'rgba(100, 116, 139, 1)',
           lighter: 'rgba(130, 143, 153, 1)',
           smoke: 'rgb(var(--white-smoke))',
         },
-        lemon:{
-          DEFAULT:'rgb(var(--lemon-green),1)',
-          lighter:'rgb(var(--lemon-green),0.2)',
-          dark:'rgba(28, 184, 109, 1)'
+        lemon: {
+          DEFAULT: 'rgb(var(--lemon-green),1)',
+          lighter: 'rgb(var(--lemon-green),0.2)',
+          dark: 'rgba(28, 184, 109, 1)',
         },
         brust: 'rgb(var(--cloud-brust))',
         typography: {
@@ -48,11 +49,11 @@ const config: Config = {
       backgroundColor: {
         'light-shadow': 'rgba(134, 134, 245, 0.10)',
         'premium-bg': 'rgba(255, 247, 227, 0.59)',
-        'premium-circle':'rgba(245, 189, 48, 0.16);',
-        'premium-btn':'rgba(221, 168, 34, 1)',
+        'premium-circle': 'rgba(245, 189, 48, 0.16);',
+        'premium-btn': 'rgba(221, 168, 34, 1)',
       },
     },
   },
   plugins: [],
-};
-export default config;
+}
+export default config

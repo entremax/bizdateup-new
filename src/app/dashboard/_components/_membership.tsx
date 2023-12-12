@@ -1,60 +1,76 @@
-'use client';
-import React from 'react';
-import Image from 'next/image';
-import { useAppSelector } from '@/store/hooks';
-import { Icons } from '@/icons';
-import {Button, Collapse, ConfigProvider} from 'antd';
+'use client'
+import React from 'react'
+import Image from 'next/image'
+import { useAppSelector } from '@/store/hooks'
+import { Icons } from '@/icons/icon'
+import { Button, Collapse, ConfigProvider } from 'antd'
+
 export const Membership = () => {
-  const { user } = useAppSelector(({ authUser }) => authUser);
+  const { user } = useAppSelector(({ authUser }) => authUser)
   return (
     <>
-      {user && user?.membership?.isMember !== "no" ? (
-        <div className={"border_gray rounded-xl my-4"}>
-          <ConfigProvider theme={{
-            components: {
-              Collapse: {
-                headerPadding:'0.5rem 1rem 0.5rem 1rem'
+      {user && user?.membership?.isMember !== 'no' ? (
+        <div className={'border_gray my-4 rounded-xl'}>
+          <ConfigProvider
+            theme={{
+              components: {
+                Collapse: {
+                  headerPadding: '0.5rem 1rem 0.5rem 1rem',
+                },
               },
-            },
-          }}>
-          <Collapse
-            bordered={false}
-            defaultActiveKey={['1']}
-            expandIconPosition={"end"}
-            expandIcon={({ isActive }) => <Icons.ArrowRight  style={{ transform: `rotate(${isActive ? "270deg" : "90deg"})` }}/>}
-            // style={{ background: token.colorBgContainer }}
-            items={[
-              {
-              key:'1',
-              label: (
-                <div className={"flex gap-4 items-center p-0"}>
-                  <Icons.Premium height={'25'}
-                                 width={'25'}/>
-                  <p className={"reset"}>Your membership features</p>
-                </div>
-              ),
-              children:(
-                <ul className={"p-0 m-0 mt-0 pt-0  ml-6 marker:text-gray-400 list-outside list-disc"}>
-                  <li className={"reset text-gray-400"}>Unlock exclusive benefits and</li>
-                  <li className={"reset text-gray-400"}>Opportunities with BizDateup</li>
-                  <li className={"reset text-gray-400"}>Premium membership.</li>
-                </ul>
-              )
-              }
-            ]}
-          />
+            }}>
+            <Collapse
+              bordered={false}
+              defaultActiveKey={['1']}
+              expandIconPosition={'end'}
+              expandIcon={({ isActive }) => (
+                <Icons.ArrowRight
+                  style={{
+                    transform: `rotate(${isActive ? '270deg' : '90deg'})`,
+                  }}
+                />
+              )}
+              // style={{ background: token.colorBgContainer }}
+              items={[
+                {
+                  key: '1',
+                  label: (
+                    <div className={'flex items-center gap-4 p-0'}>
+                      <Icons.Premium height={'25'} width={'25'} />
+                      <p className={'reset'}>Your membership features</p>
+                    </div>
+                  ),
+                  children: (
+                    <ul
+                      className={
+                        'm-0 ml-6 mt-0 list-outside  list-disc p-0 pt-0 marker:text-gray-400'
+                      }>
+                      <li className={'reset text-gray-400'}>
+                        Unlock exclusive benefits and
+                      </li>
+                      <li className={'reset text-gray-400'}>
+                        Opportunities with BizDateup
+                      </li>
+                      <li className={'reset text-gray-400'}>
+                        Premium membership.
+                      </li>
+                    </ul>
+                  ),
+                },
+              ]}
+            />
           </ConfigProvider>
         </div>
-      ):(
+      ) : (
         <>
-          <div className='grid relative md:text-left overflow-clip p-5  text-center justify-center justify-items-center items-center border_gray gap-2  rounded-xl my-4 bg-premium-bg'>
-            <div className='absolute top-0 -left-10  w-20 h-20 rounded-full bg-premium-circle'></div>
-            <div className='absolute -top-8 -left-10 w-20 h-20 rounded-full bg-premium-circle'></div>
-            <div className='absolute top-0 -right-10  w-20 h-20 rounded-full bg-premium-circle'></div>
-            <div className='absolute -top-8 -right-10 w-20 h-20 rounded-full bg-premium-circle'></div>
-            <div className={'relative w-20 h-20 grid justify-center items-end'}>
+          <div className="border_gray relative my-4 grid items-center  justify-center justify-items-center gap-2 overflow-clip rounded-xl bg-premium-bg  p-5 text-center md:text-left">
+            <div className="absolute -left-10 top-0  h-20 w-20 rounded-full bg-premium-circle"></div>
+            <div className="absolute -left-10 -top-8 h-20 w-20 rounded-full bg-premium-circle"></div>
+            <div className="absolute -right-10 top-0  h-20 w-20 rounded-full bg-premium-circle"></div>
+            <div className="absolute -right-10 -top-8 h-20 w-20 rounded-full bg-premium-circle"></div>
+            <div className={'relative grid h-20 w-20 items-end justify-center'}>
               <Icons.Premium
-                className={'absolute top-[10%] left-[34%] bottom-[10%]'}
+                className={'absolute bottom-[10%] left-[34%] top-[10%]'}
                 height={'25'}
                 width={'25'}
               />
@@ -65,31 +81,30 @@ export const Membership = () => {
                 alt={'BizDateup Logo'}
               />
             </div>
-            <div className={'grid justify-center  z-10 '}>
-              <div className='text-center'>
-                <h5 className='text-lg font-bold reset'>
+            <div className={'z-10 grid  justify-center '}>
+              <div className="text-center">
+                <h5 className="reset text-lg font-bold">
                   Join Membership Program
                 </h5>
-                <p className={'text-typography-gray-400 text-sm reset'}>
+                <p className={'reset text-sm text-typography-gray-400'}>
                   Unlock exclusive benefits and opportunities with BizDateup
                   membership.
                 </p>
               </div>
               <Button
                 type={'default'}
-                href='/upgrade'
+                href="/upgrade"
                 size={'large'}
                 className={
-                  'bg-premium-btn font-semibold mt-5 !text-white !text-sm'
+                  'mt-5 bg-premium-btn !text-sm font-semibold !text-white'
                 }
-                block
-              >
+                block>
                 Continue procedure
               </Button>
             </div>
           </div>
         </>
-      ) }
+      )}
     </>
-  );
-};
+  )
+}

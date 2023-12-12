@@ -1,15 +1,21 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {NotificationType} from "@/types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { NotificationType } from '@/types'
+
+type IStatus = { status: 'canceled' | 'success' | 'failed'; startup_id: string }
+
 interface IInitialState {
-  type: NotificationType|null;
-  message: string|null;
-  description?: string|null;
+  type: NotificationType | null
+  message: string | null
+  description?: string | null
+  payment?: IStatus | null
 }
-const initialState = {
+
+const initialState: IInitialState = {
   type: null,
   message: null,
   description: null,
-} as IInitialState;
+  payment: null,
+}
 
 export const Notify = createSlice({
   name: 'notify',
@@ -18,21 +24,24 @@ export const Notify = createSlice({
     setNotification: (
       state,
       {
-        payload: { type, message,
-        description},
+        payload: { type, message, description },
       }: PayloadAction<{
-        type: NotificationType;
-        message: string;
-        description?:string
-      }>
+        type: NotificationType
+        message: string
+        description?: string
+      }>,
     ) => {
-      state.type = type;
-      state.message = message;
-      state.description=description
+      state.type = type
+      state.message = message
+      state.description = description
     },
     destroyNotification: () => initialState,
+    showModal: (state, { payload }: PayloadAction<IStatus>) => {
+      state.payment = payload
+    },
   },
-});
-export const { setNotification, destroyNotification } = Notify.actions;
+})
 
-export default Notify.reducer;
+export const { setNotification, destroyNotification, showModal } =
+  Notify.actions
+export default Notify.reducer
