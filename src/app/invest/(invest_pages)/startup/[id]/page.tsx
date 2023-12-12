@@ -32,7 +32,7 @@ import ReduxProvider from '@/store/Provider'
 import PaymentStatusModal from '@/components/invest/paymentStatusModal'
 import { startupApis } from '@/lib/startup'
 
-const { v1: apiV1 } = apiUri()
+const { v0: apiV1 } = apiUri()
 
 export const revalidate = 0
 
