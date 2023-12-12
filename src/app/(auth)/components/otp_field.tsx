@@ -122,7 +122,7 @@ export default function OtpField({ id }: { id: string }) {
         setNotification({
           type: 'error',
           message: 'OTP Verification Failed',
-          description: `The OTP you entered is invalid. Please check it and try again.(code:${error})`,
+          description: `The OTP you entered is invalid. Please check it and try again.`,
         }),
       )
     }
