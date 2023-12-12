@@ -26,7 +26,7 @@ const RiskDisclosure = dynamic(
   },
 )
 const getData = async () => {
-  const url = `${apiUri().v0}/startupsInvestorView?limit=2`
+  const url = `${apiUri().v0}/startupsInvestorView?limit=5`
   const response = await fetch(url, { next: { revalidate: 0 } })
     .then((res) => {
       return res?.json()
