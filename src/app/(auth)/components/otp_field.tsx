@@ -189,7 +189,7 @@ export default function OtpField({ id }: { id: string }) {
         </h2>
         <p
           className={
-            'my-2 grid gap-2 text-sm font-light text-gray-400 sm:justify-center md:flex'
+            'my-4 mb-6  grid gap-2 text-sm font-light text-gray-400 sm:justify-center md:flex'
           }>
           Enter your OTP sent to your email <strong>{temp_auth_medium}</strong>
         </p>
