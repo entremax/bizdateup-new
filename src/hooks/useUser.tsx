@@ -32,11 +32,14 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
       if (role === 'investor') {
         const data = await getUserDetails()
+        const dataUser = localUser.getUserLocal()
+        if (!dataUser) return redirect('/login')
+
         const userInfo = {
           userData: data?.user as DataInner,
           token: data?.token ?? '',
           refId: data?.refId ?? '',
-          kycStatus: data?.status ?? null,
+          kycStatus: dataUser.kycStatus,
           premiumMember: data?.user?.membership?.isMember !== 'no',
         }
 
