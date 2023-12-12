@@ -79,11 +79,22 @@ export function convertNavigationKeyToKYCStatus(
  */
 export function apiUri(): { v0: string; v1: string } {
   const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL
-  if (baseUrl) {
-    return { v0: baseUrl + 'v0', v1: baseUrl + 'v1' }
+
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.NEXT_PUBLIC_ENV === 'development'
+  ) {
+    if (baseUrl) {
+      return { v0: baseUrl + 'v0', v1: baseUrl + 'v1' }
+    }
   } else {
-    return { v0: '', v1: '' }
+    const apiVersion =
+      process.env.API_VERSION || process.env.NEXT_PUBLIC_API_VERSION || 'v1'
+    if (baseUrl) {
+      return { v0: baseUrl + apiVersion, v1: baseUrl + apiVersion }
+    }
   }
+  return { v0: '', v1: '' }
 }
 
 /**
