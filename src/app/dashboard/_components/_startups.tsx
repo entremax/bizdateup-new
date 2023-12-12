@@ -34,7 +34,7 @@ const Startups = ({ data }: { data: Campaign[] }) => {
             href={`/invest/startup/${startup._id}?name=${startup.registeredCompanyName}`}
             key={startup._id}
             className={
-              'border_gray relative overflow-clip rounded-2xl shadow-lg'
+              'border_gray relative overflow-clip rounded-2xl text-black shadow-lg'
             }>
             <Image
               src={baseUrl + '/banner/' + startup.banner}

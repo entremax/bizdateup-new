@@ -9,7 +9,7 @@ export function StartupTag({ tags }: { tags: string[] }) {
             <span
               key={t}
               className={
-                '!text-black-light flex items-center rounded  bg-gray-200 !p-0 !px-1 py-1 !text-xs font-medium '
+                'flex items-center rounded bg-gray-200  !p-0 !px-1 py-1 !text-xs font-medium !text-black-lighter '
               }>
               {t}
             </span>
