@@ -26,7 +26,7 @@ const RiskDisclosure = dynamic(
   },
 )
 const getData = async () => {
-  const url = `${apiUri().v0}/startupsInvestorView?limit=2`
+  const url = `${apiUri().v0}/startupsInvestorView?limit=6`
   const response = await fetch(url, { next: { revalidate: 0 } })
     .then((res) => {
       return res?.json()
@@ -115,7 +115,7 @@ const Dashboard = async () => {
             </p>
             <Link
               href={'/learn-more'}
-              className={'py-4 text-sm font-bold text-primary'}>
+              className={'py-2 text-sm font-bold text-primary'}>
               Learn more {'>'}
             </Link>
           </div>

@@ -17,7 +17,7 @@ import { StartupTag } from '@/components/tag'
  */
 const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
   let itemGrid =
-    'card_article grid relative border_gray rounded-xl overflow-hidden col-span-2 xl:col-span-1' // placeholder value for itemGri
+    'card_article grid relative border_gray rounded-xl overflow-hidden col-span-2 xl:col-span-1 !text-black-lighter' // placeholder value for itemGri
   const campaignData = data
 
   function truncateText(input: string, limit = 16) {

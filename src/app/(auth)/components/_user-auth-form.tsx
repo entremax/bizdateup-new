@@ -88,7 +88,7 @@ export default function UserAuthForm({
             router.push(
               `/otp/${
                 res.data?.refId ?? res.refId
-              }?type=${actionType}&&role=${role}`,
+              }?type=${actionType}&role=${role}`,
             )
           } else if (res.code === 404) {
             notifyUser(

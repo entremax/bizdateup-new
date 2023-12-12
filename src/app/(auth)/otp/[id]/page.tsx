@@ -15,7 +15,7 @@ export default function VerifyEmail({ params }: { params: { id: string } }) {
       <div className="auth_container p-5">
         <GoBack />
         <OtpField id={id} />
-        <div className="flex gap-1 font-semibold">
+        <div className="flex gap-1 py-4 pb-6 font-semibold">
           <p className={'reset'}>Already have an account?</p>
           {'  '}
           <Link href={'/login'} className={'text-primary'}>
