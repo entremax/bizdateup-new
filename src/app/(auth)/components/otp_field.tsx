@@ -139,15 +139,7 @@ export default function OtpField({ id }: { id: string }) {
       const loginMethod2 = localStorage.getItem('loginMethod2')
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
         localStorage.setItem('token', token)
-        // dispatch(
-        //   setUser({
-        //     userData: investorData,
-        //     token,
-        //     refId,
-        //     kycStatus: status,
-        //     premiumMember: investorData.membership.isMember !== 'no',
-        //   }),
-        // )
+
         setUserInLocal({
           dispatch,
           setUser,
@@ -160,7 +152,7 @@ export default function OtpField({ id }: { id: string }) {
           },
         })
         router.refresh()
-        return router.push('/dashboard')
+        return window.location.replace('/dashboard')
       } else {
         if (responseCode === 200) {
           setUserInLocal({
@@ -174,8 +166,7 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData.membership.isMember !== 'no',
             },
           })
-          router.refresh()
-          return router.push('/dashboard')
+          return window.location.replace('/dashboard')
         }
       }
     }
