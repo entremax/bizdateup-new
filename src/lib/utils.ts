@@ -80,7 +80,7 @@ export function convertNavigationKeyToKYCStatus(
 export function apiUri(): { v0: string; v1: string } {
   const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL
   if (baseUrl) {
-    return { v0: baseUrl + 'v0', v1: baseUrl + 'v1' }
+    return { v0: baseUrl + 'v0', v1: baseUrl + 'v0' }
   } else {
     return { v0: '', v1: '' }
   }

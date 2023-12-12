@@ -25,7 +25,7 @@ export default function UserAuthForm({
   const router = useRouter()
   const dispatch = useAppDispatch()
 
-  const baseUrl = `${apiUri().v0}/auth/`
+  const baseUrl = `${apiUri().v1}/auth/`
   const url = requestType === 'login' ? `${baseUrl}login/` : baseUrl
 
   const [withEmail, setWithEmail] = useState(false)
