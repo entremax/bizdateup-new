@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useAppDispatch } from '@/store/hooks'
 import { Icons } from '@/components/icons/icon'
 import { setInvestorId, temp_values } from '@/reducers/user/authSlice'
-import { validateEmailOrPhone } from '@/lib/utils'
+import { apiUri, validateEmailOrPhone } from '@/lib/utils'
 import { useSendOtpMutation } from '@/services/apiSlice'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import { UserRole } from '@/types'
@@ -25,7 +25,7 @@ export default function UserAuthForm({
   const router = useRouter()
   const dispatch = useAppDispatch()
 
-  const baseUrl = `${process.env.NEXT_PUBLIC_APP_TEST_URL}/auth/`
+  const baseUrl = `${apiUri().v0}/auth/`
   const url = requestType === 'login' ? `${baseUrl}login/` : baseUrl
 
   const [withEmail, setWithEmail] = useState(false)
