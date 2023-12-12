@@ -11,8 +11,6 @@ export const acceleratorApis = {
 }
 
 export async function getAcceleratorDetails(user_id: string, token: string) {
-  console.log(token)
-  console.log(acceleratorApis.acceleratorDetails + user_id)
   const res: any = await fetch(acceleratorApis.acceleratorDetails + user_id, {
     next: { revalidate: 600 },
     method: 'GET',
@@ -28,12 +26,12 @@ export async function getAcceleratorDetails(user_id: string, token: string) {
       console.log(e)
       throw new Error(e)
     })
-  console.log('Res', JSON.stringify(res))
+  // console.log('Res', JSON.stringify(res))
   if (res?.code !== 200) {
     return null
   }
   let data = null as { _id: string; referral_code: string } | null
-  console.log(res.data.data)
+
   if (res.data.data) {
     data = {
       _id: res.data.data._id,

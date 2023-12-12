@@ -3,7 +3,7 @@ import React from 'react'
 import { Icons } from '@/icons/icon'
 import type { MenuProps } from 'antd'
 import { Avatar, Badge, Button, Dropdown, Space, Tooltip } from 'antd'
-import { useAppDispatch } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { cn } from '@/lib/utils'
 import {
   reset as authReset,
@@ -17,16 +17,17 @@ import {
   faRightFromBracket,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
-import { createAccelerator } from '@/action/accelerator'
 import { useFetchStartupUpdatesMutation } from '@/services/startupApiSlice'
 import { setStartupUpdates } from '@/reducers/user/startupSlice'
 import StartupUpdatesDropDown from '@/components/navbar/startup_updates'
 import { notifyUser } from '@/components/notification'
 import { DataInner } from '@/types'
+import { acceleratorApis, getAcceleratorDetails } from '@/lib/accelerator'
+import { setAcceleratorCookies } from '@/action/accelerator'
 
 const UserMenu = ({ user }: { user: DataInner | null }) => {
   const dispatch = useAppDispatch()
-
+  const { token } = useAppSelector(({ authUser }) => authUser)
   const router = useRouter()
   const [logout, { isLoading }] = useLogoutMutation()
   const [fetchUpdates, { isLoading: fetching }] =
@@ -109,8 +110,44 @@ const UserMenu = ({ user }: { user: DataInner | null }) => {
       : 'relative rounded-full'
 
   const handleCreateAccelerator = async () => {
-    const success = await createAccelerator()
-    if (success) {
+    // console.log('creating accelerator')
+    // const success = await createAccelerator()
+    // console.log(success)
+    if (user?.isAccelerator) {
+      return router.push('/referral')
+    }
+
+    const res = await fetch(acceleratorApis.create, {
+      method: 'POST',
+      body: JSON.stringify({ id: user?._id }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res)
+        return res.json()
+      })
+      .catch((e) => {
+        console.log(e)
+        throw new Error(e)
+      })
+    if (res?.code !== 200) {
+      return router.push('/dashboard')
+    }
+    if (res?.data?.code === 400) {
+      return router.push('/referral')
+    }
+    if (res.code === 200) {
+      const accelerator = await getAcceleratorDetails(
+        user?._id ?? '',
+        token ?? '',
+      )
+      if (!accelerator) {
+        return notifyUser('error', 'Something went wrong please try again.')
+      }
+      await setAcceleratorCookies(accelerator)
       notifyUser(
         'success',
         'Congratulations! You have now become an Accelerator.',
