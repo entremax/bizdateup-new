@@ -23,7 +23,7 @@ const publicPaths = [
   /\.(js|css|map)$/, // <-- match js, css, map (sourcemap) files
   /_next\//,
 ] // <-- match next.js specific paths like static files]
-const unauthenticated = [/\/login/, /\/signup/, /\/otp.*/]
+const unauthenticated = [/\/login/, /\/signup/, /\/otp.*/, /\/socialLogin.*/]
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get('token')
@@ -40,7 +40,7 @@ export function middleware(req: NextRequest) {
     } else {
       url.pathname = '/login'
     }
-    return NextResponse.rewrite(url)
+    return NextResponse.redirect(url)
   }
   if (
     token &&

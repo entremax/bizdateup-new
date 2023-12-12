@@ -171,7 +171,6 @@ export const api = createApi({
         },
       }),
       transformResponse: (response: ISendOtpResponseData) => {
-        console.log(response)
         return {
           message: response.data.message,
           status: response.data.status,
