@@ -160,7 +160,7 @@ export default function OtpField({ id }: { id: string }) {
           },
         })
         router.refresh()
-        router.push('/dashboard')
+        return router.push('/dashboard')
       } else {
         if (responseCode === 200) {
           setUserInLocal({
@@ -175,17 +175,12 @@ export default function OtpField({ id }: { id: string }) {
             },
           })
           router.refresh()
-          router.push('/dashboard')
+          return router.push('/dashboard')
         }
       }
     }
   }
 
-  // React.useEffect(() => {
-  //   if (user) {
-  //     router.push('/dashboard')
-  //   }
-  // }, [user])
   return (
     <>
       <div className="grid w-full items-center justify-center text-center md:min-w-max">
