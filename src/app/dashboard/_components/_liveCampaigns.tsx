@@ -1,7 +1,7 @@
 import React from 'react'
 import { Campaign } from '@/types'
 import Image from 'next/image'
-import { capitalizeFirstLetter, cn, formatIndianValuation } from '@/lib/utils'
+import { apiUri, capitalizeFirstLetter, cn, formatIndianValuation } from '@/lib/utils'
 import JoinWhatsApp from '@/app/dashboard/_components/_join_whatsapp'
 import '../dashboard.css'
 import Link from 'next/link'
@@ -19,6 +19,7 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
   let itemGrid =
     'card_article grid relative border_gray rounded-xl overflow-hidden col-span-2 xl:col-span-1 !text-black-lighter' // placeholder value for itemGri
   const campaignData = data
+  const baseUrl = apiUri().v1
 
   function truncateText(input: string, limit = 16) {
     const words = input.split(' ')
@@ -48,7 +49,7 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
             <div className="flex shrink gap-2 p-3">
               <div className="flex items-start justify-start rounded-md bg-clip-content">
                 <Image
-                  src={'/logo.svg'}
+                  src={baseUrl + '/logo/' + startup.logo}
                   height={56}
                   width={56}
                   className={'!static h-14 w-14 rounded-md'}
