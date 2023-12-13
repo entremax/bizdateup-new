@@ -68,7 +68,7 @@ const Dashboard = async () => {
   ]
 
   return (
-    <section className="ml-2 grid grid-cols-12 gap-2 pb-3 pt-20">
+    <section className="ml-2 grid grid-cols-12 gap-2 pb-3 pr-3 pt-20">
       <div className="col-start-1 col-end-12 my-6 md:mt-5 xl:col-start-2 xl:col-end-11">
         <div className="grid text-primary-dark">
           <Greet />
@@ -78,18 +78,14 @@ const Dashboard = async () => {
         </div>
       </div>
       <div className="col-span-full flex flex-col gap-7 md:col-start-1 md:col-end-9 xl:col-start-2 xl:col-end-9">
-        <ReduxProvider>
-          <KycIndicator className={'md:hidden'} hidden={false} />
-        </ReduxProvider>
+        <KycIndicator className={'md:hidden'} hidden={false} />
         <LiveCampaigns data={campaign} />
-        <ReduxProvider>
-          <Plans />
-        </ReduxProvider>
+        <Plans />
         <Startups data={campaign} />
       </div>
       <div
         className={
-          'md:col-end col-span-full md:col-start-9 xl:col-start-9 xl:col-end-12 xl:pl-12'
+          'md:col-end col-span-full md:col-start-9 md:pl-6 xl:col-start-9 xl:col-end-12 xl:pl-12'
         }>
         <KycIndicator className={'hidden md:grid'} />
         <Membership />
