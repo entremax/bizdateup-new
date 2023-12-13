@@ -1,6 +1,6 @@
 import { StartupData } from '@/types/invest'
 import { Icons } from '@/components/icons/icon'
-import { Divider } from 'antd'
+import { Divider, Tooltip } from 'antd'
 import { cn, formatIndianValuation } from '@/lib/utils'
 import React from 'react'
 
@@ -20,85 +20,97 @@ export default function DealTerms({
         Deal Terms
       </h4>
       <div className="grid divide-y">
+        {/* Type of Security */}
         <div className="flex flex-col gap-1 pt-2">
           <div className="flex items-start">
             <div className={'grow'}>
               <p className={'reset text-gray-40 text-sm lg:text-base '}>Type</p>
-              <p className={'reset  text-xl font-medium leading-normal'}>
+              <p className={'reset text-xl font-medium leading-normal'}>
                 {startup.dealTerms.typeOfSecurity}
               </p>
             </div>
-            <Icons.Info />
+            <Tooltip title="The maximum valuation at which your investment converts into equity shares or cash.">
+              <Icons.Info />
+            </Tooltip>
           </div>
-          <p className={'reset text-sm font-medium text-gray-400'}>
-            The maximum valuation at which your investment converts into equity
-            shares or cash.
-          </p>
         </div>
         <Divider />
+        {/* Revenue */}
         <div className="flex items-start ">
           <div className={'grow'}>
             <p className={'reset text-gray-40 text-sm lg:text-base '}>
               Revenue
             </p>
-            <p className={'reset  text-xl font-medium leading-normal'}>
-              {' '}
+            <p className={'reset text-xl font-medium leading-normal'}>
               ₹ {formatIndianValuation(startup.revenue)}
             </p>
           </div>
-          <Icons.Info />
+          <Tooltip title="Tooltip for Revenue">
+            <Icons.Info />
+          </Tooltip>
         </div>
         <Divider />
+        // ... (previous code)
+        <Divider />
+        {/* Minimum Investment */}
         <div className="flex items-start ">
           <div className={'grow'}>
             <p className={'reset text-gray-40 text-sm lg:text-base '}>
               Minimum Investment
             </p>
-            <p className={'reset  text-xl font-medium leading-normal'}>
-              {' '}
+            <p className={'reset text-xl font-medium leading-normal'}>
               ₹ {formatIndianValuation(startup.dealTerms.minimumInvestment)}
             </p>
           </div>
-          <Icons.Info />
+          <Tooltip title="Tooltip for Minimum Investment">
+            <Icons.Info />
+          </Tooltip>
         </div>
         <Divider />
+        {/* Total Raised */}
         <div className="flex items-start ">
           <div className={'grow'}>
             <p className={'reset text-gray-40 text-sm lg:text-base '}>
               Total Raised
             </p>
-            <p className={'reset  text-xl font-medium leading-normal'}>
-              {' '}
+            <p className={'reset text-xl font-medium leading-normal'}>
               ₹ {formatIndianValuation(startup.totalRaised)}
             </p>
           </div>
-          <Icons.Info />
+          <Tooltip title="Tooltip for Total Raised">
+            <Icons.Info />
+          </Tooltip>
         </div>
         <Divider />
+        {/* Target Amount */}
         <div className="flex items-start ">
           <div className={'grow'}>
             <p className={'reset text-gray-40 text-sm lg:text-base '}>Target</p>
-            <p className={'reset  text-xl font-medium leading-normal'}>
-              {' '}
+            <p className={'reset text-xl font-medium leading-normal'}>
               ₹ {formatIndianValuation(startup.dealTerms.targetAmount)}
             </p>
           </div>
-          <Icons.Info />
+          <Tooltip title="Tooltip for Target Amount">
+            <Icons.Info />
+          </Tooltip>
         </div>
         <Divider />
+        {/* Valuation */}
         <div className="flex items-start pb-2">
           <div className={'grow'}>
             <p className={'reset text-gray-40 text-sm lg:text-base '}>
               Valuation
             </p>
-            <p className={'reset  text-xl font-medium leading-normal'}>
-              {' '}
+            <p className={'reset text-xl font-medium leading-normal'}>
               ₹ {formatIndianValuation(startup.dealTerms.valuation)}
             </p>
           </div>
-          <Icons.Info />
+          <Tooltip title="Tooltip for Valuation">
+            <Icons.Info />
+          </Tooltip>
         </div>
       </div>
     </div>
   )
 }
+
