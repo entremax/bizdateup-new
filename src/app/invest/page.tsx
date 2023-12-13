@@ -11,6 +11,7 @@ import { setStartups } from '@/reducers/user/startupSlice'
 import { StartupData } from '@/types/invest'
 import StartupResults from '@/components/invest/StartupsResult'
 import RecommendedStartups from '@/components/invest/Recommanded'
+import ClosedDeals from '@/components/invest/ClosedDeals'
 
 export default function Invest() {
   const searchParams = useSearchParams()
@@ -74,12 +75,15 @@ export default function Invest() {
     fetchSearch(['startup', 'CCPS', 'CCDS', 'equity'])
   }, [startupType, token])
   return (
-    <main className={'py-24 lg:px-32  lg:pb-0'}>
-      <div className="flex flex-col gap-4 px-4">
+    <main className={'py-24  lg:pb-0'}>
+      <div className="flex flex-col gap-4 px-4 lg:px-28">
         <h3 className={'text-3xl font-semibold text-primary-dark'}>
           Discover Promising Startups
         </h3>
-        <div className={'flex items-center gap-4'}>
+        <div
+          className={
+            'md:items-left flex flex-wrap items-center justify-center gap-4 md:justify-start'
+          }>
           {queryType.map(({ name, label }) => (
             <Link
               key={name}
@@ -93,6 +97,7 @@ export default function Invest() {
             </Link>
           ))}
         </div>
+        <div className="h-[0.22rem] w-full bg-light-shadow lg:hidden"></div>
         <StartupFilters
           startupType={(startupType?.toLowerCase() as StartupTypes) ?? 'all'}
         />
@@ -100,9 +105,12 @@ export default function Invest() {
       <StartupResults
         startupType={(startupType?.toLowerCase() as StartupTypes) ?? 'all'}
       />
-      <RecommendedStartups
-        startupType={(startupType?.toLowerCase() as StartupTypes) ?? 'all'}
-      />
+      <div className="border_gray  border-x-0 border-y-2 bg-[#F9F9FC] py-14 pr-0 md:my-20 lg:py-28 xl:my-28 xl:px-32 xl:pr-0">
+        <RecommendedStartups
+          startupType={(startupType?.toLowerCase() as StartupTypes) ?? 'all'}
+        />
+      </div>
+      <ClosedDeals />
     </main>
   )
 }

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IStartupReducer, StartupTypes } from '@/types/startup'
-import { StartupData } from '@/types/invest'
+import { IClosedStartupDeal, StartupData } from '@/types/invest'
 
 interface IStartupPayload {
   startup: StartupData[]
@@ -24,8 +24,8 @@ const initialState = {
     ccps: [],
     ccds: [],
     equity: [],
-    closed: [],
   },
+  closedDeals: [],
 } as IStartupReducer
 
 export const startupSlice = createSlice({
@@ -34,11 +34,14 @@ export const startupSlice = createSlice({
   reducers: {
     searchFilter: (state, action: PayloadAction<SearchActionPayload>) => {
       const { searchTerm, startupType, minInvestment } = action.payload
+      // @ts-ignore
       state.search = state.startups[startupType].filter((startup) => {
-        const { companyName, shortDescription, dealTerms } = startup
+        const { registeredCompanyName, shortDescription, dealTerms } = startup
 
-        let matchesCompanyName = companyName
-          ? companyName.toLowerCase().includes(searchTerm.toLowerCase())
+        let matchesCompanyName = registeredCompanyName
+          ? registeredCompanyName
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
           : false
         let matchesShortDescription = shortDescription
           ? shortDescription.toLowerCase().includes(searchTerm.toLowerCase())
@@ -74,13 +77,13 @@ export const startupSlice = createSlice({
     ) => {
       state.updates = updates
     },
-    setClosedDeals: (state, action) => {
-      state.startups = { ...state.startups, closed: action.payload }
+    setClosedDeals: (state, action: { payload: IClosedStartupDeal[] }) => {
+      state.closedDeals = action.payload
     },
     reset: () => initialState,
   },
 })
-export const { searchFilter, setStartups, setStartupUpdates } =
+export const { searchFilter, setStartups, setClosedDeals, setStartupUpdates } =
   startupSlice.actions
 
 export default startupSlice.reducer

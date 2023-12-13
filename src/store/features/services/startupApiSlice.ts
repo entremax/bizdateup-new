@@ -3,6 +3,7 @@ import { RootState } from '@/store'
 import { apiUri } from '@/lib/utils'
 import { startupApis } from '@/lib/startup'
 import { IStartupUpdatesResponse, StartupParameters } from '@/types/startup'
+import { FetchClosedStartupResponse } from '@/types/invest'
 
 const baseUrl = apiUri().v0
 const baseQuery = fetchBaseQuery({
@@ -68,6 +69,17 @@ export const startupsApiSlice = createApi({
       transformErrorResponse: (response: { status: string | number }) =>
         response,
     }),
+    closedDeals: builder.mutation({
+      query: () => ({
+        url: startupApis.closedStartupDeals,
+        method: 'GET',
+      }),
+      transformResponse: ({ data }: { data: FetchClosedStartupResponse }) => {
+        return data.data
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
   }),
 })
 
@@ -76,4 +88,5 @@ export const {
   useOnboardingMutation,
   useFetchFormMutation,
   useFetchByTypeMutation,
+  useClosedDealsMutation,
 } = startupsApiSlice

@@ -10,7 +10,7 @@ export default function StartupResults({ startupType }: Props) {
   const { search, startups } = useAppSelector(({ startup }) => startup)
 
   return (
-    <div className=" 3xl:grid-cols-4 my-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <div className="my-8 flex w-fit flex-wrap items-center justify-center gap-8  px-4">
       {(search.length === 0 ? startups[startupType] : search).map((startup) => (
         <StartupCard key={startup._id} startup={startup} />
       ))}
