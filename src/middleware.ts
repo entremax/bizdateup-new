@@ -23,7 +23,13 @@ const publicPaths = [
   /\.(js|css|map)$/, // <-- match js, css, map (sourcemap) files
   /_next\//,
 ] // <-- match next.js specific paths like static files]
-const unauthenticated = [/\/login/, /\/signup/, /\/otp.*/, /\/socialLogin.*/]
+const unauthenticated = [
+  /\/login/,
+  /\/signup/,
+  /\/otp.*/,
+  /\/social.*/,
+  /\/socialLogin.*/,
+]
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get('token')
@@ -66,6 +72,6 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|logout|me|verify-otp|_next/static|_next/image|favicon.ico|public).*)',
+    '/((?!api|logout|me|verify-otp|verify-social-login|_next/static|_next/image|favicon.ico|public).*)',
   ],
 }

@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ILogoutStatus, ISendOtpResponseData } from '@/types'
+import { SocialLoginBody } from '@/types/socialLogin'
 // there's a bug here if you add '/api' here the end url will be look like this 'http://127.0.0.1:3000/api/api/v0/verify-otp'
 const baseUrl = `/`
 const baseQuery = fetchBaseQuery({
@@ -68,8 +69,38 @@ export const NextApi = createApi({
         data: { error: string; message?: string }
       }) => response,
     }),
+    OAuthLogin: builder.mutation<any, SocialLoginBody>({
+      query: (body) => ({
+        url: '/verify-social-login',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body,
+      }),
+      transformResponse: (response: ISendOtpResponseData) => {
+        return {
+          responseCode: response.data.code,
+          token: response.data.token,
+          refId: response.data.refId,
+
+          status: response.data.status,
+          investorData: {
+            ...response.data.data,
+          },
+        }
+      },
+      transformErrorResponse: (response: {
+        status: number
+        data: { error: string; message?: string }
+      }) => response,
+    }),
   }),
 })
 
-export const { useVerifyOtpMutation, useLogoutMutation, useGetUserMutation } =
-  NextApi
+export const {
+  useVerifyOtpMutation,
+  useLogoutMutation,
+  useOAuthLoginMutation,
+  useGetUserMutation,
+} = NextApi
