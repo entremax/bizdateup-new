@@ -14,7 +14,7 @@ type Props = {
 
 export default function InvestButton({ isClosed, startup, sticky }: Props) {
   let parentClass =
-    'md:static w-inherit flex shadow md:shadow-none flex-col justify-center items-center gap-4 fixed bottom-16 left-0 right-0 bg-white  z-[999] z-[10]  p-4 '
+    'md:static w-inherit flex shadow md:shadow-none flex-col justify-center items-center gap-4 fixed bottom-16 left-0 right-0 bg-white  z-[500] z-[10]  p-4 '
   return (
     <div className={cn(parentClass)}>
       {isClosed ? (

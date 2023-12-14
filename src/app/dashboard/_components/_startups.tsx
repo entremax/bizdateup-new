@@ -70,12 +70,13 @@ const Startups = ({ data }: { data: Campaign[] }) => {
         ))}
       </div>
       <JoinWhatsApp hidden />
-      {data.length % 2 === 0 && data.length > 4 ? (
+      {data.length % 2 !== 0 && data.length > 2 ? (
         <Button
+          href={'/invest'}
           type={'default'}
           size={'large'}
           className={
-            'my-9 cursor-pointer rounded-lg border-0  !bg-light-shadow p-[0.625rem_1.25rem] text-lg font-semibold  text-primary outline-none'
+            'my-9 cursor-pointer rounded-lg border-0  !bg-light-shadow p-[0.625rem_1.25rem] text-lg font-semibold  !text-primary outline-none'
           }
           block>
           View All Startups

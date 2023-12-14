@@ -122,7 +122,7 @@ export default function OtpField({ id }: { id: string }) {
         setNotification({
           type: 'error',
           message: 'OTP Verification Failed',
-          description: `The OTP you entered is invalid. Please check it and try again.(code:${error})`,
+          description: `The OTP you entered is invalid. Please check it and try again.`,
         }),
       )
     }
@@ -134,21 +134,13 @@ export default function OtpField({ id }: { id: string }) {
         refId = investorUserId,
         status,
       } = response.data
-
+      console.log(response)
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
         localStorage.setItem('token', token)
-        // dispatch(
-        //   setUser({
-        //     userData: investorData,
-        //     token,
-        //     refId,
-        //     kycStatus: status,
-        //     premiumMember: investorData.membership.isMember !== 'no',
-        //   }),
-        // )
-        setUserInLocal({
+
+        await setUserInLocal({
           dispatch,
           setUser,
           user: {
@@ -160,10 +152,10 @@ export default function OtpField({ id }: { id: string }) {
           },
         })
         router.refresh()
-        return router.push('/dashboard')
+        return window.location.replace('/dashboard')
       } else {
         if (responseCode === 200) {
-          setUserInLocal({
+          await setUserInLocal({
             dispatch,
             setUser,
             user: {
@@ -174,8 +166,7 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData.membership.isMember !== 'no',
             },
           })
-          router.refresh()
-          return router.push('/dashboard')
+          return window.location.replace('/dashboard')
         }
       }
     }

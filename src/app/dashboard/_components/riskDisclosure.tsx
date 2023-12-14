@@ -1,19 +1,21 @@
 'use client'
 import CustomModal from '@/components/modal/customModal'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from 'antd'
 
 export const dynamic = 'force-dynamic'
 
 export default function RiskDisclosure() {
-  let riskAccepted = true
+  const [riskAccepted, setRiskAccepted] = useState(false)
+
   const handler = () => {
     localStorage.setItem('risk-accepted', 'yes')
+    setRiskAccepted(!riskAccepted)
   }
   React.useEffect(() => {
     const risk = localStorage.getItem('risk-accepted')
     if (risk !== 'yes') {
-      riskAccepted = false
+      setRiskAccepted(true)
     }
   }, [])
   return (
@@ -26,7 +28,7 @@ export default function RiskDisclosure() {
         }
         className={'!risk-modal'}
         closeIcon={true}
-        open={!riskAccepted}
+        open={riskAccepted}
         closable={false}
         maskClosable={false}
         footer={

@@ -11,9 +11,9 @@ import { Icons } from '@/icons/icon'
 import type { Metadata } from 'next'
 import { Membership } from '@/components/dashboard/_membership'
 import ReduxProvider from '@/store/Provider'
-import { apiUri } from '@/lib/utils'
 import FrequentlyAsked from '@/components/faq'
 import dynamic from 'next/dynamic'
+import { fetchData } from '@/lib/fetchApi'
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -25,24 +25,13 @@ const RiskDisclosure = dynamic(
     ssr: false,
   },
 )
-const getData = async () => {
-  const url = `${apiUri().v0}/startupsInvestorView?limit=6`
-  const response = await fetch(url, { next: { revalidate: 0 } })
-    .then((res) => {
-      return res?.json()
-    })
-    .catch((e) => {
-      console.error(e)
-      throw new Error(e.message)
-    })
-  if (response.data.code === 200) {
-    new Error('Failed to fetch data')
-  }
-  return { data: response.data.data }
-}
 
 const Dashboard = async () => {
-  const { data: campaign }: { data: Campaign[] } = await getData()
+  const campaign = (await fetchData(
+    `/startupsInvestorView?limit=5`,
+    'get',
+    0,
+  )) as Campaign[]
 
   const menu = [
     {
@@ -68,7 +57,7 @@ const Dashboard = async () => {
   ]
 
   return (
-    <div className="ml-2 grid grid-cols-12 gap-2 px-3 pb-3 pt-20 xl:px-5">
+    <section className="ml-2 grid grid-cols-12 gap-2 pb-3 pr-3 pt-20">
       <div className="col-start-1 col-end-12 my-6 md:mt-5 xl:col-start-2 xl:col-end-11">
         <div className="grid text-primary-dark">
           <Greet />
@@ -78,39 +67,35 @@ const Dashboard = async () => {
         </div>
       </div>
       <div className="col-span-full flex flex-col gap-7 md:col-start-1 md:col-end-9 xl:col-start-2 xl:col-end-9">
-        <ReduxProvider>
-          <KycIndicator className={'md:hidden'} hidden={false} />
-        </ReduxProvider>
+        <KycIndicator className={'md:hidden'} hidden={false} />
         <LiveCampaigns data={campaign} />
-        <ReduxProvider>
-          <Plans />
-        </ReduxProvider>
+        <Plans />
         <Startups data={campaign} />
       </div>
       <div
         className={
-          'md:col-end col-span-full md:col-start-9 xl:col-start-9 xl:col-end-12 xl:pl-12'
+          'md:col-end col-span-full md:col-start-9 md:pl-6 xl:col-start-9 xl:col-end-12 xl:pl-12'
         }>
-        <ReduxProvider>
-          <KycIndicator className={'hidden md:grid'} />
-          <Membership />
-        </ReduxProvider>
+        <KycIndicator className={'hidden md:grid'} />
+        <Membership />
         <div
           className={
             'md:items-left md:justify-left border_gray  my-4 grid items-center justify-center gap-2 rounded-xl p-3  text-center shadow md:text-left'
           }>
-          <Image
-            src={'/person_with_money.png'}
-            width={250}
-            height={200}
-            alt={'Person Viewing  a paper'}
-            className={'w-full rounded'}
-          />
-          <div className="grid gap-2 px-4">
+          <div className="relative h-[10rem] max-h-[10rem] w-full overflow-clip  rounded-sm">
+            <Image
+              src={
+                'https://www.figma.com/file/f4SkzM7hfOnqhiBLoZKxms/image/b825596a57cd8a132b7335c9dda94a345cce9eed'
+              }
+              fill
+              alt={'Person Viewing  a paper'}
+            />
+          </div>
+          <div className="grid gap-2">
             <h5 className="!m-0 !p-0 text-lg font-bold">
               Master Startup Investments
             </h5>
-            <p className={'text-md !m-0 !p-0 text-typography-gray-400'}>
+            <p className={'text-md text-md !m-0 !p-0 text-typography-gray-400'}>
               Learn more about our platform offering
             </p>
             <Link
@@ -136,9 +121,9 @@ const Dashboard = async () => {
           </div>
           <div
             className={
-              'grid justify-center divide-x-0 divide-y divide-solid divide-gray-300'
+              'grid justify-center divide-x-0 divide-y divide-solid divide-gray-300 '
             }>
-            <div className="text-center">
+            <div className="px-8 text-center">
               <h5 className="!m-0 !p-0 text-lg font-bold">
                 Become an Accelerator
               </h5>
@@ -222,7 +207,7 @@ const Dashboard = async () => {
       <ReduxProvider>
         <RiskDisclosure />
       </ReduxProvider>
-    </div>
+    </section>
   )
 }
 

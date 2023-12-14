@@ -12,6 +12,8 @@ export async function GET(req: NextRequest) {
         { status: 401 },
       )
     }
+    cookies().delete('accelerator_id')
+    cookies().delete('referrer_id')
     cookies().delete('logged-in')
     cookies().delete('token')
     cookies().delete('role')

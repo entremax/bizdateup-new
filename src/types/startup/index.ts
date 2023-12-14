@@ -1,4 +1,4 @@
-import { StartupData } from '@/types/invest'
+import { IClosedStartupDeal, StartupData } from '@/types/invest'
 
 export type IStartupUpdatesResponse = {
   code: number | string
@@ -37,13 +37,7 @@ export interface IStartupDetails {
   refer: string | any
 }
 
-export type StartupTypes =
-  | 'all'
-  | 'ccds'
-  | 'ccps'
-  | 'equity'
-  | 'startup'
-  | 'closed'
+export type StartupTypes = 'all' | 'ccds' | 'ccps' | 'equity' | 'startup'
 export type StartupParameters = 'startup' | 'CCPS' | 'CCDS' | 'equity'
 
 export type IStartupReducer = {
@@ -55,6 +49,6 @@ export type IStartupReducer = {
     ccps: StartupData[]
     ccds: StartupData[]
     equity: StartupData[]
-    closed: StartupData[]
   }
+  closedDeals: IClosedStartupDeal[]
 }

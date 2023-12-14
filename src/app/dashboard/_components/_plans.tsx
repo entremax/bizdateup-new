@@ -97,10 +97,7 @@ const Plans = () => {
               <td className={'px-6 py-5 text-sm font-medium text-gray-500'}>
                 {rowData.isFree ? <Icons.Checked /> : <Icons.Minus />}
               </td>
-              <td
-                className={
-                  "px-6 py-5 font-['Montserrat'] text-sm font-medium text-gray-700"
-                }>
+              <td className={'px-6 py-5 text-sm font-medium text-gray-700'}>
                 {typeof rowData.needMembership === 'boolean' &&
                 rowData.needMembership ? (
                   <Icons.Checked />

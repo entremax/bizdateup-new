@@ -163,14 +163,66 @@ p {
   }
 }
 
+@layer components {
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensure the loader covers the full viewport height */
+
+    .loader {
+      border: 12px solid #f3b518;
+      border-top: 10px solid #f3f3f3;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 2s linear infinite;
+      margin: 0 10px; /* Add some horizontal spacing between loaders */
+    }
+
+    .loader:first-child {
+      left: -22.5px;
+      animation-direction: normal;
+      margin-right: -22px;
+    }
+
+    .loader:last-child {
+      left: 23px;
+      animation-direction: reverse;
+      margin-left: -22px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(720deg);
+      }
+    }
+
+    .loader:last-child {
+      animation-direction: reverse;
+      animation-delay: 1s;
+    }
+
+    .loader:first-child {
+      animation-direction: normal;
+      animation-delay: 1s;
+    }
+  }
+}
+
 .ant-collapse-header-text {
   font-weight: 700 !important;
 }
 
-:where(.css-dev-only-do-not-override-xu9wm8).how-to-use-steps.ant-steps-vertical
-  > .ant-steps-item
-  > .ant-steps-item-container
-  > .ant-steps-item-tail {
+:where(
+    .css-dev-only-do-not-override-xu9wm8
+  ).how-to-use-steps.ant-steps-vertical,
+> .ant-steps-item,
+> .ant-steps-item-container,
+> .ant-steps-item-tail {
   top: 3.5rem !important;
   left: 2.5rem !important;
 }

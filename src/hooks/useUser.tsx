@@ -6,7 +6,7 @@ import getUserDetails from '@/action/user'
 import localUser from '@/lib/getToken'
 import useCookieLocal from '@/lib/useCookieLocal'
 import { DataInner, KYCStatusArray } from '@/types'
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 
 type User = {
   token: string
@@ -20,6 +20,7 @@ type User = {
 const UserContext = createContext<User | null>(null)
 
 const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+  const router = useRouter()
   const [user, setUserState] = useState<User | null>(null)
   const role = useCookieLocal('role')
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
@@ -32,11 +33,14 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
       if (role === 'investor') {
         const data = await getUserDetails()
+        const dataUser = localUser.getUserLocal()
+        if (!dataUser) return router.push('/login')
+
         const userInfo = {
           userData: data?.user as DataInner,
           token: data?.token ?? '',
           refId: data?.refId ?? '',
-          kycStatus: data?.status ?? null,
+          kycStatus: dataUser.kycStatus,
           premiumMember: data?.user?.membership?.isMember !== 'no',
         }
 
