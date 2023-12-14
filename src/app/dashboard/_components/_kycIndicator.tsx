@@ -5,7 +5,10 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { AuthUserState, IInvestmentItem } from '@/types'
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
-import { useGetInvestmentDetailsQuery, useGetTotalInvestmentQuery } from '@/services/apiSlice'
+import {
+  useGetInvestmentDetailsQuery,
+  useGetTotalInvestmentQuery,
+} from '@/services/apiSlice'
 import { setInvestmentDetails } from '@/reducers/user/investorSlice'
 
 /**

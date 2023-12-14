@@ -94,7 +94,10 @@ export function apiUri(): { v0: string; v1: string } {
  * @param {number} value - The valuation amount to be formatted.
  * @return {string} The formatted valuation amount.
  */
-export function formatIndianValuation(value: number): string {
+export function formatIndianValuation(value: number | string): string {
+  if (typeof value === 'string') {
+    value = parseFloat(value)
+  }
   if (value >= 10000000) {
     // Convert to crores (Cr) and round to two decimal places
     const crores = (value / 10000000).toFixed(2)
@@ -168,4 +171,21 @@ export function formatCustomDate(inputDateString: string) {
   const year = date.getFullYear()
 
   return `${day} ${monthNames[monthIndex]} ${year}`
+}
+
+/**
+ * Formats a number with decimal places.
+ *
+ * @param {number} value - The number to be formatted.
+ * @return {string} The formatted number as a string.
+ */
+export function formatNumberWithDecimal(value: number): string {
+  // Check if the number has more than 1 decimal place
+  if (value % 1 !== 0) {
+    // If it has more than 1 decimal place, format with 2 decimal places
+    return value.toFixed(2)
+  } else {
+    // If it has 0 or 1 decimal place, format with 1 decimal place
+    return value.toFixed(1)
+  }
 }
