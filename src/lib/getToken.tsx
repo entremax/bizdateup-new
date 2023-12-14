@@ -16,7 +16,7 @@ function getUserLocal(): {
   return null
 }
 
-function setUserInLocal({
+async function setUserInLocal({
   dispatch,
   setUser,
   user,
@@ -31,6 +31,7 @@ function setUserInLocal({
     premiumMember: boolean
   }
 }) {
+  console.log('Setting users')
   localStorage.setItem('user', JSON.stringify(user))
   dispatch(setUser({ ...user }))
 }

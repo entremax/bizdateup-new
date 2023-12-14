@@ -72,6 +72,6 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|logout|me|verify-otp|_next/static|_next/image|favicon.ico|public).*)',
+    '/((?!api|logout|me|verify-otp|verify-social-login|_next/static|_next/image|favicon.ico|public).*)',
   ],
 }

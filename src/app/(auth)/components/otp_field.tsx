@@ -140,7 +140,7 @@ export default function OtpField({ id }: { id: string }) {
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
         localStorage.setItem('token', token)
 
-        setUserInLocal({
+        await setUserInLocal({
           dispatch,
           setUser,
           user: {
@@ -155,7 +155,7 @@ export default function OtpField({ id }: { id: string }) {
         return window.location.replace('/dashboard')
       } else {
         if (responseCode === 200) {
-          setUserInLocal({
+          await setUserInLocal({
             dispatch,
             setUser,
             user: {
