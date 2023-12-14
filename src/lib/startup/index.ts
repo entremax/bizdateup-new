@@ -9,6 +9,7 @@ export const startupApis = {
   onboarding: '/startup/register',
   fetchForm: '/fetchForm',
   fetchByType: '/startup/fetchStartupByType?tos=',
+  closedStartupDeals: '/getStartupsClosedView',
 }
 
 /**

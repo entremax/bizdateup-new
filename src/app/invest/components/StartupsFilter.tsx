@@ -34,7 +34,7 @@ export default function StartupFilters({ startupType }: Props) {
   }, [keywords, debouncedSearch])
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex flex-wrap  items-center justify-center  gap-4 md:justify-start">
       <div className="lg:max-w-[40vw]">
         <Input
           addonBefore={<SearchOutlined />}

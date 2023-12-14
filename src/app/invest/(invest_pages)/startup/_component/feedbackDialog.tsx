@@ -75,7 +75,7 @@ export default function FeedbackDialog() {
     <div
       className={cn(
         show
-          ? 'bottom-4 right-5 rounded-xl border-[0.015rem] border-solid  border-primary bg-gray-100 p-3 xl:fixed'
+          ? 'bottom-4 right-5 z-[13] rounded-xl border-[0.015rem]  border-solid border-primary bg-gray-100 p-3 xl:fixed'
           : 'collapse',
       )}>
       <div className="flex w-full items-center justify-end">
