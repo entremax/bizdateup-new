@@ -1,5 +1,5 @@
-import { getCookieData } from '@/action/user'
 import { apiUri } from '@/lib/utils'
+import { cookies } from 'next/headers'
 
 export const fetchData = async <
   T extends {
@@ -12,9 +12,8 @@ export const fetchData = async <
   method = 'GET',
   revalidate = 3600,
 ): Promise<T['data']> => {
+  const token = cookies().get('token')?.value ?? ''
   try {
-    const { token } = await getCookieData()
-
     const res = await fetch(apiUri().v0 + endpoint, {
       next: { revalidate },
       method,

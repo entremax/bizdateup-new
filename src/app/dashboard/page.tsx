@@ -11,7 +11,6 @@ import { Icons } from '@/icons/icon'
 import type { Metadata } from 'next'
 import { Membership } from '@/components/dashboard/_membership'
 import ReduxProvider from '@/store/Provider'
-import { apiUri } from '@/lib/utils'
 import FrequentlyAsked from '@/components/faq'
 import dynamic from 'next/dynamic'
 import { fetchData } from '@/lib/fetchApi'
@@ -26,25 +25,10 @@ const RiskDisclosure = dynamic(
     ssr: false,
   },
 )
-const getData = async () => {
-  const url = `${apiUri().v0}/startupsInvestorView?limit=2`
-  const response = await fetch(url)
-    .then((res) => {
-      return res?.json()
-    })
-    .catch((e) => {
-      console.error(e)
-      throw new Error(e.message)
-    })
-  if (response.data.code === 200) {
-    new Error('Failed to fetch data')
-  }
-  return { data: response.data.data }
-}
 
 const Dashboard = async () => {
   const campaign = (await fetchData(
-    `/startupsInvestorView?limit=2`,
+    `/startupsInvestorView?limit=5`,
     'get',
     0,
   )) as Campaign[]
