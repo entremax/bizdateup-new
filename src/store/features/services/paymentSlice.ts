@@ -81,6 +81,9 @@ export const paymentApi = createApi({
       query: ({ order_id }: { order_id: string }) => ({
         url: '/payment/verifyPaymentOrder',
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: { order_id },
       }),
       transformResponse: (response: {
@@ -111,8 +114,6 @@ export const paymentApi = createApi({
 })
 
 export const {
-  // useOfflinePaymentMutation,
-  // useOnlinePaymentMutation,
   usePaymentMutation,
   useOnlinePaymentVerifyMutation,
   useRedeemCommissionMutation,

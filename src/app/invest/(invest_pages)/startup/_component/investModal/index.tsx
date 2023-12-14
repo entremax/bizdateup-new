@@ -7,7 +7,6 @@ import { Icons } from '@/components/icons/icon'
 import Image from 'next/image'
 import CustomModal from '@/components/modal/customModal'
 import InvestForm from '@/components/invest/investModal/investForm'
-import ReduxProvider from '@/store/Provider'
 import OfflinePayment from '@/components/invest/investModal/offlinePayment'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { usePaymentMutation } from '@/services/paymentSlice'
@@ -56,6 +55,7 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
     payment_mode: 'online' | 'offline',
     referenceId?: String,
   ) => {
+    console.log('Payment mode', payment_mode)
     if (!user) {
       return
     }
@@ -152,7 +152,7 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
             <Button
               className={'!border-none !shadow-none !outline-none '}
               icon={<Icons.ArrowLeft height={13} width={13} />}
-              onClick={() => setTransactionType(null)}
+              onClick={() => setTransactionType('online')}
               ghost
             />
           ) : (
@@ -201,18 +201,16 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
           />
         </>
       ) : (
-        <ReduxProvider>
-          <InvestForm
-            startup={startup}
-            fees={fees}
-            paymentLoading={paymentLoading}
-            handlePayment={handlePayment}
-            setTransactionType={setTransactionType}
-            setAmount={setAmount}
-            amount={amount}
-            setAmountToPay={setAmountToPay}
-          />
-        </ReduxProvider>
+        <InvestForm
+          startup={startup}
+          fees={fees}
+          paymentLoading={paymentLoading}
+          handlePayment={handlePayment}
+          setTransactionType={setTransactionType}
+          setAmount={setAmount}
+          amount={amount}
+          setAmountToPay={setAmountToPay}
+        />
       )}
     </CustomModal>
   )

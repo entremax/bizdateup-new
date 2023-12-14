@@ -232,7 +232,10 @@ const InvestForm: React.FC<Props> = ({
         )}
         <div className="grid gap-4 px-4">
           <Button
-            onClick={() => handlePayment('online')}
+            onClick={() => {
+              setTransactionType('online')
+              handlePayment('online')
+            }}
             loading={paymentLoading}
             disabled={
               !riskInvestmentChecked ||
