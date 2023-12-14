@@ -37,6 +37,13 @@ const config: Config = {
           'gray-500': 'rgb(var(--active-light))',
           'gray-400': 'rgb(var(--gray-400))',
         },
+        portfolio: {
+          overview_circle_1: 'rgba(134, 134, 245, 0.09)',
+          overview_2: 'rgba(248, 213, 127, 0.16)',
+          overview_circle_2: 'rgba(245, 189, 48, 0.16)',
+          overview_3: 'rgba(221, 246, 234, 0.55)',
+          overview_circle_3: 'rgba(126, 208, 169, 0.15)',
+        },
       },
       borderColor: {
         DEFAULT: 'rgba(215, 215, 215, 1)',

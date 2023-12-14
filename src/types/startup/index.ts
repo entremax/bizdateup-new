@@ -37,12 +37,7 @@ export interface IStartupDetails {
   refer: string | any
 }
 
-export type StartupTypes =
-  | 'all'
-  | 'ccds'
-  | 'ccps'
-  | 'equity'
-  | 'startup'
+export type StartupTypes = 'all' | 'ccds' | 'ccps' | 'equity' | 'startup'
 export type StartupParameters = 'startup' | 'CCPS' | 'CCDS' | 'equity'
 
 export type IStartupReducer = {

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,16 +23,37 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/theme/*": ["./src/theme/*"],
-      "@/action/*": ["./src/app/actions/*", "./src/app/referral/actions/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/ui/*": ["./src/components/ui/*"],
-      "@/store/*": ["./src/store/*"],
-      "@/reducers/*": ["./src/store/features/reducers/*"],
-      "@/services/*": ["./src/store/features/services/*"],
-      "@/icons/*": ["./src/components/icons/*"],
-      "@/data": ["./src/data/index.tsx"],
+      "@/*": [
+        "./src/*"
+      ],
+      "@/theme/*": [
+        "./src/theme/*"
+      ],
+      "@/action/*": [
+        "./src/app/actions/*",
+        "./src/app/referral/actions/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/ui/*": [
+        "./src/components/ui/*"
+      ],
+      "@/store/*": [
+        "./src/store/*"
+      ],
+      "@/reducers/*": [
+        "./src/store/features/reducers/*"
+      ],
+      "@/services/*": [
+        "./src/store/features/services/*"
+      ],
+      "@/icons/*": [
+        "./src/components/icons/*"
+      ],
+      "@/data": [
+        "./src/data/index.tsx"
+      ],
       "@/components/common/*": [
         "./src/components/*",
         "./src/components/navbar/*"
@@ -36,7 +61,9 @@
       "@/components/form/*": [
         "./src/app/profile/(profiles)/investor/_components/form_components/*"
       ],
-      "@/components/auth/*": ["./src/app/(auth)/components/*"],
+      "@/components/auth/*": [
+        "./src/app/(auth)/components/*"
+      ],
       "@/components/dashboard/*": [
         "./src/app/dashboard/_components/*",
         "./src/app/dashboard/startup/components/*"
@@ -45,21 +72,41 @@
         "./src/app/invest/components/*",
         "./src/app/invest/(invest_pages)/startup/_component/*"
       ],
-      "@/components/startup/*": ["./src/app/startup/components/*"],
-      "@/components/payment/*": ["./src/app/payment/_components/*"],
+      "@/components/startup/*": [
+        "./src/app/startup/components/*"
+      ],
+      "@/components/payment/*": [
+        "./src/app/payment/_components/*"
+      ],
       "@/components/profile/*": [
         "./src/app/profile/(profiles)/investor/_components/*",
         "./src/app/profile/(profiles)/investor/bank/components/*",
         "./src/app/profile/(profiles)/investor/other/components/*"
       ],
-      "@/components/referral/*": ["./src/app/referral/components/*"],
+      "@/components/portfolio/*": [
+        "./src/app/portfolio/components/*"
+      ],
+      "@/components/referral/*": [
+        "./src/app/referral/components/*"
+      ],
       "@/context/profile/*": [
         "./src/app/profile/(profiles)/investor/_components/context/*"
       ],
-      "@/hooks/common/*": ["./src/hooks/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/hooks/common/*": [
+        "./src/hooks/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
