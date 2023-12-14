@@ -14,7 +14,7 @@ const InvestedStartups: React.FC<Props> = ({ startups }) => {
       </h4>
       <div className="flex flex-col gap-3">
         {startups.map((startup) => (
-          <StartupDetails details={startup} />
+          <StartupDetails key={startup._id} details={startup} />
         ))}
       </div>
     </div>
