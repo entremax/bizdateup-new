@@ -1,13 +1,5 @@
-import {
-  apiUri,
-  capitalizeFirstLetter,
-  formatIndianValuation,
-} from '@/lib/utils'
-import {
-  IInterestCheckResponse,
-  securityType,
-  StartupDataResponse,
-} from '@/types/invest'
+import { apiUri, capitalizeFirstLetter, formatIndianValuation } from '@/lib/utils'
+import { IInterestCheckResponse, securityType, StartupDataResponse } from '@/types/invest'
 import { Button, Input } from 'antd'
 import type { Metadata, ResolvingMetadata } from 'next'
 import Link from 'next/link'
