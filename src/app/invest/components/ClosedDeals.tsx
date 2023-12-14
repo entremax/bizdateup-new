@@ -12,14 +12,17 @@ export default function ClosedDeals() {
   const { closedDeals: startups } = useAppSelector(({ startup }) => startup)
   React.useEffect(() => {
     if (renderRef.current === 0) {
-      closedDeals('').unwrap().then(res => {
-        if (res) {
-          dispatch(setClosedDeals(res))
-        }
-      }).catch((e) => {
-        console.log(e)
-        notifyUser('error', 'Something went wrong')
-      })
+      closedDeals('')
+        .unwrap()
+        .then((res) => {
+          if (res) {
+            dispatch(setClosedDeals(res))
+          }
+        })
+        .catch((e) => {
+          console.log(e)
+          notifyUser('error', 'Something went wrong')
+        })
       renderRef.current = renderRef.current + 1
     }
   }, [])
@@ -28,10 +31,11 @@ export default function ClosedDeals() {
       <h3 className={'text-3xl font-semibold text-primary-dark'}>
         Closed Deals
       </h3>
-      <div className="w-fit my-8 flex flex-wrap gap-8 items-center justify-center  px-4">
+      <div className="my-8 flex w-fit flex-wrap items-center justify-center gap-8  px-4">
         {startups.map((startup) => (
           <StartupCard key={startup._id} startup={startup} closed={true} />
         ))}
       </div>
-    </div>)
+    </div>
+  )
 }

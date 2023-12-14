@@ -190,18 +190,18 @@ export type IPaymentResponse = {
 }
 
 export type FetchClosedStartupResponse = {
-  code: number,
-  status: 'OK' | any,
+  code: number
+  status: 'OK' | any
   data: IClosedStartupDeal[] | null
 }
 type ClosedDealTerms = DealTerms & { discount?: number }
 export type IClosedStartupDeal = {
-  _id: string;
-  registeredCompanyName: string;
-  shortDescription: string;
-  banner: string;
-  logo: string;
-  tags: string[];
-  totalRaised: number;
+  _id: string
+  registeredCompanyName: string
+  shortDescription: string
+  banner: string
+  logo: string
+  tags: string[]
+  totalRaised: number
   dealTerms: ClosedDealTerms
 }
