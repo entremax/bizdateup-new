@@ -3,9 +3,10 @@ import { StartupData } from '@/types/invest'
 import React from 'react'
 import CustomModal from '@/components/modal/customModal'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
-import Link from 'next/link'
+import { destroyNotification } from '@/reducers/others/notificationSlice'
+import { Button } from 'antd'
 
 /**
  * Renders a modal to show payment status.
@@ -15,6 +16,7 @@ import Link from 'next/link'
 const PaymentStatusModal: React.FC<{ startup: StartupData }> = ({
   startup,
 }) => {
+  const router = useRouter()
   const dispatch = useAppDispatch()
   const { payment } = useAppSelector((state) => state.Notify)
 
@@ -36,6 +38,7 @@ const PaymentStatusModal: React.FC<{ startup: StartupData }> = ({
       title={null}
       closable
       closeIcon
+      onCancel={() => dispatch(destroyNotification())}
       openType={'conditional'}
       onConditionalOpen={handleOpen}>
       <div className="flex flex-col items-center justify-center gap-4">
@@ -54,9 +57,15 @@ const PaymentStatusModal: React.FC<{ startup: StartupData }> = ({
           ill inventory veritas et quasi architecto beatae vitae dicta sunt
           explicable
         </p>
-        <Link href={'/dashboard'} className={'!primary_link '}>
+        <Button
+          type={'default'}
+          onClick={() => {
+            dispatch(destroyNotification())
+            return router.push('/dashboard', { scroll: false })
+          }}
+          className={'!primary_link !text-white'}>
           Go to Dashboard
-        </Link>
+        </Button>
       </div>
     </CustomModal>
   )
