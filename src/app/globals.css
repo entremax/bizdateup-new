@@ -17,7 +17,7 @@
   --gray-900: 17, 24, 39;
   --active-light: 99, 115, 129;
   --gray-400: 100, 116, 139;
-  --lemon-green:31, 137, 44;
+  --lemon-green: 31, 137, 44;
 }
 
 a {
@@ -30,17 +30,18 @@ a {
 }
 
 @layer base {
-  html, body {
+  html,
+  body {
     font-size: 16px;
-    font-family: Helvetica Neue, sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100dvh !important;
-      width: 100vw !important;
-      overflow-x: hidden;
-      /*color: rgb(var(--foreground-rgb));*/
-      background-color: rgb(var(--background-end-rgb));
-    }
+    font-family: Helvetica Neue, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100dvh !important;
+    width: 100vw !important;
+    overflow-x: hidden;
+    /*color: rgb(var(--foreground-rgb));*/
+    background-color: rgb(var(--background-end-rgb));
+  }
 }
 
 @layer components {
@@ -60,7 +61,7 @@ a {
     @apply p-[0.625rem_1.25rem] my-9 text-lg font-semibold  cursor-pointer bg-primary outline-none border-0  text-primary rounded-lg;
   }
 
-  .reset{
+  .reset {
     @apply m-0 p-0;
   }
 }

@@ -17,7 +17,7 @@ const Sidebar = ({ token, type }: { token?: string, type: string }) => {
                 />
             }
             {isOpen &&
-                <div className="fixed z-20 bg-[#8686F5] lg:hidden h-full top-0 right-0 w-10/12 py-4 px-4 text-white">
+                <div className="fixed z-20 bg-[#8686F5] lg:hidden h-full top-0 right-0 w-10/12 p-4 text-white">
                     <div className="flex">
                         <div className="grow"></div>
                         <Icons.Closed
