@@ -1,17 +1,38 @@
+'use client'
 import Image from 'next/image'
 import React from 'react'
 import footerData from '@/components/footer/data'
 import { capitalizeFirstLetter } from '@/lib/utils'
-import {cookies} from 'next/headers'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import ReferFooter from './Refer'
-type FooterDataLinksKey = 'platform' | 'bizdateup' | 'help_&_support' | 'quick_links' | 'register_office'
 
+type FooterDataLinksKey = 'platform' | 'bizdateup' | 'help_&_support' | 'quick_links' | 'register_office'
+//TODO - make this server component
 const Footer = () => {
+  const pathName=usePathname()
   const linkType: FooterDataLinksKey[] = ['platform', 'bizdateup', 'help_&_support', 'quick_links', 'register_office']
+  const [show,setShow]=React.useState(false)
+  
+  
+  React.useEffect(()=>{
+    const unauthenticated = [
+      /\/login/,
+      /\/signup/,
+      /\/otp.*/,
+      /\/social.*/,
+      /\/socialLogin.*/,
+    ]
+    const matchPath = (patterns: RegExp[]) =>patterns.some((pattern) => pattern.test(pathName))
+    if(matchPath(unauthenticated)){
+      setShow(false)
+    }else{
+      setShow(true)
+    }
+  },[pathName])
   return (
     <section className={'my-20 lg:mb-0 flex flex-col gap-4'}>
-      <ReferFooter/>
+      {show &&(<> <ReferFooter/>
       <div className="flex flex-col gap-4 px-4 md:px-20 lg:px-40 py-4">
         <div className="flex flex-col gap-4 md:flex-row w-full  lg:items-center px-2 sm:flex-row">
           <div className={'relative h-10 w-40 max-w-[10rem] flex-grow'}>
@@ -64,7 +85,7 @@ const Footer = () => {
         <h5 className='text-lg text-primary-dark py-2'>Disclaimer :</h5>
           <p className="text-xs text-gray-400">{footerData.disclaimer}</p>
         </div>
-      </div>
+      </div></>)}
     </section>
   )
 }
