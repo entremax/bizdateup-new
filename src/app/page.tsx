@@ -542,7 +542,7 @@ export default function Home() {
         <div className="hidden lg:block">
           <Carousel autoplay slidesToShow={3}>
             {Reviews.map((review) => (
-              <div key={review.id} className="">
+              <div key={review.id} className="ring-1 ring-inset rounded-xl">
                 <div className="flex flex-col p-8 items-center justify-center">
                   <Image
                     src={review.photo}
@@ -627,7 +627,7 @@ export default function Home() {
       <div className="lg:px-52 px-4">
         <h6 className="text-3xl sm:text-5xl text-center font-bold">Featured in</h6>
         <div className="-mt-10 lg:-mt-20 grid grid-cols-2 gap-8 lg:flex justify-between">
-          <div className="">
+          <div className="p-2 mx-auto">
             <Image
               src='/Zee.png'
               height={50}
@@ -635,7 +635,7 @@ export default function Home() {
               alt="Zee"
             />
           </div>
-          <div>
+          <div className="p-2 mx-auto">
             <Image
               src='/Week.png'
               height={50}
@@ -643,7 +643,7 @@ export default function Home() {
               alt="Week"
             />
           </div>
-          <div>
+          <div className="p-2 mx-auto">
             <Image
               src='/mid_day.png'
               height={50}
@@ -651,7 +651,7 @@ export default function Home() {
               alt="Mid Day"
             />
           </div>
-          <div>
+          <div className="p-2 mx-auto">
             <Image
               src='/outlook.png'
               height={50}
@@ -698,20 +698,20 @@ export default function Home() {
                   <stop offset="0.2601" stopColor="#00BEFF" />
                   <stop offset="0.5122" stopColor="#00D2FF" />
                   <stop offset="0.7604" stopColor="#00DFFF" />
-                  <stop offset="1" stop-color="#00E3FF" />
+                  <stop offset="1" stopColor="#00E3FF" />
                 </linearGradient>
                 <linearGradient id="paint1_linear_301_2616" x1="44.925" y1="26.0702" x2="12.7962" y2="26.0702" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FFE000" />
-                  <stop offset="0.4087" stop-color="#FFBD00" />
-                  <stop offset="0.7754" stop-color="#FFA500" />
-                  <stop offset="1" stop-color="#FF9C00" />
+                  <stop stopColor="#FFE000" />
+                  <stop offset="0.4087" stopColor="#FFBD00" />
+                  <stop offset="0.7754" stopColor="#FFA500" />
+                  <stop offset="1" stopColor="#FF9C00" />
                 </linearGradient>
                 <linearGradient id="paint2_linear_301_2616" x1="32.9652" y1="23.0954" x2="3.47002" y2="-7.11453" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FF3A44" />
-                  <stop offset="1" stop-color="#C31162" />
+                  <stop stopColor="#FF3A44" />
+                  <stop offset="1" stopColor="#C31162" />
                 </linearGradient>
                 <linearGradient id="paint3_linear_301_2616" x1="9.68922" y1="51.7716" x2="22.8601" y2="38.2816" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#32A071" />
+                  <stop stopColor="#32A071" />
                   <stop offset="0.0685" stopColor="#2DA771" />
                   <stop offset="0.4762" stopColor="#15CF74" />
                   <stop offset="0.8009" stopColor="#06E775" />
