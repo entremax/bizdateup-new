@@ -92,26 +92,32 @@ export function apiUri(): { v0: string; v1: string } {
  * Otherwise, it's formatted using the Indian number format and returned as is.
  *
  * @param {number} value - The valuation amount to be formatted.
+ * @param unit
  * @return {string} The formatted valuation amount.
  */
-export function formatIndianValuation(value: number | string): string {
+export function formatIndianValuation(
+  value: number | string,
+  unit = true,
+): string {
   if (typeof value === 'string') {
     value = parseFloat(value)
   }
-  if (value >= 10000000) {
-    // Convert to crores (Cr) and round to two decimal places
+
+  if (value >= 10000000 && unit) {
     const crores = (value / 10000000).toFixed(2)
-    return `${crores} Cr`
-  } else if (value >= 100000) {
-    // Convert to lakhs (L) and round to two decimal places
+    const formattedCrores = crores.endsWith('.00')
+      ? crores.slice(0, -3)
+      : crores
+    return `${formattedCrores} Cr`
+  } else if (value >= 100000 && unit) {
     const lakhs = (value / 100000).toFixed(2)
-    return `${lakhs} L`
-    // } else if (value >= 1000) {
-    //   // Convert to thousands (k) and round to two decimal places
-    //   const thousands = (value / 1000).toFixed(2);
-    //   return `${thousands} k`;
+    const formattedLakhs = lakhs.endsWith('.00') ? lakhs.slice(0, -3) : lakhs
+    return `${formattedLakhs} L`
   } else {
-    return new Intl.NumberFormat('en-IN').format(value) // Convert to a string and return as is
+    const formattedValue = new Intl.NumberFormat('en-IN').format(value)
+    return formattedValue.endsWith('.00')
+      ? formattedValue.slice(0, -3)
+      : formattedValue
   }
 }
 

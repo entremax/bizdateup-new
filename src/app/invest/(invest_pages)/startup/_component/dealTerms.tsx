@@ -40,7 +40,7 @@ export default function DealTerms({
               Revenue
             </p>
             <p className={'reset text-xl font-medium leading-normal'}>
-              ₹ {formatIndianValuation(startup.revenue)}
+              ₹ {formatIndianValuation(startup.revenue, false)}
             </p>
           </div>
           <Tooltip title="Tooltip for Revenue">
@@ -54,7 +54,11 @@ export default function DealTerms({
               Minimum Investment
             </p>
             <p className={'reset text-xl font-medium leading-normal'}>
-              ₹ {formatIndianValuation(startup.dealTerms.minimumInvestment)}
+              ₹{' '}
+              {formatIndianValuation(
+                startup.dealTerms.minimumInvestment,
+                false,
+              )}
             </p>
           </div>
           <Tooltip title="Tooltip for Minimum Investment">
@@ -68,7 +72,7 @@ export default function DealTerms({
               Total Raised
             </p>
             <p className={'reset text-xl font-medium leading-normal'}>
-              ₹ {formatIndianValuation(startup.totalRaised)}
+              ₹ {formatIndianValuation(startup.totalRaised, false)}
             </p>
           </div>
           <Tooltip title="Tooltip for Total Raised">
@@ -105,4 +109,3 @@ export default function DealTerms({
     </div>
   )
 }
-

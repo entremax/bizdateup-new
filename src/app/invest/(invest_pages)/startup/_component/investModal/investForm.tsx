@@ -135,7 +135,7 @@ const InvestForm: React.FC<Props> = ({
               <Icons.Info height={'1rem'} width={'1rem'} />
             </Tooltip>
             {premiumMember ? (
-              <div className=" md:text-md rounded-full bg-yellow-400 px-3 text-xs">
+              <div className=" md:text-md rounded-full bg-yellow-400 px-3 text-xs text-black-lighter">
                 MEMBER WAVIER
               </div>
             ) : null}
