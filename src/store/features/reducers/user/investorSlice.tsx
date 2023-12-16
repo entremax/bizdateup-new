@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IInvestmentItem, IInvestorSlice } from '@/types'
 
 const initialState = {
+  amountToInvest: 0,
   totalamount: 0,
   investedStartups: {
     pending: [] as IInvestmentItem[],
@@ -28,9 +29,12 @@ export const investorSlice = createSlice({
       state.totalamount = totalamount
       state.investedStartups = investedStartups
     },
+    setAmountToInvest: (state, action) => {
+      state.amountToInvest = action.payload
+    },
     reset: () => initialState,
   },
 })
-export const { setInvestmentDetails } = investorSlice.actions
+export const { setInvestmentDetails, setAmountToInvest } = investorSlice.actions
 
 export default investorSlice.reducer

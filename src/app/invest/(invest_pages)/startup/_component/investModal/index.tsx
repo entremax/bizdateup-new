@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { usePaymentMutation } from '@/services/paymentSlice'
 import { setNotification, showModal } from '@/reducers/others/notificationSlice'
 import { useRouter } from 'next/navigation'
+import { setAmountToInvest } from '@/reducers/user/investorSlice'
 
 type TransactionTypes = 'online' | 'offline' | null
 /**
@@ -24,7 +25,7 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
 }) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
-  const [amount, setAmount] = useState<number>(0)
+  const { amountToInvest: amount } = useAppSelector(({ investor }) => investor)
   const [transactionType, setTransactionType] =
     useState<TransactionTypes>('online')
   const [open, setOpen] = useState(false)
@@ -141,7 +142,7 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
   }
   const handleClose = () => {
     setTransactionType('online')
-    setAmount(0)
+    dispatch(setAmountToInvest(0))
     setOpen(false)
   }
   return (
@@ -207,7 +208,6 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
           paymentLoading={paymentLoading}
           handlePayment={handlePayment}
           setTransactionType={setTransactionType}
-          setAmount={setAmount}
           amount={amount}
           setAmountToPay={setAmountToPay}
         />

@@ -225,6 +225,7 @@ export interface IInvestmentItem {
 }
 
 export interface IInvestorSlice {
+  amountToInvest: number
   totalamount: number
   investedStartups: {
     pending: IInvestmentItem[]
