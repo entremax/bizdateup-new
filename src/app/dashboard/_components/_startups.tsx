@@ -37,14 +37,14 @@ const Startups = ({ data }: { data: Campaign[] }) => {
               'border_gray relative overflow-clip rounded-2xl text-black shadow-lg'
             }>
             <Image
-              src={baseUrl + '/banner/' + startup.banner}
+              src={apiUri().base + '/v1' + '/banner/' + startup.banner}
               alt={startup.registeredCompanyName}
               height={250}
               width={340}
               className={'w-full'}
             />
             <Image
-              src={baseUrl + '/logo/' + startup.logo}
+              src={apiUri().base + '/logo/' + startup.logo}
               height={40}
               width={40}
               alt={startup.registeredCompanyName}
