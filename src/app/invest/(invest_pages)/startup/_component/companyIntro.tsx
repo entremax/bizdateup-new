@@ -18,7 +18,7 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
   const isClosed = startup.activeStatus.status === 'closed'
   return (
     <>
-      <div className="col-span-full flex flex-col py-4 xl:col-start-2 xl:col-end-12">
+      <div className="col-span-full flex flex-col py-4 xl:col-start-2 xl:col-end-12 xl:pt-0">
         {isClosed && (
           <Divider className={'!m-0 '}>
             <div className="flex items-center justify-center gap-2 rounded-lg bg-[#F5F5F5] px-6 py-1 text-base text-[#858585]">
@@ -34,7 +34,7 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
               alt={startup.companyName}
             />
           </div>
-          <h3 className="reset py-2 text-2xl font-bold leading-normal text-primary-dark md:text-4xl lg:py-4 lg:leading-[4rem]">
+          <h3 className="reset py-2 text-2xl font-bold leading-normal text-primary-dark md:text-4xl lg:py-4 lg:leading-[4rem] xl:py-0">
             {capitalizeFirstLetter(
               startup.registeredCompanyName.trim().split(' '),
             )}

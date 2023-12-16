@@ -4,7 +4,6 @@ import {
   securityType,
   StartupDataResponse,
 } from '@/types/invest'
-import { Button } from 'antd'
 import type { Metadata, ResolvingMetadata } from 'next'
 import React from 'react'
 import CompanyIntro from '@/components/invest/companyIntro'
@@ -27,6 +26,7 @@ import ReduxProvider from '@/store/Provider'
 import PaymentStatusModal from '@/components/invest/paymentStatusModal'
 import { startupApis } from '@/lib/startup'
 import InvestButtonWInput from '@/components/invest/investButtonWInput'
+import HowItWorks from '@/components/invest/howItWorks'
 
 const { v0: apiV1 } = apiUri()
 
@@ -141,15 +141,7 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
             'md:col-end col-span-full hidden flex-col gap-4 md:col-start-8 md:flex md:pl-8 xl:col-start-8 xl:col-end-12 xl:px-12'
           }>
           <DealTerms startup={startupData} />
-          <Button
-            className={
-              'text-whit flex items-center justify-center rounded-lg  !border-0 !bg-light-shadow !px-2   !py-2  text-sm !font-medium leading-[1.57563rem] !text-primary !outline-none lg:text-base'
-            }
-            size={'large'}
-            block
-            type={'default'}>
-            How it works
-          </Button>
+          <HowItWorks startup={startupData} />
           <DownloadFiles startup={startupData} />
           {/*<DownloadVideo startup={startupData}/>*/}
           <StartAd className={'hidden'} />

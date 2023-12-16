@@ -43,7 +43,7 @@ export default function CompanyInfo({ startup }: { startup: StartupData }) {
           <p className="reset text-gray-40 text-sm lg:text-base ">Website</p>
           <Link
             href={startup.website}
-            className="reset underlinetext-base font-medium leading-normal text-primary lg:text-lg">
+            className="reset underlinetext-base truncate font-medium leading-normal text-primary lg:text-lg">
             {startup.website}
           </Link>
         </div>
