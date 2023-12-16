@@ -59,8 +59,8 @@ const HowItWorks: React.FC<Props> = ({ startup }) => {
             ''
           )}
         </div>
-        <ul className={'list-disc text-primary'}>
-          <li className="text-sm font-normal text-[#444]">No</li>
+        <ul className={'m-0 list-disc pt-0 text-primary'}>
+          <li className="text-sm font-normal text-[#444]">To be updated</li>
         </ul>
       </CustomModal>
     </>
