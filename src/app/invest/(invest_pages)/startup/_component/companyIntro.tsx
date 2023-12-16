@@ -21,7 +21,8 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
       <div className="col-span-full flex flex-col py-4 xl:col-start-2 xl:col-end-12">
         {isClosed && (
           <Divider className={'!m-0 '}>
-            <div className="flex items-center justify-center gap-2 rounded-lg bg-[#F5F5F5] px-6 py-1 text-base text-[#858585]">
+            <div
+              className="flex items-center justify-center gap-2 rounded-lg bg-[#F5F5F5] px-6 py-1 text-base text-[#858585]">
               <Icons.Locked /> Campaign ended
             </div>
           </Divider>
@@ -34,7 +35,8 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
               alt={startup.companyName}
             />
           </div>
-          <h3 className="reset py-2 text-2xl font-bold leading-normal text-primary-dark md:text-4xl lg:py-4 lg:leading-[4rem]">
+          <h3
+            className="reset py-2 text-2xl font-bold leading-normal text-primary-dark md:text-4xl lg:py-4 lg:leading-[4rem]">
             {capitalizeFirstLetter(
               startup.registeredCompanyName.trim().split(' '),
             )}
@@ -43,9 +45,13 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
         <Description text={startup.shortDescription} />
         <StartupTag tags={startup.tags} />
       </div>
-      <div className="col-span-full flex aspect-video w-full justify-center justify-self-center md:col-end-8 md:pb-8 xl:col-start-2 xl:col-end-8">
+      <div
+        className="col-span-full flex aspect-video w-full justify-center justify-self-center md:col-end-8 md:pb-8 xl:col-start-2 xl:col-end-8">
         {startup?.youtubeVideoUrl?.includes('embed') ? (
           <iframe
+            style={{
+              border: '0',
+            }}
             src={startup?.youtubeVideoUrl}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -55,7 +61,8 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
           ''
         )}
       </div>
-      <div className="col-span-full flex flex-col justify-center gap-4 md:col-start-8 md:pb-8 md:pl-8 xl:col-end-12 xl:px-12">
+      <div
+        className="col-span-full flex flex-col justify-center gap-4 md:col-start-8 md:pb-8 md:pl-8 xl:col-end-12 xl:px-12">
         <div className="grid grid-cols-2 lg:grid-cols-1 lg:gap-2 xl:gap-4">
           <div className="grid justify-self-start">
             <p className="reset text-2xl font-bold tracking-wide lg:text-4xl">

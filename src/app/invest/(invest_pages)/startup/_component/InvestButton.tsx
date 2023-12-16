@@ -33,7 +33,7 @@ export default function InvestButton({ isClosed, startup, sticky }: Props) {
         </ReduxProvider>
       )}
       {!sticky && (
-        <span className={cn('text-center text-sm md:text-lg')}>
+        <span className={cn('text-center text-sm')}>
           Minimum investment ₹{' '}
           {formatIndianValuation(startup.dealTerms.minimumInvestment)}
         </span>

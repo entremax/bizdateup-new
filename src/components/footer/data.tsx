@@ -21,8 +21,10 @@ const footerData = {
       name: 'instagram',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M0 12.0967C0 5.41693 5.41693 0 12.0967 0C18.7766 0 24.1936 5.41693 24.1936 12.0967C24.1936 18.7766 18.7766 24.1936 12.0967 24.1936C5.41693 24.1936 0 18.7766 0 12.0967ZM18.6771 16.6466C18.8488 16.2047 18.9663 15.6998 19 14.9604C19.0339 14.2197 19.0419 13.9831 19.0419 12.0966C19.0419 10.2102 19.0339 9.97357 19.0002 9.2328C18.9663 8.49339 18.8489 7.98856 18.6771 7.54667C18.5029 7.08319 18.2293 6.66345 17.8761 6.31643C17.529 5.96296 17.1091 5.68941 16.6457 5.51498C16.2038 5.34351 15.6989 5.22611 14.9595 5.19252C14.2188 5.15855 13.9821 5.15043 12.0957 5.15043C10.2092 5.15043 9.9726 5.15855 9.23189 5.19233C8.49245 5.22611 7.98762 5.34351 7.54573 5.51516C7.08225 5.68959 6.66233 5.96296 6.31549 6.31643C5.96202 6.66327 5.68847 7.08319 5.51404 7.54667C5.34237 7.98856 5.22498 8.49339 5.19138 9.2328C5.15742 9.97357 5.14949 10.2102 5.14949 12.0966C5.14949 13.9831 5.15742 14.2197 5.19158 14.9606C5.22516 15.6998 5.34275 16.2048 5.5144 16.6466C5.68884 17.11 5.9622 17.53 6.31549 17.8768C6.66251 18.2303 7.08225 18.5037 7.54592 18.6781C7.98763 18.8497 8.49264 18.9671 9.23189 19.0009C9.97279 19.0347 10.2092 19.0428 12.0959 19.0428C13.9823 19.0428 14.2189 19.0347 14.9596 19.0009C15.6989 18.9671 16.2039 18.8497 16.6457 18.6781C17.5787 18.3172 18.3162 17.5796 18.6771 16.6466Z" fill="#CAC5DA"/>
-</svg>
+          <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M0 12.0967C0 5.41693 5.41693 0 12.0967 0C18.7766 0 24.1936 5.41693 24.1936 12.0967C24.1936 18.7766 18.7766 24.1936 12.0967 24.1936C5.41693 24.1936 0 18.7766 0 12.0967ZM18.6771 16.6466C18.8488 16.2047 18.9663 15.6998 19 14.9604C19.0339 14.2197 19.0419 13.9831 19.0419 12.0966C19.0419 10.2102 19.0339 9.97357 19.0002 9.2328C18.9663 8.49339 18.8489 7.98856 18.6771 7.54667C18.5029 7.08319 18.2293 6.66345 17.8761 6.31643C17.529 5.96296 17.1091 5.68941 16.6457 5.51498C16.2038 5.34351 15.6989 5.22611 14.9595 5.19252C14.2188 5.15855 13.9821 5.15043 12.0957 5.15043C10.2092 5.15043 9.9726 5.15855 9.23189 5.19233C8.49245 5.22611 7.98762 5.34351 7.54573 5.51516C7.08225 5.68959 6.66233 5.96296 6.31549 6.31643C5.96202 6.66327 5.68847 7.08319 5.51404 7.54667C5.34237 7.98856 5.22498 8.49339 5.19138 9.2328C5.15742 9.97357 5.14949 10.2102 5.14949 12.0966C5.14949 13.9831 5.15742 14.2197 5.19158 14.9606C5.22516 15.6998 5.34275 16.2048 5.5144 16.6466C5.68884 17.11 5.9622 17.53 6.31549 17.8768C6.66251 18.2303 7.08225 18.5037 7.54592 18.6781C7.98763 18.8497 8.49264 18.9671 9.23189 19.0009C9.97279 19.0347 10.2092 19.0428 12.0959 19.0428C13.9823 19.0428 14.2189 19.0347 14.9596 19.0009C15.6989 18.9671 16.2039 18.8497 16.6457 18.6781C17.5787 18.3172 18.3162 17.5796 18.6771 16.6466Z"
+                fill="#CAC5DA" />
+        </svg>
       ),
       link: 'https://www.instagram.com/bizdateup',
     },
@@ -152,10 +154,10 @@ const footerData = {
     ],
     register_office: [
       {
-        name: 'G2, Empire Business Centre, Empire Complex, 414 Senapati Bapat Marg, Delisle Rd, near shreeniwas mill, Lower Parel, Mumbai, Maharashtra, 400013'
+        name: 'G2, Empire Business Centre, Empire Complex, 414 Senapati Bapat Marg, Delisle Rd, near shreeniwas mill, Lower Parel, Mumbai, Maharashtra, 400013',
       },
       {
-        name: 'CIN U72900MH2022379408'
+        name: 'CIN U72900MH2022379408',
       },
     ],
   },
@@ -167,8 +169,6 @@ const footerData = {
     { name: 'Cancellation Policy', link: '/cancellation-policy' },
     { name: 'Bizdateup Pvt Ltd • 2023 All Rights Reserved', type: 'license' },
   ],
-  disclaimer:  'All trademarks and logos or registered trademarks and logos found on this Site or mentioned herein belong to their respective owners and are solely being used for informational purposes. Information provided herein has been gathered from public sources. Bizdateup Technologies Pvt Ltd disclaims any and all responsibility in connection with veracity of this data. Information presented on this website is for educational purposes only and should not be treated as legal, financial , or any other form of advice. Bizdateup Technologies Pvt Ltd is not liable for financial or any other form of loss incurred by the user or any affiliated party on the basis of information provided herein. Bizdateup Technologies Pvt Ltd is neither a stock exchange nor does it intend to get recognized as a stock exchange under the Securities Contracts Regulation Act, 1956. Bizdateup Technologies Pvt Ltd is not authorized by the capital markets regulator to solicit investments. The securities traded on these platforms are not traded on any regulated exchange. Bizdateup also provides that it does not facilitate any online or offline buying, selling, or trading of securities.\n \n '
-  
-  
+  disclaimer: 'All trademarks and logos or registered trademarks and logos found on this Site or mentioned herein belong to their respective owners and are solely being used for informational purposes. Information provided herein has been gathered from public sources. Bizdateup Technologies Pvt Ltd disclaims any and all responsibility in connection with veracity of this data. Information presented on this website is for educational purposes only and should not be treated as legal, financial , or any other form of advice. Bizdateup Technologies Pvt Ltd is not liable for financial or any other form of loss incurred by the user or any affiliated party on the basis of information provided herein. Bizdateup Technologies Pvt Ltd is neither a stock exchange nor does it intend to get recognized as a stock exchange under the Securities Contracts Regulation Act, 1956. Bizdateup Technologies Pvt Ltd is not authorized by the capital markets regulator to solicit investments. The securities traded on these platforms are not traded on any regulated exchange. Bizdateup also provides that it does not facilitate any online or offline buying, selling, or trading of securities.\n \n ',
 }
 export default footerData
