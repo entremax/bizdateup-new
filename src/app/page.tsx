@@ -540,7 +540,7 @@ export default function Home() {
       <DownloadLinks />
       <FAQs />
 
-
+{/* 
       <div className='bg-[#242552] mt-[66px] lg:mt-[140px] flex flex-col md:flex-row justify-center items-center'>
         <div className="flex justify-center items-center px-[20px] mt-[40px] md:mt-0">
           <picture>
@@ -555,7 +555,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Footer />
+      <Footer /> */}
 
     </main >
   );
