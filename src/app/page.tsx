@@ -511,7 +511,7 @@ export default function Home() {
       <Founders />
       <Featured />
 
-      <div className="text-center mt-[129px] py-[95px] pt-0 px-[32px] flex flex-col justify-center items-center relative overflow-hidden">
+      <div className="text-center mt-[129px] py-[95px] pt-0 px-[32px] flex flex-col justify-center items-center relative overflow-hidden max-h-[460px]">
         <div aria-hidden="true" className="pointer-events-none bg-[#2b2c57] w-screen h-[550px] -z-[1000] absolute top-0">
         </div>
         <div aria-hidden="true" className="pointer-events-none h-[400px] absolute -z-[999] -start-[10rem] lg:start-[39rem] top-0">
@@ -529,9 +529,9 @@ export default function Home() {
         <div aria-hidden="true" className="pointer-events-none h-[400px] absolute -z-[999] -start-[34rem] top-0">
           {background_1}
         </div>
-        <h6 className="text-white text-[30px] lg:text-[46px] lg:px-[256px] font-bold mb-0">Ready to Join the Top <span className="text-[#8686F5]">1% Investor&apos;s</span> Club?</h6>
+        <h6 className="text-white text-[30px] lg:text-[46px] lg:px-[256px] font-bold mb-0 pt-[61px]">Ready to Join the Top <span className="text-[#8686F5]">1% Investor&apos;s</span> Club?</h6>
         <p className="text-white/60 text-[15px] lg:text-[20px] mt-[31px] max-w-[739px] leading-[28px]">With Bizdateup you get a Strong Community of Top 1% Investors who live & Breathe Angel Investing! To top it up Signing up takes hardly 5 mins of your time. So, Join the Community Now!</p>
-        <div className="flex flex-col-reverse md:flex-row gap-x-[16px] w-full md:w-fit">
+        <div className="flex flex-col-reverse md:flex-row gap-x-[16px] w-full md:w-fit pb-[69px]">
           <Button className="bg-white hover:bg-white text-[#8686F5]" title="Login" />
           <Button className="" title="Register" />
         </div>
@@ -542,16 +542,16 @@ export default function Home() {
 
 
       <div className='bg-[#242552] mt-[66px] lg:mt-[140px] flex flex-col md:flex-row justify-center items-center'>
-        <div className="flex justify-between items-center mb-0 mt-[40px] md:mt-0">
+        <div className="flex justify-center items-center px-[20px] mt-[40px] md:mt-0">
           <picture>
-            <img src="/notice.png" alt="notice" width='100%' height='auto' />
+            <img src="/notice.png" alt="notice" width='105px' height='auto' />
           </picture>
-          <p className="text-white text-[24px] font-bold mb-0">
+          <p className="text-white text-[20px] lg:text-[24px] font-bold mb-0">
             Refer a start up and get ₹500
           </p>
         </div>
         <div>
-          <Button className="mb-[35px] mt-[30px] mx-[84px]" title="Know More" />
+          <Button className="mb-[35px] mt-[30px] mx-[84px] w-[203px]" title="Know More" />
         </div>
       </div>
 
