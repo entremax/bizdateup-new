@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import Button from "./Button"
 
 const Invest = [
     {
@@ -77,18 +77,18 @@ const Invest = [
 
 export default function Invests() {
     return (
-        <div className="md:px-20 px-8 flex flex-col items-center">
-            <h6 className="text-3xl sm:text-5xl text-center lg:px-32">But, Why should you Invest through <span className="text-[#8686F5]">Bizdateup?</span></h6>
-            <div className="flex lg:grid lg:grid-cols-3 lg:grid-rows-2 gap-x-2 sm:mt-6 mb-12 overflow-x-auto">
+        <div className="px-[20px] mt-[131px]">
+            <h6 className="text-[30px] lg:text-[46px] text-center font-bold leading-[36px] lg:leading-[52px] lg:px-[250px] xl:px-[414px]">But, Why should you Invest through <span className="text-[#8686F5]">Bizdateup?</span></h6>
+            <div className="mt-[40px] flex gap-[12px] flex-col md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-[22px] lg:px-[80px]">
                 {Invest.map((reason) => (
-                    <div key={reason.id} className="ring-1 ring-slate-400 rounded-xl p-4 m-2 w-[296px] lg:w-fit">
+                    <div key={reason.id} className="ring-1 ring-[#EAE9E8] rounded-[17.734px] pt-[27px] lg:pt-[33px] px-[16px] lg:px-[21px] pb-[17px]">
                         <div>{reason.icon}</div>
-                        <p className="text-xl sm:text-2xl font-bold text-balance">{reason.title}</p>
-                        <p className="text-sm">{reason.desc}</p>
+                        <p className="text-[22px] font-bold tracking-[-0.368px]">{reason.title}</p>
+                        <p className="text-[13px] text-[#6E6E73]">{reason.desc}</p>
                     </div>
                 ))}
             </div>
-            <Button type="primary" className="px-8 bg-[#8686F5]">Apply now to become an Angel investor</Button>
+            <Button className="md:w-fit text-[15px] mt-[52px] lg:mt-[41px] mb-[71px] lg:mb-[112px] lg:px-[40px] mx-auto" title="Apply now to become an Angel investor" />
         </div>
     )
 }

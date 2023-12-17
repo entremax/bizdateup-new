@@ -1,29 +1,17 @@
-import { Button } from "antd";
-import Image from "next/image";
+import Button from "./Button";
 
 export default function WhoAreWe() {
     return (
-        <div className="lg:px-32 mt-12 sm:mt-32 flex flex-col lg:flex-row text-center lg:text-left items-center gap-6 lg:gap-16">
-            <div className="sm:hidden">
-                <Image
-                    src='/who_are_we.png'
-                    width={300}
-                    height={220}
-                    alt="who_are_we"
-                />
+        <div className="my-[80px] lg:mt-[132px] xl:px-[130px] px-6 lg:flex gap-x-32 items-center">
+            <div className="">
+                <picture>
+                    <img src="/who_are.png" alt="who_are_we" width='100%' height='auto' />
+                </picture>
             </div>
-            <div className="hidden sm:block">
-                <Image
-                    src='/who_are_we.png'
-                    width={600}
-                    height={400}
-                    alt="who_are_we"
-                />
-            </div>
-            <div className="px-6">
-                <h2 className="text-3xl sm:text-5xl text-balance">Who are we?</h2>
-                <p className="text-sm text-balance">Bizdateup is a Startup Investment platform which enables Investors like you to explore and invest in groundbreaking & Highly-Profitable Indian startup ventures starting at ₹50,000.</p>
-                <Button type="primary" className="px-12 mt-6 sm:mt-0 w-[100%] sm:w-min bg-[#8686F5]">Get Started</Button>
+            <div className="text-center lg:text-left lg:w-[491px]">
+                <h2 className="text-[30px] lg:text-[48px] leading-[36px] lg:leading-[64px] lg:-tracking-[2.16px] font-bold">Who are we?</h2>
+                <p className="text-[15px] lg:text-[18px] leading-[20px] lg:mt-[29px] lg:leading-[24px] text-balance font-normal">Bizdateup is a Startup Investment platform which enables Investors like you to explore and invest in groundbreaking & Highly-Profitable Indian startup ventures starting at ₹50,000.</p>
+                <Button title="Get Started" />
             </div>
         </div>
     )

@@ -1,40 +1,29 @@
 import Image from "next/image";
 
 export default function Featured() {
-    return (<div className="lg:px-52 px-4">
-        <h6 className="text-3xl sm:text-5xl text-center font-bold">Featured in</h6>
-        <div className="-mt-10 lg:-mt-20 grid grid-cols-2 gap-8 lg:flex justify-between">
+    return (<div className="lg:px-[200px] xl:px-[270px]">
+        <h6 className="lg:text-[44px] text-[30px] text-center font-bold mb-0">Featured in</h6>
+        <div className="mt-0 grid grid-cols-2 gap-4 lg:flex items-center justify-between">
             <div className="p-2 mx-auto">
-                <Image
-                    src='/Zee.png'
-                    height={50}
-                    width={100}
-                    alt="Zee"
-                />
+                <picture>
+                    <img src="/Zee.png" alt="Zee" width='100%' height='auto' />
+                </picture>
             </div>
             <div className="p-2 mx-auto">
-                <Image
-                    src='/Week.png'
-                    height={50}
-                    width={150}
-                    alt="Week"
-                />
+                <picture>
+                    <img src="/Week.png" alt="Week" width='100%' height='auto' />
+                </picture>
             </div>
             <div className="p-2 mx-auto">
-                <Image
-                    src='/mid_day.png'
-                    height={50}
-                    width={150}
-                    alt="Mid Day"
-                />
+                <picture>
+                    <img src="/mid_day.png" alt="mid_day" width='100%' height='auto' />
+                </picture>
             </div>
             <div className="p-2 mx-auto">
-                <Image
-                    src='/outlook.png'
-                    height={50}
-                    width={150}
-                    alt="Outlook"
-                />
+                <picture>
+                    <img src="/outlook.png" alt="outlook" width='100%' height='auto' />
+                </picture>
+
             </div>
         </div>
     </div>)

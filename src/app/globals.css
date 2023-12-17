@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 
 :root {
   --white: 0, 0, 0;
   --white-smoke: 249, 249, 252;
@@ -18,17 +20,19 @@
   --active-light: 99, 115, 129;
   --gray-400: 100, 116, 139;
   --lemon-green: 31, 137, 44;
-}
+} */
+
 
 a {
   text-decoration: none;
 }
-
+/* 
 .otp div input {
   width: 3.5rem !important;
   height: 3.5rem !important;
-}
+} */
 
+/* 
 @layer base {
   html,
   body {
@@ -38,11 +42,12 @@ a {
     padding: 0;
     height: 100dvh !important;
     width: 100vw !important;
-    overflow-x: hidden;
+    overflow-x: hidden; */
     /*color: rgb(var(--foreground-rgb));*/
-    background-color: rgb(var(--background-end-rgb));
-  }
-}
+    /* background-color: rgb(var(--background-end-rgb)); */
+  /* } */
+/* } */
+/* 
 
 @layer components {
   .border_gray {
@@ -64,25 +69,27 @@ a {
   .reset {
     @apply m-0 p-0;
   }
-}
+} */
 
+/* 
 .ant-collapse-header-text {
   font-weight: 700 !important;
-}
+} */
 
+/* 
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     display: none;
   }
-
+ */
   /* Hide scrollbar for IE, Edge and Firefox */
-  .scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-}
-
+  /* .scrollbar { */
+    /* -ms-overflow-style: none; IE and Edge */
+    /* scrollbar-width: none; Firefox */
+  /* } */
+/* } */
+/* 
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: rgb(var(--lavender-blue)) !important;
   border-color: rgb(var(--lavender-blue)) !important;
-}
+} */

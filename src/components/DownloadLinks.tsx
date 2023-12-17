@@ -2,11 +2,11 @@ import Image from "next/image";
 
 export default function DownloadLinks() {
     return (
-        <div className="md:mx-16 xl:mx-32 mx-2 bg-[#EEF] py-8 px-6 mt-16 flex flex-col items-center lg:flex-row justify-center gap-x-8 rounded-lg">
-            <div>
-                <h6 className="text-3xl text-center lg:text-left">Startup Investments at your fingertips</h6>
-                <p className="text-center lg:text-left -mt-10 max-w-[739px]">With Bizdateup you get a Strong Community of Top 1% Investors who live & Breathe Angel Investing! To top it up Signing up takes hardly 5 mins of your time. So, Join the Community Now!</p>
-                <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-4">
+        <div className="rounded-[30px] bg-[#EEF] flex flex-col lg:flex-row justify-between px-4 pb-[68px] lg:pb-[0] lg:px-[88px] lg:mx-[124px] items-center mt-[122px]">
+            <div className="max-w-[739px]">
+                <h6 className="text-[36px] mb-[37px] text-center lg:text-left">Startup Investments at your fingertips</h6>
+                <p className="text-[20px] text-[#6E6E73] mt-0 text-center lg:text-left">With Bizdateup you get a Strong Community of Top 1% Investors who live & Breathe Angel Investing! To top it up Signing up takes hardly 5 mins of your time. So, Join the Community Now!</p>
+                <div className="flex sm:flex-row justify-center lg:justify-start items-center gap-4 lg:mt-[37px] mb-[68px]">
                     <div><svg xmlns="http://www.w3.org/2000/svg" width="180" height="52" viewBox="0 0 180 52" fill="none">
                         <path d="M172.615 52H6.63902C2.98922 52 0 49.0815 0 45.518V6.6263C0 3.06285 2.98922 0.14435 6.63902 0.14435H172.615C176.264 0.14435 179.254 3.06285 179.254 6.6263V45.518C179.254 49.0815 176.264 52 172.615 52Z" fill="black" />
                         <path d="M172.615 1.18308C175.688 1.18308 178.19 3.62516 178.19 6.6263V45.518C178.19 48.5192 175.688 50.9613 172.615 50.9613H6.63902C3.56515 50.9613 1.0639 48.5192 1.0639 45.518V6.6263C1.0639 3.62516 3.56515 1.18308 6.63902 1.18308H172.615ZM172.615 0.14435H6.63902C2.98922 0.14435 0 3.06285 0 6.6263V45.518C0 49.0815 2.98922 52 6.63902 52H172.615C176.264 52 179.254 49.0815 179.254 45.518V6.6263C179.254 3.06285 176.264 0.14435 172.615 0.14435Z" fill="#A6A6A6" />
@@ -79,21 +79,10 @@ export default function DownloadLinks() {
                     </svg></div>
                 </div>
             </div>
-            <div className="sm:hidden lg:block">
-                <Image
-                    src='/Phone.png'
-                    height={400}
-                    width={220}
-                    alt="phone"
-                />
-            </div>
-            <div className="hidden sm:block lg:hidden">
-                <Image
-                    src='/Phone.png'
-                    height={550}
-                    width={330}
-                    alt="phone"
-                />
+            <div>
+                <picture>
+                    <img src="/Phone.png" alt="Phone" width='100%' height='auto' />
+                </picture>
             </div>
         </div>
     )

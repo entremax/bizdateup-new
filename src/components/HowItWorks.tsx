@@ -1,47 +1,33 @@
-import { Button } from "antd";
-import Image from "next/image";
+import Button from "./Button";
 
 export default function HowItWorks() {
     return (
-        <div className="flex flex-col items-center lg:px-20 px-8 mt-20 sm:mt-32">
+        <div className="mt-[60px] px-[19px] flex flex-col items-center">
             <div>
-                <p className="text-zinc-700/70 text-xl font-semibold text-center">HOW IT WORKS</p>
-                <h6 className="text-3xl sm:text-5xl text-center lg:px-32 mt-0 text-balance">Here&apos;s How Your Seamless Investment Journey Looks with us!</h6>
+                <p className="text-zinc-700/70 text-[13px] lg:text-[20px] font-semibold text-center">HOW IT WORKS</p>
+                <h6 className="text-[30px] lg:text-[48px] lg:px-[150px] xl:px-[300px] text-center mt-0 leading-[36px] lg:leading-[64px] lg:mb-0">Here&apos;s How Your Seamless Investment Journey Looks with us!</h6>
             </div>
-            <div className="flex flex-col lg:flex-row gap-x-32 items-center lg:justfy-between">
-                <div className="lg:hidden">
-                    <Image
-                        src='/Investment_Process.png'
-                        height={250}
-                        width={350}
-                        alt="Investment Process"
-                    />
-                </div>
-                <div className="hidden lg:block">
-                    <Image
-                        src='/Investment_Process.png'
-                        height={300}
-                        width={420}
-                        alt="Investment Process"
-                    />
-                </div>
-                <div className="mt-12 px-2 flex flex-col gap-y-8 max-w-[500px]">
+            <div className="flex flex-col lg:flex-row gap-x-[76px] items-center lg:justfy-between lg:mt-[84px]">
+                <picture>
+                    <img src="/Investment_Processes.png" alt="Investment_Process" width='100%' height='auto' />
+                </picture>
+                <div className="lg:pt-16 pt-[33px] flex flex-col gap-y-8 max-w-[491px]">
                     <div className="flex gap-x-6 items-center">
-                        <span className="p-4 bg-[#E2E2E2] rounded-md">1</span>
-                        <span className="text-xl font-semibold">Register with email or social logins</span>
+                        <span className="px-4 py-2 bg-[#E2E2E2] text-[15.036px] rounded-md">1</span>
+                        <span className="text-[20px] font-bold">Register with email or social logins</span>
                     </div>
                     <div className="flex gap-x-6 items-center">
-                        <span className="p-4 rounded-md bg-[#8686F5] text-white">2</span>
+                        <span className="px-4 py-2 rounded-md bg-[#8686F5] text-[15.036px] text-white">2</span>
                         <div>
-                            <span className="text-xl font-semibold text-[#8686F5]">Complete KYC & Bank details</span>
-                            <p className="text-[#6E6E73] text-sm">Get on a Quick 15 mins Zoom Call with our Experts to understand the Process & Terms for Selections & Investment.</p>
+                            <span className="text-[20px] font-bold text-[#8686F5]">Complete KYC & Bank details</span>
+                            <p className="text-[#6E6E73] text-[14px] font-normal">Get on a Quick 15 mins Zoom Call with our Experts to understand the Process & Terms for Selections & Investment.</p>
                         </div>
                     </div>
                     <div className="flex gap-x-6 items-center">
-                        <span className="p-4 bg-[#E2E2E2] rounded-md">3</span>
-                        <span className="text-xl font-semibold">Start investing in start ups</span>
+                        <span className="px-4 py-2 bg-[#E2E2E2] text-[15.036px] rounded-md">3</span>
+                        <span className="text-[20px] font-bold">Start investing in start ups</span>
                     </div>
-                    <Button type="primary" className="px-8 bg-[#8686F5] lg:w-min">Fill out the application now</Button>
+                    <Button className="md:w-fit text-[16px] mb-[71px] lg:mb-[112px] md:px-[100px]" title="Fill out the application now" />
                 </div>
             </div>
         </div>

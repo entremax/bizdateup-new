@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
   const type = token ? 'authenticated' : 'unauthenticated'
 
   return (
-    <div className='fixed flex px-8 items-center left-0 right-0  h-[4.5rem] z-[999] bg-white shadow-[0px_1px_0px_0px_#E5E9F2]'>
+    <div className='fixed flex px-8 items-center left-0 right-0 top-0  h-[4.5rem] z-[999] bg-white shadow-[0px_1px_0px_0px_#E5E9F2]'>
       <Link
         href={'/'}
         className={type === 'unauthenticated' ? 'flex-grow' : ''}

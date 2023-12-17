@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import Button from "./Button"
 
 const Reasons = [
     {
@@ -57,20 +57,22 @@ const Reasons = [
     },
 ]
 
-export default function ReasonToInvest(){
+export default function ReasonToInvest() {
     return (
-        <div className="mt-20 sm:mt-28 md:px-12 px-8 flex flex-col items-center">
-            <h3 className="text-3xl sm:text-5xl text-center sm:px-20">Why you should invest in startups now and become an <span className="text-[#8686F5]">Angel Investor.</span> </h3>
-            <div className="flex gap-x-2 sm:mt-6 mb-12">
+        <div className="pt-[60px] lg:pt-[116px] px-[20px] xl:px-[88px] flex flex-col items-center bg-[#F9F9FC]">
+            <h3 className="text-[30px] text-center lg:px-[262px]">Why you should invest in startups now and become an <span className="text-[#8686F5]">Angel Investor.</span> </h3>
+            <div className="flex flex-col lg:grid grid-cols-2 xl:grid-cols-4 mt-[28px] gap-[14px] xl:gap-[27px]">
                 {Reasons.map((reason) => (
-                    <div key={reason.id} className="ring-1 ring-slate-400 rounded-xl p-4 m-2 w-[296px] sm:w-fit">
+                    <div key={reason.id} className="ring-[0.807px] ring-[#EAE9E8] lg:rounded-[17.734px] rounded-[14.524px] pl-[24.57px] lg:pl-[30px] pb-[33px] lg:pb-[41px] pr-[22.43px] pt-[36.86px] lg:pt-[45px]">
                         <div>{reason.icon}</div>
                         <p className="text-2xl sm:text-3xl font-bold text-balance">{reason.title}</p>
-                        <p className="text-sm">{reason.desc}</p>
+                        <p className="text-sm pr-[16.5px]">{reason.desc}</p>
                     </div>
                 ))}
             </div>
-            <Button type="primary" className="px-8 bg-[#8686F5]">Apply now to become an Angel investor</Button>
+            <div>
+                <Button className="md:w-fit text-[15px] mt-[52px] lg:mt-[41px] mb-[71px] lg:mb-[112px] lg:px-[40px]" title="Apply now to become an Angel investor" />
+            </div>
         </div>
     )
 }
