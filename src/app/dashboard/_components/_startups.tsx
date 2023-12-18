@@ -8,7 +8,7 @@ import { Button } from 'antd'
 import Link from 'next/link'
 
 const Startups = ({ data }: { data: Campaign[] }) => {
-  const baseUrl = apiUri().v1
+  const baseUrl = apiUri().base
 
   function getData(data: any[]) {
     let startupData = data.length > 4 ? data.slice(0, 4) : data
@@ -37,14 +37,14 @@ const Startups = ({ data }: { data: Campaign[] }) => {
               'border_gray relative overflow-clip rounded-2xl text-black shadow-lg'
             }>
             <Image
-              src={apiUri().base + '/v1' + '/banner/' + startup.banner}
+              src={apiUri().base + 'v1' + '/banner/' + startup.banner}
               alt={startup.registeredCompanyName}
               height={250}
               width={340}
               className={'w-full'}
             />
             <Image
-              src={apiUri().base + '/logo/' + startup.logo}
+              src={apiUri().base + 'v1/logo/' + startup.logo}
               height={40}
               width={40}
               alt={startup.registeredCompanyName}

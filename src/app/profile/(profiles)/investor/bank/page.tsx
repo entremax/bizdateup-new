@@ -46,7 +46,7 @@ export default async function Bank({ searchParams }: Props) {
     <div className="flex flex-col">
       {editState ? (
         <div className="grid grid-cols-1">
-          <div className="grid grid-cols-3 gap-8 p-8">
+          <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
             {data.map(({ label, value }) => (
               <React.Fragment key={label}>
                 <div className="grid gap-2">

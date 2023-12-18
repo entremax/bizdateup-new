@@ -4,7 +4,6 @@ import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import Select from '@/components/form/Select'
 import Input from '@/components/form/Input'
-import UploadCheck from '@/components/profile/dropCheck'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
@@ -98,7 +97,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
 
   return (
     <div className="grid grid-cols-1">
-      <div className="grid grid-cols-2 gap-8 p-8">
+      <div className="grid gap-8 p-8 xl:grid-cols-2">
         {inputFields.map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -132,23 +131,14 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
           ),
         )}
       </div>
-      <div className="mt-3 grid grid-cols-2 items-center gap-8 p-8 py-0">
-        <div className="grid gap-2">
-          <p className="font-medium leading-[1.6] !text-gray-900">
-            Upload Cancelled Check
-          </p>
-          <div className="g">
-            <UploadCheck />
-          </div>
-        </div>
-      </div>
-      <div className=" flex items-center justify-end px-8 pb-8">
+      <div className=" my-6 flex items-center justify-end px-8 pb-8">
         <Button
           type={'default'}
           onClick={handleOtherUpdate}
           className={
-            'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
-          }>
+            '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+          }
+          block>
           Save
         </Button>
       </div>

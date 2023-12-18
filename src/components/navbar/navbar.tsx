@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Icons } from '@/components/icons/icon'
 import React, { useEffect, useState } from 'react'
 import NavLink from '@/components/navbar/navbar_links'
 import UserMenu from './navbar_usermenu'
@@ -18,7 +17,7 @@ const Navbar: React.FC = () => {
     setType(user ? 'authenticated' : 'unauthenticated')
   }, [user, reduxUser])
   return (
-    <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white px-8 shadow-[0px_1px_0px_0px_#E5E9F2]">
+    <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white shadow-[0px_1px_0px_0px_#E5E9F2] lg:px-8">
       <Link
         href={'/'}
         className={type === 'unauthenticated' ? 'flex-grow' : ''}>
@@ -54,13 +53,13 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
         ) : (
-          <div className={'hidden items-center justify-center gap-8 lg:flex'}>
+          <div className={' flex items-center justify-center gap-4 lg:gap-8'}>
             <UserMenu user={user?.userData ?? null} />
           </div>
         )}
-        <div className="flex-shrink md:hidden">
-          <Icons.BurgerMenu height={28} width={28} alt="Menu" />
-        </div>
+        {/*<div className="flex-shrink md:hidden">*/}
+        {/*  <Icons.BurgerMenu height={28} width={28} alt="Menu" />*/}
+        {/*</div>*/}
       </div>
     </div>
   )

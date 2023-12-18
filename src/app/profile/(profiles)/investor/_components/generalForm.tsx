@@ -193,7 +193,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
 
   return (
     <div className="grid grid-cols-1">
-      <div className="grid grid-cols-2 gap-8 p-8">
+      <div className="grid gap-8 p-8 lg:grid-cols-2">
         {inputFields.slice(0, 6).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -228,7 +228,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
         )}
       </div>
       <div className="h-2 w-full bg-light-shadow"></div>
-      <div className="mt-3 grid grid-cols-2 items-center gap-8 p-8">
+      <div className="mt-3 grid items-center gap-8 p-8 lg:grid-cols-2">
         {inputFields.slice(6, 12).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -266,8 +266,9 @@ export default function GeneralForm({ user }: { user: DataInner }) {
           type={'default'}
           onClick={handleProfileUpdate}
           className={
-            'col-span-2 hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
-          }>
+            'col-span-2 !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+          }
+          block>
           Save
         </Button>
       </div>

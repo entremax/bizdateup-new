@@ -54,7 +54,7 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
             <div className="flex shrink gap-2 p-3">
               <div className="flex items-start justify-start rounded-md bg-clip-content">
                 <Image
-                  src={apiUri().base + '/v1' + '/logo/' + startup.logo}
+                  src={apiUri().base + 'v1' + '/logo/' + startup.logo}
                   height={56}
                   width={56}
                   className={'!static h-14 w-14 rounded-md'}

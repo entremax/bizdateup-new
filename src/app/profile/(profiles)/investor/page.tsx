@@ -17,7 +17,6 @@ export default async function InvestorProfile({ searchParams }: Props) {
   if (!user) {
     return <>Loading</>
   }
-  console.log(user)
   const data = [
     {
       label: 'First name',
@@ -68,7 +67,7 @@ export default async function InvestorProfile({ searchParams }: Props) {
     <div className="flex flex-col">
       {editState ? (
         <div className="grid grid-cols-1">
-          <div className="grid grid-cols-3 gap-8 p-8">
+          <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
             {data.slice(0, 6).map(({ label, value }) => (
               <React.Fragment key={label}>
                 <div className="grid gap-2">
@@ -79,7 +78,7 @@ export default async function InvestorProfile({ searchParams }: Props) {
             ))}
           </div>
           <div className="h-2 w-full bg-light-shadow"></div>
-          <div className="mt-3 grid grid-cols-3 items-center gap-8 p-8">
+          <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 xl:grid-cols-3">
             {data.slice(6, 12).map(({ label, value }) => (
               <React.Fragment key={label}>
                 <div className="grid gap-2">

@@ -5,7 +5,7 @@ import StartupUpdate from '@/components/StartupUpdate'
 export default function StartupUpdatesDropDown() {
   const { updates } = useAppSelector((state) => state.startup)
   return (
-    <div className="border_gray right-[4rem] top-[4.4rem] min-h-[14rem] w-[28rem] rounded-lg bg-white px-2 shadow-lg">
+    <div className="border_gray right-[4rem] top-[4.4rem] min-h-[14rem] w-[20rem] rounded-lg bg-white px-2 shadow-lg xl:w-[28rem]">
       <div className={'flex items-center justify-between p-4 px-3'}>
         <h2 className={'text-xl font-semibold'}>Startup Updates</h2>
         <Button

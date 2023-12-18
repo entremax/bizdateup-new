@@ -159,7 +159,7 @@ const UserMenu = ({ user }: { user: DataInner | null }) => {
       <Button
         type={'default'}
         onClick={handleCreateAccelerator}
-        className=" !rounded-lg !border-0 !text-primary   !outline !outline-[0.022rem]  !outline-primary">
+        className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  md:inline-block">
         Refer & Earn
       </Button>
       <Tooltip title={badgeTitle}>
@@ -181,7 +181,7 @@ const UserMenu = ({ user }: { user: DataInner | null }) => {
         <Dropdown menu={{ items, onClick }}>
           <Space>
             <div className={cn(avatarClass)}>
-              <Avatar size={'large'}>U</Avatar>
+              <Avatar size={'large'}>{user?.firstName ?? 'A'}</Avatar>
               {user && user?.membership?.isMember !== 'no' ? (
                 <>
                   <Icons.Premium

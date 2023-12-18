@@ -50,14 +50,14 @@ export default function StartupCard({ startup, closed }: Props) {
         </p>
       )}
       <Image
-        src={apiUri().v1 + '/banner/' + startup.banner}
+        src={apiUri().base + 'v1/banner/' + startup.banner}
         alt={startup.registeredCompanyName}
         height={250}
         width={340}
         className={'w-full'}
       />
       <Image
-        src={apiUri().v1 + '/logo/' + startup.logo}
+        src={apiUri().base + 'v1/logo/' + startup.logo}
         height={40}
         width={40}
         alt={startup.registeredCompanyName}
