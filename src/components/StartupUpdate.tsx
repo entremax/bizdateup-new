@@ -1,48 +1,53 @@
+'use client'
 import Image from 'next/image'
-import { cn, formatCustomDate } from '@/lib/utils'
+import { apiUri, cn, formatCustomDate } from '@/lib/utils'
+import Link from 'next/link'
+import { StartupUpdate } from '@/types/startup'
 
 type Props = {
   component_type: 'page' | 'notification'
-  logo: string
-  title: string
-  name: string
-  startup: string
-  created: string
+  update: StartupUpdate
 }
-export default function StartupUpdate({
-  component_type,
-  logo,
-  title,
-  name,
-  startup,
-  created,
-}: Props) {
+export default function StartupUpdate({ component_type, update }: Props) {
   return (
-    <div className={'flex items-center gap-4 px-2 py-4 '}>
-      <div className="relative h-16 max-h-[4rem]  w-[4.4rem] overflow-clip  rounded-xl">
-        <Image
-          alt={'companyImage'}
-          src={
-            'https://s3-alpha-sig.figma.com/img/d092/15c4/9205eb15fb8c5cf4dad2100ab57c5361?Expires=1702252800&Signature=M8Gx6Ugi-rafUWdFEFH26oR6vBtcCFyDOHqR38LtKoD8wrDeB6waxkGMNOgsKfWTD2uEtNP1g7UfmEGPDxalwn0DHIfe~aJRYllzv2TISrobmge8U2yTYtdvWQbrCad7wIaofu7zg95L1RK96rbJ2RqLGlyZQs5pOWTj36GPe5XSQOWxbx4O7Qe-KS04oxOCViS28lxzhSxoIt7CJJOmZa2HZg0aWU~7jCehsGpJrcQ1aVPfSYHjeOYeNi8kCkKXzbO65R-wRL72YCAExNPYshowrMhethp8IKQH9u5NwDq1E7sTLm3eVefAS0Tg1CbCxeu2WBPomrq3nLr0wXnsBA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-          }
-          fill
-        />
-      </div>
+    <Link
+      href={`/startup/updates/update/${update._id}`}
+      className={
+        component_type === 'page'
+          ? 'border_gray flex flex-col rounded-xl px-4 text-black-lighter shadow'
+          : ''
+      }>
       <div
-        className={cn(
-          'flex flex-col' + (component_type === 'page' ? ' flex-grow' : ''),
-        )}>
-        <h5 className="text-semibold text-lg">
-          Community Developer call ipsum dummy cabinet
-        </h5>
-        <p className={'text-sm font-light'}>
-          Start-up:{' '}
-          <span className={'font-semibold text-gray-400'}>Bizdateup</span>
-        </p>
+        className={cn(`flex items-center gap-4 px-2 py-4 text-black-lighter `)}>
+        <div className="relative h-16 max-h-[4rem]  w-[4.4rem] overflow-clip  rounded-xl">
+          <Image
+            alt={'companyImage'}
+            src={apiUri().base + 'v1/logo/' + update.logo}
+            fill
+          />
+        </div>
+        <div
+          className={cn(
+            'flex max-w-[16rem] flex-col md:max-w-fit' +
+              (component_type === 'page' ? ' flex-grow' : ''),
+          )}>
+          <h5 className="text-semibold text-lg">{update.title}</h5>
+          <p className={'text-sm font-light'}>
+            Start-up:{' '}
+            <span className={'font-semibold text-gray-400'}>
+              {update.company_name}
+            </span>
+          </p>
+        </div>
+        <div className="flex-start flex flex-col">
+          <p className={'text-xs font-light'}>
+            {formatCustomDate(update.created_at)}
+          </p>
+        </div>
       </div>
-      <div className="flex-start flex flex-col">
-        <p className={'font-light'}>{formatCustomDate(created)}</p>
-      </div>
-    </div>
+      {component_type === 'page' && (
+        <p className="pb-4 text-sm">{update.content ?? ''}</p>
+      )}
+    </Link>
   )
 }

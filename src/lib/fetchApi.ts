@@ -33,11 +33,12 @@ export const fetchData = async <
       console.error('Error parsing JSON:', error)
       throw new Error('Error parsing JSON')
     }
+    console.log(response)
     if (!response.data) {
       console.error('Error while accessing endpoint', response.message)
       throw new Error(response.message ?? response.code)
     }
-    if (response.data && response.data.code !== 200) {
+    if (response.data && !response.data.data && response.data.code !== 200) {
       console.error(
         'Error while accessing endpoint',
         response.data.message ?? response.data,
