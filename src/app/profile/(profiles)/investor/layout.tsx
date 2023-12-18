@@ -27,13 +27,15 @@ export default function InvestorProfileLayout({
           </SectionBar>
           <div className="border_gray col-span-9 grid overflow-clip rounded-r-3xl">
             <div className="hidden flex-col xl:flex">
-              <div className="border_gray flex border-b-2  p-4 ">
+              <div className="border_gray flex items-center border-b-2 p-4 ">
                 <SectionHeader />
               </div>
               <UpdateContextProvider>{children}</UpdateContextProvider>
             </div>
           </div>
-          <DetailsTab>{children}</DetailsTab>
+          <DetailsTab>
+            <UpdateContextProvider>{children}</UpdateContextProvider>
+          </DetailsTab>
         </div>
       </section>
     </ReduxProvider>

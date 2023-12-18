@@ -1,7 +1,6 @@
 'use client'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'antd'
-import Edit from '@/components/icons/Edit'
-import React, { useState } from 'react'
 import {
   useRouter,
   useSearchParams,
@@ -11,25 +10,28 @@ import { useAppSelector } from '@/store/hooks'
 import { Icons } from '@/components/icons/icon'
 import { useUser } from '@/hooks/useUser'
 import { KYCStatus } from '@/types'
+import Edit from '@/icons/Edit'
 
-type sectionType =
+type SectionType =
   | 'general-info'
   | 'kyc'
   | 'bank'
   | 'other'
   | 'investment-manager'
 
-type sectionDetails = {
+type SectionDetails = {
+  id: number
   name: string
   editable: boolean
 }
-type sectionsInterface = {
-  [key in sectionType]: sectionDetails
+
+type SectionsInterface = {
+  [key in SectionType]: SectionDetails
 }
 
 export default function SectionHeader() {
-  const segment: sectionType | null =
-    useSelectedLayoutSegment() as sectionType | null
+  const segment: SectionType | null =
+    useSelectedLayoutSegment() as SectionType | null
   const searchParams = useSearchParams()
   const router = useRouter()
   const editState = searchParams.get('edit')
@@ -37,62 +39,61 @@ export default function SectionHeader() {
   const { kycCompletionPercentage, kycStatus } = useAppSelector(
     ({ authUser }) => authUser,
   )
-  const sections: sectionsInterface = {
-    'general-info': {
-      name: 'General Information',
-      editable: true,
-    },
-    kyc: {
-      name: 'KYC',
-      editable: false,
-    },
-    bank: {
-      name: 'Bank Details',
-      editable: true,
-    },
-    other: {
-      name: 'Other Details',
-      editable: true,
-    },
+
+  const sections: SectionsInterface = {
+    'general-info': { id: 1, name: 'General Information', editable: true },
+    kyc: { id: 2, name: 'KYC', editable: false },
+    bank: { id: 3, name: 'Bank Details', editable: true },
+    other: { id: 4, name: 'Other Details', editable: true },
     'investment-manager': {
+      id: 5,
       name: 'Investment Manager',
       editable: false,
     },
   }
 
-  const [section, setSection] = useState<sectionDetails>(
+  const [section, setSection] = useState<SectionDetails>(
     sections['general-info'],
   )
 
-  React.useEffect(() => {
-    if (segment) {
-      setSection(sections[segment])
-    } else {
-      setSection(sections['general-info'])
-    }
+  useEffect(() => {
+    setSection(segment ? sections[segment] : sections['general-info'])
   }, [segment])
 
   const handleEdit = () => {
-    return router.push(
+    router.push(
       editState === 'true'
-        ? `/profile/investor/${segment ? segment : ''}`
+        ? `/profile/investor/${segment || ''}`
         : `?edit=${editState === null ? 'true' : ''}`,
       { scroll: false },
     )
+  }
+
+  const kycStatusDetails = () => {
+    switch (section.id) {
+      case 2:
+        return (
+          kycStatus && !kycStatus.includes(KYCStatus.aadhar && KYCStatus.pan)
+        )
+      case 3:
+        return kycStatus && !kycStatus.includes(KYCStatus.bank)
+      case 4:
+      case 1:
+        return kycStatus && !kycStatus.includes(KYCStatus.other)
+      default:
+        return false
+    }
   }
 
   return (
     <>
       <h4 className="flex-grow text-2xl text-primary-dark">{section.name}</h4>
       {(user && !kycStatus) ||
-        (kycStatus && !kycStatus.includes(KYCStatus.profile) && (
+        (kycStatusDetails() && (
           <div
-            className={
-              'flex items-center justify-center gap-1 rounded-full bg-lemon-lighter p-1 text-lemon shadow'
-            }>
+            className={`mx-4 flex items-center justify-center gap-1 rounded-full bg-lemon-lighter p-1 text-lemon shadow`}>
             <Icons.FilledCheck />{' '}
-            <span className={'reset text-xs font-normal text-lemon'}>
-              {' '}
+            <span className={`reset text-xs font-normal text-lemon`}>
               KYC Verified
             </span>
           </div>
@@ -102,9 +103,7 @@ export default function SectionHeader() {
           icon={<Edit />}
           type={'default'}
           onClick={handleEdit}
-          className={
-            '!flex !items-center !font-semibold !text-primary !outline !outline-[0.022rem] !outline-primary'
-          }>
+          className={`flex items-center font-semibold text-primary outline outline-[0.022rem] outline-primary`}>
           Edit
         </Button>
       )}

@@ -68,6 +68,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     country: user.address.country,
     state: user.address.state,
   })
+  console.log(user)
   const inputFields: Fields[] = [
     {
       name: 'first-name',
