@@ -26,7 +26,7 @@ const MobileNavbar = () => {
     {
       name: 'Profile',
       icon: Icons.Profile,
-      link: '/profile',
+      link: '/profile/investor',
     },
   ]
   const linkStyle =

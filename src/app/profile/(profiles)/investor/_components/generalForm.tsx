@@ -96,7 +96,8 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       name: 'gender',
       label: 'Gender',
       fieldType: 'select',
-      defaultValue: user?.gender,
+      defaultValue: user?.gender === 'none' ? undefined : user?.gender,
+      placeholder: user?.gender === 'none' ? 'Select Gender' : undefined,
       options: [
         {
           value: 'Male',
@@ -142,22 +143,25 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     {
       name: 'city',
       label: 'City',
-      defaultValue:
-        selected.country === 'India' ? user.address.city : undefined,
-      disabled: selected.country !== 'India',
+      defaultValue: user.address.city === '' ? user.address.city : undefined,
     },
     {
       name: 'state',
       label: 'State',
       defaultValue:
         selected.country === 'India'
-          ? user.address.state === ''
+          ? user.address.state !== ''
             ? user.address.state
             : undefined
           : undefined,
       fieldType: 'select',
       options: States,
-      placeholder: selected.country === 'India' ? 'Select State' : undefined,
+      placeholder:
+        selected.country === 'India'
+          ? user.address.state !== ''
+            ? user.address.state
+            : 'Select State'
+          : undefined,
       disabled: selected.country !== 'India',
     },
     {

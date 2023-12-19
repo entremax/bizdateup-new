@@ -46,7 +46,7 @@ export default async function OtherDetails({ searchParams }: Props) {
   ]
   return (
     <div className="flex flex-col">
-      {editState ? (
+      {user.other.status !== 'pending' && editState ? (
         <div className="grid grid-cols-1">
           <div className="grid gap-8 p-8 xl:grid-cols-3">
             {data.map(({ label, value, url }) => (

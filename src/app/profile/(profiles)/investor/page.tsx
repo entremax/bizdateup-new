@@ -12,11 +12,14 @@ export const metadata: Metadata = {
   description: 'This pages holds your general profile details',
 }
 export default async function InvestorProfile({ searchParams }: Props) {
-  const editState: boolean = !searchParams.edit
+  let editState: boolean = !searchParams.edit
   const { user }: { user: DataInner } = await getUserDetails()
   if (!user) {
     return <>Loading</>
   }
+  // if (user.firstName === '' || user.lastName === '' || !user.phone) {
+  //   editState = true
+  // }
   const data = [
     {
       label: 'First name',
@@ -41,6 +44,7 @@ export default async function InvestorProfile({ searchParams }: Props) {
     {
       label: 'Referral Code',
       value: user.refer ?? '',
+      hidden: !user.refer,
     },
     {
       label: 'Address',
@@ -67,7 +71,8 @@ export default async function InvestorProfile({ searchParams }: Props) {
   ]
   return (
     <div className="flex flex-col">
-      {editState ? (
+      {!(user.firstName === '' || user.lastName === '' || !user.phone) &&
+      editState ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
             {data.slice(0, 6).map(({ label, value, hidden }) => (

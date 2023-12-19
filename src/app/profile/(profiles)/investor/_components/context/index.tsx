@@ -43,7 +43,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       updateUser(updatedData)
         .unwrap()
         .then((res) => {
-          console.log(res)
           dispatch(
             setNotification({
               type: 'success',
@@ -54,6 +53,12 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         })
         .catch((e) => {
           console.log(e)
+          dispatch(
+            setNotification({
+              type: 'error',
+              message: "Couldn't Update Profile",
+            }),
+          )
         })
     }
     if (updating === 'other') {
@@ -63,7 +68,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           dispatch(
             setNotification({
               type: 'success',
-              message: 'Other Details Updated Successfully',
+              message: 'Details Updated Successfully',
             }),
           )
           return res
