@@ -142,14 +142,15 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     {
       name: 'city',
       label: 'City',
-      defaultValue: user?.address?.city,
+      defaultValue: selected.country === 'India' ? user.address.city : '',
     },
     {
       name: 'state',
       label: 'State',
-      defaultValue: user.address.state,
+      defaultValue: selected.country === 'India' ? user.address.state : '',
       fieldType: 'select',
       options: States,
+      disabled: selected.country !== 'India',
     },
     {
       name: 'pin-code',

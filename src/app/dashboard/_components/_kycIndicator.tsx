@@ -1,5 +1,5 @@
 'use client'
-import { Button, Progress, Space } from 'antd'
+import { Progress, Space } from 'antd'
 import { cn } from '@/lib/utils'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { AuthUserState, IInvestmentItem } from '@/types'
@@ -89,13 +89,11 @@ const KycIndicator = ({
               />
             </Space>
           </div>
-          <Button
-            type={'default'}
-            size={'large'}
-            className={'button_primary !my-3 !mb-0 !text-sm !text-white'}
-            block>
+          <Link
+            href={'/profile/investor'}
+            className={'!primary_link !my-3 !mb-0 !text-sm !text-white'}>
             Continue procedure
-          </Button>
+          </Link>
         </div>
       ) : (
         <div

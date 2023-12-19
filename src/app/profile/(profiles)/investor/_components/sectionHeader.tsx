@@ -89,7 +89,7 @@ export default function SectionHeader() {
     <>
       <h4 className="flex-grow text-2xl text-primary-dark">{section.name}</h4>
       {(user && !kycStatus) ||
-        (kycStatusDetails() && (
+        (kycStatusDetails() && section.id === (2 || 3) && (
           <div
             className={`mx-4 flex items-center justify-center gap-1 rounded-full bg-lemon-lighter p-1 text-lemon shadow`}>
             <Icons.FilledCheck />{' '}
