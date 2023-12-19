@@ -46,7 +46,6 @@ export default function SectionBar({
       segment: null,
       icon: (
         <Profile
-          storkeClass={'group-hover:stroke-primary'}
           className={
             'stroke-black-lighter group-hover:fill-primary group-hover:stroke-primary  group-active:fill-primary'
           }
@@ -60,7 +59,6 @@ export default function SectionBar({
       segment: 'kyc',
       icon: (
         <TicketStar
-          storkeClass={'group-hover:stroke-primary'}
           className={'stroke-black-lighter   group-hover:stroke-primary'}
         />
       ),
@@ -72,7 +70,6 @@ export default function SectionBar({
       segment: 'bank',
       icon: (
         <Icons.TextFile
-          storkeClass={'group-hover:stroke-primary'}
           className={'stroke-black-lighter   group-hover:stroke-primary'}
         />
       ),
@@ -84,7 +81,6 @@ export default function SectionBar({
       segment: 'other',
       icon: (
         <MoreSquare
-          storkeClass={'group-hover:stroke-primary'}
           className={'stroke-black-lighter   group-hover:stroke-primary'}
         />
       ),
@@ -94,10 +90,7 @@ export default function SectionBar({
       id: 5,
       name: 'Investment manager',
       icon: (
-        <Work
-          storkeClass={'group-hover:stroke-primary'}
-          className={'stroke-black-lighter  group-hover:stroke-primary'}
-        />
+        <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
       ),
       segment: 'investment-manager',
       link: baseUri + '/investment-manager',
@@ -170,7 +163,7 @@ export default function SectionBar({
                 {id === 5 && (
                   <span
                     className={
-                      'w-fit rounded-full bg-[#F3B518] px-[0.022rem] text-xs'
+                      'w-fit rounded-full bg-[#F3B518] px-[0.022rem] text-xs !text-black-lighter '
                     }>
                     PRIORITY
                   </span>
@@ -206,9 +199,9 @@ export default function SectionBar({
           sm === 'y' ? 'hidden' : ''
         }`}>
         {sectionTabs.map(({ id, name, segment, icon, link }) => (
-          <React.Fragment key={'link'}>
+          <React.Fragment key={link}>
             <Link
-              key={name}
+              key={link}
               href={link}
               className={cn(
                 'hidden w-full items-center gap-3 py-6  text-gray-800 delay-100 hover:bg-[#F0F0FF] hover:text-primary active:text-black lg:flex' +

@@ -460,5 +460,14 @@ const sectorOptions = [
   { value: 'Virtual reality', label: 'Virtual reality' },
 ]
 
-const data = { campaignData, faqData, sectorOptions }
+const occupationValues = [
+  { value: 'Self-employed', label: 'Self-employed' },
+  { value: 'Business', label: 'Business' },
+  { value: 'Employee', label: 'Employee' },
+  { value: 'Unemployed', label: 'Unemployed' },
+  { value: 'Retired', label: 'Retired' },
+  { value: 'NRI', label: 'NRI' },
+]
+
+const data = { campaignData, faqData, sectorOptions, occupationValues }
 export default data

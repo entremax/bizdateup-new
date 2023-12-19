@@ -94,7 +94,7 @@ export default function SectionHeader() {
             className={`mx-4 flex items-center justify-center gap-1 rounded-full bg-lemon-lighter p-1 text-lemon shadow`}>
             <Icons.FilledCheck />{' '}
             <span className={`reset text-xs font-normal text-lemon`}>
-              KYC Verified
+              {section.name} Verified
             </span>
           </div>
         ))}

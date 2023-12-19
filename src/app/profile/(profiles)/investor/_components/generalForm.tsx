@@ -2,15 +2,14 @@
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { FieldNames, Fields, Refs } from '@/types/profile'
+import Input from '@/components/form/Input'
 import Select from '@/components/form/Select'
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
-import dynamic from 'next/dynamic'
 
-const Input = dynamic(() => import('@/components/form/Input'), { ssr: false })
 const States = [
   { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
   { value: 'Arunachal Pradesh', label: 'Arunachal Pradesh' },
@@ -62,13 +61,13 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     city: useRef<InputRef | null>(null),
     'pin-code': useRef<InputRef | null>(null),
   }
+
   const { handleUpdate } = useUpdateContext()
   const [selected, setSelected] = useState({
     gender: user.gender,
     country: user.address.country,
     state: user.address.state,
   })
-  console.log(user)
   const inputFields: Fields[] = [
     {
       name: 'first-name',
@@ -85,11 +84,13 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       type: 'email',
       label: 'EmailID',
       defaultValue: user?.email,
+      disabled: !!user?.email,
     },
     {
       name: 'phone-number',
       label: 'Phone number',
       defaultValue: user?.phone,
+      disabled: !!user?.phone,
     },
     {
       name: 'gender',
@@ -115,6 +116,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       name: 'referral',
       defaultValue: user?.refer as string,
       label: 'Referral Code',
+      disabled: !!user?.refer,
     },
     {
       name: 'address',
@@ -166,7 +168,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       [fieldName]: value,
     }))
   }
-
+  console.log(user)
   const handleProfileUpdate = async () => {
     let values: { [key in FieldNames]: unknown | null } = {} as {
       [key in FieldNames]: unknown | null
@@ -186,8 +188,9 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       state: selected.state,
       pincode: values['pin-code'],
       country: selected.country,
+      refer: values.referral,
     } as unknown as DataInner
-
+    console.log(formData, values)
     await handleUpdate(formData, 'general')
     return router.refresh()
   }
@@ -202,6 +205,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               className={'selector-profile'}
               label={field.label}
               title={field.name}
+              disabled={field.disabled}
               options={field.options.map((option, index) => ({
                 key: index,
                 value: option.value,
@@ -218,6 +222,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
             <Input
               key={field.name}
               defaultValue={field.defaultValue}
+              disabled={field.disabled}
               //@ts-ignore
               ref={field.fieldType !== 'select' && refs[field.name]}
               name={field.name}
@@ -237,6 +242,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               className={'selector-profile'}
               label={field.label}
               title={field.name}
+              disabled={field.disabled}
               defaultValue={field.defaultValue}
               options={field.options.map((option, index) => ({
                 key: index,
@@ -251,6 +257,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
           ) : (
             <Input
               key={field.name}
+              disabled={field.disabled}
               defaultValue={field.defaultValue}
               //@ts-ignore
               ref={field.fieldType !== 'select' && refs[field.name]}

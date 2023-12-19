@@ -27,7 +27,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       label: 'Occupation',
       defaultValue: user.other.occupation,
       fieldType: 'select',
-      options: data.sectorOptions,
+      options: data.occupationValues,
     },
     {
       name: 'invest_amount',
@@ -47,6 +47,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       label: 'Select sectors',
       defaultValue: user.other.sector,
       fieldType: 'select',
+      mode: 'tags',
       options: data.sectorOptions,
     },
     {
@@ -105,6 +106,12 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
               className={'selector-profile'}
               label={field.label}
               title={field.name}
+              mode={
+                (field.mode ? field.mode : undefined) as
+                  | 'tags'
+                  | 'multiple'
+                  | undefined
+              }
               defaultValue={field.defaultValue}
               options={field.options.map((option, index) => ({
                 key: index,

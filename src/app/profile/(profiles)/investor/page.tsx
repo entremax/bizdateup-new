@@ -40,7 +40,7 @@ export default async function InvestorProfile({ searchParams }: Props) {
     },
     {
       label: 'Referral Code',
-      value: user.phone,
+      value: user.refer ?? '',
     },
     {
       label: 'Address',
