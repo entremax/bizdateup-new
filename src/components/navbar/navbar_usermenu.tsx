@@ -181,7 +181,9 @@ const UserMenu = ({ user }: { user: DataInner | null }) => {
         <Dropdown menu={{ items, onClick }}>
           <Space>
             <div className={cn(avatarClass)}>
-              <Avatar size={'large'}>{user?.firstName ?? 'A'}</Avatar>
+              <Avatar size={'large'}>
+                {user?.firstName.charAt(0).toUpperCase() ?? 'A'}
+              </Avatar>
               {user && user?.membership?.isMember !== 'no' ? (
                 <>
                   <Icons.Premium
