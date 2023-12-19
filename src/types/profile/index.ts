@@ -10,6 +10,7 @@ export interface BaseField {
   fieldType?: undefined | 'select'
   defaultValue?: string | number | undefined | readonly string[]
   disabled?: boolean
+  placeholder?: string
 }
 
 export interface InputField extends BaseField {

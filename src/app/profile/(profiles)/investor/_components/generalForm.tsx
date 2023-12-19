@@ -142,14 +142,22 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     {
       name: 'city',
       label: 'City',
-      defaultValue: selected.country === 'India' ? user.address.city : '',
+      defaultValue:
+        selected.country === 'India' ? user.address.city : undefined,
+      disabled: selected.country !== 'India',
     },
     {
       name: 'state',
       label: 'State',
-      defaultValue: selected.country === 'India' ? user.address.state : '',
+      defaultValue:
+        selected.country === 'India'
+          ? user.address.state === ''
+            ? user.address.state
+            : undefined
+          : undefined,
       fieldType: 'select',
       options: States,
+      placeholder: selected.country === 'India' ? 'Select State' : undefined,
       disabled: selected.country !== 'India',
     },
     {
@@ -185,8 +193,8 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       email: values['email-id'],
       gender: selected.gender,
       address: values.address,
-      city: values.city,
-      state: selected.state,
+      city: selected.country === 'India' ? values.city : '',
+      state: selected.country === 'India' ? selected.state : '',
       pincode: values['pin-code'],
       country: selected.country,
       refer: values.referral,
@@ -212,6 +220,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
                 value: option.value,
                 label: option.label,
               }))}
+              placeholder={field.placeholder}
               defaultValue={field.defaultValue}
               name={field.name}
               onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
@@ -235,7 +244,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
         )}
       </div>
       <div className="h-2 w-full bg-light-shadow"></div>
-      <div className="mt-3 grid items-center gap-8 p-8 lg:grid-cols-2">
+      <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 lg:grid-cols-2">
         {inputFields.slice(6, 12).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -245,6 +254,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               title={field.name}
               disabled={field.disabled}
               defaultValue={field.defaultValue}
+              placeholder={field.placeholder}
               options={field.options.map((option, index) => ({
                 key: index,
                 value: option.value,
