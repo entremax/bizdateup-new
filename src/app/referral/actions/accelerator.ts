@@ -22,6 +22,7 @@ export async function createAccelerator() {
     },
   })
     .then((res) => {
+      console.log(res)
       return res.json()
     })
     .catch((e) => {
