@@ -181,7 +181,7 @@ const UserMenu = ({ user }: { user: DataInner | null }) => {
         <Dropdown menu={{ items, onClick }}>
           <Space>
             <div className={cn(avatarClass)}>
-              {user.profilePic === '' ? (
+              {user?.profilePic === '' ? (
                 <Avatar size={'large'}>
                   {`${user?.firstName.charAt(0).toUpperCase() ?? ''}
                   ${user?.lastName.charAt(0).toUpperCase() ?? ''}`}
