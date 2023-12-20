@@ -1,16 +1,10 @@
-import {
-  apiUri,
-  capitalizeFirstLetter,
-  formatIndianValuation,
-} from '@/lib/utils'
+import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
 import {
   IInterestCheckResponse,
   securityType,
   StartupDataResponse,
 } from '@/types/invest'
-import { Button, Input } from 'antd'
 import type { Metadata, ResolvingMetadata } from 'next'
-import Link from 'next/link'
 import React from 'react'
 import CompanyIntro from '@/components/invest/companyIntro'
 import DownloadFiles from '@/components/invest/downloadZip'
@@ -31,6 +25,8 @@ import { cookies } from 'next/headers'
 import ReduxProvider from '@/store/Provider'
 import PaymentStatusModal from '@/components/invest/paymentStatusModal'
 import { startupApis } from '@/lib/startup'
+import InvestButtonWInput from '@/components/invest/investButtonWInput'
+import HowItWorks from '@/components/invest/howItWorks'
 
 const { v0: apiV1 } = apiUri()
 
@@ -136,34 +132,7 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
           <PitchDeck />
           <TeamMembers startup={startupData} />
           <DownloadFiles className={'md:hidden'} startup={startupData} />
-          {!isClosed && (
-            <div className="hidden rounded-xl !bg-light-shadow px-4 py-4 shadow lg:inline lg:px-7 lg:py-5">
-              <h4 className="reset flex-grow text-2xl font-bold">
-                Made up your mind?
-              </h4>
-              <div className="grid w-full grid-cols-2 gap-4 py-2">
-                <Input
-                  size={'large'}
-                  type={'text'}
-                  placeholder={`₹ ${formatIndianValuation(
-                    startupData.dealTerms.minimumInvestment,
-                  )} min`}
-                  className={' !py-2 text-lg font-medium placeholder-gray-300'}
-                />
-                <Link
-                  href={'/link'}
-                  type={'default'}
-                  className={
-                    'flex items-center justify-center rounded-lg bg-primary  px-2 py-2 text-center text-sm font-medium leading-[1.57563rem] text-white outline-none lg:text-base'
-                  }>
-                  Invest in{' '}
-                  {capitalizeFirstLetter(
-                    startupData.registeredCompanyName.trim().split(' '),
-                  )}
-                </Link>
-              </div>
-            </div>
-          )}
+          {!isClosed && <InvestButtonWInput startupData={startupData} />}
           <CompanyInfo startup={startupData} />
           <StartupFeedback startup={startupData} />
         </div>
@@ -172,15 +141,7 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
             'md:col-end col-span-full hidden flex-col gap-4 md:col-start-8 md:flex md:pl-8 xl:col-start-8 xl:col-end-12 xl:px-12'
           }>
           <DealTerms startup={startupData} />
-          <Button
-            className={
-              'text-whit flex items-center justify-center rounded-lg  !border-0 !bg-light-shadow !px-2   !py-2  text-sm !font-medium leading-[1.57563rem] !text-primary !outline-none lg:text-base'
-            }
-            size={'large'}
-            block
-            type={'default'}>
-            How it works
-          </Button>
+          <HowItWorks startup={startupData} />
           <DownloadFiles startup={startupData} />
           {/*<DownloadVideo startup={startupData}/>*/}
           <StartAd className={'hidden'} />

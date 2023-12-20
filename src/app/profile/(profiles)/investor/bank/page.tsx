@@ -42,11 +42,18 @@ export default async function Bank({ searchParams }: Props) {
       value: user.bank.registeredName,
     },
   ]
+  console.log(
+    'Edit',
+    user.bank.status !== 'pending',
+    user.bank.status,
+    'Edit State',
+    editState,
+  )
   return (
     <div className="flex flex-col">
-      {editState ? (
+      {user.bank.status !== 'pending' && !searchParams.edit ? (
         <div className="grid grid-cols-1">
-          <div className="grid grid-cols-3 gap-8 p-8">
+          <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
             {data.map(({ label, value }) => (
               <React.Fragment key={label}>
                 <div className="grid gap-2">

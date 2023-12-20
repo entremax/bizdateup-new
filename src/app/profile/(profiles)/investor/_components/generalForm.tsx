@@ -2,15 +2,14 @@
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { FieldNames, Fields, Refs } from '@/types/profile'
+import Input from '@/components/form/Input'
 import Select from '@/components/form/Select'
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
-import dynamic from 'next/dynamic'
 
-const Input = dynamic(() => import('@/components/form/Input'), { ssr: false })
 const States = [
   { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
   { value: 'Arunachal Pradesh', label: 'Arunachal Pradesh' },
@@ -62,7 +61,8 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     city: useRef<InputRef | null>(null),
     'pin-code': useRef<InputRef | null>(null),
   }
-  const { handleUpdate } = useUpdateContext()
+
+  const { handleUpdate, loading } = useUpdateContext()
   const [selected, setSelected] = useState({
     gender: user.gender,
     country: user.address.country,
@@ -84,28 +84,31 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       type: 'email',
       label: 'EmailID',
       defaultValue: user?.email,
+      disabled: !!user?.email,
     },
     {
       name: 'phone-number',
       label: 'Phone number',
       defaultValue: user?.phone,
+      disabled: !!user?.phone,
     },
     {
       name: 'gender',
       label: 'Gender',
       fieldType: 'select',
-      defaultValue: user?.gender,
+      defaultValue: user?.gender === 'none' ? undefined : user?.gender,
+      placeholder: user?.gender === 'none' ? 'Select Gender' : undefined,
       options: [
         {
-          value: 'Male',
+          value: 'male',
           label: 'Male',
         },
         {
-          value: 'Female',
+          value: 'female',
           label: 'Female',
         },
         {
-          value: 'Other',
+          value: 'other',
           label: 'Other',
         },
       ],
@@ -114,6 +117,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       name: 'referral',
       defaultValue: user?.refer as string,
       label: 'Referral Code',
+      disabled: !!user?.refer,
     },
     {
       name: 'address',
@@ -139,14 +143,26 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     {
       name: 'city',
       label: 'City',
-      defaultValue: user?.address?.city,
+      defaultValue: user.address.city === '' ? user.address.city : undefined,
     },
     {
       name: 'state',
       label: 'State',
-      defaultValue: user.address.state,
+      defaultValue:
+        selected.country === 'India'
+          ? user.address.state !== ''
+            ? user.address.state
+            : undefined
+          : undefined,
       fieldType: 'select',
       options: States,
+      placeholder:
+        selected.country === 'India'
+          ? user.address.state !== ''
+            ? user.address.state
+            : 'Select State'
+          : undefined,
+      disabled: selected.country !== 'India',
     },
     {
       name: 'pin-code',
@@ -165,7 +181,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       [fieldName]: value,
     }))
   }
-
+  console.log(user)
   const handleProfileUpdate = async () => {
     let values: { [key in FieldNames]: unknown | null } = {} as {
       [key in FieldNames]: unknown | null
@@ -182,18 +198,19 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       gender: selected.gender,
       address: values.address,
       city: values.city,
-      state: selected.state,
+      state: selected.country === 'India' ? selected.state : '',
       pincode: values['pin-code'],
       country: selected.country,
+      refer: values.referral,
     } as unknown as DataInner
-
+    console.log(formData, values)
     await handleUpdate(formData, 'general')
     return router.refresh()
   }
 
   return (
     <div className="grid grid-cols-1">
-      <div className="grid grid-cols-2 gap-8 p-8">
+      <div className="grid gap-8 p-8 lg:grid-cols-2">
         {inputFields.slice(0, 6).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -201,11 +218,13 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               className={'selector-profile'}
               label={field.label}
               title={field.name}
+              disabled={field.disabled}
               options={field.options.map((option, index) => ({
                 key: index,
                 value: option.value,
                 label: option.label,
               }))}
+              placeholder={field.placeholder}
               defaultValue={field.defaultValue}
               name={field.name}
               onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
@@ -217,6 +236,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
             <Input
               key={field.name}
               defaultValue={field.defaultValue}
+              disabled={field.disabled}
               //@ts-ignore
               ref={field.fieldType !== 'select' && refs[field.name]}
               name={field.name}
@@ -228,7 +248,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
         )}
       </div>
       <div className="h-2 w-full bg-light-shadow"></div>
-      <div className="mt-3 grid grid-cols-2 items-center gap-8 p-8">
+      <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 lg:grid-cols-2">
         {inputFields.slice(6, 12).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -236,7 +256,9 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               className={'selector-profile'}
               label={field.label}
               title={field.name}
+              disabled={field.disabled}
               defaultValue={field.defaultValue}
+              placeholder={field.placeholder}
               options={field.options.map((option, index) => ({
                 key: index,
                 value: option.value,
@@ -250,6 +272,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
           ) : (
             <Input
               key={field.name}
+              disabled={field.disabled}
               defaultValue={field.defaultValue}
               //@ts-ignore
               ref={field.fieldType !== 'select' && refs[field.name]}
@@ -263,11 +286,14 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       </div>
       <div className=" flex items-center justify-end px-8 pb-8">
         <Button
+          loading={loading}
+          disabled={loading}
           type={'default'}
           onClick={handleProfileUpdate}
           className={
-            'col-span-2 hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
-          }>
+            'col-span-2 !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+          }
+          block>
           Save
         </Button>
       </div>

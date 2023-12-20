@@ -2,18 +2,18 @@ import { StartupData } from '@/types/invest'
 import React, { useRef, useState } from 'react'
 import { Button, Checkbox, Form, Input, Tooltip } from 'antd'
 import { InputRef } from 'antd/lib/input'
-import { useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { cn, formatIndianValuation } from '@/lib/utils'
 import { Icons } from '@/components/icons/icon'
 import { useRouter } from 'next/navigation'
 import TermsModal from '@/components/invest/termsModals'
 import Link from 'next/link'
+import { setAmountToInvest } from '@/reducers/user/investorSlice'
 
 type TransactionTypes = 'online' | 'offline' | null
 type Props = {
   startup: StartupData
   amount: number
-  setAmount: React.Dispatch<React.SetStateAction<number>>
   setTransactionType: React.Dispatch<React.SetStateAction<TransactionTypes>>
   setAmountToPay: React.Dispatch<React.SetStateAction<number>>
   fees: any
@@ -30,7 +30,6 @@ type FieldType = {
 const InvestForm: React.FC<Props> = ({
   startup,
   amount,
-  setAmount,
   paymentLoading,
   setTransactionType,
   setAmountToPay,
@@ -38,7 +37,9 @@ const InvestForm: React.FC<Props> = ({
   handlePayment,
 }) => {
   const router = useRouter()
+  const dispatch = useAppDispatch()
   const { premiumMember } = useAppSelector((state) => state.authUser)
+  const { amountToInvest } = useAppSelector(({ investor }) => investor)
   const inputRef = useRef<InputRef | null>(null)
   const minInvestment = startup.dealTerms.minimumInvestment
   const [policyChecked, setPolicyChecked] = useState(false)
@@ -52,12 +53,12 @@ const InvestForm: React.FC<Props> = ({
    * @param {number} i - The amount to be added.
    */
   const addAmount = (i: number) => {
-    let currentValue: number = 0
+    let currentValue: number = amountToInvest
     if (inputRef.current && inputRef.current.input) {
       currentValue = inputRef?.current?.input.valueAsNumber || 0
     }
     const newAmount = currentValue + i
-    setAmount(newAmount)
+    dispatch(setAmountToInvest(newAmount))
   }
 
   /**
@@ -73,7 +74,7 @@ const InvestForm: React.FC<Props> = ({
         ? 0
         : inputRef?.current?.input.valueAsNumber
     }
-    setAmount(currentValue)
+    dispatch(setAmountToInvest(currentValue))
   }
 
   return (
@@ -135,7 +136,7 @@ const InvestForm: React.FC<Props> = ({
               <Icons.Info height={'1rem'} width={'1rem'} />
             </Tooltip>
             {premiumMember ? (
-              <div className=" md:text-md rounded-full bg-yellow-400 px-3 text-xs">
+              <div className=" md:text-md rounded-full bg-yellow-400 px-3 text-xs text-black-lighter">
                 MEMBER WAVIER
               </div>
             ) : null}
@@ -232,7 +233,10 @@ const InvestForm: React.FC<Props> = ({
         )}
         <div className="grid gap-4 px-4">
           <Button
-            onClick={() => handlePayment('online')}
+            onClick={() => {
+              setTransactionType('online')
+              handlePayment('online')
+            }}
             loading={paymentLoading}
             disabled={
               !riskInvestmentChecked ||

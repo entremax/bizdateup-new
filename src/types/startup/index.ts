@@ -14,6 +14,16 @@ export type StartupUpdate = {
   company_name: string
   title: string
   created_at: string
+  content?: string
+}
+
+export interface IStartUpdateDetails {
+  _id: string
+  logo: string
+  company_name: string
+  title: string
+  content: string
+  banner: string
 }
 
 export interface IStartupDetails {

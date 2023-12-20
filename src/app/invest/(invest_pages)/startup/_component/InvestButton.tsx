@@ -10,11 +10,18 @@ type Props = {
   startup: StartupData
   intro?: boolean
   sticky?: boolean
+  inourt?: boolean
 }
 
-export default function InvestButton({ isClosed, startup, sticky }: Props) {
-  let parentClass =
-    'md:static w-inherit flex shadow md:shadow-none flex-col justify-center items-center gap-4 fixed bottom-16 left-0 right-0 bg-white  z-[500] z-[10]  p-4 '
+export default function InvestButton({
+  isClosed,
+  startup,
+  sticky,
+  inourt,
+}: Props) {
+  let parentClass = inourt
+    ? ''
+    : 'md:static w-inherit flex shadow md:shadow-none flex-col justify-center items-center gap-4 fixed bottom-16 left-0 right-0 bg-white  z-[500] z-[10]  p-4 lg:px-0'
   return (
     <div className={cn(parentClass)}>
       {isClosed ? (
@@ -33,7 +40,7 @@ export default function InvestButton({ isClosed, startup, sticky }: Props) {
         </ReduxProvider>
       )}
       {!sticky && (
-        <span className={cn('text-center text-sm md:text-lg')}>
+        <span className={cn('text-center text-sm text-gray-400')}>
           Minimum investment ₹{' '}
           {formatIndianValuation(startup.dealTerms.minimumInvestment)}
         </span>

@@ -66,6 +66,7 @@ export interface DataInner {
   __v: number
   code: number
   refer: null | string
+  profilePic: string
 }
 
 export interface IInvestorData {
@@ -225,6 +226,7 @@ export interface IInvestmentItem {
 }
 
 export interface IInvestorSlice {
+  amountToInvest: number
   totalamount: number
   investedStartups: {
     pending: IInvestmentItem[]

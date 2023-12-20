@@ -12,13 +12,13 @@ export default function InvestmentManager() {
   return (
     <div className="flex flex-col">
       <div className="grid grid-cols-1">
-        <div className="grid grid-cols-2 gap-2 p-8">
+        <div className="grid gap-2 p-8 xl:grid-cols-2">
           <div
             // key={member.fullName}
             className={'flex items-center gap-4 py-0 lg:gap-2'}>
             <div className="max-w-[100]">
               <Avatar
-                size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+                size={{ xs: 64, xl: 80, xxl: 100 }}
                 src={
                   'https://s3-alpha-sig.figma.com/img/30bf/ef45/e54d7c4df029b56b699c918a3686ce10?Expires=1701648000&Signature=Zz~~2IvA5SJnt21tUNT92y10ZAyCe15yYwxVI3hT--JF5gInPu9DYMUWCnImBLgLT9NuITFVT5~NURoqn15DgQImdbmFC72VD6r1Gd8sfMULug~7wXulkqQ59nR8-txk937MfC~--6QFMnAhQXRs2ni0PB2NGYJKe--INv5IB7KBhdT3NcGTzGBxsKR97C2ImSe-oWrTA8D7o3kVpNjsI1Ogi9DzTJ3~yG~Y4winQWlfeLkRkmwwXyZEXBHE43I2DYoIn04c8q~uk-JnA-w9cZGfKtpL4M5EkVjvULeiBBEthjHnbBH4XBQFbh37FQKoW3xlKk18eP-Tzrq1smad2A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 }
@@ -39,24 +39,32 @@ export default function InvestmentManager() {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-2 items-center justify-center gap-3">
+          <div className="inline-block xl:hidden">
+            <p className={'text-xs italic leading-[1.5rem] text-[#7D7D7D]'}>
+              Your investment manager will be available to chat on Whatsapp
+              between 9am - 5 pm on every Sunday and Tuesday
+            </p>
+          </div>
+          <div className="grid gap-3 xl:grid-cols-2 xl:items-center xl:justify-center">
             <Button
               type={'default'}
               size={'middle'}
               icon={<MessageOutlined className={'text-white'} />}
               className={
                 '!bg-primary !text-white outline-none hover:!bg-primary '
-              }>
+              }
+              block>
               Chat with us
             </Button>
             <Button
               type={'default'}
               size={'middle'}
-              className={'!text-primary !outline-2 !outline-primary'}>
+              className={'!text-primary !outline-2 !outline-primary'}
+              block>
               Schedule a meet
             </Button>
           </div>
-          <div className="">
+          <div className="hidden xl:inline-block">
             <p className={'text-xs italic leading-[1.5rem] text-[#7D7D7D]'}>
               Your investment manager will be available to chat on Whatsapp
               between 9am - 5 pm on every Sunday and Tuesday

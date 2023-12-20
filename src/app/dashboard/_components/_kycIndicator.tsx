@@ -1,5 +1,5 @@
 'use client'
-import { Button, Progress, Space } from 'antd'
+import { Progress, Space } from 'antd'
 import { cn } from '@/lib/utils'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { AuthUserState, IInvestmentItem } from '@/types'
@@ -61,66 +61,40 @@ const KycIndicator = ({
 
   return (
     <>
-      {user ? (
-        kycCompletionPercentage < 100 ? (
-          <div
-            className={cn(
-              'border_gray grid gap-2 rounded-xl bg-light-shadow p-5' +
-                ' ' +
-                className +
-                (hidden ? 'hidden' : ''),
-            )}>
-            <div className={'flex'}>
-              <div className="grid">
-                <h5
-                  className={'reset text-lg font-semibold text-black-lighter'}>
-                  Complete your KYC
-                </h5>
-                <p className={'!m-0 !p-0 text-sm text-typography-gray-400'}>
-                  To allow payments we require you to complete KYC
-                </p>
-              </div>
-              <div className="grow"></div>
-              <Space wrap>
-                <Progress
-                  strokeLinecap="butt"
-                  type="dashboard"
-                  percent={kycCompletionPercentage}
-                  size={67}
-                  gapDegree={0}
-                />
-              </Space>
-            </div>
-            <Button
-              type={'default'}
-              size={'large'}
-              className={'button_primary !my-3 !mb-0 !text-sm !text-white'}
-              block>
-              Continue procedure
-            </Button>
-          </div>
-        ) : (
-          <div
-            className={cn(
-              'border_gray grid gap-2 divide-x-0 divide-y divide-solid divide-gray-300 rounded-xl !bg-white shadow' +
-                ' ' +
-                className +
-                (hidden ? 'hidden' : ''),
-            )}>
-            <div className={'grid gap-2 px-4 py-3'}>
-              <h3 className={'reset text-3xl'}>₹ {totalamount}</h3>
-              <p className={'reset text-sm text-gray-400'}>
-                total amount invested in {investedStartups.approved.length}{' '}
-                startups
+      {user && kycCompletionPercentage < 100 ? (
+        <div
+          className={cn(
+            'border_gray grid gap-2 rounded-xl bg-light-shadow p-5' +
+              ' ' +
+              className +
+              (hidden ? 'hidden' : ''),
+          )}>
+          <div className={'flex'}>
+            <div className="grid">
+              <h5 className={'reset text-lg font-semibold text-black-lighter'}>
+                Complete your KYC
+              </h5>
+              <p className={'!m-0 !p-0 text-sm text-typography-gray-400'}>
+                To allow payments we require you to complete KYC
               </p>
             </div>
-            <div className="grid items-center justify-center">
-              <Link href={'/portfolio'} className={'py-2 text-primary'}>
-                Check Portfolio
-              </Link>
-            </div>
+            <div className="grow"></div>
+            <Space wrap>
+              <Progress
+                strokeLinecap="butt"
+                type="dashboard"
+                percent={kycCompletionPercentage}
+                size={67}
+                gapDegree={0}
+              />
+            </Space>
           </div>
-        )
+          <Link
+            href={'/profile/investor'}
+            className={'!primary_link !my-3 !mb-0 !text-sm !text-white'}>
+            Continue procedure
+          </Link>
+        </div>
       ) : (
         <div
           className={cn(
@@ -129,9 +103,16 @@ const KycIndicator = ({
               className +
               (hidden ? 'hidden' : ''),
           )}>
+          <div className={'grid gap-2 px-4 py-3'}>
+            <h3 className={'reset text-3xl'}>₹ {totalamount}</h3>
+            <p className={'reset text-sm text-gray-400'}>
+              total amount invested in {investedStartups.approved.length}{' '}
+              startups
+            </p>
+          </div>
           <div className="grid items-center justify-center">
-            <Link href={'/login'} className={'py-2 text-primary'}>
-              Please login to Continue
+            <Link href={'/portfolio'} className={'py-2 text-primary'}>
+              Check Portfolio
             </Link>
           </div>
         </div>

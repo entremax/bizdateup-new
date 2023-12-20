@@ -60,17 +60,17 @@ const CustomModal: React.FC<CustomModelProps> = ({
   const [childrenVisible, setChildrenVisible] = useState(true)
   const styleForModal = useMemo(
     () => modalStyle[location]?.modalStyle || defaultStyle.modalStyle,
-    [location, defaultStyle],
+    [location],
   )
 
   const stylesForModalContent = useMemo(
     () => modalStyle[location]?.contentStyle || defaultStyle.contentStyle,
-    [location, defaultStyle],
+    [location],
   )
 
   const modalProps = useMemo(
     () => modalStyle[location]?.modalProps || defaultStyle.modalProps,
-    [location, defaultStyle],
+    [location],
   )
 
   const handleClose = () => {

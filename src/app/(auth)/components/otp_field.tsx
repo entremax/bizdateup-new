@@ -186,6 +186,7 @@ export default function OtpField({ id }: { id: string }) {
         </p>
         <div className={'otp m-0 flex items-center justify-center p-0 px-6'}>
           <OtpInput
+            inputType={'number'}
             value={otp}
             onChange={setOtp}
             numInputs={4}

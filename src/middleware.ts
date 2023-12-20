@@ -7,6 +7,8 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
   investor: [
     /\/dashboard.*/,
     /\/invest.*/,
+    /\/startup\/updates/,
+    /\/startup\/update.*/,
     /\/profile\/investor.*/,
     /\/transactions.*/,
     /\/referral.*/,

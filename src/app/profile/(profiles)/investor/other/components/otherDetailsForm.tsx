@@ -4,7 +4,6 @@ import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import Select from '@/components/form/Select'
 import Input from '@/components/form/Input'
-import UploadCheck from '@/components/profile/dropCheck'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
@@ -14,6 +13,7 @@ import data from '@/data'
 const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
   const linkedinUrlRef = useRef<InputRef | null>(null)
   const { handleUpdate } = useUpdateContext()
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const [selected, setSelected] = useState({
     occupation: user.other.occupation,
@@ -21,14 +21,14 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
     sectors: user.other.sector,
     'invested-before': user.other.investedFund,
   })
-
+  console.log(loading)
   const inputFields = [
     {
       name: 'occupation',
       label: 'Occupation',
       defaultValue: user.other.occupation,
       fieldType: 'select',
-      options: data.sectorOptions,
+      options: data.occupationValues,
     },
     {
       name: 'invest_amount',
@@ -48,6 +48,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       label: 'Select sectors',
       defaultValue: user.other.sector,
       fieldType: 'select',
+      mode: 'tags',
       options: data.sectorOptions,
     },
     {
@@ -57,11 +58,11 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       fieldType: 'select',
       options: [
         {
-          value: 'Yes',
+          value: 'yes',
           label: 'Yes',
         },
         {
-          value: 'No',
+          value: 'no',
           label: 'No',
         },
       ],
@@ -74,6 +75,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
   ]
 
   const handleOtherUpdate = async () => {
+    setLoading(true)
     const linkedinUrl =
       linkedinUrlRef?.current?.input?.value ?? user.other.linkedlnUrl
     const formData = {
@@ -84,8 +86,8 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       investedFund: selected['invested-before'],
     } as unknown as DataInner
 
-    console.log(formData)
     await handleUpdate(formData, 'other')
+    setLoading(false)
     return router.refresh()
   }
 
@@ -98,7 +100,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
 
   return (
     <div className="grid grid-cols-1">
-      <div className="grid grid-cols-2 gap-8 p-8">
+      <div className="grid gap-8 p-8 xl:grid-cols-2">
         {inputFields.map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -106,6 +108,12 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
               className={'selector-profile'}
               label={field.label}
               title={field.name}
+              mode={
+                (field.mode ? field.mode : undefined) as
+                  | 'tags'
+                  | 'multiple'
+                  | undefined
+              }
               defaultValue={field.defaultValue}
               options={field.options.map((option, index) => ({
                 key: index,
@@ -132,23 +140,16 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
           ),
         )}
       </div>
-      <div className="mt-3 grid grid-cols-2 items-center gap-8 p-8 py-0">
-        <div className="grid gap-2">
-          <p className="font-medium leading-[1.6] !text-gray-900">
-            Upload Cancelled Check
-          </p>
-          <div className="g">
-            <UploadCheck />
-          </div>
-        </div>
-      </div>
-      <div className=" flex items-center justify-end px-8 pb-8">
+      <div className=" my-6 flex items-center justify-end px-8 pb-8">
         <Button
+          loading={loading}
+          disabled={loading}
           type={'default'}
           onClick={handleOtherUpdate}
           className={
-            'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
-          }>
+            '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+          }
+          block>
           Save
         </Button>
       </div>

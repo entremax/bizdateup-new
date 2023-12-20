@@ -553,21 +553,18 @@ export const Icons = {
       {...props}>
       <path
         d="M12.7161 14.2236H5.49609"
-        stroke="black"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M12.7161 10.0371H5.49609"
-        stroke="black"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M8.25109 5.86035H5.49609"
-        stroke="black"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -576,7 +573,6 @@ export const Icons = {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M12.908 0.75C12.908 0.75 5.231 0.754 5.219 0.754C2.459 0.771 0.75 2.587 0.75 5.357V14.553C0.75 17.337 2.472 19.16 5.256 19.16C5.256 19.16 12.932 19.157 12.945 19.157C15.705 19.14 17.415 17.323 17.415 14.553V5.357C17.415 2.573 15.692 0.75 12.908 0.75Z"
-        stroke="black"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

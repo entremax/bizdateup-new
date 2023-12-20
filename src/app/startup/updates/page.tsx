@@ -1,7 +1,7 @@
-import StartupUpdate from '@/components/StartupUpdate'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
+import UpdatesWrapper from '@/app/startup/updates/components/UpdatesWrapper'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function StartupUpdates({ searchParams }: Props) {
   const updateType = searchParams?.type
-  console.log(updateType)
+
   const updateRoute = [
     {
       name: undefined,
@@ -40,14 +40,15 @@ export default function StartupUpdates({ searchParams }: Props) {
       label: 'Closed Category',
     },
   ]
+
   return (
-    <main className="w-full pt-28 ">
-      <div className="flex flex-col gap-4 px-4 md:px-12 lg:px-32">
+    <main className="w-full">
+      <div className=" flex flex-col gap-4 px-4">
         <h2 className="text-3xl">Startup Updates</h2>
-        <div className={'flex items-center gap-4'}>
+        <div className={'hidden items-center gap-4 md:flex'}>
           {updateRoute.map(({ name, label }) => (
             <Link
-              key={'name'}
+              key={label}
               href={'/invest/startup/updates' + (!name ? '' : `?type=${name}`)}
               className={cn(
                 updateType === name
@@ -59,14 +60,7 @@ export default function StartupUpdates({ searchParams }: Props) {
           ))}
         </div>
         <div className="flex flex-col gap-3">
-          <StartupUpdate
-            component_type={'page'}
-            logo={''}
-            title={''}
-            name={''}
-            startup={''}
-            created={''}
-          />
+          <UpdatesWrapper />
         </div>
       </div>
     </main>

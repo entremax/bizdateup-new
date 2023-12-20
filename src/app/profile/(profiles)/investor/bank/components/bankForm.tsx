@@ -12,7 +12,7 @@ import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
 
 export default function BankForm({ user }: { user: DataInner }) {
-  const { handleUpdate } = useUpdateContext()
+  const { handleUpdate, loading } = useUpdateContext()
   const router = useRouter()
   const refs = {
     ifsc: useRef<InputRef | null>(null),
@@ -90,7 +90,7 @@ export default function BankForm({ user }: { user: DataInner }) {
   }
   return (
     <div className="grid grid-cols-1">
-      <div className="grid grid-cols-2 gap-8 p-8">
+      <div className="grid gap-8 p-8 xl:grid-cols-2">
         {inputFields.slice(0, 6).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -123,7 +123,7 @@ export default function BankForm({ user }: { user: DataInner }) {
           ),
         )}
       </div>
-      <div className="mt-3 grid grid-cols-2 items-center gap-8 p-8 py-0">
+      <div className="mt-3 grid  items-center gap-8 p-8 py-0 xl:grid-cols-2">
         <div className="grid gap-2">
           <p className="font-medium leading-[1.6] !text-gray-900">
             Upload Cancelled Check
@@ -133,13 +133,17 @@ export default function BankForm({ user }: { user: DataInner }) {
           </div>
         </div>
       </div>
-      <div className=" flex items-center justify-end px-8 pb-8">
+      <div className="grow"></div>
+      <div className=" my-4 flex items-center justify-end px-8 pb-8">
         <Button
+          loading={loading}
+          disabled={loading}
           type={'default'}
           onClick={handleBankUpdate}
           className={
-            'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
-          }>
+            '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+          }
+          block>
           Save
         </Button>
       </div>

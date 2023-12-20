@@ -9,6 +9,7 @@ import AntNotification from '@/components/notification'
 import MobileNavbar from '@/components/navbar/navbar_mobile'
 import UserProvider from '@/hooks/useUser'
 import dynamic from 'next/dynamic'
+import Footer from '@/components/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +29,7 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
             <UserProvider>
               <Navbar />
               {children}
+              <Footer />
               <MobileNavbar />
               <AntNotification />
             </UserProvider>

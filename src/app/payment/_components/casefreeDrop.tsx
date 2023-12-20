@@ -33,38 +33,30 @@ const CaseFreeDrop: React.FC<Props> = ({ session_id, searchParams }) => {
   }
   React.useEffect(() => renderDrop(), [])
 
-  const paymentUpdate = async () => {
-    return onlinePaymentVerify({
-      order_id,
-    })
-      .unwrap()
-      .then((res) => {
-        return res
-      })
-      .catch((e) => {
-        console.log(e)
-      })
-  }
   const paymentSuccess = async (data: any) => {
     if (data.order && data.order.status === 'PAID') {
-      const update = await paymentUpdate()
-      if (update?.code === 200) {
-        store.dispatch(
-          showModal({
-            status: 'success',
-            startup_id,
-          }),
-        )
-        return router.back()
-      } else {
-        store.dispatch(
-          setNotification({
-            type: 'error',
-            message: "Couldn't verify Payment",
-          }),
-        )
-        return
+      try {
+        const res = await onlinePaymentVerify({ order_id })
+
+        if ('data' in res && res?.data?.code === 200) {
+          store.dispatch(
+            showModal({
+              status: 'success',
+              startup_id,
+            }),
+          )
+          return router.back()
+        }
+      } catch (e) {
+        console.error(e)
       }
+
+      store.dispatch(
+        setNotification({
+          type: 'error',
+          message: "Couldn't verify Payment",
+        }),
+      )
     } else {
       store.dispatch(
         setNotification({
