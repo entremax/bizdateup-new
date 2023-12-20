@@ -4,7 +4,7 @@ import { Icons } from '@/icons/icon'
 import type { MenuProps } from 'antd'
 import { Avatar, Badge, Button, Dropdown, Space, Tooltip } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { cn } from '@/lib/utils'
+import { apiUri, cn } from '@/lib/utils'
 import {
   reset as authReset,
   reset as investReset,
@@ -181,9 +181,17 @@ const UserMenu = ({ user }: { user: DataInner | null }) => {
         <Dropdown menu={{ items, onClick }}>
           <Space>
             <div className={cn(avatarClass)}>
-              <Avatar size={'large'}>
-                {user?.firstName.charAt(0).toUpperCase() ?? 'A'}
-              </Avatar>
+              {user.profilePic === '' ? (
+                <Avatar size={'large'}>
+                  {`${user?.firstName.charAt(0).toUpperCase() ?? ''}
+                  ${user?.lastName.charAt(0).toUpperCase() ?? ''}`}
+                </Avatar>
+              ) : (
+                <Avatar
+                  size="large"
+                  src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
+                />
+              )}
               {user && user?.membership?.isMember !== 'no' ? (
                 <>
                   <Icons.Premium

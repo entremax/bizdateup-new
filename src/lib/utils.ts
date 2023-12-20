@@ -4,6 +4,7 @@ import { KYCStatus } from '@/types'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { NavigationKey } from '@/components/auth/otp_field'
+import type { RcFile } from 'antd/es/upload'
 
 /**
  * Combines multiple class values into a single string.
@@ -195,3 +196,11 @@ export function formatNumberWithDecimal(value: number): string {
     return value.toFixed(1)
   }
 }
+
+export const getBase64 = (file: RcFile): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = (error) => reject(error)
+  })

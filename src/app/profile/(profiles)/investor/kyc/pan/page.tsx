@@ -1,45 +1,39 @@
 import React from 'react'
 import { DataInner, KYCStatus } from '@/types'
 import getUserDetails from '@/action/user'
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
-export const metadata: Metadata = {
-  title: 'KYC - Profile | Bizdateup',
-  description: 'Your kyc status',
-}
-
-export default async function KYC({ searchParams }: Props) {
+export default async function PanPage({ searchParams }: Props) {
   const { user, status }: { user: DataInner; status: KYCStatus[] } =
     await getUserDetails()
   if (!user) {
     return <>Loading</>
   }
   const data = {
-    aadhar: [
+    pan: [
       {
         label: 'Type',
         value: 'Online KYC',
       },
       {
         label: 'Document',
-        value: 'Aadhar Card',
+        value: 'PAN Card',
       },
       {
-        label: 'Aadhar number',
-        value: user.aadhar.aadharNo,
+        label: 'PAN number',
+        value: user.pan.panNo,
       },
       {
-        label: 'Aadhar font',
+        label: 'PAN font',
         value: 'Document',
         link: true,
       },
       {
-        label: 'Aadhar back',
+        label: 'PAN back',
         value: 'Document',
         link: true,
       },
@@ -50,7 +44,7 @@ export default async function KYC({ searchParams }: Props) {
       {user?.aadhar.status === 'verified' && !searchParams.edit ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
-            {data.aadhar.map(({ label, value, link }) => (
+            {data.pan.map(({ label, value, link }) => (
               <React.Fragment key={label}>
                 <div className="grid gap-2">
                   <p className="text-md text-gray-400">{label}</p>

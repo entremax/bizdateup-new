@@ -12,7 +12,7 @@ import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
 
 export default function BankForm({ user }: { user: DataInner }) {
-  const { handleUpdate } = useUpdateContext()
+  const { handleUpdate, loading } = useUpdateContext()
   const router = useRouter()
   const refs = {
     ifsc: useRef<InputRef | null>(null),
@@ -136,6 +136,8 @@ export default function BankForm({ user }: { user: DataInner }) {
       <div className="grow"></div>
       <div className=" my-4 flex items-center justify-end px-8 pb-8">
         <Button
+          loading={loading}
+          disabled={loading}
           type={'default'}
           onClick={handleBankUpdate}
           className={

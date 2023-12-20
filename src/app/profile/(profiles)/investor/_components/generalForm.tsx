@@ -62,7 +62,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     'pin-code': useRef<InputRef | null>(null),
   }
 
-  const { handleUpdate } = useUpdateContext()
+  const { handleUpdate, loading } = useUpdateContext()
   const [selected, setSelected] = useState({
     gender: user.gender,
     country: user.address.country,
@@ -100,15 +100,15 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       placeholder: user?.gender === 'none' ? 'Select Gender' : undefined,
       options: [
         {
-          value: 'Male',
+          value: 'male',
           label: 'Male',
         },
         {
-          value: 'Female',
+          value: 'female',
           label: 'Female',
         },
         {
-          value: 'Other',
+          value: 'other',
           label: 'Other',
         },
       ],
@@ -197,7 +197,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       email: values['email-id'],
       gender: selected.gender,
       address: values.address,
-      city: selected.country === 'India' ? values.city : '',
+      city: values.city,
       state: selected.country === 'India' ? selected.state : '',
       pincode: values['pin-code'],
       country: selected.country,
@@ -286,6 +286,8 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       </div>
       <div className=" flex items-center justify-end px-8 pb-8">
         <Button
+          loading={loading}
+          disabled={loading}
           type={'default'}
           onClick={handleProfileUpdate}
           className={

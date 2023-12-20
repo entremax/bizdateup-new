@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import ImageUploader from '@/components/profile/profileImageUploader'
+import ImageUploader from '@/components/profile/profileImageUploaderCustom'
 import ReduxProvider from '@/store/Provider'
 import { DataInner } from '@/types'
 import { cookies } from 'next/headers'

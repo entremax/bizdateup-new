@@ -66,6 +66,7 @@ export interface DataInner {
   __v: number
   code: number
   refer: null | string
+  profilePic: string
 }
 
 export interface IInvestorData {

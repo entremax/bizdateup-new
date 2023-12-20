@@ -13,6 +13,7 @@ import data from '@/data'
 const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
   const linkedinUrlRef = useRef<InputRef | null>(null)
   const { handleUpdate } = useUpdateContext()
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const [selected, setSelected] = useState({
     occupation: user.other.occupation,
@@ -20,7 +21,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
     sectors: user.other.sector,
     'invested-before': user.other.investedFund,
   })
-
+  console.log(loading)
   const inputFields = [
     {
       name: 'occupation',
@@ -57,11 +58,11 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       fieldType: 'select',
       options: [
         {
-          value: 'Yes',
+          value: 'yes',
           label: 'Yes',
         },
         {
-          value: 'No',
+          value: 'no',
           label: 'No',
         },
       ],
@@ -74,6 +75,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
   ]
 
   const handleOtherUpdate = async () => {
+    setLoading(true)
     const linkedinUrl =
       linkedinUrlRef?.current?.input?.value ?? user.other.linkedlnUrl
     const formData = {
@@ -84,8 +86,8 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       investedFund: selected['invested-before'],
     } as unknown as DataInner
 
-    console.log(formData)
     await handleUpdate(formData, 'other')
+    setLoading(false)
     return router.refresh()
   }
 
@@ -140,6 +142,8 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       </div>
       <div className=" my-6 flex items-center justify-end px-8 pb-8">
         <Button
+          loading={loading}
+          disabled={loading}
           type={'default'}
           onClick={handleOtherUpdate}
           className={

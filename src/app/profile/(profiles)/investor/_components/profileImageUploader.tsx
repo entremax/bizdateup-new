@@ -6,6 +6,7 @@ import type { RcFile, UploadProps } from 'antd/es/upload'
 import type { UploadFile } from 'antd/es/upload/interface'
 import { useAppDispatch } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
+import { apiUri } from '@/lib/utils'
 
 const getBase64 = (file: RcFile): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -65,7 +66,7 @@ const ImageUploader: React.FC = () => {
   return (
     <div className={'min-h-[6rem] max-w-[6rem]'}>
       <Upload
-        action={'https://askmateapi.blubuddy.io/v1/caption/image'}
+        action={apiUri().v0 + '/startup/logo'}
         listType="picture-circle"
         //@ts-ignore
         file={file}

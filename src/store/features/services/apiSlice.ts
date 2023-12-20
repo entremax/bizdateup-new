@@ -12,7 +12,7 @@ import {
   IStartupFeedBackResponse,
 } from '@/types/invest'
 
-const baseUrl = apiUri().v0
+const baseUrl = apiUri().base
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
@@ -30,7 +30,7 @@ export const api = createApi({
   endpoints: (builder) => ({
     sendOtp: builder.mutation({
       query: ({ emailData, url }) => ({
-        url: 'auth/' + url,
+        url: 'v0/auth/' + url,
         method: 'POST',
         body: emailData,
       }),
@@ -42,7 +42,7 @@ export const api = createApi({
     }),
     verifyOtp: builder.mutation({
       query: (otpData) => ({
-        url: baseUrl + 'auth/verify-register-otp',
+        url: baseUrl + 'v0/auth/verify-register-otp',
         method: 'POST',
         body: otpData,
         headers: {
@@ -66,7 +66,7 @@ export const api = createApi({
     }),
     getTotalInvestment: builder.query({
       query: (refId) => ({
-        url: baseUrl + '/investment/totalInvestmentbyinvestor',
+        url: baseUrl + 'v0/investment/totalInvestmentbyinvestor',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ export const api = createApi({
     }),
     getInvestmentDetails: builder.query({
       query: (refId) => ({
-        url: baseUrl + '/investment/investmentbyinvestor',
+        url: baseUrl + 'v0/investment/investmentbyinvestor',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -120,7 +120,7 @@ export const api = createApi({
     }),
     updateUser: builder.mutation({
       query: (updatedData) => ({
-        url: baseUrl + '/auth/email-signup-complete',
+        url: baseUrl + 'v0/auth/email-signup-complete',
         method: 'POST',
         body: updatedData,
         headers: {
@@ -179,6 +179,19 @@ export const api = createApi({
       transformErrorResponse: (response: { status: string | number }) =>
         response,
     }),
+    updateProfileImage: builder.mutation({
+      query: (body) => ({
+        url: 'v0/investor/profile_pic',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: any) => {
+        console.log(response)
+        return response.data
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
   }),
 })
 
@@ -190,4 +203,5 @@ export const {
   useUpdateUserMutation,
   useUpdateOtherDetailsMutation,
   useUpdateBankDetailsMutation,
+  useUpdateProfileImageMutation,
 } = api

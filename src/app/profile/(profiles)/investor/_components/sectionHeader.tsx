@@ -11,6 +11,7 @@ import { Icons } from '@/components/icons/icon'
 import { useUser } from '@/hooks/useUser'
 import { KYCStatus } from '@/types'
 import Edit from '@/icons/Edit'
+import { cn } from '@/lib/utils'
 
 type SectionType =
   | 'general-info'
@@ -32,6 +33,7 @@ type SectionsInterface = {
 export default function SectionHeader() {
   const segment: SectionType | null =
     useSelectedLayoutSegment() as SectionType | null
+  const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
   const editState = searchParams.get('edit')
@@ -42,7 +44,12 @@ export default function SectionHeader() {
 
   const sections: SectionsInterface = {
     'general-info': { id: 1, name: 'General Information', editable: true },
-    kyc: { id: 2, name: 'KYC', editable: false },
+    kyc: {
+      id: 2,
+      name: 'KYC',
+      editable:
+        user?.kycStatus.includes(KYCStatus.aadhar || KYCStatus.pan) ?? false,
+    },
     bank: { id: 3, name: 'Bank Details', editable: true },
     other: { id: 4, name: 'Other Details', editable: true },
     'investment-manager': {
@@ -61,12 +68,14 @@ export default function SectionHeader() {
   }, [segment])
 
   const handleEdit = () => {
+    setLoading(true)
     router.push(
       editState === 'true'
         ? `/profile/investor/${segment || ''}`
         : `?edit=${editState === null ? 'true' : ''}`,
       { scroll: false },
     )
+    setLoading(false)
   }
 
   const kycStatusDetails = () => {
@@ -100,10 +109,15 @@ export default function SectionHeader() {
         ))}
       {section.editable && (
         <Button
+          loading={loading}
           icon={<Edit />}
           type={'default'}
           onClick={handleEdit}
-          className={`flex items-center font-semibold text-primary outline outline-[0.022rem] outline-primary`}>
+          className={cn(
+            `flex items-center font-semibold text-primary outline outline-[0.022rem] outline-primary ${
+              loading ? ' cursor-loading' : ''
+            }`,
+          )}>
           Edit
         </Button>
       )}

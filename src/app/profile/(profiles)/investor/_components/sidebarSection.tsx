@@ -193,7 +193,7 @@ export default function SectionBar({
               href={link}
               className={cn(
                 'hidden w-full items-center gap-3 py-6  text-gray-800 delay-100 hover:bg-[#F0F0FF] hover:text-primary active:text-black lg:flex' +
-                  (routeSegment === segment && ' text-primary'),
+                  (routeSegment === segment && ' md:text-primary'),
               )}>
               <div className="flex h-8 w-8 items-center justify-center">
                 {icon}
