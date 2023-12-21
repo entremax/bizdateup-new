@@ -3,7 +3,7 @@ import capitalize from 'antd/lib/_util/capitalize'
 import CopyWrapper from '@/components/click_to_copy'
 import { Button } from 'antd'
 import Copy from '@/icons/Copy'
-import getUserDetails from '@/action/user'
+import getUserDetails, { getCookieData } from '@/action/user'
 import { getInviteeDetails } from '@/action/accelerator'
 import { store } from '@/store'
 import { setAccelerator } from '@/reducers/user/accelerator'
@@ -11,6 +11,8 @@ import TotalReferral from '@/components/referral/TotalReferral'
 import HowToUse from '@/components/referral/HowToUse'
 import TermsConditions from '@/components/referral/TermsConditions'
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
+import SocialMedia from '@/components/referral/SocialMediaIcons'
 
 export const metadata: Metadata = {
   title: 'Accelerator | Bizdateup',
@@ -18,10 +20,13 @@ export const metadata: Metadata = {
 }
 
 const ReferralPage: React.FC = async () => {
+  const originHost = headers().get('referer')
+  console.log(originHost)
   const { user } = await getUserDetails()
   const accelerator = await getInviteeDetails()
   store.dispatch(setAccelerator(accelerator))
   const acceleratorState = store.getState().accelerator
+  const { referrer_id } = await getCookieData()
   const { investorCommission, startupCommission, redeemable } = acceleratorState
 
   return (
@@ -86,10 +91,15 @@ const ReferralPage: React.FC = async () => {
               <span className={'text-xs text-neutral-500 md:text-sm'}>
                 Share link on
               </span>
-              <div></div>
+              <div>
+                <SocialMedia
+                  origin={originHost ?? ''}
+                  referrer_id={referrer_id}
+                />
+              </div>
             </div>
           </div>
-          <CopyWrapper text={'Copy'}>
+          <CopyWrapper text={`${originHost}/in${referrer_id}`}>
             <Button
               type={'default'}
               size={'large'}
@@ -159,7 +169,7 @@ const ReferralPage: React.FC = async () => {
               </div>
             </div>
             <div className="w-full">
-              <CopyWrapper text={'Copy'}>
+              <CopyWrapper text={`${originHost}/in${referrer_id}`}>
                 <Button
                   type={'default'}
                   size={'large'}
