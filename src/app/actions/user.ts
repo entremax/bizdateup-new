@@ -44,6 +44,7 @@ export default async function getUserDetails() {
       console.log(e)
       throw new Error(e)
     })
+  console.log(res)
   return {
     refId: user_id,
     status: res?.data?.status,

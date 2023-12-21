@@ -3,6 +3,7 @@ import { DataInner, KYCStatus } from '@/types'
 import getUserDetails from '@/action/user'
 import Link from 'next/link'
 import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
+import { redirect } from 'next/navigation'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -12,6 +13,9 @@ export default async function PanPage({ searchParams }: Props) {
     await getUserDetails()
   if (!user) {
     return <>Loading</>
+  }
+  if (user.aadhar.status !== 'verified' && user.pan.status === 'verified') {
+    return redirect('/profile/kyc')
   }
   const data = {
     pan: [

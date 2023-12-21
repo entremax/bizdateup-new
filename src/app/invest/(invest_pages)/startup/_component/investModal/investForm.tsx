@@ -78,7 +78,7 @@ const InvestForm: React.FC<Props> = ({
   }
 
   return (
-    <div className="flex h-full flex-col  gap-4 py-4">
+    <div className="flex h-full flex-col  gap-4 py-1">
       <h6 className="m-0 p-0 px-4 text-lg font-bold text-gray-700">
         Investment amount
       </h6>
