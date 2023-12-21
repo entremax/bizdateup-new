@@ -231,7 +231,7 @@ const InvestForm: React.FC<Props> = ({
             </Link>
           </div>
         )}
-        <div className="grid gap-4 px-4">
+        <div className="grid gap-4 px-4 py-2">
           <Button
             onClick={() => {
               setTransactionType('online')
