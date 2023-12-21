@@ -217,6 +217,7 @@ export default async function SocialMedia({
     <>
       {links.map(({ name, icon }) => (
         <Button
+          key={name}
           icon={icon}
           shape={'circle'}
           ghost
