@@ -19,10 +19,11 @@ export default async function ReferralTransactions({ searchParams }: Props) {
   ]
   return (
     <div className="flex scroll-pt-20 flex-col gap-4 p-4">
-      <div className="flex items-center justify-between">
+      <div className="my-2 flex items-center justify-between">
         <div className="flex h-full gap-4">
           {links.map(({ label, tab }) => (
             <Link
+              key={tab}
               scroll={false}
               href={{ href: `/referral`, query: { tab } }}
               className={cn(

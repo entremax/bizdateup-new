@@ -216,8 +216,6 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
       <div className="inline-block md:hidden">
         <AskManager />
       </div>
-      <HowToUse />
-      <TermsConditions />
       <div className=" my-20 px-3 md:px-14 lg:px-32 ">
         <SearchContextProvider
           searchParams={searchParams}
@@ -225,6 +223,8 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
           <ReferralTransactions searchParams={searchParams} />
         </SearchContextProvider>
       </div>
+      <HowToUse />
+      <TermsConditions />
     </section>
   )
 }
