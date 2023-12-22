@@ -2,9 +2,11 @@
 import { Button } from 'antd'
 
 export default async function SocialMedia({
+  to = 'in',
   origin,
   referrer_id,
 }: {
+  to?: 'in' | 'su'
   origin: string
   referrer_id: string
 }) {
@@ -91,9 +93,9 @@ export default async function SocialMedia({
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="24"
-          viewBox="0 0 25 24"
+          width="24"
+          height="22"
+          viewBox="0 0 24 22"
           fill="none">
           <path
             d="M0.859375 4C0.859375 1.79086 2.66664 0 4.89602 0H20.5768C22.8062 0 24.6134 1.79086 24.6134 4V20C24.6134 22.2091 22.8062 24 20.5768 24H4.89602C2.66664 24 0.859375 22.2091 0.859375 20V4Z"
@@ -163,8 +165,8 @@ export default async function SocialMedia({
       handleClick: () => {},
     },
   ]
-  const shareOnSocialMedia = (to: string, platform: string) => {
-    const referralLink = `${origin}/${to + referrer_id}`
+  const shareOnSocialMedia = (platform: string) => {
+    const referralLink = `${origin}${to + referrer_id}`
     let link = ''
     let message = ''
 
@@ -222,7 +224,7 @@ export default async function SocialMedia({
           shape={'circle'}
           ghost
           className={'!border-none !outline-none'}
-          onClick={() => shareOnSocialMedia('to', name)}
+          onClick={() => shareOnSocialMedia(name)}
         />
       ))}
     </>

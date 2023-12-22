@@ -9,7 +9,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 export default async function PanPage({ searchParams }: Props) {
-  const { user, status }: { user: DataInner; status: KYCStatus[] } =
+  const { user }: { user: DataInner; status: KYCStatus[] } =
     await getUserDetails()
   if (!user) {
     return <>Loading</>

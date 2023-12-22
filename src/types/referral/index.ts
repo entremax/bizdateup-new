@@ -31,13 +31,61 @@ export type InviteeResponse = {
   }
 }
 
+export interface AmountBreakdown {
+  totalamount: number
+  amount: number
+  convenienceFee: number
+  tds: number
+  gst: number
+}
+
+export interface Investment {
+  amountBreakdown: AmountBreakdown
+  _id: string
+  startup: string
+  investor: string
+  investorName: string
+  companyName: string
+  type: string
+  orderId: string
+  reference: string
+  status: string
+  dateOfpayment: string
+  createdAt: string
+  __v: number
+  legal?: string
+  commission: number
+}
+
+export type ReferedInvestor = {
+  name: string
+  email: string
+  date: string
+  kyc: boolean
+  totalInvestmentAmount: number
+  investments: Investment[]
+  totalCommission: number
+  totalConfirmedCommission: number
+}
+export type ReferedStartup = {
+  name: string
+  email: string
+  date: string
+  activeStatus: 'live' | string
+  status: 'pending' | 'accepted'
+  target: number
+  investments: Investment[]
+  totalRaised: number
+  totalCommission: number
+  totalConfirmedCommission: number
+}
 export type InviteeDetails = {
   referrer_id: string
   accelerator_id: string
   name: string
   accelerator: boolean
-  investors: any[]
-  startups: any[]
+  investors: ReferedInvestor[]
+  startups: ReferedStartup[]
   withdraws: any[]
 }
 
@@ -45,9 +93,15 @@ type Commission = {
   confirmed: any
   pending: any
 }
-
+export type KYCFilter = 'all' | 'pending' | 'done'
+export type StartupStatusFilter = 'all' | 'pending' | 'done'
+export type InvestmentFilter = 'all' | true | false
 export type AcceleratorInitialState = {
   accelerator: null | InviteeDetails
+  kycFilter: KYCFilter
+  startupStatusFilter: StartupStatusFilter
+  investmentFilter?: InvestmentFilter
+  dateRangeFilter?: [string, string]
   investorCommission: Commission
   startupCommission: Commission
   totalWithdrawals: {
@@ -75,3 +129,5 @@ export type AcceleratorCookies = {
 }
 
 export type Cookies = BaseCookies & AcceleratorCookies
+
+export type FilterKeys = keyof ReferedInvestor & keyof ReferedStartup

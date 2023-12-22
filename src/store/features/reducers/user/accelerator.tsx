@@ -3,6 +3,9 @@ import { AcceleratorInitialState, InviteeDetails } from '@/types/referral'
 
 const initialState = {
   accelerator: null,
+  kycFilter: 'all',
+  investmentFilter: 'all',
+  startupStatusFilter: 'all',
 } as AcceleratorInitialState
 
 export const acceleratorSlice = createSlice({
@@ -13,7 +16,6 @@ export const acceleratorSlice = createSlice({
       const { investors, withdraws, startups } = action.payload
 
       state.accelerator = { ...action.payload }
-
       state.investorCommission = {
         pending: investors.reduce(
           (sum, item) => sum + (item.totalCommission || 0),
@@ -56,8 +58,28 @@ export const acceleratorSlice = createSlice({
           ))
       ).toFixed(2)
     },
+    searchInvestorsData: (state, action) => {},
+    setKYCFilter: (state, action) => {
+      state.kycFilter = action.payload
+    },
+    setInvestmentStatus: (state, action) => {
+      state.investmentFilter = action.payload
+    },
+    setStartupStatusFilter: (state, action) => {
+      state.startupStatusFilter = action.payload
+    },
+    setDateRangeFilter: (state, action) => {
+      state.dateRangeFilter = action.payload
+    },
   },
 })
 
-export const { setAccelerator, setRedeemable } = acceleratorSlice.actions
+export const {
+  setAccelerator,
+  setRedeemable,
+  setKYCFilter,
+  setInvestmentStatus,
+  setStartupStatusFilter,
+  setDateRangeFilter,
+} = acceleratorSlice.actions
 export default acceleratorSlice.reducer

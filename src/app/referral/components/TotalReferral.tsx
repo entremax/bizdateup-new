@@ -2,6 +2,7 @@ import { store } from '@/store'
 import React from 'react'
 import { setRedeemable } from '@/reducers/user/accelerator'
 import Redeem from '@/components/referral/Redeem'
+import { cn } from '@/lib/utils'
 
 export default function TotalReferral() {
   store.dispatch(setRedeemable())
@@ -33,7 +34,11 @@ export default function TotalReferral() {
   ]
 
   return (
-    <div className="mx-3 flex flex-col gap-4 rounded-xl border-gray bg-[#FFFAEE] p-4 shadow-sm md:mx-0">
+    <div className="relative mx-3 flex flex-col gap-4 rounded-xl border-gray bg-[#FFFAEE] p-4 pb-0 shadow-sm md:mx-0">
+      <div
+        className={cn(
+          `bg-overview_circle_2  absolute right-[-2.5rem]  top-[0.5rem] h-20 w-20 rounded-full`,
+        )}></div>
       <h4 className="flex items-center gap-3 text-lg font-semibold md:text-xl">
         Total Referral
       </h4>

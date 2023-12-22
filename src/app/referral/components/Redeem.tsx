@@ -3,6 +3,7 @@ import React from 'react'
 import { Button, Form } from 'antd'
 import Input from '@/components/profile/form_components/Input'
 import { useRedeemCommissionMutation } from '@/services/paymentSlice'
+import { formatIndianValuation } from '@/lib/utils'
 
 type Props = {
   investorCommissionConfirmed: string
@@ -59,7 +60,8 @@ const Redeem: React.FC<Props> = ({
   return (
     <div className="flex flex-col gap-4">
       <h4 className="flex items-center justify-between gap-3 text-lg font-semibold md:text-xl">
-        <span>Redeemable amount</span> <span>{redemable}</span>
+        <span>Redeemable amount</span>{' '}
+        <span>{formatIndianValuation(redemable)}</span>
       </h4>
       <p className="text-xs text-[#6E6E73] lg:text-sm">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius mod
@@ -90,10 +92,10 @@ const Redeem: React.FC<Props> = ({
           <Button
             size={'large'}
             type="primary"
-            className={'!bg-[#DDA822] !outline-[#DDA822]'}
+            className={'!bg-[#DDA822] text-lg  !outline-[#DDA822]'}
             htmlType="submit"
             block>
-            Submit
+            Redeem Now
           </Button>
         </Form.Item>
       </Form>

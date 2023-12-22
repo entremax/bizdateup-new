@@ -9,12 +9,9 @@ type Props = {
   description?: string
 }
 const CopyWrapper: React.FC<Props> = ({ text, children }) => {
-  const [title, setTitle] = React.useState('')
+  const [title, setTitle] = React.useState(text)
   const handleCopy = (text: string) => {
     setTitle(`Copied ${text}`)
-    setTimeout(() => {
-      setTitle('')
-    }, 1000)
   }
   return (
     <CopyToClipboard text={text.toString()} onCopy={handleCopy}>
