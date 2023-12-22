@@ -115,12 +115,13 @@ export default function Investor() {
   tablePagination.total = data?.length
 
   return (
-    <div className={'my-4'}>
+    <div className={'my-4 overflow-auto'}>
       <Table
+        id={'refer-table'}
         className={'border_gray rounded-xl'}
         columns={columns}
         dataSource={data}
-        pagination={tablePagination}
+        pagination={{ ...tablePagination, position: ['bottomLeft'] }}
       />
     </div>
   )

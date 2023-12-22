@@ -48,8 +48,8 @@ const SearchAndFilter: React.FC<Props> = ({ acceleratorData }) => {
   }
 
   return (
-    <div className="flex gap-4">
-      <div className="lg:min-w-[40vw]">
+    <div className="hidden gap-4 md:flex">
+      <div className="lg:min-w-[30vw]">
         <Input
           addonBefore={<SearchOutlined />}
           onChange={(e) => setSearchQuery(e.target.value)}
