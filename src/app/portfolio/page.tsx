@@ -19,7 +19,7 @@ export default async function InvestorPortfolio() {
     invested_sectors: 2,
   }
   return (
-    <section className="portfolio pt-28">
+    <section className="portfolio pt-20 lg:pt-28">
       {portfolioData?.investedStartupDetails.length === 0 ? (
         <>
           <div className="flex flex-col px-4 lg:mb-16 lg:px-28">
