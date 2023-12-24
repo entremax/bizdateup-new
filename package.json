@@ -10,6 +10,7 @@
     "format": "npx prettier . --write"
   },
   "dependencies": {
+    "@ant-design/charts": "^2.0.3",
     "@ant-design/cssinjs": "^1.17.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
