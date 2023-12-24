@@ -101,10 +101,12 @@ const StartupDetails: React.FC<Props> = ({ details }) => {
               {formatCustomDate(details.investedDate)}
             </span>
           </div>
-          <Button
-            icon={show ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
-            onClick={() => setShow(!show)}
-          />
+          <div className=" col-span-full flex items-center justify-center">
+            <Button
+              icon={show ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
+              onClick={() => setShow(!show)}
+            />
+          </div>
         </div>
       </div>
       <AccreditationData details={details} show={show} />
