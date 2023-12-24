@@ -50,7 +50,7 @@ export default async function InvestorPortfolio() {
         <div className="flex flex-col px-4 lg:mb-16 lg:px-28">
           <h4 className={'m-4 text-3xl text-primary-dark'}> My Portfolio</h4>
           <div className="grid grid-cols-12 gap-4">
-            <div className="border_gray col-span-9 m-4 flex h-[70vh] flex-col items-center justify-center rounded-2xl p-4">
+            <div className="lg:border_gray col-span-full m-4 flex h-[35vh] flex-col items-center justify-center rounded-2xl p-4 lg:col-span-9 lg:h-[70vh]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="64"
