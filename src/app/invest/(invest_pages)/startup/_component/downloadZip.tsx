@@ -4,6 +4,7 @@ import { DueDiligenceFile, StartupData } from '@/types/invest'
 import { apiUri, cn, getFileName } from '@/lib/utils'
 import React, { useState } from 'react'
 import JSZip from 'jszip'
+import { Button } from 'antd'
 
 interface DownloadFilesProps {
   startup: StartupData
@@ -14,11 +15,12 @@ export default function DownloadFiles({
   startup,
   className = '',
 }: DownloadFilesProps) {
+  const [loading, setLoading] = useState(false)
   const [zipFile, setZipFile] = useState<JSZip | null>(null)
 
   const handleDownloadAll = async () => {
     const zip = new JSZip()
-
+    setLoading(true)
     // Add files to the zip
     await Promise.all(
       startup.dueDiligenceFiles.map(async (file: DueDiligenceFile) => {
@@ -41,6 +43,8 @@ export default function DownloadFiles({
       link.download = 'DueDiligenceFiles.zip'
       link.click()
     })
+
+    setLoading(false)
   }
 
   return (
@@ -52,11 +56,16 @@ export default function DownloadFiles({
         <h4 className="reset flex-grow text-xl font-bold lg:text-2xl">
           Documents
         </h4>
-        <div
+
+        <Button
+          loading={loading}
+          type={'text'}
+          className={'!bg-transparent font-medium !text-primary'}
           onClick={handleDownloadAll}
-          className="reset flex cursor-pointer items-center gap-2 text-sm font-bold text-primary lg:text-base">
-          <Icons.Download className={'h-6 w-6'} /> Download all
-        </div>
+          icon={<Icons.Download width={'16px'} height={'16px'} />}
+          ghost>
+          Download all
+        </Button>
       </div>
       <div className="flex flex-col">
         {startup.dueDiligenceFiles.map((file: DueDiligenceFile) => (

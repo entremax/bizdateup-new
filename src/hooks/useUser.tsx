@@ -40,7 +40,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
           userData: data?.user as DataInner,
           token: data?.token ?? '',
           refId: data?.refId ?? '',
-          kycStatus: dataUser.kycStatus,
+          kycStatus: data?.status,
           premiumMember: data?.user?.membership?.isMember !== 'no',
         }
 

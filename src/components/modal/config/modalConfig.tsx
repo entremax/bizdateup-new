@@ -15,16 +15,9 @@ export const DefaultCenteredCustomProps: ModalFuncProps = {
 }
 
 export const InvestContentStyle = {
-  body: {
-    padding: 0,
-    margin: 0,
-    height: 'calc(100% - 7rem)',
-  },
+  body: {},
   content: {},
-  header: {
-    padding: 0,
-    margin: 0,
-  },
+  header: {},
 }
 export const InvestModalStyle: CSS.Properties = {}
 export const InvestModalCustomProps: ModalFuncProps = {

@@ -4,6 +4,7 @@ import getUserDetails from '@/action/user'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
+import { redirect } from 'next/navigation'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -18,6 +19,9 @@ export default async function KYC({ searchParams }: Props) {
     await getUserDetails()
   if (!user) {
     return <>Loading</>
+  }
+  if (user.aadhar.status === 'verified' && user.pan.status !== 'verified') {
+    return redirect('/profile/kyc/pan')
   }
   const data = {
     aadhar: [

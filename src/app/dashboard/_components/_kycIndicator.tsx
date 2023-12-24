@@ -2,7 +2,7 @@
 import { Progress, Space } from 'antd'
 import { cn } from '@/lib/utils'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { AuthUserState, IInvestmentItem } from '@/types'
+import { IInvestmentItem } from '@/types'
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import {
@@ -10,6 +10,7 @@ import {
   useGetTotalInvestmentQuery,
 } from '@/services/apiSlice'
 import { setInvestmentDetails } from '@/reducers/user/investorSlice'
+import { useUser } from '@/hooks/useUser'
 
 /**
  * Represents a KYC Indicator component.
@@ -27,14 +28,17 @@ const KycIndicator = ({
   hidden?: boolean
 }): ReactElement => {
   const dispatch = useAppDispatch()
-  let userData: AuthUserState = useAppSelector((state) => state.authUser)
-  const { user, token, kycStatus, kycCompletionPercentage, refId } = userData
-
+  const userData = useUser()
+  const { user, kycCompletionPercentage } = useAppSelector(
+    ({ authUser }) => authUser,
+  )
   const { totalamount, investedStartups } = useAppSelector(
     ({ investor }) => investor,
   )
-  const { data: amount } = useGetTotalInvestmentQuery(refId)
-  const { data: investmentDetails } = useGetInvestmentDetailsQuery(refId)
+  const { data: amount } = useGetTotalInvestmentQuery(userData?.refId)
+  const { data: investmentDetails } = useGetInvestmentDetailsQuery(
+    userData?.refId,
+  )
 
   React.useEffect(() => {
     if (investmentDetails) {
@@ -61,7 +65,7 @@ const KycIndicator = ({
 
   return (
     <>
-      {user && kycCompletionPercentage < 100 ? (
+      {user && kycCompletionPercentage < 100 && userData?.kycStatus ? (
         <div
           className={cn(
             'border_gray grid gap-2 rounded-xl bg-light-shadow p-5' +
@@ -96,26 +100,28 @@ const KycIndicator = ({
           </Link>
         </div>
       ) : (
-        <div
-          className={cn(
-            'border_gray grid gap-2 divide-x-0 divide-y divide-solid divide-gray-300 rounded-xl !bg-white shadow' +
-              ' ' +
-              className +
-              (hidden ? 'hidden' : ''),
-          )}>
-          <div className={'grid gap-2 px-4 py-3'}>
-            <h3 className={'reset text-3xl'}>₹ {totalamount}</h3>
-            <p className={'reset text-sm text-gray-400'}>
-              total amount invested in {investedStartups.approved.length}{' '}
-              startups
-            </p>
+        user && (
+          <div
+            className={cn(
+              'border_gray grid gap-2 divide-x-0 divide-y divide-solid divide-gray-300 rounded-xl !bg-white shadow' +
+                ' ' +
+                className +
+                (hidden ? 'hidden' : ''),
+            )}>
+            <div className={'grid gap-2 px-4 py-3'}>
+              <h3 className={'reset text-3xl'}>₹ {totalamount}</h3>
+              <p className={'reset text-sm text-gray-400'}>
+                total amount invested in {investedStartups.approved.length}{' '}
+                startups
+              </p>
+            </div>
+            <div className="grid items-center justify-center">
+              <Link href={'/portfolio'} className={'py-2 text-primary'}>
+                Check Portfolio
+              </Link>
+            </div>
           </div>
-          <div className="grid items-center justify-center">
-            <Link href={'/portfolio'} className={'py-2 text-primary'}>
-              Check Portfolio
-            </Link>
-          </div>
-        </div>
+        )
       )}
     </>
   )

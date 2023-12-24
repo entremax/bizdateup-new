@@ -3,7 +3,7 @@ import capitalize from 'antd/lib/_util/capitalize'
 import CopyWrapper from '@/components/click_to_copy'
 import { Button } from 'antd'
 import Copy from '@/icons/Copy'
-import getUserDetails from '@/action/user'
+import getUserDetails, { getCookieData } from '@/action/user'
 import { getInviteeDetails } from '@/action/accelerator'
 import { store } from '@/store'
 import { setAccelerator } from '@/reducers/user/accelerator'
@@ -11,17 +11,31 @@ import TotalReferral from '@/components/referral/TotalReferral'
 import HowToUse from '@/components/referral/HowToUse'
 import TermsConditions from '@/components/referral/TermsConditions'
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
+import SocialMedia from '@/components/referral/SocialMediaIcons'
+import AskManager from '@/components/referral/AskManger'
+import ReferralTransactions from '@/components/referral/table'
+import SearchContextProvider from '@/components/referral/table/context'
+
+interface Props {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 
 export const metadata: Metadata = {
   title: 'Accelerator | Bizdateup',
   description: 'Become an accelerator and earn.',
 }
 
-const ReferralPage: React.FC = async () => {
+const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
+  const referer = headers().get('referer')
+  const url = new URL(referer ?? 'https://bizdateup-uat.vercel.app/referral')
+  const originHost = `${url.protocol}//${url.host}`
+  console.log(originHost)
   const { user } = await getUserDetails()
   const accelerator = await getInviteeDetails()
   store.dispatch(setAccelerator(accelerator))
   const acceleratorState = store.getState().accelerator
+  const { referrer_id } = await getCookieData()
   const { investorCommission, startupCommission, redeemable } = acceleratorState
 
   return (
@@ -77,30 +91,43 @@ const ReferralPage: React.FC = async () => {
           </p>
         </div>
         <div className="border_gray h-[0.022rem]" />
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row md:items-center">
           <div className="flex flex-grow flex-col">
             <p className="text-semibold flex items-center gap-3 text-lg font-semibold">
               Copy or share referral link to social media
             </p>
-            <div className={'flex items-center gap-3 py-2'}>
-              <span className={'text-xs text-neutral-500 md:text-sm'}>
+            <div
+              className={
+                'flex flex-col flex-wrap gap-2 py-2 md:flex-row md:items-center md:gap-3'
+              }>
+              <span className={'text-sm text-neutral-500 md:text-sm'}>
                 Share link on
               </span>
-              <div></div>
+              <div>
+                <SocialMedia
+                  origin={originHost ?? ''}
+                  referrer_id={referrer_id}
+                />
+              </div>
             </div>
           </div>
-          <CopyWrapper text={'Copy'}>
-            <Button
-              type={'default'}
-              size={'large'}
-              className={
-                'flex items-center !bg-primary !text-white caret-transparent'
-              }
-              icon={<Copy className={'fill-white text-white'} />}>
-              Copy referral link for Investor
-            </Button>
-          </CopyWrapper>
+          <div className="flex h-full items-center justify-center">
+            <CopyWrapper text={`${originHost}/in${referrer_id}`}>
+              <Button
+                type={'default'}
+                size={'large'}
+                className={
+                  'flex items-center justify-center gap-2 !border-primary !bg-primary !text-white caret-transparent !outline-primary'
+                }>
+                <Copy className={'fill-white text-white'} />{' '}
+                <span>Copy referral link for Investor</span>
+              </Button>
+            </CopyWrapper>
+          </div>
         </div>
+      </div>
+      <div className="hidden md:inline-block">
+        <AskManager />
       </div>
       <div className="mx-3 grid gap-4 md:mx-14 md:grid-cols-2 lg:mx-32">
         <div className="border_gray   flex flex-col gap-4 rounded-xl p-4">
@@ -113,7 +140,7 @@ const ReferralPage: React.FC = async () => {
               10% Commission
             </span>
           </h4>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-8">
             <p className="flex flex-col text-lg font-semibold md:text-xl">
               ₹ {startupCommission.confirmed + startupCommission.pending}
               <span className="text-sm font-normal text-neutral-400">
@@ -145,30 +172,39 @@ const ReferralPage: React.FC = async () => {
               </span>
             </p>
           </div>
-          <div className="border_gray h-[0.022rem]" />
-          <div className="flex flex-col">
+          <div className="border_gray my-4 h-[0.022rem]" />
+          <div className="flex flex-col gap-4">
             <div className="flex flex-grow flex-col">
               <p className="text-semibold flex items-center gap-3 text-lg font-semibold">
                 Copy or share referral link to social media
               </p>
-              <div className={'flex items-center gap-3 py-2'}>
-                <span className={'text-xs text-neutral-500 md:text-sm'}>
+              <div
+                className={
+                  'flex flex-col flex-wrap gap-2 py-2 md:flex-row md:items-center md:gap-3'
+                }>
+                <span className={'text-sm text-neutral-500 md:text-sm'}>
                   Share link on
                 </span>
-                <div></div>
+                <div>
+                  <SocialMedia
+                    to={'su'}
+                    origin={originHost ?? ''}
+                    referrer_id={referrer_id}
+                  />
+                </div>
               </div>
             </div>
-            <div className="w-full">
-              <CopyWrapper text={'Copy'}>
+            <div className="flex h-full w-full items-center justify-center">
+              <CopyWrapper text={`${originHost}/su${referrer_id}`}>
                 <Button
                   type={'default'}
                   size={'large'}
                   className={
-                    'flex items-center !text-primary caret-transparent !outline-primary'
+                    'flex items-center justify-center gap-2 !border-primary !text-primary caret-transparent !outline-primary'
                   }
-                  block
-                  icon={<Copy className={'fill-white text-white'} />}>
-                  Copy referral link for Investor
+                  block>
+                  <Copy className={'fill-primary text-white'} />{' '}
+                  <span>Copy referral link for Startup</span>
                 </Button>
               </CopyWrapper>
             </div>
@@ -176,6 +212,16 @@ const ReferralPage: React.FC = async () => {
         </div>
 
         <TotalReferral />
+      </div>
+      <div className="inline-block md:hidden">
+        <AskManager />
+      </div>
+      <div className=" my-20 px-3 md:px-14 lg:px-32 ">
+        <SearchContextProvider
+          searchParams={searchParams}
+          accelerator={accelerator}>
+          <ReferralTransactions searchParams={searchParams} />
+        </SearchContextProvider>
       </div>
       <HowToUse />
       <TermsConditions />
