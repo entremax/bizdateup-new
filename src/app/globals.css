@@ -76,6 +76,10 @@ p {
         @apply grid text-primary;
       }
     }
+
+    .slider-container {
+      margin-right: 10px; /* Adjust the value to your preferred spacing */
+    }
   }
 
   .risk-modal {

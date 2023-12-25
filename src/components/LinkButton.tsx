@@ -11,8 +11,12 @@ interface Props extends LinkProps {
 const Button = ({ title = '', className, ...props }: Props) => {
   return (
     <>
-      <Link {...props}
-            className={cn('justify-self-start my-8 !text-[#fff] bg-[#8686F5] hover:bg-[#7d7df5] w-full text-center md:w-[215px] !rounded-[7.563px] !border-[#8686F5] !border-none py-5 px-12 outline-[#8686F5] cursor-pointer font-medium ' + className)}>
+      <Link
+        {...props}
+        className={cn(
+          'my-8 flex w-full cursor-pointer items-center justify-center justify-self-start !rounded-[7.563px] !border-none !border-[#8686F5] bg-[#8686F5] px-6 py-5 text-center font-medium text-[#fff] outline-[#8686F5] hover:bg-[#7d7df5] lg:px-12 ' +
+            className,
+        )}>
         {props.children ?? title}
       </Link>
     </>
