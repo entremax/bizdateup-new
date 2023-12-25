@@ -48,7 +48,7 @@ export default function TopSection() {
             Signup Now
           </Link>
         </div>
-        <div className="relative mt-10 max-h-[500px] max-w-[600px] lg:mt-32">
+        <div className="relative mt-10 h-auto max-h-[500px] w-[32rem] max-w-[600px] lg:mt-32">
           <picture>
             <Image
               src={'/cheerful_women.png'}
