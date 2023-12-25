@@ -50,8 +50,8 @@ p {
       sans-serif;
     margin: 0;
     padding: 0;
-    height: 100dvh !important;
-    width: 100vw !important;
+    /*height: 100dvh !important;*/
+    /*width: 100vw !important;*/
     overflow-x: hidden;
     /*color: rgb(var(--foreground-rgb));*/
     background-color: rgb(var(--background-end-rgb));

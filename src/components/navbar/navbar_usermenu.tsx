@@ -21,12 +21,14 @@ import { useFetchStartupUpdatesMutation } from '@/services/startupApiSlice'
 import { setStartupUpdates } from '@/reducers/user/startupSlice'
 import StartupUpdatesDropDown from '@/components/navbar/startup_updates'
 import { notifyUser } from '@/components/notification'
-import { DataInner } from '@/types'
 import { acceleratorApis, getAcceleratorDetails } from '@/lib/accelerator'
 import { setAcceleratorCookies } from '@/action/accelerator'
+import { useUser } from '@/hooks/useUser'
 
-const UserMenu = ({ user }: { user: DataInner | null }) => {
+const UserMenu = () => {
   const dispatch = useAppDispatch()
+  const userData = useUser()
+  const user = userData?.userData
   const { token } = useAppSelector(({ authUser }) => authUser)
   const router = useRouter()
   const [logout, { isLoading }] = useLogoutMutation()

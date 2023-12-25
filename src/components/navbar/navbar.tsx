@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
           </div>
         ) : (
           <div className={' flex items-center justify-center gap-4 lg:gap-8'}>
-            <UserMenu user={user?.userData ?? null} />
+            <UserMenu />
           </div>
         )}
         {/*<div className="flex-shrink md:hidden">*/}
