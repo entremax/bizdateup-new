@@ -10,7 +10,7 @@ import {
   reset as investReset,
 } from '@/reducers/user/authSlice'
 import { useLogoutMutation } from '@/store/features/services/NextApiSlice'
-import { useRouter } from 'next/navigation'
+import { permanentRedirect, useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowRightArrowLeft,
@@ -42,7 +42,7 @@ const UserMenu = () => {
         dispatch(investReset())
         localStorage.removeItem('user')
         notifyUser('success', 'Logout Successfully')
-        router.push('/login')
+        return permanentRedirect('/login')
       })
       .catch((error) => {
         const errorMessage = error.data?.message
