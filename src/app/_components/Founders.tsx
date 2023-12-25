@@ -15,11 +15,13 @@ export default function Founders() {
           Whether it&apos;s crowdfunding, raising privately or a discount pool,
           find out how we can accommodate your fundraising needs.
         </p>
-        <Button
-          href={'/signup'}
-          className="mb-0 text-[16px] md:w-fit md:px-[100px]"
-          title="Register"
-        />
+        <div className="flex w-full items-center justify-center lg:items-start lg:justify-start">
+          <Button
+            href={'/signup'}
+            className="w-fit grow lg:grow-0"
+            title="Register"
+          />
+        </div>
       </div>
       <div className="lg:[mt-49px] mt-0">
         <picture>

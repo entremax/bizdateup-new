@@ -158,10 +158,10 @@ export default function AngelInvestor() {
           </div>
         ))}
       </div>
-      <div className={'my-12'}>
+      <div className={'my-12 mt-3 items-center lg:flex lg:justify-center'}>
         <Button
           href={'/signup'}
-          className=""
+          className="w-fit p-4"
           title="Apply now to become an Angel investor"
         />
       </div>

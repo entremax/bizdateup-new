@@ -117,9 +117,9 @@ export default function DidYouKnow() {
             If you would have Invested just ₹50,000 in these startups what would
             have been your net worth today?
           </p>
-          <div className="relative my-12">
+          <div className="relative flex justify-center lg:justify-center">
             <Button
-              className="mx-5 w-full py-4"
+              className="mx-5 w-fit py-4"
               title="Explore Startups"
               href={'/signup'}></Button>
           </div>
