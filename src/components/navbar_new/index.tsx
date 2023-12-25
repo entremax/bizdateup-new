@@ -11,7 +11,6 @@ import { Dropdown } from 'antd'
 import LearnDropDown from '@/components/navbar_new/LearnDropDown'
 import { DownOutlined } from '@ant-design/icons'
 import UserMenu from '@/components/navbar/navbar_usermenu'
-import NewInSite from '@/components/navbar_new/newInSite'
 
 export default function NavbarNew() {
   const path = usePathname()
@@ -30,7 +29,7 @@ export default function NavbarNew() {
 
   return (
     <>
-      <NewInSite />
+      {/*<NewInSite />*/}
       <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white shadow-[0px_1px_0px_0px_#E5E9F2] lg:px-8">
         <Link href={'/'} className={!authenticated ? 'flex-grow' : ''}>
           <Image
