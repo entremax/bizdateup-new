@@ -51,11 +51,13 @@ export default function HowItWorks() {
               Start investing in start ups
             </span>
           </div>
-          <Button
-            href={'/signup'}
-            className="mb-[71px] text-[16px] md:w-fit md:px-[100px] lg:mb-[112px]"
-            title="Fill out the application now"
-          />
+          <div className="flex w-full">
+            <Button
+              href={'/signup'}
+              className="w-fit grow lg:grow-0"
+              title="Fill out the application now"
+            />
+          </div>
         </div>
       </div>
     </div>

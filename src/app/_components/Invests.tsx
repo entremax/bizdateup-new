@@ -183,11 +183,13 @@ export default function Invests() {
           </div>
         ))}
       </div>
-      <Button
-        href=""
-        className="mx-auto mb-[71px] mt-[52px] text-[15px] md:w-fit lg:mb-[112px] lg:mt-[41px] lg:px-[40px]"
-        title="Apply now to become an Angel investor"
-      />
+      <div className={'my-12 mt-3 flex items-center lg:justify-center'}>
+        <Button
+          href={'/signup'}
+          className="w-fit grow p-4 lg:grow-0"
+          title="Apply now to become an Angel investor"
+        />
+      </div>
     </div>
   )
 }

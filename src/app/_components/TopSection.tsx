@@ -28,7 +28,7 @@ export default function TopSection() {
   return (
     <>
       <div className="relative mt-[50px] flex flex-col-reverse items-center justify-between lg:mt-[80px] lg:flex-row xl:px-[130px]">
-        <div className="mx-[24px] flex flex-col sm:text-center lg:px-0 lg:text-left">
+        <div className="mx-[24px] flex flex-col items-center sm:text-center lg:items-start lg:px-0 lg:text-left">
           <h1 className="static z-50 my-4 mt-10 max-h-[128px] min-w-[319px] max-w-[824px] text-[28px] font-bold leading-[33.976px] lg:absolute lg:start-[2rem] lg:text-[56px] lg:leading-tight lg:-tracking-[2.16px] xl:start-[10rem]">
             Invest in Top 1% Indian Startups & Become a{' '}
             <span className="text-[#8686F5]">Super Angel!</span>
@@ -43,18 +43,21 @@ export default function TopSection() {
           <Link
             href={'/signup'}
             className={
-              'my-8 w-full cursor-pointer justify-self-start !rounded-[7.563px] !border-none !border-[#8686F5] bg-[#8686F5] px-[20px] py-[16px] text-center text-[17.647px] font-medium !text-[#fff] outline-[#8686F5] hover:bg-[#7d7df5] md:w-[215px]'
+              'my-8 w-full cursor-pointer justify-self-center !rounded-[7.563px] !border-none !border-[#8686F5] bg-[#8686F5] px-[20px] py-[16px] text-center text-[17.647px] font-medium !text-[#fff] outline-[#8686F5] hover:bg-[#7d7df5] md:w-[215px] lg:justify-self-start'
             }>
             Signup Now
           </Link>
         </div>
-        <div className="relative mt-10 max-h-[500px] max-w-[600px] lg:mt-32">
+        <div className="relative mt-10 h-auto max-h-[500px] w-[32rem] max-w-[600px] lg:mt-32">
           <picture>
             <Image
               src={'/cheerful_women.png'}
               alt="cheerful_women"
               className={'!static mr-8'}
               fill
+              sizes="((min-width: 50em) and (max-width: 60em)) 50em,
+              ((min-width: 30em) and (max-width: 50em)) 30em,
+                (max-width: 30em) 20em"
             />
           </picture>
         </div>

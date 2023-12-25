@@ -25,7 +25,7 @@ export default function ReadyToJoin() {
     },
   ]
   return (
-    <div className="relative mt-[129px] flex max-h-[460px] flex-col items-center justify-center overflow-hidden px-[32px] py-[95px] pt-0 text-center">
+    <div className="relative mt-[129px] flex max-h-[460px] flex-col items-center justify-center overflow-hidden px-2 py-[95px] pt-0 text-center lg:px-8">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 z-[9] h-[550px] w-screen bg-[#2b2c57]"
@@ -44,13 +44,13 @@ export default function ReadyToJoin() {
         Breathe Angel Investing! To top it up Signing up takes hardly 5 mins of
         your time. So, Join the Community Now!
       </p>
-      <div className="z-[10] flex w-full flex-col-reverse gap-x-[16px] pb-[69px] md:w-fit md:flex-row">
+      <div className="z-[10] mx-2 flex w-full flex-col-reverse gap-x-[16px] pb-[69px] md:w-fit md:flex-row">
         <Button
           href={'/login'}
-          className="bg-white !text-primary hover:bg-white"
+          className="w-inherit bg-white !text-primary hover:bg-white"
           title="Login"
         />
-        <Button href={'/signup'} className="" title="Register" />
+        <Button href={'/signup'} className="w-inherit " title="Register" />
       </div>
     </div>
   )

@@ -14,8 +14,8 @@ export default function WhoAreWe() {
             />
           </picture>
         </div>
-        <div className="text-center lg:w-[491px] lg:text-left">
-          <h2 className="text-xl font-bold leading-[36px] lg:text-5xl lg:leading-[64px] lg:-tracking-[2.16px]">
+        <div className="flex flex-col gap-4 text-center lg:w-[491px] lg:text-left">
+          <h2 className="text-4xl font-bold leading-[36px] lg:text-5xl lg:leading-[64px] lg:-tracking-[2.16px]">
             Who are we?
           </h2>
           <p className="text-balance text-[15px] font-normal leading-[20px] lg:my-7 lg:text-[18px] lg:leading-[24px]">
@@ -23,11 +23,11 @@ export default function WhoAreWe() {
             like you to explore and invest in groundbreaking & Highly-Profitable
             Indian startup ventures starting at ₹50,000.
           </p>
-          <div className="my-4 mt-8">
+          <div className="my-4 mt-4 flex lg:items-start">
             <Button
               href={'/get-started'}
               title="Get Started"
-              className={'my-4 w-fit py-4'}
+              className={'my-4 py-4'}
             />
           </div>
         </div>
