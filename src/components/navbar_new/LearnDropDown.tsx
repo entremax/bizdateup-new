@@ -169,6 +169,7 @@ export default function LearnDropDown() {
       }>
       {dropDownItems.map((link, index) => (
         <Link
+          key={link.to + index}
           href={link.to}
           className={
             'flex items-center gap-2 rounded px-2 py-2 !text-black-lighter hover:bg-light-shadow'
