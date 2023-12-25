@@ -140,21 +140,30 @@ const Reasons = [
 
 export default function AngelInvestor() {
   return (
-    <div className="pt-[60px] lg:pt-[116px] px-[20px] xl:px-[88px] flex flex-col items-center bg-[#F9F9FC]">
-      <h3 className="text-4xl text-center lg:px-[262px] mb-4">Why you should invest in startups now and become an <span
-        className="text-[#8686F5]">Angel Investor.</span></h3>
-      <div className="flex flex-col lg:grid grid-cols-2 xl:grid-cols-4 mt-[28px] gap-[14px] xl:gap-[27px]">
+    <div className="flex flex-col items-center bg-[#F9F9FC] px-[20px] pt-[60px] lg:pt-[116px] xl:px-[88px]">
+      <h3 className="mb-4 text-center text-4xl lg:px-[262px]">
+        Why you should invest in startups now and become an{' '}
+        <span className="text-[#8686F5]">Angel Investor.</span>
+      </h3>
+      <div className="mt-[28px] flex grid-cols-2 flex-col gap-[14px] lg:grid xl:grid-cols-4 xl:gap-[27px]">
         {Reasons.map((reason) => (
-          <div key={reason.id}
-               className="ring-[0.807px] ring-[#EAE9E8] lg:rounded-[17.734px] rounded-[14.524px] pl-[24.57px] lg:pl-[30px] pb-[33px] pr-[22.43px] py-4 pb-0">
+          <div
+            key={reason.id}
+            className="rounded-[14.524px] py-4 pb-0 pb-[33px] pl-[24.57px] pr-[22.43px] ring-[0.807px] ring-[#EAE9E8] lg:rounded-[17.734px] lg:pl-[30px]">
             <div>{reason.icon}</div>
-            <p className="py-4 pb-0 text-xl sm:text-2xl font-bold text-balance">{reason.title}</p>
-            <p className="py-4 pb-0 text-sm pr-[16.5px]">{reason.desc}</p>
+            <p className="text-balance py-4 pb-0 text-xl font-bold sm:text-2xl">
+              {reason.title}
+            </p>
+            <p className="py-4 pb-0 pr-[16.5px] text-sm">{reason.desc}</p>
           </div>
         ))}
       </div>
       <div className={'my-12'}>
-        <Button href={'/'} className="" title="Apply now to become an Angel investor" />
+        <Button
+          href={'/signup'}
+          className=""
+          title="Apply now to become an Angel investor"
+        />
       </div>
     </div>
   )
