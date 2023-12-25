@@ -20,20 +20,6 @@ export default function NavbarNew() {
   const [authenticated, setAuthenticated] = useState(
     !!(logged_in && logged_in === 'true'),
   )
-  const [show, setShow] = useState(true)
-  const innerHeight = window.innerHeight // Adjust this value to set the scrolling threshold
-  const handleScroll = () => {
-    const scrollY = window.scrollY
-
-    setShow(scrollY >= innerHeight)
-  }
-
-  React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [innerHeight])
 
   useEffect(() => {
     setAuthenticated(!!(logged_in && logged_in === 'true'))
