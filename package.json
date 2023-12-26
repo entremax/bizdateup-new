@@ -10,7 +10,6 @@
     "format": "npx prettier . --write"
   },
   "dependencies": {
-    "@ant-design/charts": "^2.0.3",
     "@ant-design/cssinjs": "^1.17.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
@@ -38,7 +37,7 @@
     "next": "^14.0.0",
     "next-redux-wrapper": "^8.1.0",
     "pdfjs-dist": "^3.11.174",
-    "postcss": "8.4.30",
+    "postcss": "^8.4.31",
     "react": "18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",

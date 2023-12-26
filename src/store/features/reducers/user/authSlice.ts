@@ -63,6 +63,11 @@ export const authUser = createSlice({
           totalStatuses.length) *
         100
     },
+    setStartup: (
+      state,
+    ) => {
+    
+    },
     setVerify(state, { payload }: PayloadAction<boolean>) {
       state.isVerified = payload
     },

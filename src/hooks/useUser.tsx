@@ -6,7 +6,7 @@ import getUserDetails from '@/action/user'
 import localUser from '@/lib/getToken'
 import useCookieLocal from '@/lib/useCookieLocal'
 import { DataInner, KYCStatusArray } from '@/types'
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 type User = {
   token: string
@@ -15,15 +15,18 @@ type User = {
   kycStatus: KYCStatusArray
   premiumMember: boolean
 }
-
-// Create User context
-const UserContext = createContext<User | null>(null)
+type Props = {
+  user: User | null
+  loading: boolean
+}
+const UserContext = createContext<Props>({ user: null, loading: false })
 
 const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const router = useRouter()
   const [user, setUserState] = useState<User | null>(null)
   const role = useCookieLocal('role')
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
+  const [loading, setLoading] = useState(false)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -32,6 +35,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       if (!role || role === '') return
 
       if (role === 'investor') {
+        setLoading(true)
         const data = await getUserDetails()
         const dataUser = localUser.getUserLocal()
         if (!dataUser) return router.push('/login')
@@ -48,7 +52,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         dispatch(setUser(userInfo))
       } else {
         const data = localUser.getUserLocal()
-        if (!data) return redirect('/login/startup')
+        if (!data) return router.push('/login/startup')
 
         setUserState(data)
         dispatch(
@@ -62,7 +66,11 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     fetchUserDetails()
   }, [role, reduxUser])
 
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>
+  return (
+    <UserContext.Provider value={{ user, loading }}>
+      {children}
+    </UserContext.Provider>
+  )
 }
 export default UserProvider
 // Hook for easy access to the UserContext
