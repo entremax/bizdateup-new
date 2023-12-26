@@ -327,7 +327,7 @@ export type PaymentData = {
 
 
 export type BaseUserData = {
-  role: 'investor' | 'startup'
+  role: 'investor' | 'startup' | null
   refId: string
   status: KYCStatusArray
   token: string
