@@ -19,7 +19,6 @@ type Props = {
 }
 
 const StartupDetails: React.FC<Props> = ({ details }) => {
-  
   const [show, setShow] = useState(false)
   function numberOfShares() {
     const investedAmount = details?.investedAmount || 0

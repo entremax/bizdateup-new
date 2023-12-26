@@ -8,8 +8,8 @@ import ReduxProvider from '@/store/Provider'
 import AntNotification from '@/components/notification'
 import MobileNavbar from '@/components/navbar/navbar_mobile'
 import UserProvider from '@/hooks/useUser'
-import dynamic from 'next/dynamic'
 import Footer from '@/components/footer'
+import NavbarNew from '@/components/navbar_new'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,9 +17,7 @@ export const metadata = {
   title: 'Bizdata',
   description: 'by @bizdata',
 }
-const Navbar = dynamic(() => import('@/components/navbar/navbar'), {
-  ssr: false,
-})
+
 const RootLayout = ({ children }: React.PropsWithChildren) => (
   <html lang="en">
     <body className={inter.className}>
@@ -27,7 +25,7 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
         <ConfigProvider theme={theme}>
           <ReduxProvider>
             <UserProvider>
-              <Navbar />
+              <NavbarNew />
               {children}
               <Footer />
               <MobileNavbar />
