@@ -26,7 +26,7 @@ const KycIndicator = ({
 }): ReactElement => {
   const dispatch = useAppDispatch()
   const { user: userData } = useUser()
-  const { user, kycCompletionPercentage } = useAppSelector(
+  const { role, user, kycCompletionPercentage } = useAppSelector(
     ({ authUser }) => authUser,
   )
   const { totalamount, investedStartups } = useAppSelector(
@@ -62,7 +62,10 @@ const KycIndicator = ({
 
   return (
     <>
-      {user && kycCompletionPercentage < 100 && userData?.kycStatus ? (
+      {role === 'investor' &&
+      user &&
+      kycCompletionPercentage < 100 &&
+      userData?.kycStatus ? (
         <div
           className={cn(
             'border_gray grid gap-2 rounded-xl bg-light-shadow p-5' +

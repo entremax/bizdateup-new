@@ -118,6 +118,8 @@ export interface BaseAuthUserState {
   user: DataInner | StartupData | null
   isVerified: boolean
   riskAccepted: boolean
+  kycCompletionPercentage: number
+  kycStatus: KYCStatusArray
   premiumMember: boolean | null
   role: UserRole
 }
@@ -128,9 +130,6 @@ export interface InvestorUserState extends BaseAuthUserState {
   refId: string | null
   temp_auth_medium: string | null
   user: DataInner | null
-  kycStatus: KYCStatusArray | null
-  isVerified: boolean
-  kycCompletionPercentage: number
   riskAccepted: boolean
   premiumMember: boolean
   role: 'investor'

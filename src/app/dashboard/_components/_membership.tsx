@@ -6,10 +6,10 @@ import { Icons } from '@/icons/icon'
 import { Button, Collapse, ConfigProvider } from 'antd'
 
 export const Membership = () => {
-  const { user } = useAppSelector(({ authUser }) => authUser)
+  const { role, user } = useAppSelector(({ authUser }) => authUser)
   return (
     <>
-      {user && user?.membership?.isMember !== 'no' ? (
+      {role === 'investor' && user && user?.membership?.isMember !== 'no' ? (
         <div className={'border_gray my-4 rounded-xl'}>
           <ConfigProvider
             theme={{

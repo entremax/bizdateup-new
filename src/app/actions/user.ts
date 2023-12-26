@@ -25,7 +25,7 @@ export default async function getUserDetails() {
     body: JSON.stringify({ refId: user_id }),
   }
   if (role === 'startup') {
-    url = 'startup/fetchStartupByRef?refId=' + user_id
+    url = '/startup/fetchStartupByRef?refId=' + user_id
     config = {
       next: { revalidate: 0 },
       method: 'GET',

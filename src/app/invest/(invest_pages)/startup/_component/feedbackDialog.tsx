@@ -13,7 +13,7 @@ export default function FeedbackDialog() {
   const params = useParams()
   const dispatch = useAppDispatch()
   const searchParams = useSearchParams()
-  const { user } = useAppSelector(({ authUser }) => authUser)
+  const { role, user } = useAppSelector(({ authUser }) => authUser)
   const [startupFeedback] = useStartupFeedbackMutation()
   const [show, setShow] = useState(false)
   const startupName = searchParams.get('name')
@@ -27,7 +27,7 @@ export default function FeedbackDialog() {
     }, 10000)
   }, [])
   const handleAddInterest = (interest: Interest) => {
-    if (!user) {
+    if (!user || role !== 'investor') {
       return
     }
     const data = {
