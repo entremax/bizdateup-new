@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     }
     let url = '/investor/fetchbyid'
     if (role === 'startup') {
-      url = '/startup/fetchStartupById'
+      url = '/startup/fetchStartupByRef'
     }
     const res = await fetch(apiUri().v0 + url, {
       method: 'POST',
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
       .then((res) => {
         return res.json()
       })
-      .catch((e) => {
+      .catch((e) => { 
         console.log(e)
         return NextResponse.json(
           {

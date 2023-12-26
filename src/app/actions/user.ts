@@ -8,8 +8,10 @@ import { Cookies } from '@/types/referral'
 
 export default async function getUserDetails() {
   const token = cookies().get('token')?.value
+  console.log("🚀 ~ file: user.ts:11 ~ getUserDetails ~ token:", token)
   const user_id = cookies().get('user_id')?.value
   const role = cookies().get('role')?.value
+  console.log("🚀 ~ file: user.ts:13 ~ getUserDetails ~ role:", role)
 
   if (!user_id || !token) {
     redirect('/login', 'push' as RedirectType)
@@ -25,7 +27,7 @@ export default async function getUserDetails() {
     body: JSON.stringify({ refId: user_id }),
   }
   if (role === 'startup') {
-    url = '/startup/fetchStartupById?refId=' + user_id
+    url = '/startup/fetchStartupByRef?refId=' + user_id
     config = {
       next: { revalidate: 0 },
       method: 'GET',
@@ -37,14 +39,14 @@ export default async function getUserDetails() {
   }
   const res = await fetch(apiUri().v0 + url, config)
     .then((res) => {
-      console.log(res)
+      console.log("🚀 ~ file: user.ts:41 ~ .then ~ res:", res)
       return res.json()
     })
     .catch((e) => {
       console.log(e)
       throw new Error(e)
     })
-  console.log(res)
+  
   return {
     refId: user_id,
     status: res?.data?.status,
