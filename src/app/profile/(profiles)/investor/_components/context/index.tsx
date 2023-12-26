@@ -21,7 +21,7 @@ const UpdateContext = createContext<ContextProps>({} as ContextProps)
 export const useUpdateContext = () => useContext(UpdateContext)
 
 const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const user = useUser()
+  const { user } = useUser()
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
   const [updateUser] = useUpdateUserMutation()

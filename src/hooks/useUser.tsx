@@ -37,10 +37,13 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       if (role === 'investor') {
         setLoading(true)
         const data = await getUserDetails()
+        if (data.role && data.role !== 'investor') return router.push('/login')
+
         const dataUser = localUser.getUserLocal()
         if (!dataUser) return router.push('/login')
 
         const userInfo = {
+          role: data.role,
           userData: data?.user as DataInner,
           token: data?.token ?? '',
           refId: data?.refId ?? '',

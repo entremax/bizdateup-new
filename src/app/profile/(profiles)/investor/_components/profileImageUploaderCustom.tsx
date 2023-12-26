@@ -16,7 +16,7 @@ const ImageUploader: React.FC = () => {
     error: 'drop-shadow-lg  !border-[#FF5630]',
   }
   const dispatch = useAppDispatch()
-  const user = useUser()
+  const { user } = useUser()
   const [file, setFile] = useState<File | null>(null)
   const [borderColor, setBorderColor] = useState<IBorderColors>(
     user?.premiumMember ? 'premium' : 'normal',

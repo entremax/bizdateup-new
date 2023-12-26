@@ -1,9 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AuthUserState, DataInner, KYCStatus, KYCStatusArray } from '@/types'
+import {
+  DataInner,
+  InvestorUserState,
+  KYCStatus,
+  KYCStatusArray,
+  StartupUserState,
+} from '@/types'
+import { StartupData } from '@/types/invest'
 
 const initialState = {
   token: null,
-  investorUserId: null,
+  userId: null,
   refId: null,
   temp_auth_medium: null,
   user: null,
@@ -12,8 +19,7 @@ const initialState = {
   kycCompletionPercentage: 0,
   riskAccepted: false,
   premiumMember: false,
-  role: null,
-} as AuthUserState
+} as InvestorUserState | StartupUserState
 
 export const authUser = createSlice({
   name: 'authUser',
@@ -23,51 +29,50 @@ export const authUser = createSlice({
       state.temp_auth_medium = action.payload
     },
     setInvestorId(state, action) {
-      state.investorUserId = action.payload
+      state.userId = action.payload
     },
     reset: () => initialState,
     setUser: (
       state,
       {
-        payload: { token, userData, refId, kycStatus, premiumMember },
+        payload: { token, userData, refId, kycStatus, premiumMember, role },
       }: PayloadAction<{
         token: string
-        userData: DataInner
+        userData: DataInner | StartupData
         refId: string
         kycStatus: KYCStatusArray
         premiumMember: boolean
+        role: 'investor' | 'startup'
       }>,
     ) => {
-      const pendingStatuses: KYCStatus[] = []
-      const totalStatuses: KYCStatus[] = [
-        KYCStatus.profile,
-        KYCStatus.pan,
-        KYCStatus.aadhar,
-        KYCStatus.bank,
-        KYCStatus.other,
-      ]
-
-      totalStatuses.forEach((status) => {
-        if (kycStatus && kycStatus.includes(status)) {
-          pendingStatuses.push(status)
-        }
-      })
       state.token = token
       state.user = userData
       state.refId = refId
-      state.kycStatus = kycStatus
-      state.premiumMember = premiumMember
-      state.role = userData?.role ?? ''
-      state.kycCompletionPercentage =
-        ((totalStatuses.length - pendingStatuses.length) /
-          totalStatuses.length) *
-        100
+      state.role = role
+      if (state.role === 'investor') {
+        const pendingStatuses: KYCStatus[] = []
+        const totalStatuses: KYCStatus[] = [
+          KYCStatus.profile,
+          KYCStatus.pan,
+          KYCStatus.aadhar,
+          KYCStatus.bank,
+          KYCStatus.other,
+        ]
+
+        totalStatuses.forEach((status) => {
+          if (kycStatus && kycStatus.includes(status)) {
+            pendingStatuses.push(status)
+          }
+        })
+        state.kycStatus = kycStatus
+        state.premiumMember = premiumMember
+        state.kycCompletionPercentage =
+          ((totalStatuses.length - pendingStatuses.length) /
+            totalStatuses.length) *
+          100
+      }
     },
-    setStartup: (
-      state,
-    ) => {
-    
-    },
+    setStartup: (state) => {},
     setVerify(state, { payload }: PayloadAction<boolean>) {
       state.isVerified = payload
     },
