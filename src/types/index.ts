@@ -69,9 +69,11 @@ export interface DataInner {
   code: number
   refer: null | string
   profilePic: string
+  acknowledgement: 'false' | 'true'
 }
 
 export interface IInvestorData {
+  acknowledgement: 'false' | 'true'
   aadhar: Aadhar
   address: Address
   pan: Pan
