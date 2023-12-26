@@ -1,6 +1,5 @@
 import React from 'react'
 import GeneralForm from '@/components/profile/generalForm'
-import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
 import type { Metadata } from 'next'
 
@@ -13,9 +12,12 @@ export const metadata: Metadata = {
 }
 export default async function InvestorProfile({ searchParams }: Props) {
   let editState: boolean = !searchParams.edit
-  const { user }: { user: DataInner } = await getUserDetails()
+  const { role, user } = await getUserDetails()
   if (!user) {
     return <>Loading</>
+  }
+  if (role !== 'investor') {
+    return
   }
   // if (user.firstName === '' || user.lastName === '' || !user.phone) {
   //   editState = true
@@ -23,11 +25,11 @@ export default async function InvestorProfile({ searchParams }: Props) {
   const data = [
     {
       label: 'First name',
-      value: user.firstName,
+      value: user?.firstName,
     },
     {
       label: 'Last Name',
-      value: user.lastName,
+      value: user?.lastName,
     },
     {
       label: 'Email',

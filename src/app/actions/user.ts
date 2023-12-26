@@ -3,8 +3,8 @@ import { cookies } from 'next/headers'
 import { redirect, RedirectType } from 'next/navigation'
 import { fetch } from 'next/dist/compiled/@edge-runtime/primitives'
 import { apiUri } from '@/lib/utils'
-import { DataInner } from '@/types'
 import { Cookies } from '@/types/referral'
+import { InvestorUserData, StartupUserData } from '@/types'
 
 export default async function getUserDetails() {
   const token = cookies().get('token')?.value
@@ -27,7 +27,7 @@ export default async function getUserDetails() {
     body: JSON.stringify({ refId: user_id }),
   }
   if (role === 'startup') {
-    url = '/startup/fetchStartupByRef?refId=' + user_id
+    url = 'startup/fetchStartupByRef?refId=' + user_id
     config = {
       next: { revalidate: 0 },
       method: 'GET',
@@ -46,13 +46,13 @@ export default async function getUserDetails() {
       console.log(e)
       throw new Error(e)
     })
-  console.log(res)
   return {
+    role: role,
     refId: user_id,
     status: res?.data?.status,
     token: token,
-    user: res?.data?.data as any,
-  }
+    user: res?.data?.data,
+  } as InvestorUserData | StartupUserData
 }
 
 /**

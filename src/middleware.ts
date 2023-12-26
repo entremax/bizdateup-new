@@ -18,7 +18,6 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
   startup: [
     /\/dashboard\/startup.*/,
     /\/profile\/startup.*/,
-    /^(?!\/invest\/startup\/[a-f0-9]+(?:\?.*)?$).*/,
     /\/startup(?!\/(updates|update)).*/,
   ],
   admin: [/\/dashboard\/investor.*/],

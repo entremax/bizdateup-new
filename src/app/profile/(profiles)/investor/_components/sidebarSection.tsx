@@ -30,7 +30,7 @@ export default function SectionBar({
 }) {
   const searchParams = useSearchParams()
   const sm = searchParams.get('sm')
-  const user = useUser()
+  const { user } = useUser()
   const { kycStatus } = useAppSelector(({ authUser }) => authUser)
   const router = useRouter()
   const dispatch = useAppDispatch()

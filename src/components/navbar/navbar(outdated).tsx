@@ -8,7 +8,7 @@ import { useUser } from '@/hooks/useUser'
 import { useAppSelector } from '@/store/hooks'
 
 const NavbarOutdated: React.FC = () => {
-  const user = useUser()
+  const { user } = useUser()
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
   const [type, setType] = useState<'authenticated' | 'unauthenticated'>(
     user ? 'authenticated' : 'unauthenticated',

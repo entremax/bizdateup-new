@@ -10,7 +10,7 @@ import {
   reset as investReset,
 } from '@/reducers/user/authSlice'
 import { useLogoutMutation } from '@/store/features/services/NextApiSlice'
-import { permanentRedirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowRightArrowLeft,
@@ -23,12 +23,12 @@ import StartupUpdatesDropDown from '@/components/navbar/startup_updates'
 import { notifyUser } from '@/components/notification'
 import { acceleratorApis, getAcceleratorDetails } from '@/lib/accelerator'
 import { setAcceleratorCookies } from '@/action/accelerator'
-import { useUser } from '@/hooks/useUser'
+import { DataInner } from '@/types'
+import useCookieLocal from '@/lib/useCookieLocal'
 
-const UserMenu = () => {
+const UserMenu = ({ user }: { user?: DataInner | null }) => {
   const dispatch = useAppDispatch()
-  const userData = useUser()
-  const user = userData?.userData
+  const role = useCookieLocal('role')
   const { token } = useAppSelector(({ authUser }) => authUser)
   const router = useRouter()
   const [logout, { isLoading }] = useLogoutMutation()
@@ -42,7 +42,7 @@ const UserMenu = () => {
         dispatch(investReset())
         localStorage.removeItem('user')
         notifyUser('success', 'Logout Successfully')
-        return permanentRedirect('/login')
+        return router.push('/login')
       })
       .catch((error) => {
         const errorMessage = error.data?.message
@@ -55,7 +55,9 @@ const UserMenu = () => {
 
   const onClick: MenuProps['onClick'] = async ({ key }) => {
     if (key === '1') {
-      return router.push('/profile/investor')
+      return router.push(
+        `/profile/${role === 'investor' ? 'investor' : 'startup'}`,
+      )
     }
     if (key === '2') {
       return router.push('/transactions')

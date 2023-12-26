@@ -11,14 +11,15 @@ import {
 } from '@/lib/utils'
 import { StartupTag } from '@/components/tag'
 import { Button } from 'antd'
-import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons'
+import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import AccreditationData from '@/components/portfolio/invested_startup/AccreditationData'
 
 type Props = {
   details: InvestedStartup
+  tabIndex: number
 }
 
-const StartupDetails: React.FC<Props> = ({ details }) => {
+const StartupDetails: React.FC<Props> = ({ details, tabIndex }) => {
   const [show, setShow] = useState(false)
   function numberOfShares() {
     const investedAmount = details?.investedAmount || 0
@@ -48,8 +49,10 @@ const StartupDetails: React.FC<Props> = ({ details }) => {
 
   return (
     <div
+      onClick={() => setShow(!show)}
+      tabIndex={tabIndex}
       className={
-        'border_gray grid grid-cols-12 items-center gap-4 rounded-xl p-4 shadow'
+        'border_gray grid cursor-pointer grid-cols-12 items-center gap-4 rounded-xl p-4 shadow'
       }>
       <div className="col-span-full flex flex-wrap items-center gap-4 md:flex-nowrap">
         <div className="border_gray relative min-h-[3rem] min-w-[3rem] max-w-[3rem]">
@@ -102,7 +105,9 @@ const StartupDetails: React.FC<Props> = ({ details }) => {
           </div>
           <div className=" col-span-full flex items-center justify-center">
             <Button
-              icon={show ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
+              shape={'circle'}
+              className={'!border-0 !outline-none'}
+              icon={show ? <UpOutlined /> : <DownOutlined />}
               onClick={() => setShow(!show)}
             />
           </div>

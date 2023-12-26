@@ -11,9 +11,11 @@ import { Dropdown } from 'antd'
 import LearnDropDown from '@/components/navbar_new/LearnDropDown'
 import { DownOutlined } from '@ant-design/icons'
 import UserMenu from '@/components/navbar/navbar_usermenu'
+import { useUser } from '@/hooks/useUser'
 
 export default function NavbarNew() {
   const path = usePathname()
+  const { user, loading } = useUser()
   const { NavbarData } = data
   const logged_in = useCookieLocal('logged-in')
   const [authenticated, setAuthenticated] = useState(
@@ -50,7 +52,9 @@ export default function NavbarNew() {
           {authenticated && <div className={'grow'} />}
           {(authenticated ? NavbarData.non_public : NavbarData.public).main.map(
             (link, index) => (
-              <div key={link.name} className="group hidden h-full lg:inline">
+              <div
+                key={link.name + index}
+                className="group hidden h-full lg:inline">
                 {link.name === 'Learn' ? (
                   <Dropdown
                     dropdownRender={() => <LearnDropDown />}
@@ -106,7 +110,7 @@ export default function NavbarNew() {
           )}
           {authenticated && (
             <div className={' flex items-center justify-center gap-4 lg:gap-8'}>
-              <UserMenu />
+              <UserMenu user={user?.userData} />
             </div>
           )}
         </div>

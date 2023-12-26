@@ -37,7 +37,7 @@ export default function SectionHeader() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const editState = searchParams.get('edit')
-  const user = useUser()
+  const { user } = useUser()
   const { kycCompletionPercentage, kycStatus } = useAppSelector(
     ({ authUser }) => authUser,
   )

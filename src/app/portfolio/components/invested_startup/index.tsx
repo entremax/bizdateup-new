@@ -13,8 +13,12 @@ const InvestedStartups: React.FC<Props> = ({ startups }) => {
         Startups you have invested in
       </h4>
       <div className="flex flex-col gap-3">
-        {startups.map((startup) => (
-          <StartupDetails key={startup._id} details={startup} />
+        {startups.map((startup, index) => (
+          <StartupDetails
+            key={startup._id}
+            details={startup}
+            tabIndex={index}
+          />
         ))}
       </div>
     </div>

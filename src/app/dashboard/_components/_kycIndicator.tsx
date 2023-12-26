@@ -5,10 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { IInvestmentItem } from '@/types'
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
-import {
-  useGetInvestmentDetailsQuery,
-  useGetTotalInvestmentQuery,
-} from '@/services/apiSlice'
+import { useGetInvestmentDetailsQuery, useGetTotalInvestmentQuery } from '@/services/apiSlice'
 import { setInvestmentDetails } from '@/reducers/user/investorSlice'
 import { useUser } from '@/hooks/useUser'
 
@@ -28,7 +25,7 @@ const KycIndicator = ({
   hidden?: boolean
 }): ReactElement => {
   const dispatch = useAppDispatch()
-  const userData = useUser()
+  const { user: userData } = useUser()
   const { user, kycCompletionPercentage } = useAppSelector(
     ({ authUser }) => authUser,
   )
