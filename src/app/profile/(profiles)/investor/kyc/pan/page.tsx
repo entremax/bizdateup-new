@@ -1,5 +1,4 @@
 import React from 'react'
-import { DataInner, KYCStatus } from '@/types'
 import getUserDetails from '@/action/user'
 import Link from 'next/link'
 import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
@@ -9,9 +8,8 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 export default async function PanPage({ searchParams }: Props) {
-  const { user }: { user: DataInner; status: KYCStatus[] } =
-    await getUserDetails()
-  if (!user) {
+  const { role, user } = await getUserDetails()
+  if (role !== 'investor' || !user) {
     return <>Loading</>
   }
   if (user.aadhar.status !== 'verified' && user.pan.status === 'verified') {

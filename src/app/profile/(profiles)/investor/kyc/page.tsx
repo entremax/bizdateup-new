@@ -1,5 +1,4 @@
 import React from 'react'
-import { DataInner, KYCStatus } from '@/types'
 import getUserDetails from '@/action/user'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -15,9 +14,8 @@ export const metadata: Metadata = {
 }
 
 export default async function KYC({ searchParams }: Props) {
-  const { user, status }: { user: DataInner; status: KYCStatus[] } =
-    await getUserDetails()
-  if (!user) {
+  const { role, user, status } = await getUserDetails()
+  if (!user || role !== 'investor') {
     return <>Loading</>
   }
   if (user.aadhar.status === 'verified' && user.pan.status !== 'verified') {
