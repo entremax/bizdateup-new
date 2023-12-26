@@ -148,7 +148,7 @@ export default function OtpField({ id }: { id: string }) {
             token,
             refId,
             kycStatus: status,
-            premiumMember: investorData.membership.isMember !== 'no',
+            premiumMember: investorData.membership?.isMember !== 'no',
           },
         })
         router.refresh()
@@ -163,7 +163,7 @@ export default function OtpField({ id }: { id: string }) {
               token,
               refId,
               kycStatus: status,
-              premiumMember: investorData.membership.isMember !== 'no',
+              premiumMember: investorData.membership?.isMember !== 'no',
             },
           })
           return window.location.replace('/dashboard')

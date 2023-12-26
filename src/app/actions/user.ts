@@ -51,7 +51,7 @@ export default async function getUserDetails() {
     refId: user_id,
     status: res?.data?.status,
     token: token,
-    user: res?.data?.data as DataInner,
+    user: res?.data?.data as any,
   }
 }
 

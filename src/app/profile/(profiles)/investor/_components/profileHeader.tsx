@@ -38,7 +38,7 @@ async function getUserDetails() {
   }
   const res = await fetch(apiUri().v0 + url, config)
     .then((res) => {
-      console.log(res)
+      console.log("🚀 ~ file: profileHeader.tsx:41 ~ .then ~ res:", res)
       return res.json()
     })
     .catch((e) => {
