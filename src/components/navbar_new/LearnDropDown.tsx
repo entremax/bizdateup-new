@@ -68,7 +68,7 @@ const dropDownItems = [
       </svg>
     ),
     desc: 'All your questions answered in one place',
-    to: '#faq',
+    to: '/faq',
   },
   {
     name: 'About the company',

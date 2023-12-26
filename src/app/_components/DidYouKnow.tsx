@@ -103,7 +103,7 @@ export default function DidYouKnow() {
   }, [price])
   return (
     <>
-      <div className="relative overflow-hidden bg-primary-dark pb-[80px] pt-[68px] lg:hidden">
+      <div className="relative my-16 overflow-hidden bg-primary-dark pb-8 pt-16 lg:hidden">
         {backGroundStyles.first.map(({ className }, index) => (
           <div key={index} aria-hidden="true" className={className}>
             <BackgroundSvg />
@@ -119,7 +119,7 @@ export default function DidYouKnow() {
           </p>
           <div className="relative flex justify-center lg:justify-center">
             <Button
-              className="mx-5 w-fit py-4"
+              className="mx-5 my-8 py-4 lg:w-fit"
               title="Explore Startups"
               href={'/signup'}></Button>
           </div>
@@ -172,7 +172,7 @@ export default function DidYouKnow() {
           </div>
         </div>
       </div>
-      <div className="relative hidden h-[769px] items-center justify-between overflow-hidden bg-primary-dark lg:flex lg:px-[80px] xl:px-[150px]">
+      <div className="relative my-32 hidden h-[769px] items-center justify-between overflow-hidden bg-primary-dark lg:flex lg:px-[80px] xl:px-[150px]">
         {backGroundStyles.second.map(({ className }, index) => (
           <div key={index + className} aria-hidden="true" className={className}>
             <BackgroundSvg />
@@ -184,12 +184,11 @@ export default function DidYouKnow() {
             If you would have Invested just ₹50,000 in these startups what would
             have been your net worth today?
           </p>
-          <div className="mt-8">
+          <div className="relative">
             <Button
-              href={'/signup'}
-              className="w-fit"
+              className="my-8 w-fit px-8 py-4"
               title="Explore Startups"
-            />
+              href={'/signup'}></Button>
           </div>
         </div>
         <div className="relative z-[99] mx-[20px] my-[112px] h-[543px] w-[522px] rounded-[13.488px] border-[#EAE9E8] bg-white py-[39px]">

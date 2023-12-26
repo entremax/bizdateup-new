@@ -2,7 +2,7 @@ import Button from '@/components/LinkButton'
 
 export default function HowItWorks() {
   return (
-    <div className="mt-[60px] flex flex-col items-center px-[19px]">
+    <div className="my-32 flex flex-col items-center px-[19px]">
       <div>
         <p className="text-center text-[13px] font-semibold text-zinc-700/70 lg:text-[20px]">
           HOW IT WORKS
@@ -54,7 +54,7 @@ export default function HowItWorks() {
           <div className="flex w-full">
             <Button
               href={'/signup'}
-              className="w-fit grow lg:grow-0"
+              className="w-fit grow px-4 lg:grow-0"
               title="Fill out the application now"
             />
           </div>
