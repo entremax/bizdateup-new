@@ -14,7 +14,7 @@ import Faq from '@/components/faq'
 
 export default function Home() {
   return (
-    <main className="mx-auto">
+    <main className="mx-auto mt-20">
       <TopSection />
       <WhoAreWe />
       <AngelInvestor />
