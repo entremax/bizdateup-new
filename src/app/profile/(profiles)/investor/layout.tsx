@@ -1,6 +1,6 @@
 import ProfileHeader from '@/components/profile/profileHeader'
 import type { Metadata } from 'next'
-import SectionBar from '@/components/profile/sidebarSection'
+import SectionBar from '@/app/profile/(profiles)/investor/_components/sidebarSection'
 import React from 'react'
 import SectionHeader from '@/components/profile/sectionHeader'
 import ReduxProvider from '@/store/Provider'

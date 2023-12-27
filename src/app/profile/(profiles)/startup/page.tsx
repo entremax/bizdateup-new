@@ -15,5 +15,5 @@ export default async function StartupProfile() {
     return
   }
 
-  return <div className="h1 p-20">{user?.companyName}</div>
+  return <div className="h1 p-20">{JSON.stringify(user)}</div>
 }

@@ -81,6 +81,9 @@
       "@/components/payment/*": [
         "./src/app/payment/_components/*"
       ],
+      "@/components/profile/startup/*": [
+        "./src/app/profile/(profiles)/startup/_components/*",
+      ],
       "@/components/profile/*": [
         "./src/app/profile/(profiles)/investor/_components/*",
         "./src/app/profile/(profiles)/investor/bank/components/*",
@@ -108,7 +111,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/app/profile/(profiles)/investor/_components/sidebarSection.tsx"  ],
   "exclude": [
     "node_modules"
   ]
