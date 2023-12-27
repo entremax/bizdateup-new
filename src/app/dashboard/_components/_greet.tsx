@@ -5,13 +5,14 @@ import { useAppSelector } from '@/store/hooks'
 import capitalize from 'antd/lib/_util/capitalize'
 
 const Greet = () => {
-  const { user, kycCompletionPercentage, kycStatus } = useAppSelector(
+  const { role, user, kycCompletionPercentage, kycStatus } = useAppSelector(
     ({ authUser }) => authUser,
   )
+
   return (
     <>
       <h3 className="reset flex items-center gap-4 text-lg font-bold text-[rgba(32,32,84,0.62)] md:text-2xl">
-        Hello {capitalize(user?.firstName || 'User')},
+        Hello {capitalize((role === 'investor' && user?.firstName) || 'User')},
         {user && kycStatus && kycCompletionPercentage === 100 && (
           <div
             className={

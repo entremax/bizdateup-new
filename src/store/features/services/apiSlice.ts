@@ -192,6 +192,21 @@ export const api = createApi({
       transformErrorResponse: (response: { status: string | number }) =>
         response,
     }),
+    checkRisk: builder.mutation({
+      query: (acknowledgement) => ({
+        url: 'v0/investor/add_acknowledgement',
+        method: 'POST',
+        body: {
+          acknowledgement,
+        },
+      }),
+      transformResponse: (response: any) => {
+        console.log(response)
+        return response.data
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
   }),
 })
 
@@ -204,4 +219,5 @@ export const {
   useUpdateOtherDetailsMutation,
   useUpdateBankDetailsMutation,
   useUpdateProfileImageMutation,
+  useCheckRiskMutation,
 } = api

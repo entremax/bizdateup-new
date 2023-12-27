@@ -14,6 +14,5 @@ export default async function StartupProfile() {
   if (role !== 'startup') {
     return
   }
-
-  return <div className="h1 p-20">{JSON.stringify(user)}</div>
+  return <div className="h1 p-20">{JSON.stringify(user)} profile</div>
 }

@@ -27,7 +27,7 @@ export default function WhoAreWe() {
             <Button
               href={'/get-started'}
               title="Get Started"
-              className={'my-4 py-4'}
+              className={'my-4 py-4 lg:w-1/2'}
             />
           </div>
         </div>

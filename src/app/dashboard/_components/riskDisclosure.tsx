@@ -2,15 +2,23 @@
 import CustomModal from '@/components/modal/customModal'
 import React, { useState } from 'react'
 import { Button } from 'antd'
+import { useAppSelector } from '@/store/hooks'
+import { useCheckRiskMutation } from '@/services/apiSlice'
 
 export const dynamic = 'force-dynamic'
 
 export default function RiskDisclosure() {
-  const [riskAccepted, setRiskAccepted] = useState(false)
-
+  const { role, user } = useAppSelector(({ authUser }) => authUser)
+  const [riskAccepted, setRiskAccepted] = useState(
+    role === 'investor' && user?.acknowledgement !== 'false',
+  )
+  const [checkRisk] = useCheckRiskMutation()
+  
   const handler = () => {
-    localStorage.setItem('risk-accepted', 'yes')
-    setRiskAccepted(!riskAccepted)
+    checkRisk('true')
+      .unwrap()
+      .then((res) => setRiskAccepted(!riskAccepted))
+      .catch((e) => console.log(e))
   }
   React.useEffect(() => {
     const risk = localStorage.getItem('risk-accepted')

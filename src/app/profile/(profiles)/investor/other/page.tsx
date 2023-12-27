@@ -1,5 +1,4 @@
 import React from 'react'
-import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
 import OtherDetailsForm from '@/app/profile/(profiles)/investor/other/components/otherDetailsForm'
 import type { Metadata } from 'next'
@@ -17,8 +16,8 @@ export const metadata: Metadata = {
 export default async function OtherDetails({ searchParams }: Props) {
   const editState: boolean = !searchParams.edit
 
-  const { user }: { user: DataInner } = await getUserDetails()
-  if (!user) {
+  const { role, user } = await getUserDetails()
+  if (role !== 'investor' || !user) {
     return <>Loading</>
   }
   const data = [

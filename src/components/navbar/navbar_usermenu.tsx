@@ -77,6 +77,7 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
     },
     {
       label: <p className={'reset text-bla px-4'}>Transactions</p>,
+      disabled: role && role !== 'investor' ? true : false,
       key: '2',
       icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
     },
@@ -109,7 +110,7 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
   }
 
   const avatarClass =
-    user && user?.membership?.isMember !== 'no'
+    role === 'investor' && user && user?.membership?.isMember !== 'no'
       ? 'relative rounded-full outline outline-4 outline-yellow-500'
       : 'relative rounded-full'
 
@@ -160,26 +161,31 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
   }
   return (
     <>
-      <Button
-        type={'default'}
-        onClick={handleCreateAccelerator}
-        className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  md:inline-block">
-        Refer & Earn
-      </Button>
-      <Tooltip title={badgeTitle}>
-        <Dropdown
-          dropdownRender={() => <StartupUpdatesDropDown />}
-          trigger={['click']}>
-          <Badge count={0}>
-            <Button
-              onClick={handleFetchUpdates}
-              icon={<Icons.Bell />}
-              shape="circle"
-              className={'relative !outline-none'}
-            />
-          </Badge>
-        </Dropdown>
-      </Tooltip>
+      {role && role === 'investor' && (
+        <>
+          <Button
+            type={'default'}
+            onClick={handleCreateAccelerator}
+            className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  md:inline-block">
+            Refer & Earn
+          </Button>
+
+          <Tooltip title={badgeTitle}>
+            <Dropdown
+              dropdownRender={() => <StartupUpdatesDropDown />}
+              trigger={['click']}>
+              <Badge count={0}>
+                <Button
+                  onClick={handleFetchUpdates}
+                  icon={<Icons.Bell />}
+                  shape="circle"
+                  className={'relative !outline-none'}
+                />
+              </Badge>
+            </Dropdown>
+          </Tooltip>
+        </>
+      )}
 
       <div className={'flex items-center justify-center gap-2'}>
         <Dropdown menu={{ items, onClick }}>
@@ -196,7 +202,10 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
                   src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
                 />
               )}
-              {user && user?.membership?.isMember !== 'no' ? (
+              {role &&
+              role === 'investor' &&
+              user &&
+              user?.membership?.isMember !== 'no' ? (
                 <>
                   <Icons.Premium
                     className={'absolute -top-4 right-0.5 z-[999] rotate-12'}

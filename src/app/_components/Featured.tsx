@@ -1,6 +1,6 @@
 export default function Featured() {
   return (
-    <div className="my-8 lg:px-[200px] xl:px-[270px]">
+    <div className="my-16 lg:px-[200px] xl:px-[270px]">
       <h6 className="mb-0 text-center text-[30px] font-bold lg:text-[44px]">
         Featured in
       </h6>

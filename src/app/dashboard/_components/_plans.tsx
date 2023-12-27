@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { useAppSelector } from '@/store/hooks'
 
 const Plans = () => {
-  const { user } = useAppSelector(({ authUser }) => authUser)
+  const { role, user } = useAppSelector(({ authUser }) => authUser)
   const tableData = {
     headers: ['Features', 'Free', 'Membership'],
     features: [
@@ -33,7 +33,8 @@ const Plans = () => {
       },
     ],
   }
-  return (
+
+  return role !== 'investor' ? null : (
     <div
       className={cn(
         user?.membership?.isMember === 'no'

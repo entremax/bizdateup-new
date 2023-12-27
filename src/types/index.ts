@@ -69,9 +69,11 @@ export interface DataInner {
   code: number
   refer: null | string
   profilePic: string
+  acknowledgement: 'false' | 'true'
 }
 
 export interface IInvestorData {
+  acknowledgement: 'false' | 'true'
   aadhar: Aadhar
   address: Address
   pan: Pan
@@ -118,6 +120,8 @@ export interface BaseAuthUserState {
   user: DataInner | StartupData | null
   isVerified: boolean
   riskAccepted: boolean
+  kycCompletionPercentage: number
+  kycStatus: KYCStatusArray
   premiumMember: boolean | null
   role: UserRole
 }
@@ -128,9 +132,6 @@ export interface InvestorUserState extends BaseAuthUserState {
   refId: string | null
   temp_auth_medium: string | null
   user: DataInner | null
-  kycStatus: KYCStatusArray | null
-  isVerified: boolean
-  kycCompletionPercentage: number
   riskAccepted: boolean
   premiumMember: boolean
   role: 'investor'
@@ -328,7 +329,7 @@ export type PaymentData = {
 
 
 export type BaseUserData = {
-  role: 'investor' | 'startup'
+  role: 'investor' | 'startup' | null
   refId: string
   status: KYCStatusArray
   token: string

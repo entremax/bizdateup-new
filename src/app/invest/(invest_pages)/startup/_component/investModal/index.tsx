@@ -30,7 +30,9 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
     useState<TransactionTypes>('online')
   const [open, setOpen] = useState(false)
   const [amountToPay, setAmountToPay] = useState(0)
-  const { premiumMember, user } = useAppSelector((state) => state.authUser)
+  const { premiumMember, role, user } = useAppSelector(
+    (state) => state.authUser,
+  )
   const [payment, { isLoading: paymentLoading }] = usePaymentMutation()
   const calculateConvenienceFee = (amount: number) => Math.ceil(amount * 0.02)
   const calculateGst = (amount: number) =>
@@ -57,7 +59,7 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
     referenceId?: String,
   ) => {
     console.log('Payment mode', payment_mode)
-    if (!user) {
+    if (!user || !role || (role && role !== 'investor')) {
       return
     }
     let payment_data: OnlinePaymentData | OfflinePayments = {
