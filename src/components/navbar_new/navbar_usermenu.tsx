@@ -77,7 +77,7 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
     },
     {
       label: <p className={'reset text-bla px-4'}>Transactions</p>,
-      disabled: role && role !== 'investor' ? true : false,
+      disabled: !!(role && role !== 'investor'),
       key: '2',
       icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
     },
@@ -159,7 +159,7 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       )
     }
   }
-  return (
+  return !user ? null : (
     <>
       {role && role === 'investor' && (
         <>

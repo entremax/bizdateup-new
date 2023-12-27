@@ -76,7 +76,7 @@ export default function Invest() {
   }, [startupType, token])
   return (
     <main className={'py-24  lg:pb-0'}>
-      <div className="flex flex-col gap-4 px-4 lg:px-28">
+      <div className="flex flex-col gap-4 px-4 lg:px-32">
         <h3 className={'text-3xl font-semibold text-primary-dark'}>
           Discover Promising Startups
         </h3>
