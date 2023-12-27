@@ -14,7 +14,7 @@ type Props = {
 export default function SlideCard({ review, style }: Props) {
   return (
     <div
-      className="border_gray !flex h-[24rem] !w-[20rem] flex-col items-center justify-center gap-4 rounded-2xl p-8"
+      className="border_gray  !flex h-[24rem] !w-[20rem] flex-col items-center justify-center gap-4 rounded-2xl p-8 sm:!w-[16rem]"
       style={style}>
       <div className="relative h-28  w-28 overflow-clip rounded-full">
         <Image src={review.photo} alt={review.name} fill />

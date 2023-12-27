@@ -9,7 +9,7 @@ import {
   reset as authReset,
   reset as investReset,
 } from '@/reducers/user/authSlice'
-import { useLogoutMutation } from '@/store/features/services/NextApiSlice'
+import { useLogoutMutation } from '@/services/NextApiSlice'
 import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -19,7 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useFetchStartupUpdatesMutation } from '@/services/startupApiSlice'
 import { setStartupUpdates } from '@/reducers/user/startupSlice'
-import StartupUpdatesDropDown from '@/components/navbar/startup_updates'
+import StartupUpdatesDropDown from '@/components/navbar_new/startup_updates'
 import { notifyUser } from '@/components/notification'
 import { acceleratorApis, getAcceleratorDetails } from '@/lib/accelerator'
 import { setAcceleratorCookies } from '@/action/accelerator'

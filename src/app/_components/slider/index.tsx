@@ -64,7 +64,7 @@ export default function Reviews() {
       },
     },
     {
-      breakpoint: 768,
+      breakpoint: 668,
       settings: {
         slidesToShow: 1,
       },
@@ -78,7 +78,7 @@ export default function Reviews() {
         have to say about us!
       </h6>
 
-      <div className="my-32 justify-center xl:mx-32">
+      <div className="my-12 justify-center md:my-32 xl:mx-32">
         <Carousel
           className={'review-slider'}
           autoplay={false}

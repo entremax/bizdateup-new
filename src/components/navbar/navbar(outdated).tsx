@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import NavLink from '@/components/navbar/navbar_links(outdated)'
-import UserMenu from './navbar_usermenu'
+import UserMenu from '../navbar_new/navbar_usermenu'
 import { useUser } from '@/hooks/useUser'
 import { useAppSelector } from '@/store/hooks'
 

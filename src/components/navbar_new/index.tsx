@@ -10,8 +10,9 @@ import { cn } from '@/lib/utils'
 import { Dropdown } from 'antd'
 import LearnDropDown from '@/components/navbar_new/LearnDropDown'
 import { DownOutlined } from '@ant-design/icons'
-import UserMenu from '@/components/navbar/navbar_usermenu'
+import UserMenu from '@/components/navbar_new/navbar_usermenu'
 import { useUser } from '@/hooks/useUser'
+import Sidebar from '@/components/navbar_new/Sidebar'
 
 export default function NavbarNew() {
   const path = usePathname()
@@ -111,6 +112,11 @@ export default function NavbarNew() {
           {authenticated && (
             <div className={' flex items-center justify-center gap-4 lg:gap-8'}>
               <UserMenu user={user?.userData} />
+            </div>
+          )}
+          {!authenticated && (
+            <div className="mx-4 lg:hidden">
+              <Sidebar />
             </div>
           )}
         </div>

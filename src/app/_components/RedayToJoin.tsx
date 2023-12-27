@@ -43,7 +43,7 @@ export default function ReadyToJoin() {
         Breathe Angel Investing! To top it up Signing up takes hardly 5 mins of
         your time. So, Join the Community Now!
       </p>
-      <div className="relative z-[10] m-auto my-8 flex w-full flex-col gap-4 lg:w-2/4 lg:flex-row">
+      <div className="relative z-[10] m-auto my-8 flex w-full flex-col gap-4 lg:w-1/4 lg:flex-row">
         <Button href={'/register'} className={'w-full py-4 text-white lg:px-8'}>
           Register
         </Button>
