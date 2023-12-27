@@ -40,27 +40,18 @@ export default async function StartupProfile() {
   )
 }
 
-const, Highlights = (
-  {
-    highlights
-  }:
-    {
-      highlights: [string, any][]
-    }) => {
-  return (
-    highlights?.map(([key, value]: [string, any]) => (
-      <li
-        className="text-medium flex items-start  gap-1 text-[#444] lg:gap-2"
-        key={key.toString()}>
-        <Icons.Verified
-          className={'mt-1 h-4 w-4 flex-none md:h-5 md:w-5'}
-        />
-        <span
-          className={
-            'self-center justify-self-center text-sm font-medium text-gray-600 lg:text-base'
-          }>
-                  {value.toString()}
-                </span>
-      </li>
-    )))
+const Highlights = ({ highlights }: { highlights: [string, any][] }) => {
+  return highlights?.map(([key, value]: [string, any]) => (
+    <li
+      className="text-medium flex items-start  gap-1 text-[#444] lg:gap-2"
+      key={key.toString()}>
+      <Icons.Verified className={'mt-1 h-4 w-4 flex-none md:h-5 md:w-5'} />
+      <span
+        className={
+          'self-center justify-self-center text-sm font-medium text-gray-600 lg:text-base'
+        }>
+        {value.toString()}
+      </span>
+    </li>
+  ))
 }
