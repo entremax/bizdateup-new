@@ -1,4 +1,4 @@
-import Button from '@/components/LinkButton'
+import HowToSteps from '@/app/_components/Steps'
 
 export default function HowItWorks() {
   return (
@@ -21,43 +21,7 @@ export default function HowItWorks() {
           />
         </picture>
         <div className="flex max-w-[491px] flex-col gap-y-8 pt-[33px] lg:pt-16">
-          <div className="flex items-center gap-x-6">
-            <span className="rounded-md bg-[#E2E2E2] px-4 py-2 text-[15.036px]">
-              1
-            </span>
-            <span className="text-[20px] font-bold">
-              Register with email or social logins
-            </span>
-          </div>
-          <div className="flex items-center gap-x-6">
-            <span className="rounded-md bg-[#8686F5] px-4 py-2 text-[15.036px] text-white">
-              2
-            </span>
-            <div>
-              <span className="text-[20px] font-bold text-[#8686F5]">
-                Complete KYC & Bank details
-              </span>
-              <p className="text-[14px] font-normal text-[#6E6E73]">
-                Get on a Quick 15 mins Zoom Call with our Experts to understand
-                the Process & Terms for Selections & Investment.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-x-6">
-            <span className="rounded-md bg-[#E2E2E2] px-4 py-2 text-[15.036px]">
-              3
-            </span>
-            <span className="text-[20px] font-bold">
-              Start investing in start ups
-            </span>
-          </div>
-          <div className="flex w-full">
-            <Button
-              href={'/signup'}
-              className="w-fit grow px-4 lg:grow-0"
-              title="Fill out the application now"
-            />
-          </div>
+          <HowToSteps />
         </div>
       </div>
     </div>
