@@ -159,6 +159,7 @@ export type ISendOtpResponseData = {
   refId?: string
   data: Data
   method: 'login' | 'signup'
+  referedUrl: string | null
 }
 
 export type IResponse = {

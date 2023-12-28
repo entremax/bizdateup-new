@@ -55,7 +55,7 @@ export default function NavbarNew() {
             (link, index) => (
               <div
                 key={link.name + index}
-                className="group hidden h-full lg:inline">
+                className="group hidden h-full md:inline">
                 {link.name === 'Learn' ? (
                   <Dropdown
                     dropdownRender={() => <LearnDropDown />}
@@ -96,7 +96,7 @@ export default function NavbarNew() {
           )}
           {authenticated && <div className={'grow'} />}
           {!authenticated && (
-            <div className="hidden h-full items-center justify-center gap-2 lg:flex">
+            <div className="hidden h-full items-center justify-center gap-2 md:flex">
               <Link
                 href={'/login'}
                 className="cursor-pointer rounded-lg border-0 bg-light-shadow p-[0.625rem_1.25rem] text-primary outline-none">

@@ -13,7 +13,14 @@ interface OtpVerifyData {
 export async function POST(req: NextRequest) {
   try {
     const baseUrl = apiUri().v0
+    let referedUrl = req.headers.get('referer')
     const otpData = (await req.json()) as OtpVerifyData
+    if (referedUrl) {
+      const url = new URL(
+        referedUrl ?? 'https://bizdateup-uat.vercel.app/referral',
+      )
+      referedUrl = url.pathname
+    }
     if (!otpData) {
       return Response.json({
         status: false,
@@ -85,7 +92,10 @@ export async function POST(req: NextRequest) {
           maxAge: 60 * 60,
         })
         console.log('Cookies set successfully')
-        return NextResponse.json({ success: true, data: response.data })
+        return NextResponse.json({
+          success: true,
+          data: { ...response.data, referedUrl },
+        })
       } else if (
         response.data &&
         'error' in response.data &&
@@ -96,7 +106,7 @@ export async function POST(req: NextRequest) {
           { status: response.data.httpCode },
         )
       } else {
-        return NextResponse.json({ success: true, data: response })
+        return NextResponse.json({ success: true, data: { ...response, referedUrl } })
       }
     } catch (e) {
       console.log(e)
