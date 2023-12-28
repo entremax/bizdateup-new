@@ -19,9 +19,7 @@ export default function NavbarNew() {
   const { user, loading } = useUser()
   const { NavbarData } = data
   const logged_in = useCookieLocal('logged-in')
-  const [authenticated, setAuthenticated] = useState(
-    !!(logged_in && logged_in === 'true'),
-  )
+  const [authenticated, setAuthenticated] = useState(true)
 
   useEffect(() => {
     setAuthenticated(!!(logged_in && logged_in === 'true'))

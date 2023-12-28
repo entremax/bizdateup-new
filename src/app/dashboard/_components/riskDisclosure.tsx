@@ -20,12 +20,6 @@ export default function RiskDisclosure() {
       .then((res) => setRiskAccepted(!riskAccepted))
       .catch((e) => console.log(e))
   }
-  React.useEffect(() => {
-    const risk = localStorage.getItem('risk-accepted')
-    if (risk !== 'yes') {
-      setRiskAccepted(true)
-    }
-  }, [])
   return (
     <div>
       <CustomModal

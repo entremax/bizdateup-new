@@ -31,7 +31,7 @@ export const NextApi = createApi({
             ...response.data.data,
           },
           referedUrl: response.referedUrl,
-        ,}
+        }
       },
       transformErrorResponse: (response: {
         status: number

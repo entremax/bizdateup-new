@@ -159,7 +159,7 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       )
     }
   }
-  return !user ? null : (
+  return (
     <>
       {role && role === 'investor' && (
         <>
@@ -199,7 +199,11 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
               ) : (
                 <Avatar
                   size="large"
-                  src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
+                  src={
+                    !user
+                      ? 'https://api.dicebear.com/7.x/pixel-art/svg?seed=Jane'
+                      : apiUri().v0 + '/investor/profile_pic/' + user?._id
+                  }
                 />
               )}
               {role &&
