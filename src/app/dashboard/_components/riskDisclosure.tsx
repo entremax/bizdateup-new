@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export default function RiskDisclosure() {
   const { role, user } = useAppSelector(({ authUser }) => authUser)
   const [riskAccepted, setRiskAccepted] = useState(
-    role === 'investor' && user?.acknowledgement !== 'false',
+    role === 'investor' && user?.acknowledgement === 'false',
   )
   const [checkRisk] = useCheckRiskMutation()
   
