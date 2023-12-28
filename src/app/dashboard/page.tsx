@@ -14,6 +14,7 @@ import ReduxProvider from '@/store/Provider'
 import FrequentlyAsked from '@/components/faq'
 import dynamic from 'next/dynamic'
 import { fetchData } from '@/lib/fetchApi'
+import getUserDetails from '@/action/user'
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -32,7 +33,7 @@ const Dashboard = async () => {
     'get',
     0,
   )) as Campaign[]
-
+  const { user } = await getUserDetails()
   const menu = [
     {
       name: 'Tutorials',
@@ -55,7 +56,9 @@ const Dashboard = async () => {
       link: '/policy',
     },
   ]
-
+  if (!user || !(user && 'role' in user)) {
+    return
+  }
   return (
     <section className="ml-2 grid grid-cols-12 gap-2 pb-3 pr-3 pt-20">
       <div className="col-start-1 col-end-12 my-6 md:mt-5 xl:col-start-2 xl:col-end-11">
@@ -204,9 +207,11 @@ const Dashboard = async () => {
           </div>
         </div>
       </div>
-      <ReduxProvider>
-        <RiskDisclosure />
-      </ReduxProvider>
+      {user.acknowledgement === 'false' && (
+        <ReduxProvider>
+          <RiskDisclosure />
+        </ReduxProvider>
+      )}
     </section>
   )
 }
