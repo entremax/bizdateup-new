@@ -1,7 +1,6 @@
 'use client'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React from 'react'
 import { Steps } from 'antd'
-import Button from '@/components/LinkButton'
 import { cn } from '@/lib/utils'
 
 type Props = { current: number; onChange: (value: number) => void }
@@ -56,8 +55,8 @@ const OnboardingSteps: React.FC<Props> = ({ onChange, current }) => {
             ),
             description: current === 1 && (
               <p className="whitespace-wrap text-[14px] font-normal text-[#6E6E73] delay-200">
-                Get on a Quick 15 min's Zoom Call with our Experts to understand
-                the Process & Terms for Selections & Investment.
+                Get on a Quick 15 min&#39;s Zoom Call with our Experts to
+                understand the Process & Terms for Selections & Investment.
               </p>
             ),
           },
@@ -82,8 +81,8 @@ const OnboardingSteps: React.FC<Props> = ({ onChange, current }) => {
             ),
             description: current === 2 && (
               <p className="whitespace-wrap text-[14px] font-normal text-[#6E6E73] delay-200">
-                Get on a Quick 15 min's Zoom Call with our Experts to understand
-                the Process & Terms for Selections & Investment.
+                Get on a Quick 15 min&#39;s Zoom Call with our Experts to
+                understand the Process & Terms for Selections & Investment.
               </p>
             ),
           },

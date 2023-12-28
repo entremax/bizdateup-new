@@ -34,7 +34,7 @@ export default async function StartupProfile() {
   return (
     <div className="h1 p-20">
       {data.map((field) => (
-        <p>{field.value}</p>
+        <p key={field.label}>{field.value}</p>
       ))}
     </div>
   )

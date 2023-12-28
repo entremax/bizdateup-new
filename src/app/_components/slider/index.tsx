@@ -91,6 +91,7 @@ export default function Reviews() {
           responsive={responsiveSettings}>
           {Review.map((review) => (
             <SlideCard
+              key={review.id}
               review={review}
               style={{
                 margin: '0 1rem',

@@ -36,7 +36,7 @@ export default function ReadyToJoin() {
           'relative z-[10] my-4 flex flex-col gap-3 text-center text-3xl font-semibold xl:flex-row'
         }>
         <span className="text-white">Ready to Join the Top</span>
-        <span className="text-primary">1% Investor's club?</span>
+        <span className="text-primary">1% Investor&#39;s club?</span>
       </h4>
       <p className="relative z-[10] m-auto text-center font-normal leading-[1.27544rem] text-white lg:w-3/4">
         With Bizdateup you get a Strong Community of Top 1% Investors who live &
