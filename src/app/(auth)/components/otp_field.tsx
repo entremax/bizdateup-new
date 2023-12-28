@@ -53,8 +53,8 @@ export default function OtpField({ id }: { id: string }) {
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
   const [otp, setOtp] = useState('')
   const actionType = searchParams.get('type')
-  const userRole = searchParams.get('role')
-  const { temp_auth_medium, investorUserId } = useAppSelector(
+  const userRole = searchParams.get('role') as 'investor' | 'startup' | null
+  const { temp_auth_medium, userId } = useAppSelector(
     ({ authUser }) => authUser,
   )
   const { user } = useAppSelector(({ authUser }) => authUser)
@@ -63,10 +63,10 @@ export default function OtpField({ id }: { id: string }) {
   React.useEffect(() => {
     if (!temp_auth_medium) {
       router.back()
-    } else if (id !== investorUserId?.toString()) {
+    } else if (id !== userId?.toString()) {
       router.back()
     }
-  }, [temp_auth_medium, id, investorUserId])
+  }, [temp_auth_medium, id, userId])
 
   async function handleResend() {
     if (!temp_auth_medium) {
@@ -97,7 +97,7 @@ export default function OtpField({ id }: { id: string }) {
 
   // TODO - Fix redirection issue (partially fixed)
   async function handleVerifyOtp() {
-    if (!investorUserId || otp === '') {
+    if (!userId || otp === '') {
       dispatch(
         setNotification({
           type: 'error',
@@ -110,7 +110,7 @@ export default function OtpField({ id }: { id: string }) {
     // TODO- Refactor the use of verifyOTP api
     const reqData: OtpVerifyData = {
       code: otp,
-      refId: investorUserId,
+      refId: userId,
     }
     const response = await verifyOtp(reqData)
     if (response) {
@@ -131,8 +131,9 @@ export default function OtpField({ id }: { id: string }) {
         responseCode,
         investorData,
         token,
-        refId = investorUserId,
+        refId = userId,
         status,
+        referedUrl,
       } = response.data
       console.log(response)
       const loginMethod = localStorage.getItem('loginMethod')
@@ -144,29 +145,31 @@ export default function OtpField({ id }: { id: string }) {
           dispatch,
           setUser,
           user: {
+            role: userRole ?? 'investor',
             userData: investorData,
             token,
             refId,
             kycStatus: status,
-            premiumMember: investorData.membership.isMember !== 'no',
+            premiumMember: investorData?.membership?.isMember !== 'no',
           },
         })
-        router.refresh()
-        return window.location.replace('/dashboard')
+        // router.refresh()
+        return window.location.replace(referedUrl ? referedUrl : '/dashboard')
       } else {
         if (responseCode === 200) {
           await setUserInLocal({
             dispatch,
             setUser,
             user: {
+              role: userRole ?? 'investor',
               userData: investorData,
               token,
               refId,
               kycStatus: status,
-              premiumMember: investorData.membership.isMember !== 'no',
+              premiumMember: investorData?.membership?.isMember !== 'no',
             },
           })
-          return window.location.replace('/dashboard')
+          return window.location.replace(referedUrl ? referedUrl : '/dashboard')
         }
       }
     }

@@ -2,7 +2,7 @@ import Button from '@/components/LinkButton'
 
 export default function Founders() {
   return (
-    <div className="mt-[60px] flex flex-col justify-between px-[19px] lg:flex-row lg:px-[158px]">
+    <div className="mb-16 mt-0  flex flex-col items-center justify-between px-[19px] lg:flex-row lg:px-[158px]">
       <div className="mb-0 pt-24 lg:w-[593px]">
         <p className="text-center text-[18px] font-semibold text-zinc-700/70 lg:mb-[12px] lg:text-left lg:text-[26px]">
           For Founders
@@ -15,10 +15,10 @@ export default function Founders() {
           Whether it&apos;s crowdfunding, raising privately or a discount pool,
           find out how we can accommodate your fundraising needs.
         </p>
-        <div className="flex w-full items-center justify-center lg:items-start lg:justify-start">
+        <div className="my-4 flex w-full items-center justify-center lg:items-start lg:justify-start">
           <Button
             href={'/signup'}
-            className="w-fit grow lg:grow-0"
+            className="grow lg:w-1/4 lg:grow-0"
             title="Register"
           />
         </div>

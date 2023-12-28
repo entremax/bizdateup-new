@@ -3,12 +3,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import NavLink from '@/components/navbar/navbar_links(outdated)'
-import UserMenu from './navbar_usermenu'
+import UserMenu from '../navbar_new/navbar_usermenu'
 import { useUser } from '@/hooks/useUser'
 import { useAppSelector } from '@/store/hooks'
 
 const NavbarOutdated: React.FC = () => {
-  const user = useUser()
+  const { user } = useUser()
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
   const [type, setType] = useState<'authenticated' | 'unauthenticated'>(
     user ? 'authenticated' : 'unauthenticated',

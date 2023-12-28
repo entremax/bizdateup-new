@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import Button from '@/components/LinkButton'
 
 const stats = [
   {
@@ -27,43 +27,41 @@ const stats = [
 export default function TopSection() {
   return (
     <>
-      <div className="relative mt-[50px] flex flex-col-reverse items-center justify-between lg:mt-[80px] lg:flex-row xl:px-[130px]">
-        <div className="mx-[24px] flex flex-col items-center sm:text-center lg:items-start lg:px-0 lg:text-left">
+      <div className="relative flex flex-col-reverse items-center justify-between lg:flex-row">
+        <div className=" mx-4 flex flex-col items-center sm:text-center lg:my-20 lg:items-start lg:text-left  xl:px-32">
           <h1 className="static z-50 my-4 mt-10 max-h-[128px] min-w-[319px] max-w-[824px] text-[28px] font-bold leading-[33.976px] lg:absolute lg:start-[2rem] lg:text-[56px] lg:leading-tight lg:-tracking-[2.16px] xl:start-[10rem]">
             Invest in Top 1% Indian Startups & Become a{' '}
             <span className="text-[#8686F5]">Super Angel!</span>
           </h1>
-          <div className="my-4 lg:mt-[200px]">
-            <p className="text-balance max-w-[554px] text-[16px] font-normal leading-[20px] lg:text-[20px] lg:leading-7">
+          <div className="my-4 lg:mx-4 lg:mt-52">
+            <p className="text-balance max-w-[554px] text-lg font-normal leading-6 lg:text-[20px] lg:leading-7">
               We are an Investment platform which enables Investors like you to
               explore and invest in groundbreaking & Highly-Profitable Indian
               startup ventures starting at ₹50,000.
             </p>
           </div>
-          <Link
-            href={'/signup'}
-            className={
-              'my-8 w-full cursor-pointer justify-self-center !rounded-[7.563px] !border-none !border-[#8686F5] bg-[#8686F5] px-[20px] py-[16px] text-center text-[17.647px] font-medium !text-[#fff] outline-[#8686F5] hover:bg-[#7d7df5] md:w-[215px] lg:justify-self-start'
-            }>
-            Signup Now
-          </Link>
+          <div className="mx-4 my-4 w-full lg:w-2/4">
+            <Button href={'/signup'} className={'py-4'}>
+              Signup Now
+            </Button>
+          </div>
         </div>
-        <div className="relative mt-10 h-auto max-h-[500px] w-[32rem] max-w-[600px] lg:mt-32">
+        <div className="lg:top-6rem relative h-[24rem] w-[25rem] md:w-[31rem] md:max-w-[31rem] lg:right-[8rem] lg:top-[4rem] lg:h-[26rem]">
           <picture>
             <Image
               src={'/cheerful_women.png'}
               alt="cheerful_women"
-              className={'!static mr-8'}
+              className={'mr-8'}
               fill
-              sizes="((min-width: 50em) and (max-width: 60em)) 50em,
-              ((min-width: 30em) and (max-width: 50em)) 30em,
-                (max-width: 30em) 20em"
+              sizes="((min-width: 50em) and (max-width: 60em)) 70em,
+              ((min-width: 30em) and (max-width: 50em)) 40em,
+                (max-width: 30em) 30em"
             />
           </picture>
         </div>
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute z-[10] hidden lg:start-[33rem] lg:top-[1rem] lg:block xl:start-[45rem] xl:top-[3rem]">
+          className="pointer-events-none absolute right-0 top-0 hidden lg:inline">
           <svg width="734" height="734" viewBox="0 0 734 734" fill="none">
             <path d="M723.898 465H744.598V485.7H723.898V465Z" fill="#3D97FF" />
             <path

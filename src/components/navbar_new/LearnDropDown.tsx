@@ -30,7 +30,7 @@ const dropDownItems = [
       </svg>
     ),
     desc: 'Grow your start up investment knowledge here',
-    to: '/tutorials',
+    to: '',
   },
   {
     name: 'Frequently asked questions',
@@ -68,7 +68,7 @@ const dropDownItems = [
       </svg>
     ),
     desc: 'All your questions answered in one place',
-    to: '#faq',
+    to: '/faq',
   },
   {
     name: 'About the company',
@@ -170,7 +170,7 @@ export default function LearnDropDown() {
       {dropDownItems.map((link, index) => (
         <Link
           key={link.to + index}
-          href={link.to}
+          href={`/learn${link.to}`}
           className={
             'flex items-center gap-2 rounded px-2 py-2 !text-black-lighter hover:bg-light-shadow'
           }>

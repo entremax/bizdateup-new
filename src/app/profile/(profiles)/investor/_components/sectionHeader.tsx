@@ -12,6 +12,7 @@ import { useUser } from '@/hooks/useUser'
 import { KYCStatus } from '@/types'
 import Edit from '@/icons/Edit'
 import { cn } from '@/lib/utils'
+import useCookieLocal from '@/lib/useCookieLocal'
 
 type SectionType =
   | 'general-info'
@@ -31,13 +32,14 @@ type SectionsInterface = {
 }
 
 export default function SectionHeader() {
+  const role = useCookieLocal('role')
   const segment: SectionType | null =
     useSelectedLayoutSegment() as SectionType | null
   const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
   const editState = searchParams.get('edit')
-  const user = useUser()
+  const { user } = useUser()
   const { kycCompletionPercentage, kycStatus } = useAppSelector(
     ({ authUser }) => authUser,
   )

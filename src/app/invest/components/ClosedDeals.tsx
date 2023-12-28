@@ -27,11 +27,11 @@ export default function ClosedDeals() {
     }
   }, [])
   return (
-    <div className={'flex flex-col gap-4 px-4 lg:px-28'}>
+    <div className={'flex flex-col gap-4 px-4 lg:px-28 xl:px-32'}>
       <h3 className={'text-3xl font-semibold text-primary-dark'}>
         Closed Deals
       </h3>
-      <div className="my-8 flex w-fit flex-wrap items-center justify-center gap-8  px-4">
+      <div className="my-8 flex w-fit flex-wrap items-center justify-center gap-8">
         {startups.map((startup) => (
           <StartupCard key={startup._id} startup={startup} closed={true} />
         ))}

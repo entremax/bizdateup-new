@@ -1,5 +1,4 @@
 import React from 'react'
-import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
 import OtherDetailsForm from '@/app/profile/(profiles)/investor/other/components/otherDetailsForm'
 import type { Metadata } from 'next'
@@ -17,8 +16,8 @@ export const metadata: Metadata = {
 export default async function OtherDetails({ searchParams }: Props) {
   const editState: boolean = !searchParams.edit
 
-  const { user }: { user: DataInner } = await getUserDetails()
-  if (!user) {
+  const { role, user } = await getUserDetails()
+  if (role !== 'investor' || !user) {
     return <>Loading</>
   }
   const data = [
@@ -48,11 +47,11 @@ export default async function OtherDetails({ searchParams }: Props) {
     <div className="flex flex-col">
       {user.other.status !== 'incomplete' && editState ? (
         <div className="grid grid-cols-1">
-          <div className="grid gap-8 p-8 xl:grid-cols-3">
+          <div className="grid gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.map(({ label, value, url }) => (
               <React.Fragment key={label}>
                 <div
-                  className={cn('grid gap-2' + url ? ' xl:cols-span-2' : '')}>
+                  className={cn('grid gap-2' + url ? ' md:cols-span-2' : '')}>
                   <p className="text-md text-gray-400">{label}</p>
                   {url ? (
                     <Link

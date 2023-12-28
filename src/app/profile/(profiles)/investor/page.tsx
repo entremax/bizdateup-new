@@ -1,6 +1,5 @@
 import React from 'react'
 import GeneralForm from '@/components/profile/generalForm'
-import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
 import type { Metadata } from 'next'
 
@@ -13,9 +12,12 @@ export const metadata: Metadata = {
 }
 export default async function InvestorProfile({ searchParams }: Props) {
   let editState: boolean = !searchParams.edit
-  const { user }: { user: DataInner } = await getUserDetails()
+  const { role, user } = await getUserDetails()
   if (!user) {
     return <>Loading</>
+  }
+  if (role !== 'investor') {
+    return
   }
   // if (user.firstName === '' || user.lastName === '' || !user.phone) {
   //   editState = true
@@ -23,11 +25,11 @@ export default async function InvestorProfile({ searchParams }: Props) {
   const data = [
     {
       label: 'First name',
-      value: user.firstName,
+      value: user?.firstName,
     },
     {
       label: 'Last Name',
-      value: user.lastName,
+      value: user?.lastName,
     },
     {
       label: 'Email',
@@ -74,7 +76,7 @@ export default async function InvestorProfile({ searchParams }: Props) {
       {!(user.firstName === '' || user.lastName === '' || !user.phone) &&
       editState ? (
         <div className="grid grid-cols-1">
-          <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.slice(0, 6).map(({ label, value, hidden }) => (
               <React.Fragment key={label}>
                 {!hidden && (
@@ -87,7 +89,7 @@ export default async function InvestorProfile({ searchParams }: Props) {
             ))}
           </div>
           <div className="h-2 w-full bg-light-shadow"></div>
-          <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 xl:grid-cols-3">
+          <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.slice(6, 12).map(({ label, value, hidden }) => (
               <React.Fragment key={label}>
                 {!hidden && (

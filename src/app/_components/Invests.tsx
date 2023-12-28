@@ -165,7 +165,7 @@ const Invest = [
 
 export default function Invests() {
   return (
-    <div className="mt-[131px] px-[20px]">
+    <div className="my-32 px-[20px]">
       <h6 className="text-center text-[30px] font-bold leading-[36px] lg:px-[250px] lg:text-[46px] lg:leading-[52px] xl:px-[414px]">
         But, Why should you Invest through{' '}
         <span className="text-[#8686F5]">Bizdateup?</span>
@@ -183,7 +183,7 @@ export default function Invests() {
           </div>
         ))}
       </div>
-      <div className={'my-12 mt-3 flex items-center lg:justify-center'}>
+      <div className={'my-12 flex items-center lg:justify-center'}>
         <Button
           href={'/signup'}
           className="w-fit grow p-4 lg:grow-0"

@@ -4,8 +4,8 @@ import WhoAreWe from '@/components/home/WhoAreWe'
 import AngelInvestor from '@/components/home/AngelInvestor'
 import DidYouKnow from '@/app/_components/DidYouKnow'
 import Invests from '@/app/_components/Invests'
-import HowItWorks from '@/app/_components/HowToInvest'
-import Reviews from '@/app/_components/Reviews'
+import HowItWorks from '@/app/_components/onboarding_steps/HowToInvest'
+import Reviews from '@/app/_components/slider'
 import Founders from '@/app/_components/Founders'
 import Featured from '@/app/_components/Featured'
 import ReadyToJoin from '@/app/_components/RedayToJoin'
@@ -14,7 +14,7 @@ import Faq from '@/components/faq'
 
 export default function Home() {
   return (
-    <main className="mx-auto">
+    <main className="mx-auto mt-20">
       <TopSection />
       <WhoAreWe />
       <AngelInvestor />

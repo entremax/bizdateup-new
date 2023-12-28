@@ -1,5 +1,4 @@
 import React from 'react'
-import { DataInner, KYCStatus } from '@/types'
 import getUserDetails from '@/action/user'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -15,9 +14,8 @@ export const metadata: Metadata = {
 }
 
 export default async function KYC({ searchParams }: Props) {
-  const { user, status }: { user: DataInner; status: KYCStatus[] } =
-    await getUserDetails()
-  if (!user) {
+  const { role, user, status } = await getUserDetails()
+  if (!user || role !== 'investor') {
     return <>Loading</>
   }
   if (user.aadhar.status === 'verified' && user.pan.status !== 'verified') {
@@ -53,7 +51,7 @@ export default async function KYC({ searchParams }: Props) {
     <div className="flex flex-col">
       {user?.aadhar.status === 'verified' && !searchParams.edit ? (
         <div className="grid grid-cols-1">
-          <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.aadhar.map(({ label, value, link }) => (
               <React.Fragment key={label}>
                 <div className="grid gap-2">

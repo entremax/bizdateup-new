@@ -145,7 +145,7 @@ export default function AccreditationData({ details, show }: Props) {
       </div>
       <div className="col-span-full flex flex-wrap items-center gap-4 ">
         <Link href={'/join'} className={'text-sm text-primary underline'}>
-          Join AMA meeting with Cofounders for learning
+          Join AMA meeting with Co-founders for learning
         </Link>
         <p className={'py-2  text-sm'}>
           <CalendarOutlined /> 23 Jan 2024

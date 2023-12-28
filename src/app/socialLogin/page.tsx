@@ -52,6 +52,7 @@ export default function SocialLogin() {
               dispatch,
               setUser,
               user: {
+                role: role as 'investor' | 'startup',
                 userData: investorData,
                 token,
                 refId,

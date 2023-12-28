@@ -18,7 +18,6 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
   startup: [
     /\/dashboard\/startup.*/,
     /\/profile\/startup.*/,
-    /^(?!\/invest\/startup\/[a-f0-9]+(?:\?.*)?$).*/,
     /\/startup(?!\/(updates|update)).*/,
   ],
   admin: [/\/dashboard\/investor.*/],
@@ -26,6 +25,7 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
 
 const publicPaths = [
   /^\/$/,
+  /\/learn.*/,
   /\.(svg|png|jpeg)$/,
   /\.(js|css|map)$/, // <-- match js, css, map (sourcemap) files
   /_next\//,

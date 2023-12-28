@@ -1,6 +1,6 @@
 export default function DownloadLinks() {
   return (
-    <div className="mt-[122px] flex flex-col items-center justify-between rounded-[30px] bg-[#EEF] px-4 py-4 pb-[68px] lg:mx-[124px] lg:flex-row lg:px-[88px] lg:pb-[0]">
+    <div className="mt-[122px] hidden flex-col items-center justify-between rounded-[30px] bg-[#EEF] px-4 py-4 pb-[68px] lg:mx-[124px] lg:flex lg:flex-row lg:px-[88px] lg:pb-[0]">
       <div className="max-w-[739px]">
         <h6 className="mb-[37px] text-center text-[36px] lg:text-left">
           Startup Investments at your fingertips
@@ -10,7 +10,7 @@ export default function DownloadLinks() {
           & Breathe Angel Investing! To top it up Signing up takes hardly 5 mins
           of your time. So, Join the Community Now!
         </p>
-        <div className="mb-[68px] flex items-center justify-center gap-4 sm:flex-row lg:mt-[37px] lg:justify-start">
+        <div className="my-16 flex items-center justify-center gap-4 sm:flex-row lg:mt-[37px] lg:justify-start">
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"

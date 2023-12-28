@@ -1,5 +1,5 @@
-import BackgroundSvg from '@/app/_components/BackgroundSvg'
 import Button from '@/components/LinkButton'
+import BackgroundSvg from '@/app/_components/BackgroundSvg'
 
 export default function ReadyToJoin() {
   const backgroundStyle = [
@@ -25,32 +25,33 @@ export default function ReadyToJoin() {
     },
   ]
   return (
-    <div className="relative mt-[129px] flex max-h-[460px] flex-col items-center justify-center overflow-hidden px-2 py-[95px] pt-0 text-center lg:px-8">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 z-[9] h-[550px] w-screen bg-[#2b2c57]"
-      />
+    <div className="max-w-screen relative my-16 flex flex-col items-center justify-center overflow-clip bg-[#2b2c57] p-4 py-16">
       {backgroundStyle.map(({ className }, index) => (
         <div key={className + index} aria-hidden="true" className={className}>
           <BackgroundSvg />
         </div>
       ))}
-      <h6 className="z-[10] mb-0 pt-[61px] text-[30px] font-bold text-white lg:px-[256px] lg:text-[46px]">
-        Ready to Join the Top{' '}
-        <span className="text-[#8686F5]">1% Investor&apos;s</span> Club?
-      </h6>
-      <p className="z-[10] mt-[31px] max-w-[739px] text-[15px] leading-[28px] text-white/60 lg:text-[20px]">
+      <h4
+        className={
+          'relative z-[10] my-4 flex flex-col gap-3 text-center text-3xl font-semibold xl:flex-row'
+        }>
+        <span className="text-white">Ready to Join the Top</span>
+        <span className="text-primary">1% Investor&#39;s club?</span>
+      </h4>
+      <p className="relative z-[10] m-auto text-center font-normal leading-[1.27544rem] text-white lg:w-3/4">
         With Bizdateup you get a Strong Community of Top 1% Investors who live &
         Breathe Angel Investing! To top it up Signing up takes hardly 5 mins of
         your time. So, Join the Community Now!
       </p>
-      <div className="z-[10] mx-2 flex w-full flex-col-reverse gap-x-[16px] pb-[69px] md:w-fit md:flex-row">
+      <div className="relative z-[10] m-auto my-8 flex w-full flex-col gap-4 lg:w-1/4 lg:flex-row">
+        <Button href={'/register'} className={'w-full py-4 text-white lg:px-8'}>
+          Register
+        </Button>
         <Button
           href={'/login'}
-          className="w-inherit bg-white !text-primary hover:bg-white"
-          title="Login"
-        />
-        <Button href={'/signup'} className="w-inherit " title="Register" />
+          className={'w-full !bg-white py-4 !text-primary lg:px-8'}>
+          Login
+        </Button>
       </div>
     </div>
   )

@@ -1,5 +1,4 @@
 import React from 'react'
-import { DataInner, KYCStatus } from '@/types'
 import getUserDetails from '@/action/user'
 import Link from 'next/link'
 import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
@@ -9,9 +8,8 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 export default async function PanPage({ searchParams }: Props) {
-  const { user }: { user: DataInner; status: KYCStatus[] } =
-    await getUserDetails()
-  if (!user) {
+  const { role, user } = await getUserDetails()
+  if (role !== 'investor' || !user) {
     return <>Loading</>
   }
   if (user.aadhar.status !== 'verified' && user.pan.status === 'verified') {
@@ -47,7 +45,7 @@ export default async function PanPage({ searchParams }: Props) {
     <div className="flex flex-col">
       {user?.aadhar.status === 'verified' && !searchParams.edit ? (
         <div className="grid grid-cols-1">
-          <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.pan.map(({ label, value, link }) => (
               <React.Fragment key={label}>
                 <div className="grid gap-2">

@@ -1,4 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
+import { StartupData } from '@/types/invest'
+
 export type UserRole = 'investor' | 'admin' | 'startup'
 
 export interface Aadhar {
@@ -61,15 +63,17 @@ export interface DataInner {
   providerId: string
   isAccelerator: boolean
   status: string
-  role: string
+  role: 'investor' | 'startup'
   created_at: string
   __v: number
   code: number
   refer: null | string
   profilePic: string
+  acknowledgement: 'false' | 'true'
 }
 
 export interface IInvestorData {
+  acknowledgement: 'false' | 'true'
   aadhar: Aadhar
   address: Address
   pan: Pan
@@ -108,18 +112,36 @@ export enum KYCCompletion {
 // Create a type for KYCStatus array
 export type KYCStatusArray = KYCStatus[]
 
-export interface AuthUserState {
+export interface BaseAuthUserState {
   token: string | null
-  investorUserId: string | null
+  refId: string | null
+  userId: string | null
+  temp_auth_medium: string | null
+  user: DataInner | StartupData | null
+  isVerified: boolean
+  riskAccepted: boolean
+  kycCompletionPercentage: number
+  kycStatus: KYCStatusArray
+  premiumMember: boolean | null
+  role: UserRole
+}
+
+export interface InvestorUserState extends BaseAuthUserState {
+  token: string | null
+  userId: string | null
   refId: string | null
   temp_auth_medium: string | null
   user: DataInner | null
-  kycStatus: KYCStatusArray | null
-  isVerified: boolean
-  kycCompletionPercentage: number
   riskAccepted: boolean
   premiumMember: boolean
-  role: string | UserRole | null
+  role: 'investor'
+}
+
+export interface StartupUserState extends BaseAuthUserState {
+  token: string | null
+  startupId: string | null
+  startup: StartupData | null
+  role: 'startup'
 }
 
 export interface Data {
@@ -137,6 +159,7 @@ export type ISendOtpResponseData = {
   refId?: string
   data: Data
   method: 'login' | 'signup'
+  referedUrl: string | null
 }
 
 export type IResponse = {
@@ -303,4 +326,23 @@ export type PaymentData = {
   tds: number
   convenienceFee: number
   gst: number
+}
+
+
+export type BaseUserData = {
+  role: 'investor' | 'startup' | null
+  refId: string
+  status: KYCStatusArray
+  token: string
+  user: DataInner | StartupData | null
+}
+
+export interface InvestorUserData extends BaseUserData {
+  role: 'investor'
+  user: DataInner | null
+}
+
+export interface StartupUserData extends BaseUserData {
+  role: 'startup'
+  user: StartupData | null
 }

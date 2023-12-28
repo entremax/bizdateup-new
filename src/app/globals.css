@@ -61,6 +61,7 @@ p {
   }
 }
 
+/*-------------------------------------------------Modals-------------------------------------------------------*/
 @layer components {
   .invest-modal {
     @apply fixed bottom-0 left-0 right-0 top-12 !max-w-full rounded-none p-0 md:left-[auto] md:top-0;
@@ -131,6 +132,7 @@ p {
   }
 }
 
+/*------------------------------------------------------------------Common Component Styles-------------------------------------------------------*/
 @layer components {
   .border_gray {
     border: 1px solid #eae9e8 !important;
@@ -168,10 +170,6 @@ p {
     }
   }
 
-  .ant-steps-item-tail {
-    top: 3.5rem !important;
-    left: 3.5rem !important;
-  }
 
   .how-to-use-steps {
     .ant-steps-item:not(:where(:nth-child(3))) {
@@ -201,6 +199,77 @@ p {
   }
 }
 
+/*-------------------------------------Stepper Styles---------------------------------*/
+@layer components {
+  .onboarding-steps {
+    .ant-steps-item:not(:where(:nth-child(3))) {
+      @apply mb-4;
+    }
+
+    .ant-steps-item {
+      .ant-steps-item-container {
+        .ant-steps-item-tail {
+          color: #979999 !important;
+          top: 3.5rem !important;
+          left: 2.5rem !important;
+        }
+
+        .ant-steps-item-content {
+          @apply !flex items-start flex-col justify-start;
+        }
+      }
+
+      .ant-steps-item-title {
+        @apply text-xl font-semibold;
+      }
+
+      .ant-steps-item-description {
+        @apply text-[#6E6E73];
+      }
+
+      .ant-steps-item-icon {
+        @apply min-w-fit;
+      }
+    }
+  }
+}
+
+
+/*------------------------------------Slider-----------------*/
+@layer components {
+  .review-slider {
+    .slick-dots.slick-dots-bottom {
+
+      @apply !-m-8;
+
+      li {
+        button {
+          @apply bg-primary !w-1.5 !h-1.5 !rounded-full;
+        }
+      }
+
+      li.slick-active {
+        @apply bg-primary !w-1.5 !h-1.5 !rounded-full;
+      }
+    }
+
+    .slick-list {
+      .slick-track {
+        .slick-slide {
+
+        }
+      }
+
+    }
+  }
+
+  .slick-dots li button {
+    @apply bg-amber-500;
+  }
+
+}
+
+/*------------------------------------Loader CSS--------------------------------------*/
 @layer components {
   .loader-container {
     display: flex;
@@ -251,10 +320,12 @@ p {
   }
 }
 
+
 .ant-collapse-header-text {
   font-weight: 700 !important;
 }
 
+/*-----------------------------------Scrollbar----------------------------------------------*/
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     display: none;
@@ -267,6 +338,7 @@ p {
   }
 }
 
+/*----------------------------------------Checkbox Styles-------------------------*/
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: rgb(var(--lavender-blue)) !important;
   border-color: rgb(var(--lavender-blue)) !important;
@@ -275,7 +347,7 @@ p {
 /* width and height are required for Firefox */
 /* Track */
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.2rem;
 }
 
 /* Handle */
