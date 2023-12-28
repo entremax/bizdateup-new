@@ -210,7 +210,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
 
   return (
     <div className="grid grid-cols-1">
-      <div className="grid gap-8 p-8 lg:grid-cols-2">
+      <div className="grid gap-8 p-8 md:grid-cols-2">
         {inputFields.slice(0, 6).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -248,7 +248,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
         )}
       </div>
       <div className="h-2 w-full bg-light-shadow"></div>
-      <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 lg:grid-cols-2">
+      <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 md:grid-cols-2">
         {inputFields.slice(6, 12).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select

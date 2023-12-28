@@ -47,11 +47,11 @@ export default async function OtherDetails({ searchParams }: Props) {
     <div className="flex flex-col">
       {user.other.status !== 'incomplete' && editState ? (
         <div className="grid grid-cols-1">
-          <div className="grid gap-8 p-8 xl:grid-cols-3">
+          <div className="grid gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.map(({ label, value, url }) => (
               <React.Fragment key={label}>
                 <div
-                  className={cn('grid gap-2' + url ? ' xl:cols-span-2' : '')}>
+                  className={cn('grid gap-2' + url ? ' md:cols-span-2' : '')}>
                   <p className="text-md text-gray-400">{label}</p>
                   {url ? (
                     <Link

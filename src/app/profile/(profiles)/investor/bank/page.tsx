@@ -1,5 +1,4 @@
 import React from 'react'
-import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
 import BankForm from '@/components/profile/bankForm'
 import type { Metadata } from 'next'
@@ -53,7 +52,7 @@ export default async function Bank({ searchParams }: Props) {
     <div className="flex flex-col">
       {user.bank.status !== 'pending' && !searchParams.edit ? (
         <div className="grid grid-cols-1">
-          <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.map(({ label, value }) => (
               <React.Fragment key={label}>
                 <div className="grid gap-2">
