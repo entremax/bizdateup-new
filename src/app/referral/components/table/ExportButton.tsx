@@ -6,7 +6,7 @@ import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
 interface TableTabsProps {
-  table?: string | string[] | undefined
+  table?: string | null
 }
 
 export default function ExportButton({ table }: TableTabsProps) {

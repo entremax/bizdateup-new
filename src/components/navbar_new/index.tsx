@@ -1,5 +1,4 @@
 'use client'
-
 import useCookieLocal from '@/lib/useCookieLocal'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -19,7 +18,7 @@ export default function NavbarNew() {
   const { user, loading } = useUser()
   const { NavbarData } = data
   const logged_in = useCookieLocal('logged-in')
-  const [authenticated, setAuthenticated] = useState(true)
+  const [authenticated, setAuthenticated] = useState(false)
 
   useEffect(() => {
     setAuthenticated(!!(logged_in && logged_in === 'true'))

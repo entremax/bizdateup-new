@@ -56,7 +56,11 @@ export async function POST(req: NextRequest) {
           maxAge: 60 * 60,
         })
         //@ts-ignore
-        if (response.data.data.isAccelerator) {
+        if (
+          (response.data.data?.role === 'investor' &&
+            response.data.data.isAccelerator) ??
+          false
+        ) {
           const accelerator = await getAcceleratorDetails(
             //@ts-ignore
             response.data.data._id,

@@ -270,17 +270,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               name={field.name}
             />
           ) : (
-            <Input
-              key={field.name}
-              disabled={field.disabled}
-              defaultValue={field.defaultValue}
-              //@ts-ignore
-              ref={field.fieldType !== 'select' && refs[field.name]}
-              name={field.name}
-              type={field.type}
-              label={field.label}
-              placeholder={`Enter your ${field.name}`}
-            />
+            <Input key={field.name} {...field} />
           ),
         )}
       </div>

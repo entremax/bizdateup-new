@@ -1,33 +1,32 @@
 import { cn } from '@/lib/utils'
-import { Input as AntDInput } from 'antd'
+import { Input } from 'antd'
 import React, { ForwardRefRenderFunction } from 'react'
-import { InputRef } from 'antd/lib/input'
-import { ForwardRefProps } from '@/types/profile'
+import { TextAreaForwardRefProps } from '@/types/profile'
+import { TextAreaRef } from 'antd/es/input/TextArea'
 
-const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
-  {
-    type = 'text',
-    wrapperClassName,
-    label,
-    name,
-    className,
-    labelClassName,
-    ...props
-  },
+const { TextArea } = Input
+
+const TextAreaInput: ForwardRefRenderFunction<
+  TextAreaRef,
+  TextAreaForwardRefProps
+> = (
+  { wrapperClassName, label, name, className, labelClassName, ...props },
   ref,
 ) => {
+  console.log('🚀 ~ file: TextArea.tsx:20 ~ props:', props)
   return (
     <div
       className={cn(
-        (name === 'address' && 'col-span-2 ') +
+        ((name === 'address' || name === 'short-description') &&
+          'col-span-2 ') +
           ' relative w-full ' +
           wrapperClassName,
       )}>
-      <AntDInput
-        size="large"
-        type={type}
+      <TextArea
+        autoSize={{ minRows: 2, maxRows: 6 }}
         id={name}
         name={name}
+        rows={5}
         ref={ref}
         className={cn(
           'peer block min-h-[auto] w-full rounded-sm border-0 !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none !outline-gray-300 transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:placeholder:font-normal dark:placeholder:text-neutral-300 dark:peer-focus:text-primary ' +
@@ -48,4 +47,5 @@ const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
     </div>
   )
 }
-export default React.forwardRef(Input)
+
+export default React.forwardRef(TextAreaInput)

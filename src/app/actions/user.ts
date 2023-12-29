@@ -77,7 +77,12 @@ export async function getCookieData() {
   const accelerator_id = cookies().get('accelerator_id')?.value
   const referrer_id = cookies().get('referrer_id')?.value
   const role = cookies().get('role')?.value
-  if (!token || !user_id || !(accelerator_id && referrer_id) || !role) {
+  if (
+    !token ||
+    !user_id ||
+    (role !== 'startup' && !(accelerator_id && referrer_id)) ||
+    !role
+  ) {
     return redirect('/login')
   }
   return {
