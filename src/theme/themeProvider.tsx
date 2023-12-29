@@ -1,8 +1,7 @@
-import {ReactNode} from "react";
-import theme from "@/theme/themeConfig";
-import StyledComponentsRegistry from '@/lib/AntdRegistry';
-import {ConfigProvider} from 'antd';
-
+import { ReactNode } from 'react'
+import theme from '@/theme/themeConfig'
+import StyledComponentsRegistry from '@/lib/AntdRegistry'
+import { ConfigProvider } from 'antd'
 
 /**
  * Provides Antdesign theme to the children components.
@@ -12,12 +11,14 @@ import {ConfigProvider} from 'antd';
  *
  * @return {ReactNode} - The themed components wrapped in `StyledComponentsRegistry` and `ConfigProvider`.
  */
-export default function ThemeProvider({children}: { children: ReactNode }): ReactNode {
+export default function ThemeProvider({
+  children,
+}: {
+  children: ReactNode
+}): ReactNode {
   return (
     <StyledComponentsRegistry>
-      <ConfigProvider theme={theme}>
-        {children}
-      </ConfigProvider>
+      <ConfigProvider theme={theme}>{children}</ConfigProvider>
     </StyledComponentsRegistry>
   )
 }

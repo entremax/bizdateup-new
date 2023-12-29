@@ -1,13 +1,7 @@
-import React from 'react';
-import ReduxProvider from "@/store/Provider";
-import Navbar from "@/components/navbar";
-const DashboardLayout = ({ children }: React.PropsWithChildren) => (
-  <main className={'w-full'}>
-    <Navbar/>
-    <ReduxProvider>
-        {children}
-    </ReduxProvider>
-  </main>
-);
+import React from 'react'
 
-export default DashboardLayout;
+const DashboardLayout = ({ children }: React.PropsWithChildren) => (
+  <main className={'w-full'}>{children}</main>
+)
+
+export default DashboardLayout
