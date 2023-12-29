@@ -14,14 +14,14 @@ type Props = {
 
 export const dynamic = 'force-dynamic';
 
-cnst reducer = (state: any, action: any) => {
+const reducer = (state: any, action: any) => {
   switch (action.type) {
     case 'SET_ITEMS':
-      return action.payload;
+      return action.payload
     default:
-      return state;
+      return state
   }
-};
+}
 
 const FrequentlyAsked: React.FC<Props> = ({ all = false, className = '', custom = false, faqData }) => {
   const [items, dispatch] = useReducer(reducer, [])

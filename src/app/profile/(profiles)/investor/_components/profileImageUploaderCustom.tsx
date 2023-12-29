@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/store/hooks'
 import ImageUpload from '@/components/ImageUpload'
+import { useUpdateProfileImageMutation } from '@/services/apiSlice'
 import { notifyUser } from '@/components/notification'
 import { apiUri, cn } from '@/lib/utils'
 import { useUser } from '@/hooks/useUser'
@@ -20,17 +21,16 @@ const ImageUploader: React.FC<Props> = () => {
     error: 'drop-shadow-lg  !border-[#FF5630]',
   }
   const { user: loacl } = useUser()
+  const dispatch = useAppDispatch()
   const user = loacl?.userData
+  const [uploadImage] = useUpdateProfileImageMutation()
   const [state, setState] = useState({
     file: null as File | null,
     borderColor:
       user?.membership?.isMember === 'yes'
         ? 'premium'
-        : ('normal' asIBorderColors),
+        : ('normal' as IBorderColors),
   })
-
-  const dispatch  useAppDispatch()
-  const [uploadImage] = useUpdateProfieImageMutation()
 
   const handleFileChange = (file: File | null) => {
     if (file) {

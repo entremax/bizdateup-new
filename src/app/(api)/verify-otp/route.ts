@@ -55,9 +55,11 @@ export async function POST(req: NextRequest) {
           path: '/',
           maxAge: 60 * 60,
         })
-        //@ts-ignore
+        
         if (
+          //@ts-ignore
           (response.data.data?.role === 'investor' &&
+            //@ts-ignore
             response.data.data.isAccelerator) ??
           false
         ) {

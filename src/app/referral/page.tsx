@@ -220,7 +220,7 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
         <SearchContextProvider
           searchParams={searchParams}
           accelerator={accelerator}>
-          <ReferralTransactions searchParams={searchParams} />
+          <ReferralTransactions />
         </SearchContextProvider>
       </div>
       <HowToUse />
