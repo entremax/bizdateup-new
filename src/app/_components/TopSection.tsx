@@ -53,6 +53,7 @@ export default function TopSection() {
               alt="cheerful_women"
               className={'mr-8'}
               fill
+              priority
               sizes="((min-width: 50em) and (max-width: 60em)) 70em,
               ((min-width: 30em) and (max-width: 50em)) 40em,
                 (max-width: 30em) 30em"
