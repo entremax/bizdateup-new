@@ -19,9 +19,9 @@ export default async function InvestorProfile({ searchParams }: Props) {
   if (role !== 'investor') {
     return
   }
-  // if (user.firstName === '' || user.lastName === '' || !user.phone) {
-  //   editState = true
-  // }
+  if (user.firstName === '' || user.lastName === '' || !user.phone) {
+    editState = true
+  }
   const data = [
     {
       label: 'First name',

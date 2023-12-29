@@ -7,6 +7,7 @@ export interface KeyHighlights {
 export interface DealTerms {
   typeOfSecurity: string
   valuation: number
+  discount: number
   minimumInvestment: number
   targetAmount: number
 }
@@ -39,6 +40,20 @@ export interface TeamMember {
   designation: string
   description: string
   linkedinUrl: string
+  _id: string
+}
+export interface Mentors {
+  profileImage: string
+  fullName: string
+  description: string
+  linkedinUrl: string
+  _id: string
+}
+export interface Events {
+  banner: string
+  date: string
+  time: string
+  url: string
   _id: string
 }
 

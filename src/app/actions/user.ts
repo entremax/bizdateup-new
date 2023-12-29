@@ -39,7 +39,7 @@ export default async function getUserDetails() {
   }
   const res = await fetch(apiUri().v0 + url, config)
     .then((res) => {
-      console.log("🚀 ~ file: user.ts:41 ~ .then ~ res:", res)
+      // console.log("🚀 ~ file: user.ts:41 ~ .then ~ res:", res)
       return res.json()
     })
     .catch((e) => {

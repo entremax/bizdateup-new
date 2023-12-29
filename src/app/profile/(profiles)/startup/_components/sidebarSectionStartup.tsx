@@ -36,7 +36,7 @@ export default function SectionBarStartup({
 
   const [logout, { isLoading }] = useLogoutMutation()
 
-  const baseUri = '/profile/investor'
+  const baseUri = '/profile/startup'
   const sectionTabs = [
     {
       id: 1,
@@ -49,40 +49,40 @@ export default function SectionBarStartup({
           }
         />
       ),
-      link: '/profile/investor',
+      link: '/profile/startup',
     },
     {
       id: 2,
       name: 'Pitch',
-      segment: 'kyc',
+      segment: 'pitch',
       icon: (
         <TicketStar
           className={'stroke-black-lighter   group-hover:stroke-primary'}
         />
       ),
-      link: baseUri + '/kyc',
+      link: baseUri + '/pitch',
     },
     {
       id: 3,
       name: 'Team',
-      segment: 'bank',
+      segment: 'team',
       icon: (
         <Icons.TextFile
           className={'stroke-black-lighter   group-hover:stroke-primary'}
         />
       ),
-      link: baseUri + '/bank',
+      link: baseUri + '/team',
     },
     {
       id: 4,
       name: 'Mentors',
-      segment: 'other',
+      segment: 'mentor',
       icon: (
         <MoreSquare
           className={'stroke-black-lighter   group-hover:stroke-primary'}
         />
       ),
-      link: baseUri + '/other',
+      link: baseUri + '/mentor',
     },
     {
       id: 5,
@@ -90,35 +90,35 @@ export default function SectionBarStartup({
       icon: (
         <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
       ),
-      segment: 'investment-manager',
-      link: baseUri + '/investment-manager',
+      segment: 'deal-terms',
+      link: baseUri + '/deal-terms',
     },
     {
       id: 6,
-      name: 'Upload Docs',
+      name: 'upload-docs',
       icon: (
         <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
       ),
-      segment: 'investment-manager',
-      link: baseUri + '/investment-manager',
+      segment: 'upload-docs',
+      link: baseUri + '/upload-docs',
     },
     {
       id: 7,
-      name: 'Events',
+      name: 'Event',
       icon: (
         <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
       ),
-      segment: 'investment-manager',
-      link: baseUri + '/investment-manager',
+      segment: 'events',
+      link: baseUri + '/events',
     },
     {
       id: 8,
-      name: 'FAQs',
+      name: 'faqs',
       icon: (
         <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
       ),
-      segment: 'investment-manager',
-      link: baseUri + '/investment-manager',
+      segment: 'faqs',
+      link: baseUri + '/faqs',
     },
   ]
 

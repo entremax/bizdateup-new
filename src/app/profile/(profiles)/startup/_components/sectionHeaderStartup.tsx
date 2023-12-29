@@ -17,7 +17,7 @@ type SectionType =
   | 'mentor'
   | 'deal-terms'
   | 'upload-docs'
-  | 'event'
+  | 'events'
   | 'faqs'
 
 type SectionDetails = {
@@ -44,10 +44,10 @@ export default function SectionHeader() {
     pitch: { id: 2, name: 'Pitch', editable: true },
     team: { id: 3, name: 'Team', editable: true },
     mentor: { id: 4, name: 'Mentors', editable: true },
-    'deal-terms': { id: 5, name: 'Deal Terms', editable: false },
-    'upload-docs': { id: 6, name: 'Upload Docs', editable: false },
-    event: { id: 7, name: 'Event', editable: false },
-    faqs: { id: 8, name: 'FAQs', editable: false },
+    'deal-terms': { id: 5, name: 'Deal Terms', editable: true },
+    'upload-docs': { id: 6, name: 'Upload Docs', editable: true },
+    events: { id: 7, name: 'Event', editable: true },
+    faqs: { id: 8, name: 'FAQs', editable: true },
   }
 
   const [section, setSection] = useState<SectionDetails>(

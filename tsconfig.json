@@ -83,6 +83,12 @@
       ],
       "@/components/profile/startup/*": [
         "./src/app/profile/(profiles)/startup/_components/*",
+        "./src/app/profile/(profiles)/startup/deal-terms/_components/*",
+        "./src/app/profile/(profiles)/startup/upload-docs/_components/*",
+        "./src/app/profile/(profiles)/startup/events/_components/*",
+        "./src/app/profile/(profiles)/startup/mentor/_components/*",
+        "./src/app/profile/(profiles)/startup/team/_components/*",
+        "./src/app/profile/(profiles)/startup/faqs/_components/*",
       ],
       "@/components/profile/*": [
         "./src/app/profile/(profiles)/investor/_components/*",
