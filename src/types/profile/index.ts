@@ -1,6 +1,7 @@
 import React, { HTMLInputTypeAttribute } from 'react'
 import { InputProps, SelectProps } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
+import { TextAreaProps } from 'antd/es/input'
 
 export type FieldType = 'select'
 
@@ -40,6 +41,15 @@ export type Refs = {
 
 export interface ForwardRefProps extends InputProps {
   type?: HTMLInputTypeAttribute
+  name: string
+  className?: string
+  label: string
+  labelClassName?: string
+  wrapperClassName?: string
+}
+
+export interface TextAreaForwardRefProps extends TextAreaProps {
+  type?: string
   name: string
   className?: string
   label: string

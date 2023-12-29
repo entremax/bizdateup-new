@@ -26,6 +26,7 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
 const publicPaths = [
   /^\/$/,
   /\/learn.*/,
+  /\/contact-us.*/,
   /\.(svg|png|jpeg)$/,
   /\.(js|css|map)$/, // <-- match js, css, map (sourcemap) files
   /_next\//,

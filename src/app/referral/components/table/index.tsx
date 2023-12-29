@@ -1,18 +1,20 @@
+'use client'
 import Startup from '@/components/referral/table/Startup'
 import Investor from '@/components/referral/table/Investor'
 import SearchAndFilter from '@/components/referral/table/search'
-
-import { getInviteeDetails } from '@/action/accelerator'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import ExportButton from '@/components/referral/table/ExportButton'
+import { useSearchParams } from 'next/navigation'
+import { useAppSelector } from '@/store/hooks'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
-export default async function ReferralTransactions({ searchParams }: Props) {
-  const tableType = searchParams?.tab
-  const accelerator = await getInviteeDetails()
+export default function ReferralTransactions() {
+  const searchParams = useSearchParams()
+  const tableType = searchParams?.get('tab')
+  const { accelerator } = useAppSelector(({ accelerator }) => accelerator)
   const links = [
     { label: 'Investors', tab: 'investor' },
     { label: 'Startups', tab: 'startups' },
@@ -25,7 +27,7 @@ export default async function ReferralTransactions({ searchParams }: Props) {
             <Link
               key={tab}
               scroll={false}
-              href={{ href: `/referral`, query: { tab } }}
+              href={`/referral${tab ? '?tab=' + tab : ''}`}
               className={cn(
                 `text-lg font-semibold text-neutral-500 ${
                   (tableType === tab || (!tableType && tab === 'investor')) &&
@@ -41,7 +43,7 @@ export default async function ReferralTransactions({ searchParams }: Props) {
         </div>
       </div>
 
-      <SearchAndFilter acceleratorData={accelerator} />
+      {accelerator && <SearchAndFilter acceleratorData={accelerator} />}
       {!tableType || tableType !== 'startups' ? <Investor /> : <Startup />}
     </div>
   )

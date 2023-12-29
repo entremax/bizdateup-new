@@ -4,13 +4,14 @@ import Image from 'next/image'
 export default function TutorialHeader() {
   return (
     <div className="relative flex flex-col-reverse items-center justify-between lg:flex-row">
-      <div className=" lg:textLeft mx-4 flex flex-col items-center sm:text-center lg:my-20 lg:items-start  xl:px-32">
-        <h1 className="minW-[319px] maxW-[824px] static z-50 my-4 mt-10 max-h-[128px] text-[28px] font-bold leading-[33.976px] lg:absolute lg:start-[2rem] lg:text-[56px] lg:leading-tight lg:-tracking-[2.16px] xl:start-[10rem]">
-          Be a Part of the Next Big Thing Invest in{' '}
+      <div className=" mx-4 mr-32 flex flex-col items-center sm:text-center lg:my-20 lg:items-start  lg:text-left xl:px-32">
+        <h1 className="static z-50 my-4 mt-10 flex max-h-[128px] min-w-[319px] max-w-[44rem] flex-col text-[28px] font-bold leading-[33.976px] lg:absolute lg:start-[2rem] lg:text-[56px] lg:leading-tight lg:-tracking-[2.16px] xl:start-[10rem]">
+          Be a Part of the
+          <span>Next Big Thing Invest in</span>
           <span className="text-[#8686F5]">Innovative Startups</span>
         </h1>
-        <div className="my-4 lg:mx-4 lg:mt-52">
-          <p className="text-balance maxW-[554px] textLg font-normal leading-6 lg:text-[20px] lg:leading-7">
+        <div className="my-4 lg:mx-4 lg:mt-64">
+          <p className="text-balance max-w-[554px] text-lg font-normal leading-6 lg:text-[20px] lg:leading-7">
             Investing in Indian startups has never been easier or more
             profitable. Join Bizdateup today and start seeing real returns on
             your investments
@@ -22,19 +23,21 @@ export default function TutorialHeader() {
           </Button>
         </div>
       </div>
-      <div className="lg:top-6rem md:maxW-[31rem] relative z-10 h-[24rem] w-[25rem] md:w-[31rem] lg:right-[8rem] lg:top-[4rem] lg:h-[26rem]">
-        <picture>
-          <Image
-            src={'/tutorial/happyWomenWorking.png'}
-            alt="cheerful_women"
-            className={'z-20 mr-8'}
-            fill
-            sizes="((minWidth: 50em) and (maxWidth: 60em)) 70em,
-              ((minWidth: 30em) and (maxWidth: 50em)) 40em,
-                (maxWidth: 30em) 30em"
-          />
-        </picture>
-        <div className="lg:top-6rem z-5 md:maxW-[31rem] absolute h-[24rem] w-[25rem] md:w-[31rem] lg:right-[8rem] lg:top-[4rem] lg:h-[26rem]">
+      <div className="lg:top-6rem relative z-10 h-[24rem] w-[25rem] md:w-[31rem] md:max-w-[31rem] lg:right-[8rem] lg:top-[4rem] lg:h-[26rem]">
+        <div className="absolute ">
+          <div className={'relative w-[24rem] '}>
+            <Image
+              src={'/tutorial/happy-women-working.png'}
+              alt="cheerful_women"
+              className={'z-20 mr-8'}
+              fill
+              sizes="((minWidth: 50em) and (max-width: 60em)) 70em,
+              ((minWidth: 30em) and (max-width: 50em)) 40em,
+                (max-width: 30em) 30em"
+            />
+          </div>
+        </div>
+        <div className="z-5 absolute right-[0rem] top-[3rem]  h-[24rem] w-[25rem] md:w-[31rem] md:max-w-[31rem] lg:h-[26rem]">
           <picture>
             <svg
               width="395"
@@ -51,25 +54,28 @@ export default function TutorialHeader() {
             </svg>
           </picture>
         </div>
-        <div className="flex gap-4 rounded-xl bg-white p-4 shadow-lg">
-          <div className="rounded-xl bg-[#FAF9ED] p-4">
+        <div className="absolute bottom-8 right-8 flex gap-4 rounded-xl bg-white p-4 py-3 shadow-lg">
+          <div className="group:animate-bounce rounded-xl bg-[#FAF9ED] p-4">
             <svg
               width="28"
               height="27"
               viewBox="0 0 28 27"
               fill="none"
+              className={
+                'cursor-pointer stroke-black-lighter transition-colors delay-200 hover:stroke-primary group-hover:animate-pulse'
+              }
               xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_404_3205)">
                 <path
                   d="M9.64453 9.80802C9.64453 9.27342 9.83577 8.75645 10.1837 8.35055L15.5484 2.09176C16.0272 1.53312 16.8248 1.37205 17.4829 1.7011C18.1254 2.02236 18.4339 2.76718 18.2067 3.44867L16.3631 8.97956H21.518C21.6524 8.97956 21.7865 8.99165 21.9186 9.01569C23.1356 9.23694 23.9427 10.4028 23.7214 11.6197L22.2963 19.4581C22.1027 20.5229 21.1752 21.297 20.0929 21.297H11.8841C10.6472 21.297 9.64453 20.2943 9.64453 19.0574V9.80802Z"
-                  stroke="black"
+                  // stroke="black"
                   strokeWidth="1.57704"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
                 <path
                   d="M5.16797 20.1775V10.0996"
-                  stroke="black"
+                  // stroke="black"
                   strokeWidth="1.57704"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -87,7 +93,7 @@ export default function TutorialHeader() {
               </defs>
             </svg>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-start justify-center gap-2">
             <p className="font-semibold">How to be a startup investor?</p>
             <div className="flex items-center">
               <svg

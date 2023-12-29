@@ -398,3 +398,20 @@ input[type='number']::-webkit-outer-spin-button {
 input[type='number'] {
   -moz-appearance: textfield; /* Firefox */
 }
+
+/*--------------------------collapse-------------------------*/
+@layer components {
+  .ant-collapse {
+    .ant-collapse-item {
+      .ant-collapse-header {
+        @apply pl-0 py-6;
+      }
+
+      .ant-collapse-content {
+        .ant-collapse-content-box {
+          @apply pl-0;
+        }
+      }
+    }
+  }
+}
