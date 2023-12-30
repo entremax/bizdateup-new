@@ -7,9 +7,9 @@ import Image from 'next/image'
 import { StaticImport } from 'next/dist/shared/lib/get-img-props'
 
 const data: { [key: number]: { link: string | StaticImport } } = {
-  0: { link: '/onboarding/auth.svg' },
-  1: { link: '/onboarding/profile.svg' },
-  2: { link: '/onboarding/invest.svg' },
+  0: { link: '/onboarding/auth.webp' },
+  1: { link: '/onboarding/profile.webp' },
+  2: { link: '/onboarding/invest.webp' },
 }
 export default function HowItWorks() {
   const [current, setCurrent] = useState(0)

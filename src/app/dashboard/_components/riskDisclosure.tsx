@@ -13,7 +13,9 @@ export default function RiskDisclosure() {
     role === 'investor' && user?.acknowledgement === 'false',
   )
   const [checkRisk] = useCheckRiskMutation()
-  
+  React.useEffect(() => {
+    role === 'investor' && setRiskAccepted(user?.acknowledgement === 'false')
+  }, [role, user])
   const handler = () => {
     checkRisk('true')
       .unwrap()

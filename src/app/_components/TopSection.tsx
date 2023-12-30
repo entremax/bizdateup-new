@@ -27,57 +27,44 @@ const stats = [
 export default function TopSection() {
   return (
     <>
-      <div className="relative flex flex-col-reverse items-center justify-between lg:flex-row">
-        <div className=" mx-4 flex flex-col items-center sm:text-center lg:my-20 lg:items-start lg:text-left  xl:px-32">
-          <h1 className="static z-50 my-4 mt-10 max-h-[128px] min-w-[319px] max-w-[824px] text-[28px] font-bold leading-[33.976px] lg:absolute lg:start-[2rem] lg:text-[56px] lg:leading-tight lg:-tracking-[2.16px] xl:start-[10rem]">
-            Invest in Top 1% Indian Startups & Become a{' '}
-            <span className="text-[#8686F5]">Super Angel!</span>
-          </h1>
-          <div className="my-4 lg:mx-4 lg:mt-52">
-            <p className="text-balance max-w-[554px] text-lg font-normal leading-6 lg:text-[20px] lg:leading-7">
-              We are an Investment platform which enables Investors like you to
-              explore and invest in groundbreaking & Highly-Profitable Indian
-              startup ventures starting at ₹50,000.
+      <div className="grid min-h-[60vh] flex-col-reverse justify-start px-4 md:flex md:flex-row md:items-center md:justify-around md:px-8 lg:px-16 xl:min-h-[80vh] xl:px-32">
+        <div className="flex flex-col items-center  justify-center gap-3 lg:items-start ">
+          <div className="flex flex-col justify-center lg:gap-4 ">
+            <h1 className="flex flex-col pt-3 text-3xl leading-snug lg:text-5xl lg:leading-[3.2rem]">
+              Invest in Top 1% Indian <br />
+              Startups & Become a
+            </h1>
+            <h1 className="m-0 p-0 pb-3 text-3xl leading-snug text-primary lg:text-5xl lg:leading-[3.2rem]">
+              Super Angel!
+            </h1>
+            <p className="md:text-md text-xs font-medium tracking-wide lg:text-lg lg:font-normal lg:leading-6">
+              We are an Investment platform which enables Investors like{' '}
+              <br className={'hidden lg:inline'} /> you to explore and invest in
+              groundbreaking & Highly- <br className={'hidden lg:inline'} />
+              Profitable Indian startup ventures starting at ₹50,000.
             </p>
           </div>
-          <div className="mx-4 my-4 w-full lg:w-2/4">
-            <Button href={'/signup'} className={'py-4'}>
+          <div className="my-4 flex w-full items-start justify-self-start md:w-2/4">
+            <Button href={'/signup'} className={'py-3 lg:py-4'}>
               Signup Now
             </Button>
           </div>
         </div>
-        <div className="lg:top-6rem relative h-[24rem] w-[25rem] md:w-[31rem] md:max-w-[31rem] lg:right-[8rem] lg:top-[4rem] lg:h-[26rem]">
-          <picture>
-            <Image
-              src={'/cheerful_women.webp'}
-              alt="cheerful_women"
-              className={'mr-8'}
-              fill
-              priority
-              sizes="((min-width: 50em) and (max-width: 60em)) 70em,
-              ((min-width: 30em) and (max-width: 50em)) 40em,
-                (max-width: 30em) 30em"
-            />
-          </picture>
-        </div>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute right-0 top-0 hidden lg:inline">
-          <svg width="734" height="734" viewBox="0 0 734 734" fill="none">
-            <path d="M723.898 465H744.598V485.7H723.898V465Z" fill="#3D97FF" />
-            <path
-              d="M630.898 361.7H651.598V341H630.898V361.7Z"
-              fill="#2EC5CE"
-            />
-            <path
-              d="M434.801 144.7H455.501V124H434.801V144.7Z"
-              fill="#F56FB7"
-            />
-            <path d="M155.801 113.7H176.501V93H155.801V113.7Z" fill="#804EDA" />
-          </svg>
+        <div className=" relative col-start-1 row-start-1 h-full min-h-[12rem] w-3/4 justify-self-center md:max-h-[30rem] md:min-h-[24rem] md:w-full lg:min-h-[30rem] lg:w-2/4 xl:min-h-[36rem]">
+          <Image
+            src={'/landing.webp'}
+            alt="cheerful_women"
+            // className={'min-h-[12rem] md:min-h-[24rem] w-full md:max-h-[30rem] xl:min-h-[36rem]'}
+            fill
+            objectFit={'contain'}
+            priority
+            // sizes="((min-width: 50em) and (max-width: 60em)) 70em,
+            // ((min-width: 30em) and (max-width: 50em)) 40em,
+            //   (max-width: 30em) 30em"
+          />
         </div>
       </div>
-      <div className="mt-16 grid max-h-[211px] min-h-[169px] grid-cols-2 items-center justify-center gap-4 bg-[#F3F3FA] px-[40px] py-4 md:mt-0 md:flex md:justify-between xl:px-[200px]">
+      <div className="grid max-h-[211px] min-h-[169px] grid-cols-2 items-center justify-center gap-4 bg-[#F3F3FA] px-[40px] py-4 md:mt-0 md:flex md:justify-between lg:mt-16 xl:px-[200px]">
         {stats.map((data) => (
           <div
             key={data.id}

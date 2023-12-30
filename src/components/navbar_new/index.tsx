@@ -33,6 +33,7 @@ export default function NavbarNew() {
       <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white shadow-[0px_1px_0px_0px_#E5E9F2] lg:px-8">
         <Link href={'/'} className={!authenticated ? 'flex-grow' : ''}>
           <Image
+            priority
             className="md:pl-8"
             src={'/logo_full.svg'}
             height={80}
@@ -100,7 +101,7 @@ export default function NavbarNew() {
                 Login
               </Link>
               <Link
-                href={'/get-started'}
+                href={'/signup'}
                 className="text-md cursor-pointer rounded-lg border-0 !bg-primary p-[0.625rem_1.25rem] text-center text-white outline-none">
                 Get Started
               </Link>
