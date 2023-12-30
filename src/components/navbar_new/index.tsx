@@ -58,7 +58,7 @@ export default function NavbarNew() {
                     dropdownRender={() => <LearnDropDown />}
                     trigger={['click', 'hover']}>
                     <Link
-                      href={link.to}
+                      href={''}
                       className={cn(
                         path.startsWith(link.to)
                           ? linkStyle +
