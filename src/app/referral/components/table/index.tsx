@@ -4,20 +4,15 @@ import Investor from '@/components/referral/table/Investor'
 import SearchAndFilter from '@/components/referral/table/search'
 import { cn } from '@/lib/utils'
 import ExportButton from '@/components/referral/table/ExportButton'
-import { useSearchParams } from 'next/navigation'
 import { useAppSelector } from '@/store/hooks'
 import { useState } from 'react'
 import { Button } from 'antd'
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
 const links = [
   { label: 'Investors', tab: 'investor' },
   { label: 'Startups', tab: 'startups' },
 ]
 export default function ReferralTransactions() {
-  const searchParams = useSearchParams()
   const [tabType, setTab] = useState(links[0].tab)
   const { accelerator } = useAppSelector(({ accelerator }) => accelerator)
 
