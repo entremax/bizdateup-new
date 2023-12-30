@@ -261,7 +261,7 @@ export default function DownloadLinks() {
       </div>
       <div>
         <picture>
-          <img src="/Phone.png" alt="Phone" width="100%" height="auto" />
+          <img src="/Phone.webp" alt="Phone" width="100%" height="auto" />
         </picture>
       </div>
     </div>

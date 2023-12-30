@@ -55,7 +55,7 @@ export default function HowItWorks() {
       <div className="my-8 flex flex-col items-center justify-center gap-8 lg:mt-[84px] lg:flex-row">
         <div
           className={cn(
-            `z-6 relative h-full max-h-[16rem] min-h-[16rem] min-w-[24rem]  rounded-xl border-4 border-solid bg-white lg:max-h-[20rem] lg:min-h-[20rem] lg:min-w-[28rem] ${
+            `z-6 relative h-full max-h-[16rem] min-h-[16rem] min-w-[24rem]  rounded-xl bg-white shadow-lg lg:max-h-[20rem] lg:min-h-[20rem] lg:min-w-[28rem] ${
               current === 1 ? 'min-w-16rem' : ''
             }`,
           )}>
@@ -65,20 +65,20 @@ export default function HowItWorks() {
             src={data[current].link}
             fill
           />
-          {current === 1 && (
-            <>
-              <div className="border_gray absolute -bottom-24 -left-10 z-10 w-3/4 overflow-clip rounded-xl bg-white shadow-lg">
-                <Image
-                  src={'/onboarding/bankForm.svg'}
-                  className={'!static -top-8 z-10'}
-                  alt={'bank form'}
-                  fill
-                />
-              </div>
-              <div className="z-1 absolute -left-20 bottom-8 h-32 w-32 rounded-full bg-light-shadow"></div>
-              <div className="z-1 absolute -bottom-20 h-32  w-32 rounded-full bg-light-shadow"></div>
-            </>
-          )}
+          {/*{current === 1 && (*/}
+          {/*  <>*/}
+          {/*    <div className="border_gray absolute -bottom-24 -left-10 z-10 w-3/4 overflow-clip rounded-xl bg-white shadow-lg">*/}
+          {/*      <Image*/}
+          {/*        src={'/onboarding/bankForm.svg'}*/}
+          {/*        className={'!static -top-8 z-10'}*/}
+          {/*        alt={'bank form'}*/}
+          {/*        fill*/}
+          {/*      />*/}
+          {/*    </div>*/}
+          {/*    <div className="z-1 absolute -left-20 bottom-8 h-32 w-32 rounded-full bg-light-shadow"></div>*/}
+          {/*    <div className="z-1 absolute -bottom-20 h-32  w-32 rounded-full bg-light-shadow"></div>*/}
+          {/*  </>*/}
+          {/*)}*/}
         </div>
         <div className="mt-20 flex w-full min-w-[90vw] max-w-[90vw] flex-col lg:mt-0 lg:min-w-[28rem] lg:max-w-[28rem]">
           <HowToSteps current={current} onChange={onChange} />

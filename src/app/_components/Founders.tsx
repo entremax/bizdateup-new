@@ -25,7 +25,7 @@ export default function Founders() {
       </div>
       <div className="lg:[mt-49px] mt-0">
         <picture>
-          <img src="/Founder.png" alt="Founders" width="100%" height="auto" />
+          <img src="/Founder.webp" alt="Founders" width="100%" height="auto" />
         </picture>
       </div>
     </div>

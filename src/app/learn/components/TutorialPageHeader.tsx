@@ -27,7 +27,7 @@ export default function TutorialHeader() {
         <div className="absolute ">
           <div className={'relative w-[24rem] '}>
             <Image
-              src={'/tutorial/happy-women-working.png'}
+              src={'/tutorial/happy-women-working.webp'}
               alt="cheerful_women"
               className={'z-20 mr-8'}
               fill

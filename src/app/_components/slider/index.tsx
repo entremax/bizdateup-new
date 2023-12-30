@@ -7,28 +7,28 @@ import SlideCard from '@/app/_components/slider/SlideCard'
 const Review = [
   {
     id: 13,
-    photo: '/hanna.png',
+    photo: '/hanna.webp',
     name: 'Hannah Schmitt',
     designation: 'Lead designer @ Clinic Trac  ',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nib se sed magna eget nibh in ',
   },
   {
     id: 14,
-    photo: '/hanna.png',
+    photo: '/hanna.webp',
     name: 'Kianna Septimus',
     designation: 'Lead designer @ Clinic Trac  ',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nib se sed magna eget nibh in ',
   },
   {
     id: 15,
-    photo: '/hanna.png',
+    photo: '/hanna.webp',
     name: 'Cooper Schleifer',
     designation: 'Lead designer @ Clinic Trac  ',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nib se sed magna eget nibh in ',
   },
   {
     id: 16,
-    photo: '/hanna.png',
+    photo: '/hanna.webp',
     name: 'Hannah Schmitt',
     designation: 'Lead designer @ Clinic Trac  ',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nib se sed magna eget nibh in ',

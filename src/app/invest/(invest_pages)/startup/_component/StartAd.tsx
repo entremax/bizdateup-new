@@ -14,7 +14,7 @@ export default function StartAd({ className = '' }: { className?: string }) {
         className={'justify-self-center'}
         height={100}
         width={100}
-        src={'/rocket_invest.png'}
+        src={'/rocket_invest.webp'}
         alt={'Rocket'}
       />
       <h3 className="reset text-center text-xl font-bold">

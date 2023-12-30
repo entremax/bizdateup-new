@@ -7,22 +7,22 @@ export default function Featured() {
       <div className="mt-0 grid grid-cols-2 items-center justify-between gap-4 lg:flex">
         <div className="mx-auto p-2">
           <picture>
-            <img src="/Zee.png" alt="Zee" width="100%" height="auto" />
+            <img src="/Zee.webp" alt="Zee" width="100%" height="auto" />
           </picture>
         </div>
         <div className="mx-auto p-2">
           <picture>
-            <img src="/Week.png" alt="Week" width="100%" height="auto" />
+            <img src="/Week.webp" alt="Week" width="100%" height="auto" />
           </picture>
         </div>
         <div className="mx-auto p-2">
           <picture>
-            <img src="/mid_day.png" alt="mid_day" width="100%" height="auto" />
+            <img src="/mid_day.webp" alt="mid_day" width="100%" height="auto" />
           </picture>
         </div>
         <div className="mx-auto p-2">
           <picture>
-            <img src="/outlook.png" alt="outlook" width="100%" height="auto" />
+            <img src="/outlook.webp" alt="outlook" width="100%" height="auto" />
           </picture>
         </div>
       </div>

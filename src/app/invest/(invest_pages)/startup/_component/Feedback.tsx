@@ -8,7 +8,7 @@ export default function StartupFeedback({}: { startup: StartupData }) {
       <Image
         height={'100'}
         width={'100'}
-        src={'/rocket_invest.png'}
+        src={'/rocket_invest.webp'}
         alt={'rocket image'}
       />
       <h4 className="reset text-2xl font-bold text-white">

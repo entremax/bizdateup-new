@@ -105,7 +105,7 @@ const campaignData: Campaign[] = [
       'solutions, offering environmentally friendly products and services for a\n' +
       'cleaner and greener future.',
     banner: 'https://example.com/banner3.jpg',
-    logo: 'https://example.com/logo3.png',
+    logo: 'https://example.com/logo3.webp',
     tags: ['Green Energy', 'Sustainability', 'Renewable Energy'],
     dealTerms: {
       typeOfSecurity: 'Equity',
@@ -124,7 +124,7 @@ const campaignData: Campaign[] = [
       'actionable insights, providing end-to-end solutions for drone flight,\n' +
       'data processing, and analysis, ultimately saving time and resources.',
     banner: 'https://example.com/banner1.jpg',
-    logo: 'https://example.com/logo1.png',
+    logo: 'https://example.com/logo1.webp',
     tags: ['Technology', 'Drones', 'SaaS'],
     dealTerms: {
       typeOfSecurity: 'Equity',

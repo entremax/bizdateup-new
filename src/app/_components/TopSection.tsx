@@ -49,7 +49,7 @@ export default function TopSection() {
         <div className="lg:top-6rem relative h-[24rem] w-[25rem] md:w-[31rem] md:max-w-[31rem] lg:right-[8rem] lg:top-[4rem] lg:h-[26rem]">
           <picture>
             <Image
-              src={'/cheerful_women.png'}
+              src={'/cheerful_women.webp'}
               alt="cheerful_women"
               className={'mr-8'}
               fill

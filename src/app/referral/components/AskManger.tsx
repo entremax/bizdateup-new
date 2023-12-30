@@ -5,7 +5,7 @@ export default function AskManager() {
   return (
     <div className="border_gray mx-3 flex flex-col items-center gap-3 rounded-xl p-4 shadow-sm md:mx-14 md:flex-row lg:mx-32">
       <div className="relative h-[10rem] w-[-webkit-fill-available] min-w-fit overflow-clip rounded-xl md:h-20 md:w-24">
-        <Image src={'/ask-manager.png'} alt={'ask manager'} fill />
+        <Image src={'/ask-manager.webp'} alt={'ask manager'} fill />
       </div>
       <div className="flex flex-col items-center gap-8 md:flex-row">
         <div className={'flex  flex-col gap-2 '}>

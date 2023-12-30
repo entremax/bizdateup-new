@@ -14,25 +14,25 @@ export default function DidYouKnow() {
   const Companies = ([] = [
     {
       id: 9,
-      photo: '/Unacademy.png',
+      photo: '/Unacademy.webp',
       name: 'Unacademy',
       values: unacademy,
     },
     {
       id: 10,
-      photo: '/Razor.png',
+      photo: '/Razor.webp',
       name: 'Razor Pay',
       values: Razor,
     },
     {
       id: 11,
-      photo: '/ola.png',
+      photo: '/ola.webp',
       name: 'Ola',
       values: ola,
     },
     {
       id: 12,
-      photo: '/Byjus.png',
+      photo: '/Byjus.webp',
       name: 'Byjus',
       values: Byjus,
     },
