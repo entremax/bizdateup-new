@@ -30,7 +30,7 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
   const referer = headers().get('referer')
   const url = new URL(referer ?? 'https://bizdateup-uat.vercel.app/referral')
   const originHost = `${url.protocol}//${url.host}`
-  console.log(originHost)
+  // console.log(originHost)
   const { role, user } = await getUserDetails()
   const accelerator = await getInviteeDetails()
   store.dispatch(setAccelerator(accelerator))

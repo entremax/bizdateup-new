@@ -41,13 +41,6 @@ export default async function Bank({ searchParams }: Props) {
       value: user.bank.registeredName,
     },
   ]
-  console.log(
-    'Edit',
-    user.bank.status !== 'pending',
-    user.bank.status,
-    'Edit State',
-    editState,
-  )
   return (
     <div className="flex flex-col">
       {user.bank.status !== 'pending' && !searchParams.edit ? (

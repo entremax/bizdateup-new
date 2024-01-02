@@ -165,7 +165,6 @@ const SearchContextProvider: React.FC<ProviderProps> = ({
     users: (ReferedInvestor | ReferedStartup)[],
   ) => {
     return users.filter((user) => {
-      console.log(investmentFilter)
       if ('totalInvestmentAmount' in user) {
         return investmentFilter === true
           ? user.totalInvestmentAmount > 0

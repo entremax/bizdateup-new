@@ -204,7 +204,6 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       country: selected.country,
       refer: values.referral,
     } as unknown as DataInner
-    console.log(formData, refs)
     await handleUpdate(formData, 'general')
     return router.refresh()
   }

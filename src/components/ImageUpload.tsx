@@ -112,11 +112,19 @@ const ImageUpload: React.FC<Props> = ({
           {previewImageUrl || (previewImage && fileDetails) ? (
             <>
               {previewImage && fileDetails ? (
-                <Image src={previewImage} alt={fileDetails.name} fill />
+                <Image
+                  src={previewImage}
+                  alt={fileDetails.name}
+                  fill
+                  className={'h-full'}
+                  sizes={'100%'}
+                />
               ) : (
                 <Image
                   src={previewImageUrl ?? ''}
-                  alt={'user profile imaeg'}
+                  alt={'user profile image'}
+                  className={'h-full'}
+                  sizes={'100%'}
                   fill
                 />
               )}

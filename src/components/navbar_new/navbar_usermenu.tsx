@@ -215,10 +215,12 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
                   ${user?.lastName.charAt(0).toUpperCase() ?? ''}`}
                 </Avatar>
               ) : (
-                <Avatar
-                  size="large"
-                  src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
-                />
+                user && (
+                  <Avatar
+                    size="large"
+                    src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
+                  />
+                )
               )}
               {role &&
               role === 'investor' &&

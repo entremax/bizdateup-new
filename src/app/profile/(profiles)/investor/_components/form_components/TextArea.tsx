@@ -13,7 +13,6 @@ const TextAreaInput: ForwardRefRenderFunction<
   { wrapperClassName, label, name, className, labelClassName, ...props },
   ref,
 ) => {
-  console.log('🚀 ~ file: TextArea.tsx:20 ~ props:', props)
   return (
     <div
       className={cn(

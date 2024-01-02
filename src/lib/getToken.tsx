@@ -35,7 +35,7 @@ async function setUserInLocal({
     premiumMember: boolean
   }
 }) {
-  console.log('Setting users')
+  // console.log('Setting users')
   localStorage.setItem('user', JSON.stringify(user))
   store.dispatch(setUser({ ...user }))
 }

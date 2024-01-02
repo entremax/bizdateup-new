@@ -28,7 +28,7 @@ export const startupsApiSlice = createApi({
         method: 'GET',
       }),
       transformResponse: (response: IStartupUpdatesResponse) => {
-        console.log(response)
+        // console.log(response)
         return response.data
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -41,7 +41,7 @@ export const startupsApiSlice = createApi({
         body,
       }),
       transformResponse: (response: any) => {
-        console.log(response)
+        // console.log(response)
         return response.data
       },
       transformErrorResponse: (response: { status: string | number }) =>

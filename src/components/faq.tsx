@@ -51,10 +51,14 @@ const FrequentlyAsked: React.FC<Props> = ({ all = false, className = '', custom 
       
     }
     if (!all || !custom) {
-      return dispatch({ type: 'SET_ITEMS', payload: getRandomFourItems({ array: data.faqData }) })
+      return dispatch({
+        type: 'SET_ITEMS',
+        payload: getRandomFourItems({ array: data.faqData }),
+      })
     }
   }, [all, custom, faqData]);
-  console.log('Redering', renderCount.current += 1)
+  
+  // console.log('Redering', renderCount.current += 1)
   function convertToCollapseFormat(
     collapseData?: { _id: string; question: string; answer: string }[],
   ) {

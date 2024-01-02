@@ -79,7 +79,6 @@ export default function DistributionByCompany({ name, dataset, title }: Props) {
       responsive: true,
     },
   }
-  console.log('Rendering')
   return (
     <div
       className={'border_gray flex max-h-fit flex-col gap-4 rounded-xl p-4 '}>

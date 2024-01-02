@@ -187,7 +187,7 @@ export const api = createApi({
         body,
       }),
       transformResponse: (response: any) => {
-        console.log(response)
+        // console.log(response)
         return response.data
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -202,7 +202,7 @@ export const api = createApi({
         },
       }),
       transformResponse: (response: any) => {
-        console.log(response)
+        // console.log(response)
         return response.data
       },
       transformErrorResponse: (response: { status: string | number }) =>

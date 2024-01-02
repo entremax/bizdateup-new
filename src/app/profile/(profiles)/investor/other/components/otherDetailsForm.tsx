@@ -21,7 +21,6 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
     sectors: user.other.sector,
     'invested-before': user.other.investedFund,
   })
-  console.log(loading)
   const inputFields = [
     {
       name: 'occupation',
