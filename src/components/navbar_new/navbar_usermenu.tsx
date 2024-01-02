@@ -44,9 +44,9 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       .then(() => {
         dispatch(authReset())
         dispatch(investReset())
+        router.push('/login')
         localStorage.removeItem('user')
         notifyUser('success', 'Logout Successfully')
-        return router.push('/login')
       })
       .catch((error) => {
         const errorMessage = error.data?.message
