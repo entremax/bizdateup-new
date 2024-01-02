@@ -49,49 +49,52 @@ export default function NavbarNew() {
               : 'flex h-full w-full items-center'
           }>
           {authenticated && <div className={'grow'} />}
-          {(authenticated ? NavbarData.non_public : NavbarData.public).main.map(
-            (link, index) => (
-              <div
-                key={link.name + index}
-                className="group hidden h-full md:inline">
-                {link.name === 'Learn' ? (
-                  <Dropdown
-                    dropdownRender={() => <LearnDropDown />}
-                    trigger={['click', 'hover']}>
-                    <Link
-                      href={''}
-                      className={cn(
-                        path.startsWith(link.to)
-                          ? linkStyle +
-                              ' h-[98%] border-0 border-b-2 border-solid border-primary text-primary'
-                          : linkStyle,
-                      )}>
-                      <span className="">{link.name}</span>
-                      <DownOutlined style={{ fontSize: '12px' }} />
-                    </Link>
-                  </Dropdown>
-                ) : (
+          {(authenticated
+            ? user?.userData?.isAccelerator
+              ? [...NavbarData.non_public.main, NavbarData.accelerator]
+              : NavbarData.non_public.main
+            : NavbarData.public.main
+          ).map((link, index) => (
+            <div
+              key={link.name + index}
+              className="group hidden h-full md:inline">
+              {link.name === 'Learn' ? (
+                <Dropdown
+                  dropdownRender={() => <LearnDropDown />}
+                  trigger={['click', 'hover']}>
                   <Link
-                    href={link.to}
+                    href={''}
                     className={cn(
                       path.startsWith(link.to)
                         ? linkStyle +
                             ' h-[98%] border-0 border-b-2 border-solid border-primary text-primary'
                         : linkStyle,
                     )}>
-                    {link.icon ? (
-                      <link.icon
-                        className="fill-current group-hover:fill-primary"
-                        width="1rem"
-                        height="1rem"
-                      />
-                    ) : null}
                     <span className="">{link.name}</span>
+                    <DownOutlined style={{ fontSize: '12px' }} />
                   </Link>
-                )}
-              </div>
-            ),
-          )}
+                </Dropdown>
+              ) : (
+                <Link
+                  href={link.to}
+                  className={cn(
+                    path.startsWith(link.to)
+                      ? linkStyle +
+                          ' h-[98%] border-0 border-b-2 border-solid border-primary text-primary'
+                      : linkStyle,
+                  )}>
+                  {link.icon ? (
+                    <link.icon
+                      className="fill-current group-hover:fill-primary"
+                      width="1rem"
+                      height="1rem"
+                    />
+                  ) : null}
+                  <span className="">{link.name}</span>
+                </Link>
+              )}
+            </div>
+          ))}
           {authenticated && <div className={'grow'} />}
           {!authenticated && (
             <div className="hidden h-full items-center justify-center gap-2 md:flex">

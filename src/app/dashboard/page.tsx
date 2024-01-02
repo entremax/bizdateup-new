@@ -37,15 +37,15 @@ const Dashboard = async () => {
   const menu = [
     {
       name: 'Tutorials',
-      link: '/tutorials',
+      link: '/learn',
     },
     {
       name: 'Frequently asked questions',
-      link: '/faq',
+      link: '/learn/faqs',
     },
     {
       name: 'About us',
-      link: '/about_us',
+      link: '/learn/about-us',
     },
     {
       name: 'Terms & Conditions',

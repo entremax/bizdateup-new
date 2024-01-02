@@ -24,6 +24,12 @@ const NavbarData = {
     ],
     user_menu: [],
   },
+  accelerator: {
+    name: 'Referral',
+    icon: Icons.Referral,
+    to: '/referral',
+    roles: ['investor'],
+  },
   public: {
     main: [
       {

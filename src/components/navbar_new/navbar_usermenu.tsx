@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Icons } from '@/icons/icon'
 import type { MenuProps } from 'antd'
 import { Avatar, Badge, Button, Dropdown, Space, Tooltip } from 'antd'
@@ -25,8 +25,12 @@ import { acceleratorApis, getAcceleratorDetails } from '@/lib/accelerator'
 import { setAcceleratorCookies } from '@/action/accelerator'
 import { DataInner } from '@/types'
 import useCookieLocal from '@/lib/useCookieLocal'
+import UserMenuDropdown from '@/components/navbar_new/UserMenuDropdown'
+import { DollarOutlined } from '@ant-design/icons'
 
 const UserMenu = ({ user }: { user?: DataInner | null }) => {
+  const windowWidth = useRef(window.innerWidth)
+  console.log(windowWidth)
   const dispatch = useAppDispatch()
   const role = useCookieLocal('role')
   const { token } = useAppSelector(({ authUser }) => authUser)
@@ -85,10 +89,11 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
     },
     {
-      label: <p className={'reset px-4 md:collapse'}>Refer & Earn</p>,
-      hidden: role && role !== 'investor',
+      label: <p className={'reset px-4'}>Refer & Earn</p>,
+      // hidden: role && role !== 'investor',
       key: '3',
-      icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
+      hidden: role && role === 'investor' && windowWidth?.current > 800,
+      icon: <DollarOutlined />,
     },
     {
       label: (
@@ -197,7 +202,11 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       )}
 
       <div className={'flex items-center justify-center gap-2'}>
-        <Dropdown menu={{ items, onClick }}>
+        <Dropdown
+          className={'relative'}
+          dropdownRender={() => (
+            <UserMenuDropdown items={items} onClick={onClick} />
+          )}>
           <Space>
             <div className={cn(avatarClass)}>
               {user?.profilePic === '' ? (
@@ -239,3 +248,4 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
 }
 
 export default UserMenu
+

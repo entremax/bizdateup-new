@@ -33,9 +33,9 @@ const MobileNavbar = () => {
       link: '/portfolio',
     },
     {
-      name: 'Profile',
-      icon: Icons.Profile,
-      link: '/profile/investor',
+      name: 'Referral',
+      icon: Icons.Referral,
+      link: '/referral',
     },
   ]
   const linkStyle =
