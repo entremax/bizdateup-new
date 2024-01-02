@@ -1,4 +1,3 @@
-import { getCookieData } from '@/action/user'
 import { fetchData } from '@/lib/fetchApi'
 import { PortfolioData } from '@/types/portfolio'
 import PortfolioOverview from '@/components/portfolio/Overview'
@@ -9,16 +8,17 @@ import NoData from '@/components/portfolio/NoData'
 import ValuationGraph from '@/components/portfolio/graphs/ValuationGraph'
 import DistributionByCompany from '@/components/portfolio/graphs/ByCompany'
 import UpdatesWrapper from '@/app/startup/updates/components/UpdatesWrapper'
+import { cookies } from 'next/headers'
 
 export default async function InvestorPortfolio() {
-  const { user_id } = await getCookieData()
+  const user_id = cookies().get('user_id')?.value ?? ''
   const portfolioData = (await fetchData(
     `/investment/portfolio?investor=${user_id}`,
   )) as PortfolioData
 
   const totalValue = {
-    funded_startups: portfolioData.investedStartupDetails.length ?? 0,
-    portfolio_value: portfolioData.totalInvestment[0].totalamount,
+    funded_startups: portfolioData?.investedStartupDetails?.length ?? 0,
+    portfolio_value: portfolioData?.totalInvestment[0]?.totalamount ?? 0,
     invested_sectors: 2,
   }
   const doughnutGraphData = [
