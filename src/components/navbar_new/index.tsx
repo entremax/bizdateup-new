@@ -45,7 +45,7 @@ export default function NavbarNew() {
         <div
           className={
             !authenticated
-              ? 'flex h-full items-center gap-12'
+              ? 'flex h-full items-center xl:gap-12'
               : 'flex h-full w-full items-center'
           }>
           {authenticated && <div className={'grow'} />}
@@ -113,7 +113,7 @@ export default function NavbarNew() {
             </div>
           )}
           {!authenticated && (
-            <div className="mx-4 lg:hidden">
+            <div className="mx-4 md:hidden">
               <Sidebar />
             </div>
           )}

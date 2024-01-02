@@ -51,7 +51,12 @@ const Footer = () => {
           <div className="flex flex-col gap-4 px-4 py-4 md:px-20 lg:px-40">
             <div className="flex w-full flex-col gap-4 px-2  sm:flex-row md:flex-row lg:items-center">
               <div className={'relative h-10 w-40 max-w-[10rem] flex-grow'}>
-                <Image alt={'Bizdateup logo'} src={'/logo.webp'} fill />
+                <Image
+                  alt={'Bizdateup logo'}
+                  src={'/logo.webp'}
+                  fill
+                  sizes={'100vw'}
+                />
               </div>
               <div className="grow-0 md:grow"></div>
               <div className={'flex items-center gap-4'}>

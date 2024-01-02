@@ -63,6 +63,9 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       return router.push('/transactions')
     }
     if (key === '3') {
+      return handleCreateAccelerator()
+    }
+    if (key === '4') {
       logoutUser()
     }
   }
@@ -71,21 +74,27 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
 
   const items = [
     {
-      label: <p className={'reset text-bla px-4'}>Profile</p>,
+      label: <p className={'reset px-4'}>Profile</p>,
       key: '1',
       icon: <FontAwesomeIcon icon={faUser} className={'text-primary'} />,
     },
     {
-      label: <p className={'reset text-bla px-4'}>Transactions</p>,
-      disabled: !!(role && role !== 'investor'),
+      label: <p className={'reset px-4'}>Transactions</p>,
+      hidden: role && role !== 'investor',
       key: '2',
+      icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
+    },
+    {
+      label: <p className={'reset px-4 md:collapse'}>Refer & Earn</p>,
+      hidden: role && role !== 'investor',
+      key: '3',
       icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
     },
     {
       label: (
         <p className={'reset px-4'}>{isLoading ? 'Exiting...' : 'Sign Out'}</p>
       ),
-      key: '3',
+      key: '4',
       icon: <FontAwesomeIcon icon={faRightFromBracket} />,
       danger: true,
     },
@@ -199,11 +208,7 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
               ) : (
                 <Avatar
                   size="large"
-                  src={
-                    !user
-                      ? 'https://api.dicebear.com/7.x/pixel-art/svg?seed=Jane'
-                      : apiUri().v0 + '/investor/profile_pic/' + user?._id
-                  }
+                  src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
                 />
               )}
               {role &&

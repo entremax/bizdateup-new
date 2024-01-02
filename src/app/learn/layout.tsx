@@ -6,5 +6,5 @@ export default function LearnPageLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <main className=" pt-28">{children}</main>
+  return <main className="pt-16 lg:pt-28">{children}</main>
 }

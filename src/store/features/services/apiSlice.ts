@@ -20,6 +20,7 @@ const baseQuery = fetchBaseQuery({
 
     if (token) {
       headers.set('authorization', `Bearer ${token}`)
+      headers.get('cookie')
     }
     return headers
   },

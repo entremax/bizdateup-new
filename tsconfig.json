@@ -74,7 +74,8 @@
       "@/components/learn/*": [
         "./src/app/learn/components/*",
         "./src/app/learn/faqs/components/*",
-        "./src/app/learn/blogs/components/*"
+        "./src/app/learn/blogs/components/*",
+        "./src/app/learn/about-us/components/*"
       ],
       "@/components/invest/*": [
         "./src/app/invest/components/*",
