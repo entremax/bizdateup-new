@@ -78,9 +78,9 @@ const ImageUploader: React.FC<Props> = () => {
         onFileSet={handleFileChange}
         className={cn(
           `${
-            user && user?.role === 'investor'
+            user && user?.role === 'investor' && user?.profilePic !== ''
               ? borderColors[state.borderColor]
-              : ''
+              : 'border-0 '
           } relative !border-8 border-solid`,
         )}
       />

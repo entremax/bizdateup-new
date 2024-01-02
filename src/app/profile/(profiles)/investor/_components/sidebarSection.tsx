@@ -150,7 +150,7 @@ export default function SectionBar({
               className={cn(
                 'group flex w-full items-center gap-3 rounded-xl px-3  py-2 text-gray-800 delay-100 active:text-black lg:hover:bg-[#F0F0FF] lg:hover:text-primary' +
                   (routeSegment === segment &&
-                    'lg:group:stroke-primary lg:bg-[#F0F0FF] lg:text-primary'),
+                    'lg:group:stroke-primary lg:bg-[#F0F0FF]  lg:text-primary'),
               )}>
               <div
                 className={`flex h-8 w-8 items-center justify-center ${
@@ -201,7 +201,7 @@ export default function SectionBar({
               key={link}
               href={link}
               className={cn(
-                'hidden w-full items-center gap-3 py-6  text-gray-800 delay-100 active:text-black lg:flex hover:lg:bg-[#F0F0FF] hover:lg:text-primary' +
+                'hidden w-full items-center gap-3 py-6 !text-black-lighter  text-gray-800 delay-100 active:text-black lg:flex hover:lg:bg-[#F0F0FF] hover:lg:text-primary' +
                   (routeSegment === segment && ' lg:text-primary'),
               )}>
               <div className="flex h-8 w-8 items-center justify-center">
