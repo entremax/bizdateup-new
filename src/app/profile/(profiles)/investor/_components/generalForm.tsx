@@ -128,7 +128,9 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       name: 'country',
       label: 'Country',
       fieldType: 'select',
-      defaultValue: user?.address?.country,
+      defaultValue:
+        user?.address?.country === '' ? undefined : user?.address?.country,
+      placeholder: user?.address?.country === '' ? 'Select Country' : undefined,
       options: [
         {
           value: 'India',
@@ -181,7 +183,6 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       [fieldName]: value,
     }))
   }
-  console.log(user)
   const handleProfileUpdate = async () => {
     let values: { [key in FieldNames]: unknown | null } = {} as {
       [key in FieldNames]: unknown | null
@@ -203,7 +204,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       country: selected.country,
       refer: values.referral,
     } as unknown as DataInner
-    console.log(formData, values)
+    console.log(formData, refs)
     await handleUpdate(formData, 'general')
     return router.refresh()
   }
@@ -270,7 +271,17 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               name={field.name}
             />
           ) : (
-            <Input key={field.name} {...field} />
+            <Input
+              key={field.name}
+              defaultValue={field.defaultValue}
+              disabled={field.disabled}
+              //@ts-ignore
+              ref={field.fieldType !== 'select' && refs[field.name]}
+              name={field.name}
+              type={field.type}
+              label={field.label}
+              placeholder={`Enter your ${field.name}`}
+            />
           ),
         )}
       </div>

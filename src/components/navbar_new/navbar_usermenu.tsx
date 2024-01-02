@@ -30,7 +30,7 @@ import { DollarOutlined } from '@ant-design/icons'
 
 const UserMenu = ({ user }: { user?: DataInner | null }) => {
   const windowWidth = useRef(window.innerWidth)
-  console.log(windowWidth)
+
   const dispatch = useAppDispatch()
   const role = useCookieLocal('role')
   const { token } = useAppSelector(({ authUser }) => authUser)

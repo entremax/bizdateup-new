@@ -30,6 +30,8 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    const abortController = new AbortController()
+    const signal = abortController.signal
     const fetchUserDetails = async () => {
       if (reduxUser) return
       if (!role || role === '') return
@@ -65,9 +67,8 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         )
       }
     }
-
     fetchUserDetails()
-  }, [role, reduxUser])
+  }, [role, reduxUser, dispatch])
 
   return (
     <UserContext.Provider value={{ user, loading }}>
