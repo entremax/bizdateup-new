@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useState } from 'react'
-import { DataInner } from '@/types'
+import { DataInner, KYCStatus } from '@/types'
 import { useUser } from '@/hooks/useUser'
 import { useAppDispatch } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
@@ -9,6 +9,7 @@ import {
   useUpdateOtherDetailsMutation,
   useUpdateUserMutation,
 } from '@/services/apiSlice'
+import { useRouter } from 'next/navigation'
 
 type UpdateType = 'general' | 'bank' | 'other' | 'aadhar' | 'pan'
 
@@ -22,12 +23,44 @@ export const useUpdateContext = () => useContext(UpdateContext)
 
 const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useUser()
+  const router = useRouter()
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
   const [updateUser] = useUpdateUserMutation()
   const [updateOtherDetails] = useUpdateOtherDetailsMutation()
   const [updateBankDetails] = useUpdateBankDetailsMutation()
+  
+  
+  function navigateNext(updated: UpdateType) {
+    const findNextPendingStep = () => {
+      const pendingSteps = [
+        { status: KYCStatus.aadhar, route: '/profile/investor/kyc' },
+        { status: KYCStatus.pan, route: '/profile/investor/kyc/pan' },
+        { status: KYCStatus.bank, route: '/profile/investor/bank' },
+        { status: KYCStatus.other, route: '/profile/investor/other' },
+      ]
 
+      const startIndex = pendingSteps.findIndex(
+        (step) => step.status === updated,
+      )
+
+      for (let i = startIndex + 1; i < pendingSteps.length; i++) {
+        const nextStep = pendingSteps[i]
+        if (user?.kycStatus.includes(nextStep.status)) {
+          return nextStep.route
+        }
+      }
+
+      return null // No pending KYC steps
+    }
+
+    const nextPendingStep = findNextPendingStep()
+
+    if (nextPendingStep) {
+      router.push(nextPendingStep)
+    }
+  }
+  
   const handleUpdate = (formData: DataInner | any, updating: UpdateType) => {
     if (!user) {
       dispatch(
@@ -133,6 +166,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
+    navigateNext(updating)
     setLoading(false)
   }
   return (
