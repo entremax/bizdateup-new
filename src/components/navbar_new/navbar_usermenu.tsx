@@ -145,7 +145,6 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       },
     })
       .then((res) => {
-        console.log(res)
         return res.json()
       })
       .catch((e) => {

@@ -10,6 +10,7 @@ export const startupApis = {
   fetchForm: '/fetchForm',
   fetchByType: '/startup/fetchStartupByType?tos=',
   closedStartupDeals: '/getStartupsClosedView',
+  fetchUpdateById: '/fetchStartupUpdate?id=',
 }
 
 /**

@@ -135,7 +135,6 @@ export default function OtpField({ id }: { id: string }) {
         status,
         referedUrl,
       } = response.data
-      console.log(response)
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
       if (loginMethod === 'local' && loginMethod2 === 'signup') {

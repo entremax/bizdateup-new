@@ -61,7 +61,7 @@ export default function Invest() {
     )
 
     const res = await Promise.all(promises).catch((e) => console.log(e))
-    console.log(res)
+
     dispatch(
       setStartups({
         startup: (res && (res[0] as StartupData[])) ?? [],

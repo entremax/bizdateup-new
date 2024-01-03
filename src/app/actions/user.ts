@@ -37,7 +37,6 @@ export default async function getUserDetails() {
   }
   const res = await fetch(apiUri().v0 + url, config)
     .then((res) => {
-      console.log(res)
       return res.json()
     })
     .catch((e) => {

@@ -11,7 +11,13 @@ type Props = {
 export default function StartupUpdate({ component_type, update }: Props) {
   return (
     <Link
-      href={`/startup/updates/${update._id}`}
+      // id={update?.company_name}
+      href={
+        component_type === 'page'
+          ? `/startup/updates/update/${update._id}`
+          : `/startup/updates#${update.company_name}`
+      }
+      scroll={component_type !== 'page'}
       className={
         component_type === 'page'
           ? 'border_gray flex flex-col rounded-xl px-4 text-black-lighter shadow'
@@ -23,15 +29,23 @@ export default function StartupUpdate({ component_type, update }: Props) {
           <Image
             alt={'companyImage'}
             src={apiUri().base + 'v1/logo/' + update.logo}
+            sizes={'100%'}
             fill
           />
         </div>
         <div
           className={cn(
-            'flex max-w-[16rem] flex-col md:max-w-fit' +
-              (component_type === 'page' ? ' flex-grow' : ''),
+            'flex  flex-col' +
+              (component_type === 'page'
+                ? ' flex-grow'
+                : ' max-w-[16rem]  md:max-w-fit'),
           )}>
-          <h5 className="text-semibold text-lg">{update.title}</h5>
+          <h5
+            className={`text-semibold text-lg ${
+              component_type === 'page' ? ' flex-grow' : ''
+            }`}>
+            Community Developer Call
+          </h5>
           <p className={'text-sm font-light'}>
             Start-up:{' '}
             <span className={'font-semibold text-gray-400'}>
@@ -45,9 +59,9 @@ export default function StartupUpdate({ component_type, update }: Props) {
           </p>
         </div>
       </div>
-      {component_type === 'page' && (
-        <p className="pb-4 text-sm">{update.content ?? ''}</p>
-      )}
+      {/*{component_type === 'page' && (*/}
+      {/*  <p className="pb-4 text-sm">{update.content ?? ''}</p>*/}
+      {/*)}*/}
     </Link>
   )
 }
