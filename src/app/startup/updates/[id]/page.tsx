@@ -3,5 +3,5 @@ interface Props {
 }
 
 export default function Update({ params }: Props) {
-  return <div className=""></div>
+  return <div className="pt-28">Not Intercepted</div>
 }

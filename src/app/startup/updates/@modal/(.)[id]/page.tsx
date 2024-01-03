@@ -11,7 +11,7 @@ export default function StartupUpdateDetails({
 }) {
   const { updates } = useAppSelector((state) => state.startup)
   const [update, setUpdate] = useState<StartupUpdate | null>(null)
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   useEffect(() => {
     const updateDetails = updates.find((item) => item._id === id) ?? null
     setUpdate(updateDetails)

@@ -12,6 +12,7 @@ import { cookies } from 'next/headers'
 
 export default async function InvestorPortfolio() {
   const user_id = cookies().get('user_id')?.value ?? ''
+  const token = cookies().get('token')?.value ?? ''
   const portfolioData = (await fetchData(
     `/investment/portfolio?investor=${user_id}`,
   )) as PortfolioData
@@ -77,7 +78,7 @@ export default async function InvestorPortfolio() {
               <ValuationGraph portfolioData={portfolioData} />
             </div>
             <div className="border_gray rounded-xl p-4">
-              <UpdatesWrapper />
+              <UpdatesWrapper token={token} />
             </div>
           </div>
           <div className="my-28 grid grid-cols-1 items-start justify-center gap-4 px-4 sm:grid-cols-2 lg:px-28 xl:grid-cols-3">
