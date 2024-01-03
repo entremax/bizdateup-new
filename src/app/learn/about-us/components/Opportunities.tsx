@@ -141,15 +141,15 @@ export default function Opportunities() {
   return (
     <section
       className={'my-28 flex flex-col items-center justify-center xl:my-32'}>
-      <h4 className="mx-auto text-center text-4xl xl:w-2/4">
+      <h4 className="mx-auto w-3/4 text-center text-3xl lg:text-4xl xl:w-2/4">
         360 degree Opportunities For the entire Startup Ecosystem.
       </h4>
-      <div className="mx-4 my-8 grid w-full grid-cols-2 gap-4 lg:mx-16 lg:w-3/4 xl:mx-32 xl:mt-16 xl:grid-cols-4">
+      <div className="mx-4 my-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mx-16 lg:w-3/4 xl:mx-32 xl:mt-16 xl:grid-cols-4">
         {data.map((item) => (
           <div
             key={item.title}
             className={
-              'border_gray col-span-1 flex min-h-[35vh] flex-col gap-3 rounded-xl p-4'
+              'border_gray col-span-1 flex min-h-[26vh] flex-col gap-3 rounded-xl p-4 xl:min-h-[33vh]'
             }>
             <item.icon />
             <h5 className="text-2xl">{item.title}</h5>

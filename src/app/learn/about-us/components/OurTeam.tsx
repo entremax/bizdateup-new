@@ -94,9 +94,9 @@ export default function OurTeam() {
   return (
     <section
       id="team"
-      className="flex flex-col  items-center justify-center xl:my-16">
-      <h4 className="text-4xl">Our Team</h4>
-      <div className="mx-4 my-8 grid w-full grid-cols-3 gap-4 lg:mx-16 lg:mt-16 lg:w-3/4 xl:mx-32">
+      className="flex flex-col  justify-center lg:items-center xl:my-16">
+      <h4 className="pl-4 text-4xl lg:p-0">Our Team</h4>
+      <div className=" mx-4 my-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mx-16 lg:w-3/4 xl:mx-32 xl:mt-16 xl:grid-cols-4">
         {data.map((item) => (
           <MemberCard key={item.name} {...item} />
         ))}
