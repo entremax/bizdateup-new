@@ -112,10 +112,8 @@ const Dashboard = async () => {
           <div className={'flex'}>
             <div className="grow"></div>
             <Image
-              src={
-                'https://s3-alpha-sig.figma.com/img/66d5/70b3/9c6441c0a05bd78920817a27b7be7b9a?Expires=1697414400&Signature=MvGmZvjITHtgGcD4TDlGKg2t8XRtDUO~M4I5oUw-aeXWrGQZgW5zfuoZXTWDyFisr3fiSREALs~dMSOQJXPBovZAIGYle~klbeybWxsM~k1ya0AgSZfYE24dSZRi7UU4h6LtSooaQgKir6KLBXNNfcXald8r72spJWdtlyPuANnhTxmgTRvZL0aXAP--ktPh-OOmbSbG4giOdCpp8p-AIK-dTjhq8PrvOEK353QRasfDowi282D6zWqoJUSSY1xIiYq2lPeitSYrYgHklLOp0ga9SEtbdErAel~H3FnxpegsBqS5F0XIm71brrArQCs7ncVitlgeUIV14-pN1Fg1Iw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-              }
-              alt={'Person in a rocket'}
+              src={'/person-on-rocket.png'}
+              alt={'Person on a rocket'}
               height={140}
               width={130}
               className={'py-5'}
@@ -149,9 +147,7 @@ const Dashboard = async () => {
           <div className={'flex'}>
             <div className="grow"></div>
             <Image
-              src={
-                'https://s3-alpha-sig.figma.com/img/f943/214a/ec369e780b01be6be2acede7a288dfbe?Expires=1697414400&Signature=j-h12vBLij7tbTPNF2cFx5tRrSMUGY0DIpHZHMiGc99-WIZTps6X3r9r5h5QzJ4bL0to7g3qnZ6bB0HSIx8hJrvn8QP6jRfCXRNF9vHQcfemAHL73X1DHX8-VpIOgJ6z8NS8OpBTnvgQNYp0Ps0kBi54pRUrw1v7HHFy3y0dxjGincQUvxMVddFw5NyZg8NjhXquKHjxKP8WV784K1Psb-XbM-VxLKTLlgi6hPPXJ9YIInawqTkZ-G9I7w3qVBLfE~dgZvPAQoDkcp5JVQEEGn4UFW75qEExwQRKY0JfZ409Mo5fGJlc8PF079SBtSH228bY3XtzXODnZb542GnZwA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-              }
+              src={'/coin-person.png'}
               alt={'Person building money tower'}
               height={140}
               width={180}
