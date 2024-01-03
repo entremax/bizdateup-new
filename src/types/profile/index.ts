@@ -27,7 +27,7 @@ export type Fields = InputField | SelectField
 export type InputFieldNames =
   | 'first-name'
   | 'last-name'
-  | 'email-id'
+  | 'p-ml'
   | 'phone-number'
   | 'referral'
   | 'address'

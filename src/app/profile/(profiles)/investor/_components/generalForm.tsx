@@ -49,12 +49,13 @@ const States = [
   },
 ]
 
+
 export default function GeneralForm({ user }: { user: DataInner }) {
   const router = useRouter()
   const refs: Refs = {
     'first-name': useRef<InputRef | null>(null),
     'last-name': useRef<InputRef | null>(null),
-    'email-id': useRef<InputRef | null>(null),
+    'p-ml': useRef<InputRef | null>(null),
     'phone-number': useRef<InputRef | null>(null),
     referral: useRef<InputRef | null>(null),
     address: useRef<InputRef | null>(null),
@@ -80,8 +81,8 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       defaultValue: user?.lastName,
     },
     {
-      name: 'email-id',
-      type: 'email',
+      name: 'p-ml',
+      // type: 'email',
       label: 'EmailID',
       defaultValue: user?.email,
       disabled: !!user?.email,
@@ -145,7 +146,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     {
       name: 'city',
       label: 'City',
-      defaultValue: user.address.city === '' ? user.address.city : undefined,
+      defaultValue: user.address.city !== '' ? user.address.city : undefined,
     },
     {
       name: 'state',
@@ -195,7 +196,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       firstName: values['first-name'],
       lastName: values['last-name'],
       phone: values['phone-number'],
-      email: values['email-id'],
+      email: values['p-ml'],
       gender: selected.gender,
       address: values.address,
       city: values.city,
@@ -205,7 +206,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       refer: values.referral,
     } as unknown as DataInner
     await handleUpdate(formData, 'general')
-    return router.refresh()
+    return
   }
 
   return (

@@ -2,6 +2,9 @@ import React from 'react'
 import GeneralForm from '@/components/profile/generalForm'
 import getUserDetails from '@/action/user'
 import type { Metadata } from 'next'
+import { KYCStatus } from '@/types'
+import { redirect, RedirectType } from 'next/navigation'
+import { headers } from 'next/headers'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -11,17 +14,52 @@ export const metadata: Metadata = {
   description: 'This pages holds your general profile details',
 }
 export default async function InvestorProfile({ searchParams }: Props) {
-  let editState: boolean = !searchParams.edit
-  const { role, user } = await getUserDetails()
+  let editState: boolean = !searchParams.edita
+  const header = headers().get('referer')
+
+  const { role, user, status } = await getUserDetails()
   if (!user) {
     return <>Loading</>
   }
   if (role !== 'investor') {
     return
   }
-  // if (user.firstName === '' || user.lastName === '' || !user.phone) {
-  //   editState = true
-  // }
+  
+  function nextStep() {
+    console.log(status)
+    const pendingSteps = [
+      { status: KYCStatus.aadhar, route: '/profile/investor/kyc' },
+      { status: KYCStatus.pan, route: '/profile/investor/kyc/pan' },
+      { status: KYCStatus.bank, route: '/profile/investor/bank' },
+      { status: KYCStatus.other, route: '/profile/investor/other' },
+    ]
+
+    const startIndex = pendingSteps.findIndex(
+      (step) => step.status === KYCStatus.profile,
+    )
+
+    for (let i = startIndex + 1; i < pendingSteps.length; i++) {
+      const nextStep = pendingSteps[i]
+      if (status?.includes(nextStep.status)) {
+        return nextStep.route
+      }
+    }
+    return null // No, pending KYC steps
+  }
+
+  function referedFromDashboard() {
+    if (!header) {
+      return false
+    }
+    const url = new URL(header)
+    return url.pathname === '/dashboard'
+  }
+
+  const toRedirect = referedFromDashboard() && nextStep()
+
+  if (toRedirect) {
+    return redirect(toRedirect, RedirectType.push)
+  }
   const data = [
     {
       label: 'First name',

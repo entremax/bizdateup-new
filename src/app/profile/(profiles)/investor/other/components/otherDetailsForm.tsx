@@ -25,7 +25,8 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
     {
       name: 'occupation',
       label: 'Occupation',
-      defaultValue: user.other.occupation,
+      defaultValue:
+        user.other.occupation === '' ? undefined : user.other.occupation,
       fieldType: 'select',
       options: data.occupationValues,
     },
@@ -33,7 +34,8 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
       name: 'invest_amount',
       label: 'Invests',
       fieldType: 'select',
-      defaultValue: user.other.investAmount,
+      defaultValue:
+        user.other?.investAmount === '' ? undefined : user.other?.investAmount,
       options: [
         { value: '5K', label: 'up to ₹50,000' },
         { value: '5K-1L', label: '₹50,000 to ₹1 Lakh' },
@@ -45,14 +47,16 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
     {
       name: 'sectors',
       label: 'Select sectors',
-      defaultValue: user.other.sector,
+      defaultValue:
+        user.other?.sector.length === 0 ? undefined : user.other?.sector,
       fieldType: 'select',
       mode: 'tags',
       options: data.sectorOptions,
     },
     {
       name: 'invested-before',
-      defaultValue: user.other.investedFund,
+      defaultValue:
+        user.other?.investedFund === '' ? undefined : user.other?.investedFund,
       label: 'Have you invested in startups before? ',
       fieldType: 'select',
       options: [
@@ -69,7 +73,8 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
     {
       name: 'linkedin-url',
       label: 'Linked URL',
-      defaultValue: user.other.linkedlnUrl,
+      defaultValue:
+        user.other.linkedlnUrl === '' ? undefined : user.other?.linkedlnUrl,
     },
   ]
 
@@ -87,7 +92,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
 
     await handleUpdate(formData, 'other')
     setLoading(false)
-    return router.refresh()
+    return
   }
 
   const handleChange = (
@@ -123,8 +128,7 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
                 handleChange(field.name, value)
               }
               name={field.name}
-
-              // placeholder={field.placeholder}
+              placeholder={`Select ${field.name}`}
             />
           ) : (
             <Input

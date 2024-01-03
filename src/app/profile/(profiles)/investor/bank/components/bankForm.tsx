@@ -28,7 +28,8 @@ export default function BankForm({ user }: { user: DataInner }) {
     {
       name: 'bank-name',
       label: 'Bank Name',
-      defaultValue: user.bank.bankName,
+      defaultValue:
+        user.bank?.bankName === '' ? undefined : user.bank?.bankName,
       fieldType: 'select',
       options: bankNames,
     },
@@ -80,7 +81,7 @@ export default function BankForm({ user }: { user: DataInner }) {
       ifsc: values['ifsc'],
     }
     await handleUpdate(formData, 'bank')
-    return router.refresh()
+    return
   }
   const handleChange = (
     fieldName: any,
@@ -108,7 +109,7 @@ export default function BankForm({ user }: { user: DataInner }) {
               onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
                 handleChange(field.name, value)
               }
-              // placeholder={field.placeholder}
+              placeholder={`Select ${field.name}`}
             />
           ) : (
             <Input

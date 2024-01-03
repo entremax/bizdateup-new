@@ -145,7 +145,7 @@ export const api = createApi({
     }),
     updateOtherDetails: builder.mutation({
       query: (updatedData) => ({
-        url: baseUrl + '/kyc/add_other',
+        url: baseUrl + 'v0/kyc/add_other',
         method: 'POST',
         body: updatedData,
         headers: {
@@ -164,7 +164,7 @@ export const api = createApi({
     }),
     updateBankDetails: builder.mutation({
       query: (updatedData) => ({
-        url: baseUrl + '/kyc/verify_and_add_bank',
+        url: baseUrl + 'v0/kyc/verify_and_add_bank',
         method: 'POST',
         body: updatedData,
         headers: {
@@ -173,8 +173,8 @@ export const api = createApi({
       }),
       transformResponse: (response: ISendOtpResponseData) => {
         return {
-          message: response.data.message,
-          status: response.data.status,
+          message: response.data?.message ?? response.message ?? '',
+          status: response.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>

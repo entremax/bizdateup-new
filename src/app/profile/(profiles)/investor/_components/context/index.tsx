@@ -73,6 +73,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     const updatedData = { ...formData, refId: user.userData._id }
     setLoading(true)
+    let failed = false
     setTimeout(() => {}, 3000)
     if (updating === 'general') {
       setLoading(true)
@@ -91,6 +92,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         .catch((e) => {
           console.log(e)
           setLoading(false)
+          failed = true
           dispatch(
             setNotification({
               type: 'error',
@@ -115,10 +117,11 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         })
         .catch((e) => {
           setLoading(false)
+          failed = true
           dispatch(
             setNotification({
               type: 'error',
-              message: "Couldn't Update bank Details",
+              message: "Couldn't Update Details",
               description: e?.message ?? undefined,
             }),
           )
@@ -131,9 +134,17 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         .unwrap()
         .then((res) => {
           setLoading(false)
+          dispatch(
+            setNotification({
+              type: 'info',
+              message: res.message ?? '',
+            }),
+          )
           return res
         })
         .catch((e) => {
+          console.log('Error', e)
+          failed = true
           dispatch(
             setNotification({
               type: 'error',
@@ -154,10 +165,11 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           return res
         })
         .catch((e) => {
+          failed = true
           dispatch(
             setNotification({
               type: 'error',
-              message: "Couldn't Update bank Details",
+              message: "Couldn't Update PAN Details",
               description: e.message,
             }),
           )
@@ -165,7 +177,10 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-    navigateNext(updating)
+    if (failed) {
+      navigateNext(updating)
+      router.refresh()
+    }
     setLoading(false)
   }
   return (
