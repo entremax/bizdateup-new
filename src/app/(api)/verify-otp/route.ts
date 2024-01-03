@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
           path: '/',
           maxAge: 60 * 60,
         })
-        
+
         if (
           //@ts-ignore
           (response.data.data?.role === 'investor' &&
@@ -112,7 +112,10 @@ export async function POST(req: NextRequest) {
           { status: response.data.httpCode },
         )
       } else {
-        return NextResponse.json({ success: true, data: { ...response, referedUrl } })
+        return NextResponse.json({
+          success: true,
+          data: { ...response, referedUrl },
+        })
       }
     } catch (e) {
       console.log(e)

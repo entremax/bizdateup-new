@@ -154,8 +154,7 @@ export default function OtpField({ id }: { id: string }) {
           },
         })
         router.refresh()
-        
-        return router.push('/dashboard')
+        return window.location.replace(referedUrl ? referedUrl : '/dashboard')
       } else {
         if (responseCode === 200) {
           await setUserInLocal({
@@ -170,9 +169,8 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData?.membership?.isMember !== 'no',
             },
           })
-          router.refresh()
-          return router.push('/dashboard')
-          // return window.location.replace(referedUrl ? referedUrl : '/dashboard')
+          // router.refresh()
+          return window.location.replace(referedUrl ? referedUrl : '/dashboard')
         }
       }
     }

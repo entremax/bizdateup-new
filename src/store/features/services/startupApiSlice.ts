@@ -23,9 +23,12 @@ export const startupsApiSlice = createApi({
   baseQuery,
   endpoints: (builder) => ({
     fetchStartupUpdates: builder.mutation({
-      query: () => ({
+      query: (token) => ({
         url: startupApis.fetchStartupsUpdate,
         method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }),
       transformResponse: (response: IStartupUpdatesResponse) => {
         // console.log(response)

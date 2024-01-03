@@ -81,7 +81,7 @@ const ImageUploader: React.FC<Props> = () => {
             user && user?.role === 'investor' && user?.profilePic !== ''
               ? borderColors[state.borderColor]
               : '!border-0 '
-          } relative !border-8 border-solid`,
+          } relative !border-[6px] border-solid`,
         )}
       />
 

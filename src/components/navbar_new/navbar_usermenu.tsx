@@ -250,4 +250,3 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
 }
 
 export default UserMenu
-

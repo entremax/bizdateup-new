@@ -328,7 +328,6 @@ export type PaymentData = {
   gst: number
 }
 
-
 export type BaseUserData = {
   role: 'investor' | 'startup' | null
   refId: string

@@ -37,7 +37,7 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
   const acceleratorState = store.getState().accelerator
   const { referrer_id } = await getCookieData()
   const { investorCommission, startupCommission, redeemable } = acceleratorState
-  
+
   return role !== 'investor' ? null : (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col px-3 md:px-14 lg:px-32">

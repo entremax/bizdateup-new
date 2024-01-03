@@ -170,7 +170,6 @@ p {
     }
   }
 
-
   .how-to-use-steps {
     .ant-steps-item:not(:where(:nth-child(3))) {
       @apply mb-16;
@@ -215,7 +214,7 @@ p {
         }
 
         .ant-steps-item-content {
-          @apply !flex items-start flex-col justify-start;
+            @apply !flex flex-col items-start justify-start;
         }
       }
 
@@ -234,39 +233,34 @@ p {
   }
 }
 
-
 /*------------------------------------Slider-----------------*/
 @layer components {
   .review-slider {
     .slick-dots.slick-dots-bottom {
-
       @apply !-m-8;
 
       li {
         button {
-          @apply bg-primary !w-1.5 !h-1.5 !rounded-full;
+            @apply !h-1.5 !w-1.5 !rounded-full bg-primary;
         }
       }
 
       li.slick-active {
-        @apply bg-primary !w-1.5 !h-1.5 !rounded-full;
+          @apply !h-1.5 !w-1.5 !rounded-full bg-primary;
       }
     }
 
     .slick-list {
       .slick-track {
         .slick-slide {
-
         }
       }
-
     }
   }
 
   .slick-dots li button {
     @apply bg-amber-500;
   }
-
 }
 
 /*------------------------------------Loader CSS--------------------------------------*/
@@ -319,7 +313,6 @@ p {
     }
   }
 }
-
 
 .ant-collapse-header-text {
   font-weight: 700 !important;
@@ -404,7 +397,7 @@ input[type='number'] {
   .ant-collapse {
     .ant-collapse-item {
       .ant-collapse-header {
-        @apply pl-0 py-6;
+          @apply py-6 pl-0;
       }
 
       .ant-collapse-content {

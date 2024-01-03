@@ -12,7 +12,7 @@ type Props = {
   faqData?: { _id: string; question: string; answer: string }[]
 }
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
 const reducer = (state: any, action: any) => {
   switch (action.type) {
@@ -23,7 +23,12 @@ const reducer = (state: any, action: any) => {
   }
 }
 
-const FrequentlyAsked: React.FC<Props> = ({ all = false, className = '', custom = false, faqData }) => {
+const FrequentlyAsked: React.FC<Props> = ({
+  all = false,
+  className = '',
+  custom = false,
+  faqData,
+}) => {
   const [items, dispatch] = useReducer(reducer, [])
   let renderCount = useRef(0)
   function getRandomFourItems({ array }: { array: CollapseProps['items'] }) {
@@ -32,23 +37,25 @@ const FrequentlyAsked: React.FC<Props> = ({ all = false, className = '', custom 
     }
     // Create a copy of the array
     const copyArr = array.slice()
-    
+
     // Shuffle the array
     for (let i = copyArr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copyArr[i], copyArr[j]] = [copyArr[j], copyArr[i]]
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[copyArr[i], copyArr[j]] = [copyArr[j], copyArr[i]]
     }
     // Return the first 4 items
     return copyArr.slice(0, 4)
   }
-  
+
   useEffect(() => {
     if (all) {
       return dispatch({ type: 'SET_ITEMS', payload: data.faqData })
     }
     if (custom) {
-      return dispatch({ type: 'SET_ITEMS', payload: convertToCollapseFormat(faqData) })
-      
+      return dispatch({
+        type: 'SET_ITEMS',
+        payload: convertToCollapseFormat(faqData),
+      })
     }
     if (!all || !custom) {
       return dispatch({
@@ -56,22 +63,26 @@ const FrequentlyAsked: React.FC<Props> = ({ all = false, className = '', custom 
         payload: getRandomFourItems({ array: data.faqData }),
       })
     }
-  }, [all, custom, faqData]);
-  
+  }, [all, custom, faqData])
+
   // console.log('Redering', renderCount.current += 1)
   function convertToCollapseFormat(
     collapseData?: { _id: string; question: string; answer: string }[],
   ) {
-    return (custom && collapseData ? collapseData : data.faqData).map((item: any) => ({
-      key: item._id,
-      label: item.question,
-      children: <p className="children-text">{item.answer}</p>,
-    }))
+    return (custom && collapseData ? collapseData : data.faqData).map(
+      (item: any) => ({
+        key: item._id,
+        label: item.question,
+        children: <p className="children-text">{item.answer}</p>,
+      }),
+    )
   }
-  
+
   return (
     <Collapse
-      className={cn('mt-12 !rounded-none bg-transparent text-black-lighter ' + className)}
+      className={cn(
+        'mt-12 !rounded-none bg-transparent text-black-lighter ' + className,
+      )}
       expandIconPosition={'end'}
       expandIcon={({ isActive }) => (
         <Icons.ArrowRight
@@ -86,7 +97,7 @@ const FrequentlyAsked: React.FC<Props> = ({ all = false, className = '', custom 
         color: '#000',
       }}
     />
-  );
-};
+  )
+}
 
 export default FrequentlyAsked

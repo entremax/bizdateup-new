@@ -6,7 +6,7 @@ import { setStartupUpdates } from '@/reducers/user/startupSlice'
 import { notifyUser } from '@/components/notification'
 import { useFetchStartupUpdatesMutation } from '@/services/startupApiSlice'
 
-export default function UpdatesWrapper() {
+export default function UpdatesWrapper({ token }: { token: string }) {
   const renderCount = useRef(0)
   const dispatch = useAppDispatch()
   const { updates } = useAppSelector((state) => state.startup)
@@ -14,7 +14,7 @@ export default function UpdatesWrapper() {
     useFetchStartupUpdatesMutation()
   React.useEffect(() => {
     if (renderCount.current === 0) {
-      fetchUpdates('')
+      fetchUpdates(token)
         .unwrap()
         .then((res) => {
           if (res.data) {

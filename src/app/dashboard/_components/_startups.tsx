@@ -8,7 +8,6 @@ import { Button } from 'antd'
 import Link from 'next/link'
 
 const Startups = ({ data }: { data: Campaign[] }) => {
-
   function getData(data: any[]) {
     let startupData = data.length > 4 ? data.slice(0, 4) : data
 

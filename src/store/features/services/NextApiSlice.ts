@@ -58,7 +58,7 @@ export const NextApi = createApi({
         return {
           token: response.data.token,
           refId: response.data.refId,
-          
+
           status: response.data.status ?? [],
           investorData: {
             ...response.data.user,
@@ -84,7 +84,7 @@ export const NextApi = createApi({
           responseCode: response.data.code,
           token: response.data.token,
           refId: response.data.refId,
-          
+
           status: response.data.status,
           investorData: {
             ...response.data.data,

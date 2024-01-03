@@ -23,20 +23,13 @@ const stats = [
 
 export default function AboutStats() {
   return (
-    <div
-      className="grid grid-cols-2  gap-8 items-center justify-center lg:flex py-16 lg:justify-around bg-[#F3F3FA] px-8">
+    <div className="grid grid-cols-2  items-center justify-center gap-8 bg-[#F3F3FA] px-8 py-16 lg:flex lg:justify-around">
       {stats.map((data) => (
-        <div
-          key={data.id}
-          className="flex flex-col gap-1">
-            <span
-              className="text-3xl font-semibold">
-              {data.title}
-            </span>
-          <span
-            className="text-[#9B9BAB] text-lg font-semibold">
-              {data.desc}
-            </span>
+        <div key={data.id} className="flex flex-col gap-1">
+          <span className="text-3xl font-semibold">{data.title}</span>
+          <span className="text-lg font-semibold text-[#9B9BAB]">
+            {data.desc}
+          </span>
         </div>
       ))}
     </div>

@@ -11,7 +11,7 @@ type Props = {
 export default function StartupUpdate({ component_type, update }: Props) {
   return (
     <Link
-      href={`/startup/updates/update/${update._id}`}
+      href={`/startup/updates/${update._id}`}
       className={
         component_type === 'page'
           ? 'border_gray flex flex-col rounded-xl px-4 text-black-lighter shadow'

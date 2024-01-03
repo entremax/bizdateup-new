@@ -1,12 +1,7 @@
 import React from 'react'
 import { Campaign } from '@/types'
 import Image from 'next/image'
-import {
-  apiUri,
-  capitalizeFirstLetter,
-  cn,
-  formatIndianValuation,
-} from '@/lib/utils'
+import { apiUri, capitalizeFirstLetter, cn, formatIndianValuation } from '@/lib/utils'
 import JoinWhatsApp from '@/app/dashboard/_components/_join_whatsapp'
 import '../dashboard.css'
 import Link from 'next/link'

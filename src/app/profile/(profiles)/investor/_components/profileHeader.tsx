@@ -55,7 +55,6 @@ async function getUserDetails() {
   }
 }
 
-
 export default async function ProfileHeader() {
   const { user }: { user: DataInner } = await getUserDetails()
 
@@ -69,7 +68,7 @@ export default async function ProfileHeader() {
           {user &&
             user.role === 'investor' &&
             user.membership.isMember === 'yes' && (
-              <div className="absolute -top-8 right-2 rotate-12">
+              <div className="absolute -top-[1.6rem] right-2 rotate-12">
                 <Icons.Premium className={'h-12 w-16'} />
               </div>
             )}

@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 
 export default function KycTabs() {
   const kycType = useSelectedLayoutSegment()
-  
+
   // console.log(kycType)
   return (
     <div className="border_gray grid grid-cols-2 items-center justify-center divide-gray-400 !border-b-0">

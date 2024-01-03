@@ -29,8 +29,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [updateUser] = useUpdateUserMutation()
   const [updateOtherDetails] = useUpdateOtherDetailsMutation()
   const [updateBankDetails] = useUpdateBankDetailsMutation()
-  
-  
+
   function navigateNext(updated: UpdateType) {
     const findNextPendingStep = () => {
       const pendingSteps = [
@@ -51,7 +50,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-      return null // No pending KYC steps
+      return null // No, pending KYC steps
     }
 
     const nextPendingStep = findNextPendingStep()
@@ -60,7 +59,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       router.push(nextPendingStep)
     }
   }
-  
+
   const handleUpdate = (formData: DataInner | any, updating: UpdateType) => {
     if (!user) {
       dispatch(

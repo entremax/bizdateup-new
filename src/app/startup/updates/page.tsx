@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import UpdatesWrapper from '@/app/startup/updates/components/UpdatesWrapper'
+import { getCookieData } from '@/action/user'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
   description: 'Your startup updates.',
 }
 
-export default function StartupUpdates({ searchParams }: Props) {
+export default async function StartupUpdates({ searchParams }: Props) {
+  const { token } = await getCookieData()
   const updateType = searchParams?.type
 
   const updateRoute = [
@@ -60,7 +62,7 @@ export default function StartupUpdates({ searchParams }: Props) {
           ))}
         </div>
         <div className="flex flex-col gap-3">
-          <UpdatesWrapper />
+          <UpdatesWrapper token={token} />
         </div>
       </div>
     </main>

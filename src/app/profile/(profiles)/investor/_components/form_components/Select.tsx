@@ -9,7 +9,7 @@ const Select: React.ForwardRefRenderFunction<
 > = ({ name, wrapperClassName, ...props }, ref) => {
   // Any props with "ref" on them should be forwarded to the component that should
   // ultimately have the ref attached. In this case, it's `AntDSelect`.
-  
+
   return (
     <div className={' relative w-full ' + wrapperClassName}>
       <AntDSelect
@@ -18,23 +18,24 @@ const Select: React.ForwardRefRenderFunction<
         placeholder={'Select options'}
         optionFilterProp="children"
         filterOption={(input, option) => {
-          const inputValue = input.toLowerCase();
+          const inputValue = input.toLowerCase()
           //@ts-ignore
-          const label = option?.label?.toLowerCase();
+          const label = option?.label?.toLowerCase()
           //@ts-ignore
-          const value = option?.value?.toLowerCase();
-          
-          return label.includes(inputValue) || value.includes(inputValue);
+          const value = option?.value?.toLowerCase()
+
+          return label.includes(inputValue) || value.includes(inputValue)
         }}
         filterSort={(optionA, optionB) =>
           //@ts-ignore
-          (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+          (optionA?.label ?? '')
+            .toLowerCase()
+            .localeCompare((optionB?.label ?? '').toLowerCase())
         }
         ref={ref}
         {...props}
       />
-      
-      
+
       <label
         htmlFor={name}
         className="pointer-events-none absolute left-3 top-[0.2rem] mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white pt-[0.37rem] font-medium leading-[1.6] !text-gray-900 text-black transition-all duration-200 ease-out">
