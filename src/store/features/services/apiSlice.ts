@@ -66,26 +66,28 @@ export const api = createApi({
         response.status,
     }),
     getTotalInvestment: builder.query({
-      query: (refId) => ({
+      query: ({ token, refId }: { token: string; refId: string }) => ({
         url: baseUrl + 'v0/investment/totalInvestmentbyinvestor',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         params: {
           investor: refId,
         },
       }),
       transformResponse: (response: ITotalInvestmentResponse) =>
-        response.data.length > 0 ? response.data[0].data.totalamount : 0,
+        response?.data?.length > 0 ? response?.data[0]?.data?.totalamount : 0,
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
     }),
     getInvestmentDetails: builder.query({
-      query: (refId) => ({
+      query: ({ token, refId }: { token: string; refId: string }) => ({
         url: baseUrl + 'v0/investment/investmentbyinvestor',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         params: {
           investor: refId,

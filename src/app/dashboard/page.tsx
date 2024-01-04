@@ -15,6 +15,7 @@ import FrequentlyAsked from '@/components/faq'
 import dynamic from 'next/dynamic'
 import { fetchData } from '@/lib/fetchApi'
 import getUserDetails from '@/action/user'
+import { cookies } from 'next/headers'
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -33,7 +34,9 @@ const Dashboard = async () => {
     'get',
     0,
   )) as Campaign[]
-  const { user } = await getUserDetails()
+  const token = cookies().get('token')?.value
+  const { user, status } = await getUserDetails()
+
   const menu = [
     {
       name: 'Tutorials',
@@ -56,6 +59,7 @@ const Dashboard = async () => {
       link: '/policy',
     },
   ]
+
   if (!user || !(user && 'role' in user)) {
     return
   }
@@ -63,14 +67,20 @@ const Dashboard = async () => {
     <section className="ml-2 grid grid-cols-12 gap-2 pb-3 pr-3 pt-20">
       <div className="col-start-1 col-end-12 my-6 md:mt-5 xl:col-start-2 xl:col-end-11">
         <div className="grid text-primary-dark">
-          <Greet />
+          <Greet {...{ user, status }} />
           <h2 className="reset hidden font-bold sm:inline sm:text-3xl md:text-4xl">
             Check out Live Campaigns
           </h2>
         </div>
       </div>
       <div className="col-span-full flex flex-col gap-7 md:col-start-1 md:col-end-9 xl:col-start-2 xl:col-end-9">
-        <KycIndicator className={'md:hidden'} hidden={false} />
+        <KycIndicator
+          token={token}
+          user={user}
+          className={'md:hidden'}
+          hidden={false}
+          status={status}
+        />
         <LiveCampaigns data={campaign} />
         <Plans />
         <Startups data={campaign} />
@@ -79,7 +89,12 @@ const Dashboard = async () => {
         className={
           'md:col-end col-span-full md:col-start-9 md:pl-6 xl:col-start-9 xl:col-end-12 xl:pl-12'
         }>
-        <KycIndicator className={'hidden md:grid'} />
+        <KycIndicator
+          token={token}
+          user={user}
+          className={'hidden md:grid'}
+          status={status}
+        />
         <Membership />
         <div
           className={
