@@ -12,9 +12,10 @@ type Props = {
 }
 
 const KycIndicator = ({ token, status, user, className, hidden }: Props) => {
+  console.log(status)
   return (
     <>
-      {user && status.length >= 5 ? (
+      {user && status.length !== 0 ? (
         <IncompleteProfile className={className} hidden={hidden} />
       ) : (
         user && (
