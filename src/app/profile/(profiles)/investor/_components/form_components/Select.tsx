@@ -29,8 +29,13 @@ const Select: React.ForwardRefRenderFunction<
         filterSort={(optionA, optionB) =>
           //@ts-ignore
           (optionA?.label ?? '')
+            //@ts-ignore
             .toLowerCase()
-            .localeCompare((optionB?.label ?? '').toLowerCase())
+            .localeCompare(
+              (optionB?.label ?? '')
+                //@ts-ignore
+                .toLowerCase(),
+            )
         }
         ref={ref}
         {...props}
