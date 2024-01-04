@@ -102,7 +102,7 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
       label: <p className={'reset px-4'}>Refer & Earn</p>,
       // hidden: role && role !== 'investor',
       key: '3',
-      hidden: role && role === 'investor' && windowWidth > 800,
+      hidden: role && role === 'investor' && windowWidth > 900,
       icon: <DollarOutlined />,
     },
     {
@@ -200,7 +200,7 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
           <Button
             type={'default'}
             onClick={handleCreateAccelerator}
-            className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  md:inline-block">
+            className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  lg:inline-block">
             Refer & Earn
           </Button>
 

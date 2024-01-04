@@ -45,24 +45,28 @@ export default function NavbarLinks({ user, role, authenticated }: Props) {
   return (
     <>
       <div className={'grow'} />
-      {user && authenticated && logged_in && role === 'investor' && (
-        <InvestorLinks
-          path={path}
-          linkStyle={linkStyle}
-          role={'investor'}
-          user={user}
-        />
-      )}
-      {user && authenticated && logged_in && role === 'startup' && (
-        <StartupLinks
-          path={path}
-          linkStyle={linkStyle}
-          role={'startup'}
-          user={user}
-        />
-      )}
+      <div className="hidden h-full w-full md:flex">
+        {user && authenticated && logged_in && role === 'investor' && (
+          <InvestorLinks
+            path={path}
+            linkStyle={linkStyle}
+            role={'investor'}
+            user={user}
+          />
+        )}
+        {user && authenticated && logged_in && role === 'startup' && (
+          <StartupLinks
+            path={path}
+            linkStyle={linkStyle}
+            role={'startup'}
+            user={user}
+          />
+        )}
+      </div>
       {!user && (!authenticated || !logged_in) && (
-        <PublicLinks path={path} linkStyle={linkStyle} />
+        <div className={'hidden items-center gap-8 sm:flex'}>
+          <PublicLinks path={path} linkStyle={linkStyle} />
+        </div>
       )}
       {authenticated && logged_in && <div className="grow" />}
     </>

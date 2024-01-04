@@ -21,7 +21,7 @@ export default async function NavbarNew() {
         <Link href={'/'} className={!authenticated ? 'flex-grow' : ''}>
           <Image
             priority
-            className="md:pl-8"
+            className="lg:pl-8"
             src={'/logo_full.svg'}
             height={80}
             width={176}

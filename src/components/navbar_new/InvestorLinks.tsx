@@ -14,6 +14,7 @@ type Props = {
 export default function InvestorLinks({ path, linkStyle, user }: Props) {
   return (
     <>
+      <div className={'grow'} />
       {(user.isAccelerator
         ? [...NavbarData.non_public.main, NavbarData.accelerator]
         : NavbarData.non_public.main
@@ -24,7 +25,7 @@ export default function InvestorLinks({ path, linkStyle, user }: Props) {
           className={cn(
             path.startsWith(link.to)
               ? linkStyle +
-                  ' h-[98%] border-0 border-b-2 border-solid border-primary text-primary'
+                  'h-[98%] border-0 border-b-2 border-solid border-primary text-primary'
               : linkStyle,
           )}>
           {link.icon ? (
@@ -37,6 +38,7 @@ export default function InvestorLinks({ path, linkStyle, user }: Props) {
           <span className="">{link.name}</span>
         </Link>
       ))}
+      <div className={'grow'} />
     </>
   )
 }
