@@ -1,19 +1,30 @@
 'use server'
 import { cookies } from 'next/headers'
-import { redirect, RedirectType } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { fetch } from 'next/dist/compiled/@edge-runtime/primitives'
 import { apiUri } from '@/lib/utils'
 import { Cookies } from '@/types/referral'
-import { InvestorUserData, StartupUserData } from '@/types'
+import { InvestorUserData, KYCStatusArray, StartupUserData } from '@/types'
 
-export default async function getUserDetails() {
+interface NoUser {
+  role: undefined
+  refId: ''
+  status: KYCStatusArray
+  token: null
+  user: null
+}
+
+export default async function getUserDetails(): Promise<
+  InvestorUserData | StartupUserData | NoUser
+> {
   const token = cookies().get('token')?.value
   const user_id = cookies().get('user_id')?.value
   const role = cookies().get('role')?.value
 
   if (!user_id || !token) {
-    redirect('/login', 'push' as RedirectType)
+    return { user: null, role: undefined, status: [], token: null, refId: '' }
   }
+
   let url = '/investor/fetchbyid'
   let config: any = {
     next: { revalidate: 0 },
@@ -44,7 +55,7 @@ export default async function getUserDetails() {
       throw new Error(e)
     })
   return {
-    role: role,
+    role: role as 'investor' | 'startup' | undefined,
     refId: user_id,
     status: res?.data?.status,
     token: token,

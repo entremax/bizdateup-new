@@ -1,9 +1,9 @@
 'use client'
-import React, { useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Icons } from '@/icons/icon'
 import type { MenuProps } from 'antd'
 import { Avatar, Badge, Button, Dropdown, Space, Tooltip } from 'antd'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useAppDispatch } from '@/store/hooks'
 import { apiUri, cn } from '@/lib/utils'
 import {
   reset as authReset,
@@ -27,17 +27,27 @@ import { DataInner } from '@/types'
 import useCookieLocal from '@/lib/useCookieLocal'
 import UserMenuDropdown from '@/components/navbar_new/UserMenuDropdown'
 import { DollarOutlined } from '@ant-design/icons'
+import { StartupData } from '@/types/invest'
+import { useUser } from '@/hooks/useUser'
 
-const UserMenu = ({ user }: { user?: DataInner | null }) => {
-  const windowWidth = useRef(window.innerWidth)
+type Props = {
+  userData: {
+    user: DataInner | StartupData | null
+    role: 'investor' | 'startup'
+  }
+}
 
+const UserMenu = ({ userData: { user, role } }: Props) => {
+  const [windowWidth, setWindowWidth] = useState(0)
+  const logged_in = useCookieLocal('logged-in')
   const dispatch = useAppDispatch()
-  const role = useCookieLocal('role')
-  const { token } = useAppSelector(({ authUser }) => authUser)
+  const { user: client } = useUser()
+  const token = client?.token
   const router = useRouter()
   const [logout, { isLoading }] = useLogoutMutation()
   const [fetchUpdates, { isLoading: fetching }] =
     useFetchStartupUpdatesMutation()
+
   const logoutUser = () => {
     logout('')
       .unwrap()
@@ -92,7 +102,7 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       label: <p className={'reset px-4'}>Refer & Earn</p>,
       // hidden: role && role !== 'investor',
       key: '3',
-      hidden: role && role === 'investor' && windowWidth?.current > 800,
+      hidden: role && role === 'investor' && windowWidth > 800,
       icon: <DollarOutlined />,
     },
     {
@@ -104,6 +114,7 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       danger: true,
     },
   ]
+
   const handleFetchUpdates = async () => {
     fetchUpdates('')
       .unwrap()
@@ -124,7 +135,10 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
   }
 
   const avatarClass =
-    role === 'investor' && user && user?.membership?.isMember !== 'no'
+    role === 'investor' &&
+    user &&
+    'membership' in user &&
+    user?.membership?.isMember !== 'no'
       ? 'relative rounded-full outline outline-4 outline-yellow-500'
       : 'relative rounded-full'
 
@@ -132,7 +146,8 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
     // console.log('creating accelerator')
     // const success = await createAccelerator()
     // console.log(success)
-    if (user?.isAccelerator) {
+
+    if (user && 'isAccelerator' in user && user?.isAccelerator) {
       return router.push('/referral')
     }
 
@@ -172,6 +187,12 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
       )
     }
   }
+  useEffect(() => {
+    setWindowWidth(window.innerWidth)
+  }, [])
+  if (!logged_in || !user) {
+    return null
+  }
   return (
     <>
       {role && role === 'investor' && (
@@ -199,51 +220,52 @@ const UserMenu = ({ user }: { user?: DataInner | null }) => {
           </Tooltip>
         </>
       )}
-
-      <div className={'flex items-center justify-center gap-2'}>
-        <Dropdown
-          className={'relative'}
-          dropdownRender={() => (
-            <UserMenuDropdown items={items} onClick={onClick} />
-          )}>
-          <Space>
-            <div className={cn(avatarClass)}>
-              {user?.profilePic === '' ? (
-                <Avatar size={'large'}>
-                  {`${user?.firstName.charAt(0).toUpperCase() ?? ''}
+      {user && 'role' in user && (
+        <div className={'flex items-center justify-center gap-2'}>
+          <Dropdown
+            className={'relative'}
+            dropdownRender={() => (
+              <UserMenuDropdown items={items} onClick={onClick} />
+            )}>
+            <Space>
+              <div className={cn(avatarClass)}>
+                {user?.profilePic === '' ? (
+                  <Avatar size={'large'}>
+                    {`${user?.firstName.charAt(0).toUpperCase() ?? ''}
                   ${user?.lastName.charAt(0).toUpperCase() ?? ''}`}
-                </Avatar>
-              ) : (
-                user && (
-                  <Avatar
-                    size="large"
-                    src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
-                  />
-                )
-              )}
-              {role &&
-              role === 'investor' &&
-              user &&
-              user?.membership?.isMember !== 'no' ? (
-                <>
-                  <Icons.Premium
-                    className={'absolute -top-4 right-0.5 z-[999] rotate-12'}
-                    height={'1.5rem'}
-                    width={'1.5rem'}
-                  />
-                  <div
-                    className={
-                      'absolute -bottom-2 left-[0.2rem] rounded-full bg-primary px-2 text-xs font-semibold text-white'
-                    }>
-                    VIP
-                  </div>
-                </>
-              ) : null}
-            </div>
-            <Icons.ArrowDown />
-          </Space>
-        </Dropdown>
-      </div>
+                  </Avatar>
+                ) : (
+                  user && (
+                    <Avatar
+                      size="large"
+                      src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
+                    />
+                  )
+                )}
+                {role &&
+                role === 'investor' &&
+                user &&
+                user?.membership?.isMember !== 'no' ? (
+                  <>
+                    <Icons.Premium
+                      className={'absolute -top-4 right-0.5 z-[999] rotate-12'}
+                      height={'1.5rem'}
+                      width={'1.5rem'}
+                    />
+                    <div
+                      className={
+                        'absolute -bottom-2 left-[0.2rem] rounded-full bg-primary px-2 text-xs font-semibold text-white'
+                      }>
+                      VIP
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <Icons.ArrowDown />
+            </Space>
+          </Dropdown>
+        </div>
+      )}
     </>
   )
 }

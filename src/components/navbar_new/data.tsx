@@ -56,4 +56,4 @@ const NavbarData = {
   },
 }
 
-export default { NavbarData }
+export default NavbarData
