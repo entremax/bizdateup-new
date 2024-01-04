@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'This pages holds your general profile details',
 }
 export default async function InvestorProfile({ searchParams }: Props) {
-  let editState: boolean = !searchParams.edita
+  let editState: boolean = !searchParams.edit
   const header = headers().get('referer')
 
   const { role, user, status } = await getUserDetails()
@@ -54,8 +54,11 @@ export default async function InvestorProfile({ searchParams }: Props) {
     const url = new URL(header)
     return url.pathname === '/dashboard'
   }
-
-  const toRedirect = referedFromDashboard() && nextStep()
+  
+  const toRedirect =
+    !(user.firstName === '' || user.lastName === '' || !user.phone) &&
+    referedFromDashboard() &&
+    nextStep()
 
   if (toRedirect) {
     return redirect(toRedirect, RedirectType.push)
@@ -109,6 +112,7 @@ export default async function InvestorProfile({ searchParams }: Props) {
       value: user?.address?.pincode,
     },
   ]
+  
   return (
     <div className="flex flex-col">
       {!(user.firstName === '' || user.lastName === '' || !user.phone) &&

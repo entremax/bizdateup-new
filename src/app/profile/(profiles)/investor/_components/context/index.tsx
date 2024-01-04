@@ -177,7 +177,9 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-    if (failed) {
+    console.log(failed, user)
+
+    if (!failed) {
       navigateNext(updating)
       router.refresh()
     }

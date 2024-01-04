@@ -67,7 +67,7 @@ export default function NavbarLinks({ user, role, authenticated }: Props) {
         </div>
       )}
       {!user && (!authenticated || !logged_in) && (
-        <div className={'hidden items-center gap-8 sm:flex'}>
+        <div className={'hidden h-full gap-8 sm:flex'}>
           <PublicLinks path={path} linkStyle={linkStyle} />
         </div>
       )}

@@ -40,6 +40,7 @@ type Props = {
 const UserMenu = ({ userData: { user, role } }: Props) => {
   const [windowWidth, setWindowWidth] = useState(0)
   const logged_in = useCookieLocal('logged-in')
+  const [creating, setCreating] = useState(false)
   const dispatch = useAppDispatch()
   const { user: client } = useUser()
   const token = client?.token
@@ -146,8 +147,9 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
     // console.log('creating accelerator')
     // const success = await createAccelerator()
     // console.log(success)
-
+    setCreating(true)
     if (user && 'isAccelerator' in user && user?.isAccelerator) {
+      setCreating(false)
       return router.push('/referral')
     }
 
@@ -163,10 +165,12 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
         return res.json()
       })
       .catch((e) => {
+        setCreating(false)
         console.log(e)
         throw new Error(e)
       })
     if (res?.code !== 200) {
+      setCreating(false)
       return router.push('/dashboard')
     }
     if (res?.data?.code === 400) {
@@ -198,6 +202,7 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
       {role && role === 'investor' && (
         <>
           <Button
+            loading={creating}
             type={'default'}
             onClick={handleCreateAccelerator}
             className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  lg:inline-block">

@@ -25,6 +25,7 @@ export default function MemberCard({
         <div className="grow" />
         <Link
           href={linkedin}
+          target={'_blank'}
           className="reset  hidden items-center  gap-1 text-sm font-medium leading-normal text-primary group-hover:flex">
           <Icons.LinkedIn className={'h-4 w-4'} />{' '}
           <span className={'text-[#0066C8]'}>linkedin</span>

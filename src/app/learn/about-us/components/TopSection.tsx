@@ -33,7 +33,7 @@ export default function TopSection() {
         </p>
         <Button
           href={'/signup'}
-          className={' my-4 max-w-xs text-sm md:w-fit md:px-12'}>
+          className={'z-10 my-4 max-w-xs text-sm md:w-fit md:px-12'}>
           Sign up Now
         </Button>
         <Image
