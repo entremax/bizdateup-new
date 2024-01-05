@@ -44,7 +44,7 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
         <h3 className="reset flex items-center gap-4 text-lg font-bold text-[rgba(32,32,84,0.62)] md:text-2xl">
           Hello {capitalize(user?.firstName || 'User')},
         </h3>
-        <h2 className="reset text-xl font-bold text-primary-dark sm:inline sm:text-3xl xl:text-4xl">
+        <h2 className="reset text-x  l font-bold text-primary-dark sm:inline sm:text-3xl xl:text-4xl">
           Check out your referral progress
         </h2>
       </div>

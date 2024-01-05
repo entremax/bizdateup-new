@@ -31,6 +31,7 @@ export const store = configureStore({
       paymentApi.middleware,
       startupsApiSlice.middleware,
     ),
+  devTools: process.env.NEXT_PUBLIC_ENV !== 'production',
 })
 
 export type RootState = ReturnType<typeof store.getState>
