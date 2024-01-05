@@ -174,6 +174,8 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
       return router.push('/dashboard')
     }
     if (res?.data?.code === 400) {
+      
+      setCreating(false)
       return router.push('/referral')
     }
     if (res.code === 200) {
@@ -189,7 +191,10 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
         'success',
         'Congratulations! You have now become an Accelerator.',
       )
+      setCreating(false)
+      return router.push('/referral')
     }
+    setCreating(false)
   }
   useEffect(() => {
     setWindowWidth(window.innerWidth)

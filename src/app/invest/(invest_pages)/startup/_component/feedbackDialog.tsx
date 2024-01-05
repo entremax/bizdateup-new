@@ -57,7 +57,7 @@ export default function FeedbackDialog() {
       })
       .catch((error: any) => {
         console.log(error)
-        const errorMessage = error.data?.message
+        const errorMessage = error.data?.message ?? error?.message
         const errorCode = error.status
         if (errorMessage && errorCode) {
           handleClose()
@@ -71,52 +71,56 @@ export default function FeedbackDialog() {
       })
   }
 
-  return (
+  return user &&
+    role === 'investor' &&
+    user?.firstName !== '' &&
+    user?.lastName !== '' ? (
     <div
       className={cn(
         show
-          ? 'bottom-4 right-5 z-[13] rounded-xl border-[0.015rem]  border-solid border-primary bg-gray-100 p-3 xl:fixed'
+          ? 'delay-400 fixed bottom-48 left-1.5 right-1.5 z-[13] rounded-2xl  border-[0.015rem] border-solid border-primary bg-[#F9F9FF] p-2  shadow-2xl transition-opacity sm:left-auto sm:right-5 sm:p-3 md:bottom-4 '
           : 'collapse',
       )}>
-      <div className="flex w-full items-center justify-end">
-        <Button
-          size={'small'}
-          type={'text'}
-          shape={'circle'}
-          onClick={handleClose}
-          icon={<Icons.Close />}
-        />
-      </div>
-      <h4 className="m-0 p-0 text-xl">Are you interested in the start up?</h4>
-      <p className={'m-0 p-0 text-neutral-500'}>
+      <h4 className="relative mb-1 pt-2  text-lg sm:mx-4 sm:text-xl">
+        Are you interested in the start up?
+      </h4>
+      <Button
+        size={'small'}
+        type={'text'}
+        shape={'circle'}
+        className={'!absolute !right-2 !top-2'}
+        onClick={handleClose}
+        icon={<Icons.Close />}
+      />
+      <p className={'m-0 p-0 text-sm text-neutral-500 sm:mx-4'}>
         Get all updates Get daily updates regarding Investments
       </p>
-      <div className="grid grid-cols-3 gap-4 py-4">
+      <div className="grid grid-cols-3 gap-4 py-4 sm:mx-4">
         <Button
           onClick={() => handleAddInterest('yes')}
           className={
-            'font-medium text-primary !outline-none hover:cursor-pointer  hover:bg-primary hover:!text-white'
+            '!border-primary font-medium text-primary !outline-none hover:cursor-pointer  hover:bg-primary hover:!text-white'
           }
-          size={'large'}>
+          size={'middle'}>
           Yes
         </Button>
         <Button
           onClick={() => handleAddInterest('no')}
           className={
-            'font-medium text-primary !outline-none hover:cursor-pointer hover:bg-primary hover:!text-white'
+            '!border-primary font-medium text-primary !outline-none hover:cursor-pointer hover:bg-primary hover:!text-white'
           }
-          size={'large'}>
+          size={'middle'}>
           No
         </Button>
         <Button
           onClick={() => handleAddInterest('maybe')}
           className={
-            'font-medium text-primary !outline-none hover:cursor-pointer hover:bg-primary hover:!text-white'
+            '!border-primary font-medium text-primary hover:cursor-pointer hover:bg-primary hover:!text-white'
           }
-          size={'large'}>
+          size={'middle'}>
           Maybe
         </Button>
       </div>
     </div>
-  )
+  ) : null
 }

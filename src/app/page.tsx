@@ -27,7 +27,7 @@ export default function Home() {
       <ReadyToJoin />
       <DownloadLinks />
       <div className="flex-col items-center justify-center gap-8 md:my-32 md:px-44">
-        <h4 className={'text-center text-4xl font-bold'}>
+        <h4 className={'mb-4 text-center text-4xl font-bold lg:mb-8'}>
           Frequently Asked Questions
         </h4>
 

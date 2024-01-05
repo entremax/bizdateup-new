@@ -28,10 +28,11 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
   const [loading, setLoading] = useState(false)
   const dispatch = useAppDispatch()
-
+  console.log('Running Context (User)')
   useEffect(() => {
     const fetchUserDetails = async () => {
       if (reduxUser) return
+
       if (!role || role === '') return
 
       if (role === 'investor') {
@@ -67,7 +68,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       }
     }
     fetchUserDetails()
-  }, [role, reduxUser, dispatch])
+  }, [role, reduxUser])
 
   return (
     <UserContext.Provider value={{ user, loading }}>
