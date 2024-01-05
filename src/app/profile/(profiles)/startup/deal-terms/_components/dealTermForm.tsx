@@ -10,35 +10,21 @@ import ImageUploader from '@/components/form/ImageUploader'
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { dealTerms } from '@/types'
-import { useUpdateContext } from '@/components/profile/context'
+import { useStartupUpdateContext } from '@/components/profile/startup/context';
 import { useRouter } from 'next/navigation'
 
 export default function DealTerms({ deal }: { deal: dealTerms }) {
   const router = useRouter()
   const refs: Refs = {
-    'company-name': useRef<InputRef | null>(null),
-    'registered-name': useRef<InputRef | null>(null),
-    'short-description': useRef<InputRef | null>(null),
-    'raised': useRef<InputRef | null>(null),
-    sector: useRef<InputRef | null>(null),
-    stage: useRef<InputRef | null>(null),
-    highlight: useRef<InputRef | null>(null),
-    'key_highlight1': useRef<InputRef | null>(null),
-    'key_highlight2': useRef<InputRef | null>(null),
-    'key_highlight3': useRef<InputRef | null>(null),
-    'key_highlight4': useRef<InputRef | null>(null),
-    'first_name': useRef<InputRef | null>(null),
-    'last_name': useRef<InputRef | null>(null),
-    'email': useRef<InputRef | null>(null),
-    'phone': useRef<InputRef | null>(null),
-    'company_based': useRef<InputRef | null>(null),
-    'video_url': useRef<InputRef | null>(null),
-    'banner': useRef<InputRef | null>(null),
+    'valuation': useRef<InputRef | null>(null),
+    'discount': useRef<InputRef | null>(null),
+    'minimumInvestment': useRef<InputRef | null>(null),
+    'targetAmount': useRef<InputRef | null>(null),
   }
 
-  const { handleUpdate, loading } = useUpdateContext()
+  const { handleUpdate, loading } = useStartupUpdateContext();
   const [selected, setSelected] = useState({
-    raised: deal.typeOfSecurity,
+    typeOfSecurity: deal.typeOfSecurity,
   })
   const inputFields: Fields[] = [
     {
@@ -106,15 +92,15 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
       values[key] = refs[key]?.current?.input.value ?? ''
     }
     const formData = {
-      firstName: values['first-name'],
-      lastName: values['registered-name'],
-      phone: values['raised'],
-      email: values['short-description'],
-      address: values.address,
+      typeOfSecurity: selected.typeOfSecurity,
+      valuation: values['valuation'],
+      discount: values['discount'],
+      minimumInvestment: values['minimumInvestment'],
+      targetAmount: values['targetAmount'],
       
     } as unknown as any
     console.log(formData, values)
-    await handleUpdate(formData, 'general')
+    await handleUpdate(formData, 'dealterm')
     return router.refresh()
   }
 

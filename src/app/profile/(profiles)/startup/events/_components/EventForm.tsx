@@ -1,79 +1,87 @@
 'use client'
-import React, { useRef, useState } from 'react'
-import { InputRef } from 'antd/lib/input'
-import { FieldNames, Fields, Refs } from '@/types/profile'
+import React, {  useCallback, useMemo, useState } from 'react'
 import { StartupData, TeamMember } from '@/types/invest'
-import Input from '@/components/form/Input'
-import Select from '@/components/form/Select'
-import TextArea from '@/components/form/TextArea'
-import RadioGroup from '@/components/form/RadioGroup'
-import ImageUploader from '@/components/form/ImageUploader'
 import EventFormSingleItem from './EventFormSingleItem'
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataStartup } from '@/types'
-import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
+import { useStartupUpdateContext } from '@/components/profile/startup/context';
 
 export default function FaqForm({ initialUsers }: { initialUsers: StartupData }) {
   const router = useRouter()
-  const [user, setUser] = useState(initialUsers);
-  const refs: Refs = {
-    'company-name': useRef<InputRef | null>(null),
-    'registered-name': useRef<InputRef | null>(null),
-    'short-description': useRef<InputRef | null>(null),
-    'raised': useRef<InputRef | null>(null),
-    sector: useRef<InputRef | null>(null),
-    stage: useRef<InputRef | null>(null),
-    highlight: useRef<InputRef | null>(null),
-    'key_highlight1': useRef<InputRef | null>(null),
-    'key_highlight2': useRef<InputRef | null>(null),
-    'key_highlight3': useRef<InputRef | null>(null),
-    'key_highlight4': useRef<InputRef | null>(null),
-    'first_name': useRef<InputRef | null>(null),
-    'last_name': useRef<InputRef | null>(null),
-    'email': useRef<InputRef | null>(null),
-    'phone': useRef<InputRef | null>(null),
-    'company_based': useRef<InputRef | null>(null),
-    'video_url': useRef<InputRef | null>(null),
-    'banner': useRef<InputRef | null>(null),
-  }
+  const [events, setEvents] = useState(initialUsers?.events);
+  console.log("🚀 ~ file: EventForm.tsx:14 ~ FaqForm ~ events:", events)
 
-  const { handleUpdate, loading } = useUpdateContext()
-  const [selected, setSelected] = useState({
-    // raised: user.raisedFund,
-  })
-
-  const handleChange = (
-    fieldName: any,
-    value: DefaultOptionType | DefaultOptionType[],
-  ) => {
-    setSelected((prevState: any) => ({
-      ...prevState,
-      [fieldName]: value,
-    }))
-  }
-  console.log(user)
+  const { handleUpdate, loading } = useStartupUpdateContext()
+  
   const handleProfileUpdate = async () => {
-    let values: { [key in FieldNames]: unknown | null } = {} as {
-      [key in FieldNames]: unknown | null
-    }
-    for (let key in refs) {
-      //@ts-ignore
-      values[key] = refs[key]?.current?.input.value ?? ''
-    }
-    const formData = {
-      firstName: values['first-name'],
-      lastName: values['registered-name'],
-      phone: values['raised'],
-      email: values['short-description'],
-      address: values.address,
-      
-    } as unknown as DataStartup
-    console.log(formData, values)
-    await handleUpdate(formData, 'general')
+    const data = new FormData();
+    data.append('refId', initialUsers._id);
+    events?.forEach((item, index) => {
+      if (item.url && item.date) {
+        data.append(`_id[]`, item._id || "new");
+        data.append(`url[]`, item.url);
+        data.append(`time[]`, item.time);
+        data.append(`date[]`, item.date);
+        if (typeof item.banner == 'string') {
+          data.append(`unchanged_file[]`, index);
+        } else {
+          data.append(`files`, item.banner);
+          data.append(`changed_file[]`, index);
+        }
+      }
+    });
+    await handleUpdate(data, 'event')
     return router.refresh()
   }
+
+  const changeHandler = useCallback((index: number, field: string, newData: any) => {
+    console.log("🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ index:", index)
+    console.log("🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ newData:", newData)
+    console.log("🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ field:", field)
+
+    setEvents((prevEvent) => {
+      const updatedData = [...prevEvent];
+      if (index >= 0 && index < updatedData.length) {
+        updatedData[index][field] = newData;
+        console.log("Updated Data:", updatedData);
+        return updatedData;
+      } else {
+        console.error("Invalid index:", index);
+        return prevEvent;
+      }
+    });
+  }, []);
+
+  const memoizedChangeHandler = useMemo(() => changeHandler, [changeHandler]);
+
+  // Function to remove team member
+  const remove = (index: number) => {
+    setEvents((prevEvent) => {
+      if (index >= 0 && index < prevEvent.length) {
+        const deletedEvent = prevEvent[index];
+
+        if (deletedEvent._id) {
+          // console.log('Deleted team member with id:', deletedEventMember._id);
+          const data = {
+            refId:initialUsers._id,
+            delId:deletedEvent._id
+          }
+          console.log("🚀 ~ file: TeamForm.tsx:87 ~ setTeamMembers ~ data:", data)
+          handleUpdate(data , 'delete_event')
+        }
+
+        const updatedTeamMembers = [...prevEvent.slice(0, index), ...prevEvent.slice(index + 1)];
+
+        return updatedTeamMembers;
+      } else {
+        console.error('Invalid index:', index);
+        return prevEvent;
+      }
+    });
+  };
+
   const addNew = () => {
     const temp = {
      banner: "",
@@ -83,26 +91,28 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
       _id: "",
     };
 
-    const updatedEvents = [...user.events, temp];
+    const updatedEvents = [...events, temp];
 
-    setUser((prevUser) => ({
-      ...prevUser,
-      events: updatedEvents,
-    }));
-    
+    setEvents(updatedEvents); 
     console.log("🚀 ~ file: MentorForm.tsx:105 ~ addNew ~ user:", updatedEvents);
   };
 
   return (
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 lg:grid-cols-1">
-        {user?.events.map((event , index) =>
-        <>
-          <EventFormSingleItem key={user._id} event={event}/>
-          {index+1<user?.events?.length?
-          <div key={event._id} className="h-2 w-full bg-light-shadow"></div>:null
+        {events?.map((event , index) =>
+        <div key={index}>
+          <EventFormSingleItem  
+          event={event}
+          //  key={index}
+           indexx={index}
+           changeHandler={memoizedChangeHandler}
+           removeHandler={remove}
+          />
+          {index+1<events?.length?
+          <div key={index} className="h-2 w-full bg-light-shadow"></div>:null
         }
-          </>
+          </div>
         )}
       </div>
       

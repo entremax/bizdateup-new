@@ -10,14 +10,21 @@ const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
     wrapperClassName,
     label,
     name,
+    index,
+    className,
     onChange,
     changeHandler,
-    className,
     labelClassName,
+    defaultValue,
     ...props
   },
   ref,
 ) => {
+  const change =(value:any) => {
+    console.log("🚀 ~ file: InputWithoutRef.tsx:23 ~ change ~ value:", value)
+    changeHandler(index, 'fullName', value)
+  }
+  
   return (
     <div
       className={cn(
@@ -30,10 +37,18 @@ const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
         type={type}
         id={name}
         name={name}
+        // value={defaultValue}
+        // onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+        //   console.log("🚀 ~ file: InputWithoutRef.tsx:37 ~ event:", event.target.value)
+        //   change(event.target.value); 
+        // }
+        // }
+        onChange={onChange}
         className={cn(
           'peer block min-h-[auto] w-full rounded-sm border-0 !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none !outline-gray-300 transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:placeholder:font-normal dark:placeholder:text-neutral-300 dark:peer-focus:text-primary ' +
             className,
         )}
+        value={defaultValue}
         {...props}
       />
 

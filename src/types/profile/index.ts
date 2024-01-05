@@ -85,6 +85,17 @@ export interface ForwardRefProps extends InputProps {
   name: string
   className?: string
   label: string
+  index?  : number
+  labelClassName?: string
+  wrapperClassName?: string
+  changeHandler?: any
+}
+
+export interface TextAreaForwardRefProps extends TextAreaProps {
+  type?: string
+  name: string
+  className?: string
+  label: string
   labelClassName?: string
   wrapperClassName?: string
 }

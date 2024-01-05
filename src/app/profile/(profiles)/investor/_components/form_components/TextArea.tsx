@@ -1,12 +1,14 @@
 import { cn } from '@/lib/utils';
 import { Input  } from 'antd';
 import React, { ForwardRefRenderFunction } from 'react';
-import { InputRef } from 'antd/lib/input';
-import { ForwardRefProps } from '@/types/profile';
+import { TextAreaRef } from 'antd/lib/input/TextArea';
+import { TextAreaRef } from 'antd/lib/input';
+import { ForwardRefProps , TextAreaForwardRefProps } from '@/types/profile';
 
 const { TextArea } = Input;
 
-const TextAreaInput: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
+const TextAreaInput: ForwardRefRenderFunction<TextAreaRef,
+TextAreaForwardRefProps> = (
   {
     wrapperClassName,
     label,
@@ -17,7 +19,7 @@ const TextAreaInput: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
   },
   ref,
 ) => {
-    console.log("🚀 ~ file: TextArea.tsx:20 ~ props:", props)
+    // console.log("🚀 ~ file: TextArea.tsx:20 ~ props:", props)
   return (
     <div
       className={cn(

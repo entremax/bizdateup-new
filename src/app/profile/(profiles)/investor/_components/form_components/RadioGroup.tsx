@@ -2,9 +2,12 @@ import { cn } from '@/lib/utils';
 import { Radio } from 'antd';
 import React, { ForwardRefRenderFunction } from 'react';
 import { ForwardRefProps } from '@/types/profile';
+import type { RadioChangeEvent  , RadioGroupOptionType } from 'antd';
 
 interface RadioInputProps extends ForwardRefProps {
   options: Array<{ label: string; value: string | number }>;
+  defaultValue?: string | number | any;
+  onChange?: (e: RadioChangeEvent) => void; 
 }
 
 const RadioInput: ForwardRefRenderFunction<any, RadioInputProps> = (
@@ -16,10 +19,12 @@ const RadioInput: ForwardRefRenderFunction<any, RadioInputProps> = (
     labelClassName,
     options,
     defaultValue,
+    onChange,
     ...props
   },
   ref,
 ) => {
+  // console.log("🚀 ~ file: RadioGroup.tsx:23 ~ props:", props);
   return (
     <div
       className={cn(
@@ -32,10 +37,12 @@ const RadioInput: ForwardRefRenderFunction<any, RadioInputProps> = (
         name={name}
         ref={ref}
         options={options}
+        defaultValue={defaultValue}
+        onChange={onChange} // Add the onChange prop
         className={cn(
-            'peer block w-full rounded-sm !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none  transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary ' +
-              className,
-          )}
+          'peer block w-full rounded-sm !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none  transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary ' +
+            className,
+        )}
         {...props}
       />
 

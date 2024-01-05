@@ -29,6 +29,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [updateBankDetails] = useUpdateBankDetailsMutation()
 
   const handleUpdate = (formData: DataInner | any, updating: UpdateType) => {
+    console.log("🚀 ~ file: index.tsx:32 ~ handleUpdate ~ formData:", formData)
     if (!user) {
       dispatch(
         setNotification({

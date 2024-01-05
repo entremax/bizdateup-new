@@ -4,7 +4,7 @@ import SectionBar from '@/components/profile/startup/sidebarSectionStartup'
 import React from 'react'
 import SectionHeader from '@/components/profile/startup/sectionHeaderStartup'
 import ReduxProvider from '@/store/Provider'
-import UpdateContextProvider from '@/components/profile/context'
+import UpdateContextProvider from '@/components/profile/startup/context'
 import DetailsTab from '@/components/profile/startup/detailsTabStartup'
 
 export const metadata: Metadata = {

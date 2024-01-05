@@ -1,91 +1,104 @@
-import { cn } from '@/lib/utils';
-import { Upload, Image, message } from 'antd';
-import React, { ForwardRefRenderFunction, useState } from 'react';
-import { ForwardRefProps } from '@/types/profile';
-import { UploadChangeParam } from 'antd/lib/upload/interface';
-
-interface ImageUploaderProps extends ForwardRefProps {
-  defaultValue?: string | undefined;
+import React, { useState } from 'react';
+import { message } from 'antd';
+import Image from 'next/image';
+interface ImageUploaderProps {
+  wrapperClassName?: string;
+  label?: string;
+  type?: string;
+  index?: number;
+  fieldName?: string;
+  multiple?: boolean;
+  name: string;
+  className?: string;
+  labelClassName?: string;
+  placeholder?: string;
+  defaultValue?: string;
+  onChange?: (file: FileList | File | null , index?:number , field?:string) => void;
 }
 
-const ImageUploader: ForwardRefRenderFunction<any, ImageUploaderProps> = (
-  {
-    wrapperClassName,
-    label,
-    name,
-    className,
-    labelClassName,
-    defaultValue,
-    ...props
-  },
-  ref,
-) => {
+const ImageUploader: React.FC<ImageUploaderProps> = ({
+  wrapperClassName,
+  label,
+  name,
+  className,
+  labelClassName,
+  type,
+  multiple,
+  defaultValue,
+  onChange,
+  index,
+  fieldName
+}) => {
+  console.log("🚀 ~ file: ImageUploader.tsx:32 ~ index:", index)
+  // console.log("🚀 ~ file: ImageUploader.tsx:32 ~ multiple:", multiple)
+  // console.log("🚀 ~ file: ImageUploader.tsx:32 ~ fieldName:", fieldName)
+  // console.log("🚀 ~ file: ImageUploader.tsx:32 ~ index:", index)
   const [previewImage, setPreviewImage] = useState<string | undefined>(defaultValue);
-
-  const handleChange = (info: UploadChangeParam) => {
-    if (info.file.status === 'done') {
-      setPreviewImage(info.file.response.url);
+  // console.log("🚀 ~ file: ImageUploader.tsx:24 ~ defaultValue:", defaultValue)
+  // console.log("🚀 ~ file: ImageUploader.tsx:24 ~ previewImage:", previewImage)
+  // console.log("🚀 ~ file: ImageUploader.tsx:24 ~ previewImage:", index && fieldName)
+  
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement> , index?:number) => {
+    console.log("🚀 ~ file: ImageUploader.tsx:42 ~ handleFileChange ~ index:", index)
+    const file = e.target.files && e.target.files[0];
+    if(multiple){
+      console.log("This");
+      onChange && onChange(e.target.files);
     }
-  };
-
-  const beforeUpload = (file: File) => {
-    const isImage = file.type.startsWith('image/');
-    if (!isImage) {
-      message.error('You can only upload image files!');
+    else if(index !== undefined && fieldName && file){
+      console.log("🚀 ~ file: ImageUploader.tsx:47 ~ handleFileChange ~ index:", index)
+      console.log("That");
+      setPreviewImage(URL.createObjectURL(file));
+      onChange && onChange(file , index , fieldName );
     }
-    return isImage;
+    else{
+      console.log("other");
+
+    if (file) {
+      setPreviewImage(URL.createObjectURL(file));
+      onChange && onChange(file);
+    }
+    }
   };
 
   return (
-    <div
-      className={cn(
-        'relative grid w-full col-span-2 ' + wrapperClassName,
-      )}
-      style={{
-        gridTemplateRows: '1fr auto',
-        gap: '1rem', // Adjust the gap as needed
-      }}
-    >
-      <Upload
+    <div className={`relative grid w-full col-span-2 ${wrapperClassName || ''}`} key={index}>
+      <input
+        type="file"
         name={name}
-        ref={ref}
-        showUploadList={true}
-        beforeUpload={beforeUpload}
-        onChange={handleChange}
-        style={{minHeight:'200px', height: '100%' , width:'100%' }} // Set height to 100%
-        {...props}
+        id={name}
+        className="hidden"
+        onChange={(e) => {
+          console.log("🚀 ~ file: ImageUploader.tsx:72 ~ e:", e)
+          return handleFileChange(e , index)}
+        }
+        multiple={multiple}
+      />
+
+      <label
+      htmlFor={name}
+      className={`cursor-pointer relative w-full border-dashed h-28 border-2 border-gray-400 flex items-center justify-center rounded-sm !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary ${className || ''}`}
       >
-        {previewImage ? (
+        {(previewImage || defaultValue) && type!="docs" ? (
           <Image
-            src={`https://www.bizdateup.com/v1/banner/${previewImage}`}
+            src={previewImage || defaultValue || ""}
             alt="Preview"
-            preview={false}
-            className={cn(
-              'w-full rounded-sm !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary ' +
-                className,
-            )}
+            fill
+            className="w-full rounded-sm"
           />
         ) : (
-          <div className={cn(
-            'border-dashed h-28 border-2 border-gray-400 flex items-center justify-center rounded-sm !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary ' +
-              className,
-          )}>
-            <span>Upload PDF max. size 10MB</span>
-          </div>
+          <span>Upload PDF max. size 10MB</span>
         )}
-      </Upload>
+      </label>
 
       <label
         htmlFor={name}
-        className={cn(
-          'pointer-events-none absolute left-3 top-[0.5rem] mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white p-0 px-[0.022rem] font-medium !text-gray-900 text-black transition-all duration-200 ease-out' +
-            (labelClassName && labelClassName),
-        )}
+        className={`pointer-events-none absolute left-3 top-[0.5rem] mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white p-0 px-[0.022rem] font-medium !text-gray-900 text-black transition-all duration-200 ease-out ${labelClassName || ''}`}
       >
-        {label}   
+        {label}
       </label>
     </div>
   );
 };
 
-export default React.forwardRef(ImageUploader);
+export default ImageUploader;

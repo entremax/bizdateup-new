@@ -1,6 +1,7 @@
 'use client'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
+import { TextAreaRef } from 'antd/lib/input/TextArea'
 import { FieldNames, Fields, Refs } from '@/types/profile'
 import Input from '@/components/form/Input'
 import Select from '@/components/form/Select'
@@ -11,74 +12,47 @@ import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataStartup } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
+import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
+import type { RadioChangeEvent ,UploadProps  , RadioGroupOptionType } from 'antd';
 
-const States = [
-  { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
-  { value: 'Arunachal Pradesh', label: 'Arunachal Pradesh' },
-  { value: 'Assam', label: 'Assam' },
-  { value: 'Bihar', label: 'Bihar' },
-  { value: 'Chhattisgarh', label: 'Chhattisgarh' },
-  { value: 'Goa', label: 'Goa' },
-  { value: 'Gujarat', label: 'Gujarat' },
-  { value: 'Haryana', label: 'Haryana' },
-  { value: 'Himachal Pradesh', label: 'Himachal Pradesh' },
-  { value: 'Jharkhand', label: 'Jharkhand' },
-  { value: 'Karnataka', label: 'Karnataka' },
-  { value: 'Kerala', label: 'Kerala' },
-  { value: 'Madhya Pradesh', label: 'Madhya Pradesh' },
-  { value: 'Maharashtra', label: 'Maharashtra' },
-  { value: 'Manipur', label: 'Manipur' },
-  { value: 'Meghalaya', label: 'Meghalaya' },
-  { value: 'Mizoram', label: 'Mizoram' },
-  { value: 'Nagaland', label: 'Nagaland' },
-  { value: 'Odisha', label: 'Odisha' },
-  { value: 'Punjab', label: 'Punjab' },
-  { value: 'Rajasthan', label: 'Rajasthan' },
-  { value: 'Sikkim', label: 'Sikkim' },
-  { value: 'Tamil Nadu', label: 'Tamil Nadu' },
-  { value: 'Telangana', label: 'Telangana' },
-  { value: 'Tripura', label: 'Tripura' },
-  { value: 'Uttar Pradesh', label: 'Uttar Pradesh' },
-  { value: 'Uttarakhand', label: 'Uttarakhand' },
-  { value: 'West Bengal', label: 'West Bengal' },
-  { value: 'Jammu and Kashmir', label: 'Jammu and Kashmir' },
-  { value: 'Lakshadweep', label: 'Lakshadweep' },
-  { value: 'Puducherry', label: 'Puducherry' },
-  { value: 'Chandigarh', label: 'Chandigarh' },
-  {
-    value: 'Dadra and Nagar Haveli and Daman and Diu',
-    label: 'Dadra and Nagar Haveli and Daman and Diu',
-  },
-]
+// import type { UploadProps } from 'antd';
 
 export default function GeneralForm({ user }: { user: DataStartup }) {
   const router = useRouter()
   const refs: Refs = {
     'company-name': useRef<InputRef | null>(null),
     'registered-name': useRef<InputRef | null>(null),
-    'short-description': useRef<InputRef | null>(null),
-    'raised': useRef<InputRef | null>(null),
-    sector: useRef<InputRef | null>(null),
-    stage: useRef<InputRef | null>(null),
-    highlight: useRef<InputRef | null>(null),
+    // 'raised': useRef<InputRef | null>(null),
+    // sector: useRef<InputRef | null>(null),
     'key_highlight1': useRef<InputRef | null>(null),
     'key_highlight2': useRef<InputRef | null>(null),
     'key_highlight3': useRef<InputRef | null>(null),
     'key_highlight4': useRef<InputRef | null>(null),
+    'company_based': useRef<InputRef | null>(null),
+    // 'raised': useRef<InputRef | null>(null),
+    'video_url': useRef<InputRef | null>(null),
     'first_name': useRef<InputRef | null>(null),
     'last_name': useRef<InputRef | null>(null),
-    'email': useRef<InputRef | null>(null),
     'phone': useRef<InputRef | null>(null),
-    'company_based': useRef<InputRef | null>(null),
-    'video_url': useRef<InputRef | null>(null),
-    'banner': useRef<InputRef | null>(null),
+    'email': useRef<InputRef | null>(null),
+    // 'banner': useRef<InputRef | null>(null),
+    stage: useRef<InputRef | null>(null),
   }
 
-  const { handleUpdate, loading } = useUpdateContext()
+  const refs2: Refs = {
+    'short-description': useRef<TextAreaRef | null>(null),
+   
+  }
+  const { handleUpdate, loading } = useStartupUpdateContext();
+  
   const [selected, setSelected] = useState({
     raised: user.raisedFund,
+    sector: user.sector.split(',').map(item => item.trim()),
+    banner: user.banner,
   })
+  console.log("🚀 ~ file: companyProfileForm.tsx:45 ~ GeneralForm ~ selected:", selected)
+
   const inputFields: Fields[] = [
     {
       name: 'company-name',
@@ -94,14 +68,14 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
       name: 'short-description',
       label: 'Short Description',
       defaultValue: user?.shortDescription,
-      disabled: !!user?.shortDescription,
+      // disabled: !!user?.shortDescription,
       fieldType: 'textarea',
     },
     {
       name: 'raised',
       label: 'Have you raised fund before',
       defaultValue: user?.raisedFund,
-      disabled: !!user?.raisedFund,
+      // disabled: !!user?.raisedFund,
       fieldType: 'radiogroup',
       options: [
         {
@@ -118,7 +92,7 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
       name: 'sector',
       defaultValue: user?.sector,
       label: 'Preferred Sector',
-      disabled: !!user?.sector,
+      // disabled: !!user?.sector,
       fieldType: 'select',
       options: [
         {
@@ -190,39 +164,138 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
     {
       name: 'banner',
       label: 'Upload Banner (Suggested Size : 500*300 px)',
-      defaultValue: user?.banner,
+      defaultValue: user.banner ? `${process.env.NEXT_PUBLIC_APP_TEST_URL}${process.env.API_VERSION}/banner/${user.banner}`:undefined,
       fieldType:'fileUploader'
     },
   ];
   
+  // const handleChange = (
+  //   fieldName: any,
+  //   value: DefaultOptionType | DefaultOptionType[],
+  // ) => {
+  //   setSelected((prevState: any) => ({
+  //     ...prevState,
+  //     [fieldName]: value,
+  //   }))
+  // }
+
   const handleChange = (
-    fieldName: any,
+    fieldName: string,
     value: DefaultOptionType | DefaultOptionType[],
   ) => {
+    setSelected((prevState: any) => {
+      if (fieldName === "sector") {
+        if (Array.isArray(value)) {
+          const updatedSector = prevState.sector.filter((item: DefaultOptionType) => !value.includes(item));
+  
+          return {
+            ...prevState,
+            sector: [...updatedSector, ...value],
+          };
+        } else {
+          const isAlreadySelected = prevState.sector.includes(value);
+          const updatedSector = isAlreadySelected
+            ? prevState.sector.filter((item: DefaultOptionType) => item !== value)
+            : [...prevState.sector, value];
+  
+          return {
+            ...prevState,
+            sector: updatedSector,
+          };
+        }
+      } else {
+        return {
+          ...prevState,
+          [fieldName]: value,
+        };
+      }
+    });
+  };
+
+  const handleRadioChange = (fieldName: string, event: RadioGroupOptionType) => {
+    console.log("🚀 ~ file: companyProfileForm.tsx:172 ~ handleRadioChange ~ event:", event)
+    console.log("🚀 ~ file: companyProfileForm.tsx:172 ~ handleRadioChange ~ fieldName:", fieldName)
     setSelected((prevState: any) => ({
       ...prevState,
-      [fieldName]: value,
-    }))
-  }
-  console.log(user)
+      [fieldName]: event.target.value,
+    }));
+  };
+
+  const handleFileChange = (fieldName: string, event: RadioGroupOptionType) => {
+    setSelected((prevState: any) => ({
+      ...prevState,
+      [fieldName]: event,
+    }));
+  };
+  
   const handleProfileUpdate = async () => {
+
     let values: { [key in FieldNames]: unknown | null } = {} as {
       [key in FieldNames]: unknown | null
     }
+    
+    console.log("🚀 ~ file: companyProfileForm.tsx:208 ~ GeneralForm ~ refs:", refs)
+    console.log("🚀 ~ file: companyProfileForm.tsx:210 ~ handleProfileUpdate ~ values:", values)
     for (let key in refs) {
+      console.log("🚀 ~ file: companyProfileForm.tsx:215 ~ handleProfileUpdate ~ current:", refs[key]?.current)
+
+      console.log("🚀 ~ file: companyProfileForm.tsx:215` ~ handleProfileUpdate ~ key:", key)
       //@ts-ignore
-      values[key] = refs[key]?.current?.input.value ?? ''
+      values[key] = refs[key]?.current?.input.value || "" ;
+
     }
-    const formData = {
-      firstName: values['first-name'],
-      lastName: values['registered-name'],
-      phone: values['raised'],
-      email: values['short-description'],
-      address: values.address,
-      
-    } as unknown as DataStartup
-    console.log(formData, values)
-    await handleUpdate(formData, 'general')
+
+    for (let key in refs2) {
+      console.log("🚀 ~ file: companyProfileForm.tsx:215 ~ handleProfileUpdate ~ current:", refs2[key]?.current?.resizableTextArea?.textArea)
+
+      console.log("🚀 ~ file: companyProfileForm.tsx:215 ~ handleProfileUpdate ~ key:", key)
+      values[key] = refs2[key]?.current?.resizableTextArea?.textArea.value || "";
+    }
+
+    const formData = new FormData();
+
+    // Log values for debugging
+    console.log("Selected Banner:", selected.banner);
+    console.log("User ID:", user._id);
+    console.log("Founder First Name:", values['first-name']);
+    console.log("🚀 ~ file: companyProfileForm.tsx:287 ~ handleProfileUpdate ~ values:", values)
+    console.log("🚀 ~ file: companyProfileForm.tsx:287 ~ handleProfileUpdate ~ values:", refs)
+    // ... log other values ...
+    
+    // Append values only if they are not null or undefined
+    if (selected.banner) {
+      formData.append('file', selected.banner);
+    }
+    if (user._id) {
+      formData.append('refId', user._id);
+    }
+    if (values['first_name']) {
+      formData.append('founderFirstName', values['first_name']);
+    }
+    if (values['last_name']) {
+      formData.append('founderLastName', values['last_name']);
+    }
+    formData.append('phone', values['phone'] || ''); // Example: Handle null or undefined with default value
+    formData.append('email', values['email'] || '');
+    formData.append('companyBased', values['company_based'] || '');
+    
+    formData.append('keyHighlights[keyHighlight1]', values['key_highlight1'] || '');
+    formData.append('keyHighlights[keyHighlight2]', values['key_highlight2'] || '');
+    formData.append('keyHighlights[keyHighlight3]', values['key_highlight3'] || '');
+    formData.append('keyHighlights[keyHighlight4]', values['key_highlight4'] || '');
+    formData.append('sector', selected.sector || '');
+    formData.append('shortDescription', values['short-description'] || '');
+    formData.append('stage', values['stage'] || '');
+    formData.append('companyName', values['company-name'] || '');
+    formData.append('companyDetails', values['company-name'] || '');
+    formData.append('registeredCompanyName', values['registered-name'] || '');
+    formData.append('youtubeVideoUrl', values.video_url || '');
+    
+    if (selected.raised !== null && selected.raised !== undefined) {
+      formData.append('raisedFund', selected.raised);
+    }
+    
+    await handleUpdate(formData, 'company_details')
     return router.refresh()
   }
 
@@ -255,7 +328,7 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
               key={field.name}
               defaultValue={field.defaultValue}
               disabled={field.disabled}
-              // ref={field.fieldType !== 'select' && refs[field.name]}
+              ref={refs2[field.name]}
               name={field.name}
               type={field.type}
               label={field.label}
@@ -308,9 +381,11 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
               defaultValue={field.defaultValue}
               //@ts-ignore
               options={field.options}
-              // ref={field.fieldType !== 'select' && refs[field.name]}
+              // ref={refs[field.name]}
               name={field.name}
               type={field.type}
+              onChange={(value: RadioChangeEvent) => handleRadioChange(field.name, value)}
+  
               label={field.label}
               placeholder={`Enter your ${field.name}`}
             />
@@ -401,11 +476,13 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
               <ImageUploader
                 key={field.name}
                 disabled={field.disabled}
+                onChange={(value: UploadProps | UploadProps[]) =>
+                  handleFileChange(field.name, value)
+                }
                 defaultValue={field.defaultValue}
                 //@ts-ignore
                 ref={field.fieldType !== 'select' && refs[field.name]}
                 name={field.name}
-                type={field.type}
                 label={field.label}
                 placeholder={`Enter your ${field.name}`}
               />

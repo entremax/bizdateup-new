@@ -1,137 +1,162 @@
-'use client'
-import React, { useRef, useState } from 'react'
-import { InputRef } from 'antd/lib/input'
-import { FieldNames, Fields, Refs } from '@/types/profile'
-import { StartupData, TeamMember } from '@/types/invest'
-import Input from '@/components/form/Input'
-import Select from '@/components/form/Select'
-import TextArea from '@/components/form/TextArea'
-import RadioGroup from '@/components/form/RadioGroup'
-import ImageUploader from '@/components/form/ImageUploader'
-import TeamFormSingleItem from './TeamFormSingleItem'
-import { Button } from 'antd'
-import { DefaultOptionType } from 'rc-select/lib/Select'
-import { DataStartup } from '@/types'
-import { useUpdateContext } from '@/components/profile/context'
-import { useRouter } from 'next/navigation'
-import Trash from '@/components/icons/Trash'
+"use client"
+// Import necessary libraries and components
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { InputRef } from 'antd/lib/input';
+import { Button } from 'antd';
+import { DefaultOptionType } from 'rc-select/lib/Select';
+import { UploadProps } from 'antd';
+import TeamFormSingleItem from '@/components/profile/startup/TeamFormSingleItem';
+import { useStartupUpdateContext } from '@/components/profile/startup/context';
+import { useRouter } from 'next/navigation';
+import { StartupData } from '@/types/invest';
+import { FieldNames, Refs } from '@/types/profile';
 
-export default function TeamForm({ user }: { user: StartupData }) {
-  const router = useRouter()
-  const refs: Refs = {
-    'company-name': useRef<InputRef | null>(null),
-    'registered-name': useRef<InputRef | null>(null),
-    'short-description': useRef<InputRef | null>(null),
-    'raised': useRef<InputRef | null>(null),
-    sector: useRef<InputRef | null>(null),
-    stage: useRef<InputRef | null>(null),
-    highlight: useRef<InputRef | null>(null),
-    'key_highlight1': useRef<InputRef | null>(null),
-    'key_highlight2': useRef<InputRef | null>(null),
-    'key_highlight3': useRef<InputRef | null>(null),
-    'key_highlight4': useRef<InputRef | null>(null),
-    'first_name': useRef<InputRef | null>(null),
-    'last_name': useRef<InputRef | null>(null),
-    'email': useRef<InputRef | null>(null),
-    'phone': useRef<InputRef | null>(null),
-    'company_based': useRef<InputRef | null>(null),
-    'video_url': useRef<InputRef | null>(null),
-    'banner': useRef<InputRef | null>(null),
-  }
+export default function TeamForm({ initialUsers }: { initialUsers: StartupData }) {
+  console.log("🚀 ~ file: TeamForm.tsx:15 ~ TeamForm ~ initialUsers:", initialUsers)
+  const router = useRouter();
+  const [teamMembers, setTeamMembers] = useState(initialUsers?.teamMembers);
+  console.log("Team members:", teamMembers);
 
-  const { handleUpdate, loading } = useUpdateContext()
-  const [selected, setSelected] = useState({
-    raised: user.raisedFund,
-  })
-  
-//   const inputFields: Fields[] = [
-//     {
-//       name: 'full-name',
-//       label: 'Full Name',
-//       defaultValue: user?.companyName,
-//     },
-//     {
-//       name: 'designation',
-//       label: 'Designation',
-//       defaultValue: user?.registeredCompanyName,
-//     },
-//     {
-//       name: 'linkedin_url',
-//       label: 'Linkedin Url',
-//       defaultValue: user?.shortDescription,
-//       disabled: !!user?.shortDescription,
-//       fieldType: 'textarea',
-//     }
-//   ];
-  
-  const handleChange = (
-    fieldName: any,
-    value: DefaultOptionType | DefaultOptionType[],
-  ) => {
-    setSelected((prevState: any) => ({
-      ...prevState,
-      [fieldName]: value,
-    }))
-  }
-  console.log(user)
-  const handleProfileUpdate = async () => {
-    let values: { [key in FieldNames]: unknown | null } = {} as {
-      [key in FieldNames]: unknown | null
-    }
-    for (let key in refs) {
-      //@ts-ignore
-      values[key] = refs[key]?.current?.input.value ?? ''
-    }
-    const formData = {
-      firstName: values['first-name'],
-      lastName: values['registered-name'],
-      phone: values['raised'],
-      email: values['short-description'],
-      address: values.address,
-      
-    } as unknown as DataStartup
-    console.log(formData, values)
-    await handleUpdate(formData, 'general')
-    return router.refresh()
-  }
+  const handleFileChange = (fieldName: string, event: UploadProps) => {
+    console.log("File change event:", event);
+    console.log("Field name:", fieldName);
+  };
+
+  const { handleUpdate, loading } = useStartupUpdateContext();
+
+  const handleChange = (fieldName: any, value: DefaultOptionType | DefaultOptionType[]) => {
+    // Handle field change logic if needed
+  };
+
+  console.log(teamMembers);
+
+  // Function to update team members
+  const handleTeamMembersUpdate = async () => {
+    const data = new FormData();
+    data.append('refId', initialUsers._id);
+    
+    teamMembers?.forEach((item, index) => {
+      console.log("Index:", index);
+      if (item.fullName && item.linkedinUrl) {
+        data.append(`_id[]`, item._id || "new");
+        data.append(`fullName[]`, item.fullName);
+        data.append(`designation[]`, item.designation);
+        data.append(`linkedinUrl[]`, item.linkedinUrl);
+        
+        if (typeof item.profileImage == 'string') {
+          data.append(`unchanged_file[]`, index);
+        } else {
+          data.append(`files`, item.profileImage);
+          data.append(`changed_file[]`, index);
+        }
+      }
+    });
+
+    await handleUpdate(data, 'team');
+    return router.refresh();
+  };
+
+  const changeHandler = useCallback((index: number, field: string, newData: any) => {
+    setTeamMembers((prevTeamMembers) => {
+      const updatedData = [...prevTeamMembers];
+
+      if (index >= 0 && index < updatedData.length) {
+        updatedData[index][field] = newData;
+        console.log("Updated Data:", updatedData);
+        return updatedData;
+      } else {
+        console.error("Invalid index:", index);
+        return prevTeamMembers;
+      }
+    });
+  }, []);
+
+  const memoizedChangeHandler = useMemo(() => changeHandler, [changeHandler]);
+
+  const remove =  (index: number) => {
+    setTeamMembers((prevTeamMembers) => {
+      if (index >= 0 && index < prevTeamMembers.length) {
+        const deletedTeamMember = prevTeamMembers[index];
+
+        if (deletedTeamMember._id) {
+          console.log('Deleted team member with id:', deletedTeamMember._id);
+          const data = {
+            refId:initialUsers._id,
+            delId:deletedTeamMember._id
+          }
+          console.log("🚀 ~ file: TeamForm.tsx:87 ~ setTeamMembers ~ data:", data)
+          handleUpdate(data , 'delete_team')
+        }
+
+        const updatedTeamMembers = [...prevTeamMembers.slice(0, index), ...prevTeamMembers.slice(index + 1)];
+
+        return updatedTeamMembers;
+      } else {
+        console.error('Invalid index:', index);
+        return prevTeamMembers;
+      }
+    });
+  };
+
+  // Function to add new team member
+  const addNew = () => {
+    const temp = {
+      _id: "",
+      fullName: "",
+      description: "",
+      linkedinUrl: "",
+      profileImage: "",
+      designation:"",
+    };
+
+    const updatedTeamMembers = [...teamMembers, temp];
+    setTeamMembers(updatedTeamMembers);
+
+    console.log("Added new team member:", updatedTeamMembers);
+  };
 
   return (
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 lg:grid-cols-1">
-        {user.teamMembers.map((team , index) =>
-        <>
-          <TeamFormSingleItem key={user._id} member={team}/>
-          {index+1<user.teamMembers?.length?
-          <div key={user._id} className="h-2 w-full bg-light-shadow"></div>:null
-        }
+        {teamMembers.map((teamMember, index) => (
+          <>
+            <TeamFormSingleItem
+              key={index}
+              teamMember={teamMember}
+              index={index}
+              changeHandler={memoizedChangeHandler}
+              removeHandler={remove}
+            />
+
+            {index + 1 < teamMembers?.length ? (
+              <div key={'shadow_' + index} className="h-2 w-full bg-light-shadow"></div>
+            ) : null}
           </>
-        )}
+        ))}
       </div>
-      
+
       <div className="flex items-center justify-between px-8 pb-8">
         <Button
           loading={loading}
           disabled={loading}
           type={'default'}
-          onClick={handleProfileUpdate}
-          className={
-            '!h-auto !border-none !bg-none !px-6 !py-2 font-medium !text-primary !outline-none w-1/4 md:w-1/4'
-          }
-          >
+          onClick={addNew}
+          className={'!h-auto !border-none !bg-none !px-6 !py-2 font-medium !text-primary !outline-none w-1/4 md:w-1/4'}
+        >
           + Add another teammate
         </Button>
         <Button
           loading={loading}
           disabled={loading}
           type={'default'}
-          onClick={handleProfileUpdate}
+          onClick={handleTeamMembersUpdate}
           className={
             '!bg-light-shadow !px-6 !py-2 font-medium  !outline-none  !h-auto !border-none !bg-primary !px-6 !py-2 !text-white !outline-none w-1/4 md:w-1/4'
           }
-          >
+        >
           Save
         </Button>
       </div>
-          </div>
-  )
+    </div>
+  );
 }

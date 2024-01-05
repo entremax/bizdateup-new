@@ -5,7 +5,7 @@ import { setUser } from '@/reducers/user/authSlice'
 import getUserDetails from '@/action/user'
 import localUser from '@/lib/getToken'
 import useCookieLocal from '@/lib/useCookieLocal'
-import { DataInner, KYCStatusArray } from '@/types'
+import { DataInner, KYCStatusArray  } from '@/types'
 import { useRouter } from 'next/navigation'
 
 type User = {
@@ -44,7 +44,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
         const userInfo = {
           role: data.role,
-          userData: data?.user as DataInner,
+          userData: data?.user as DataInner | ,
           token: data?.token ?? '',
           refId: data?.refId ?? '',
           kycStatus: data?.status,

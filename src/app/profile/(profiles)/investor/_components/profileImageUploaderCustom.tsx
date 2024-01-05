@@ -55,9 +55,9 @@ const ImageUploader: React.FC = () => {
     <div className={'max-h-[6rem] max-w-[6rem]'}>
       <ImageUpload
         previewImageUrl={
-          user?.userData?.profilePic === ''
-            ? undefined
-            : apiUri().v0 + '/investor/profile_pic/' + user?.refId
+          user?.userData?.profilePic === '' && user?.userData?.role 
+            ? apiUri().v0 + '/investor/profile_pic/' + user?.refId
+            : apiUri().v0 + '/pitch/' + user?.userData.pitch
         }
         onFileSet={handleFileChange}
         className={cn(`!border-4 border-solid ` + borderColors[borderColor])}

@@ -17,10 +17,12 @@ const Select: React.ForwardRefRenderFunction<
         size={'large'}
         placeholder={'Select options'}
         optionFilterProp="children"
+        
         filterOption={(input, option) =>
           //@ts-ignore
           (option?.label ?? '').toLowerCase().includes(input)
         }
+
         filterSort={(optionA, optionB) =>
           (optionA?.label ?? '')
             //@ts-ignore

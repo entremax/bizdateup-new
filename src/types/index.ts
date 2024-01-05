@@ -72,6 +72,7 @@ export interface DataInner {
   acknowledgement: 'false' | 'true'
 }
 export interface DataStartup {
+  '_id': string;
   'companyName': string;
   'registeredCompanyName': string;
   'shortDescription': string;

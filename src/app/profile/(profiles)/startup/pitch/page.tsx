@@ -1,9 +1,11 @@
+
 import React from 'react'
 import { DataInner } from '@/types'
 import getUserDetails from '@/action/user'
 import BankForm from '@/components/profile/bankForm'
 import type { Metadata } from 'next'
-import Pdf from "@/components/common/Pdf"
+import Pdf from "@/components/common/Pdf";
+import PitchForm from "@/components/profile/startup/PitchForm"
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
   description: 'Your Bank Details Overview',
 }
 
-export default async function Bank({ searchParams }: Props) {
+export default async function Pitch({ searchParams }: Props) {
   const editState: boolean = !searchParams.edit
 
   const { role, user } = await getUserDetails()
@@ -28,15 +30,13 @@ export default async function Bank({ searchParams }: Props) {
   ]
   
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full h-full">
       {!searchParams.edit ? (
-        <div className="grid grid-cols-1">
-          <Pdf/>
-          <div className="h-1 w-full bg-light-shadow"></div>
-        </div>
+        // <div className="grid grid-cols-1 w-full">
+          <Pdf pitch={user.pitch}/>
+        // </div>
       ) : (
-        <></>
-        // <BankForm user={user} />
+        <PitchForm initialUsers={user}/>
       )}
     </div>
   )

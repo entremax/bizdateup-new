@@ -27,7 +27,7 @@ export default async function TeamMember({ searchParams }: Props) {
       {!searchParams.edit ? (
         <TeamMembers startup={user} />
       ) : (
-        <TeamForm user={user}/>
+        <TeamForm initialUsers={user}/>
       )}
     </div>
   )

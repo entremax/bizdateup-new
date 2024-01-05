@@ -1,14 +1,18 @@
 "use client"
-import { StartupData, Mentors, FAQ } from '@/types/invest'
-import { Avatar } from 'antd'
-import Link from 'next/link'
-import { Icons } from '@/components/icons/icon'
+import { FAQ } from '@/types/invest'
 import Input from '@/components/form/Input'
 import React from 'react'
 import { apiUri } from '@/lib/utils'
 import  Trash  from '@/components/icons/Trash'
 
-export default function FaqSingleItem({ faq }: { faq: FAQ }) {
+export default function FaqSingleItem({ faq, 
+  index,
+  changeHandler,
+  removeHandler
+}: { faq: FAQ;
+  index: number;
+  changeHandler: any;
+  removeHandler: any; }) {
     const api = apiUri().v1;
     return (
       <div className="w-full">
@@ -17,8 +21,10 @@ export default function FaqSingleItem({ faq }: { faq: FAQ }) {
             <div className="py-4 px-4">
               <Input
                 key={faq._id}
-                disabled={!faq.question}
+                // disabled={!faq.question}
                 defaultValue={faq.question}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => changeHandler(index, 'question', event.target.value)}
+             
                 name={"question"}
                 label="Question"
                 placeholder={`Enter your question`}
@@ -27,8 +33,9 @@ export default function FaqSingleItem({ faq }: { faq: FAQ }) {
             <div className="py-4 px-4">
               <Input
                 key={faq._id}
-                disabled={!faq.answer}
+                // disabled={!faq.answer}
                 defaultValue={faq.answer}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => changeHandler(index, 'answer', event.target.value)}
                 name={"answer"}
                 label="Answer"
                 placeholder={`Enter your answer`}
@@ -36,7 +43,7 @@ export default function FaqSingleItem({ faq }: { faq: FAQ }) {
             </div>
           </div>
         </div>
-        <div className="flex items-center space-x-2 justify-end cursor-pointer">
+        <div className="flex items-center space-x-2 justify-end cursor-pointer" onClick={()=>removeHandler(index)}>
   <Trash />
   <span className="font-medium text-primary">Remove</span>
 </div>

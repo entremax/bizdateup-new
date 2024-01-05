@@ -12,76 +12,139 @@ import EventFormSingleItem from './UploadDocFormSingleItem'
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataStartup } from '@/types'
-import { useUpdateContext } from '@/components/profile/context'
+import { useStartupUpdateContext } from '@/components/profile/startup/context';
 import { useRouter } from 'next/navigation'
 import  {FileIcons} from '@/icons/FileIcon'
+import {forEach} from 'jszip'
 
 export default function FaqForm({ initialUsers }: { initialUsers: StartupData }) {
   const router = useRouter()
-  const [user, setUser] = useState(initialUsers);
-  const refs: Refs = {
-    'banner': useRef<InputRef | null>(null),
-  }
+  const [user, setUser] = useState(initialUsers.dueDiligenceFiles);
+  const [files, setFiles] = useState<File[]>([]);
 
-  const { handleUpdate, loading } = useUpdateContext()
-  const [selected, setSelected] = useState({
-    // raised: user.raisedFund,
-  })
+  const { handleUpdate, loading } = useStartupUpdateContext();
+  
+  const removeUploaded = (index: number) => {
+    setUser((prevFaq) => {
+      if (index >= 0 && index < prevFaq.length) {
+        const deletedFile = prevFaq[index];
 
-  const handleChange = (
-    fieldName: any,
-    value: DefaultOptionType | DefaultOptionType[],
-  ) => {
-    setSelected((prevState: any) => ({
-      ...prevState,
-      [fieldName]: value,
-    }))
-  }
-  console.log(user)
+        if (deletedFile._id) {
+            const data = {
+              refId:initialUsers._id,
+              delId:deletedFile._id
+            }
+            console.log("🚀 ~ file: TeamForm.tsx:87 ~ setTeamMembers ~ data:", data)
+            handleUpdate(data , 'delete_dealfile')
+        }
+
+        const updatedFile = [...prevFaq.slice(0, index), ...prevFaq.slice(index + 1)];
+
+        return updatedFile;
+      } else {
+        console.error('Invalid index:', index);
+        return prevFaq;
+      }
+    });
+  };
+  const removeUnUploaded = (index: number) => {
+    setFiles((prevFaq) => {
+      if (index >= 0 && index < prevFaq.length) {
+        const deletedFile = prevFaq[index];
+
+        // if (deletedFaq._id) {
+        //     const data = {
+        //       refId:initialUsers._id,
+        //       delId:deletedFaq._id
+        //     }
+        //     console.log("🚀 ~ file: TeamForm.tsx:87 ~ setTeamMembers ~ data:", data)
+        //     handleUpdate(data , 'delete_faq')
+        // }
+
+        const updatedFile = [...prevFaq.slice(0, index), ...prevFaq.slice(index + 1)];
+
+        return updatedFile;
+      } else {
+        console.error('Invalid index:', index);
+        return prevFaq;
+      }
+    });
+  };
   const handleProfileUpdate = async () => {
-    let values: { [key in FieldNames]: unknown | null } = {} as {
-      [key in FieldNames]: unknown | null
+    try {
+      if (files.length > 0) {
+        const data = new FormData();
+        data.append('refId', initialUsers._id);
+  
+        files?.forEach((item, index) => {
+          data.append('files', item);
+        });
+  
+        await handleUpdate(data, 'duefile');
+        return router.refresh();
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);   
     }
-    for (let key in refs) {
-      //@ts-ignore
-      values[key] = refs[key]?.current?.input.value ?? ''
-    }
-    const formData = {
-      firstName: values['first-name'],
-      lastName: values['registered-name'],
-      phone: values['raised'],
-      email: values['short-description'],
-      address: values.address,
+  };
+
+  const onChange = (selectedFiles: FileList | null) => {
+    if (selectedFiles) {
+      console.log("🚀 ~ file: UploadDocForm.tsx:77 ~ onChange ~ selectedFiles:", selectedFiles)
       
-    } as unknown as DataStartup
-    console.log(formData, values)
-    await handleUpdate(formData, 'general')
-    return router.refresh()
-  }
+      // const newFiles = Array.isArray(selectedFiles) ? Array.from(selectedFiles) : [selectedFiles];
+      const newFiles = Array.from(selectedFiles);
+      
+      console.log("🚀 ~ file: UploadDocForm.tsx:78 ~ onChange ~ newFiles:", newFiles)
+  
+      newFiles.forEach((newFile) => {
+        const existingFileIndex = files.findIndex((file) => file.name === newFile.name);
+  
+        if (existingFileIndex !== -1) {
+          const updatedFiles = [...files];
+          updatedFiles[existingFileIndex] = newFile;
+          setFiles(updatedFiles);
+        } else {
+          setFiles((prevFiles) => [...prevFiles, newFile]);
+        }
+      });
+    }
+  };
   
   return (
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 lg:grid-cols-1">
       <ImageUploader
-              key={user._id}
-              disabled={false}
+              // key={user._id}
+              // disabled={false}
               // defaultValue={event.url}
               //@ts-ignore
               // ref={field.fieldType !== 'select' && refs[field.name]}
               name={"event"}
-              type={"file"}
+              type={"docs"}
+              onChange={onChange}
               // label={"Image"}
-              
+              multiple={true}
               placeholder={`Upload Image`}
             />
       </div>
       
       <div className="grid grid-cols-1 px-8 py-4 pb-8">
-      {user.dueDiligenceFiles.map(( file , index ) => (
+      {user.map(( file , index ) => (
               <React.Fragment key={file._id}>
                 <div className="border_gray rounded-2xl my-2 p-5 flex flex-row items-center gap-2">
               <FileIcons.Pdf/>    <span className="text-md text-gray-400">{file.name}</span>
+              <div onClick={()=>removeUploaded(index)}>X</div>
               </div>
+              </React.Fragment>
+            ))}
+      {files.map(( file , index ) => (
+              <React.Fragment key={index}>
+                <div className="border_gray rounded-2xl my-2 p-5 flex flex-row items-center gap-2">
+              <FileIcons.Pdf/>    <span className="text-md text-gray-400">{file.name}</span>
+               <div onClick={()=>removeUnUploaded(index)}>X</div>
+              </div>
+              
               </React.Fragment>
             ))}
       </div>
