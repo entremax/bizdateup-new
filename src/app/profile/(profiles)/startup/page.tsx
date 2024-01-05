@@ -27,6 +27,7 @@ export default async function StartupProfile() {
       value: user?.companyBased,
     },
     {
+      u: user?.pitch,
       label: 'Key Highlights',
       value: <Highlights highlights={highlights} />,
     },
@@ -45,6 +46,7 @@ const Highlights = ({ highlights }: { highlights: [string, any][] }) => {
     <li
       className="text-medium flex items-start  gap-1 text-[#444] lg:gap-2"
       key={key.toString()}>
+      6
       <Icons.Verified className={'mt-1 h-4 w-4 flex-none md:h-5 md:w-5'} />
       <span
         className={

@@ -17,54 +17,62 @@ interface NoUser {
 export default async function getUserDetails(): Promise<
   InvestorUserData | StartupUserData | NoUser
 > {
-  const token = cookies().get('token')?.value
-  const user_id = cookies().get('user_id')?.value
-  const role = cookies().get('role')?.value
+  try {
+    const token = cookies()?.get('token')?.value
+    const user_id = cookies()?.get('user_id')?.value
+    const role = cookies()?.get('role')?.value
 
-  if (!user_id || !token) {
-    return { user: null, role: undefined, status: [], token: null, refId: '' }
-  }
+    if (!user_id || !token) {
+      return { user: null, role: undefined, status: [], token: null, refId: '' }
+    }
 
-  let url = '/investor/fetchbyid'
-  let config: any = {
-    next: { revalidate: 0 },
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ refId: user_id }),
-  }
-  if (role === 'startup') {
-    url = '/startup/fetchStartupByRef?refId=' + user_id
-    config = {
+    let url = '/investor/fetchbyid'
+    let config: RequestInit = {
       next: { revalidate: 0 },
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({ refId: user_id }),
     }
+
+    if (role === 'startup') {
+      url = '/startup/fetchStartupByRef?refId=' + user_id
+      config = {
+        next: { revalidate: 0 },
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    }
+
+    const response = await fetch(apiUri().v0 + url, config)
+
+    if (!respose.ok) {
+      throw new Error(`Failed to fetch user data. Status: ${response.status}`)
+    }
+
+    const res= await response.json()
+
+    return {
+      role:role as 'investor' | 'startup' | undefined,
+      refId: user_id,
+      status: res?.data?.status || [],
+      token: token,
+      user: res?.data?.data || null,
+    } as InvestorUserData | StartupUserData
+  } catch (error) {
+    consol.error('Error in getUserDetails:', error)
+    throw new Error('Failed to etch user details.')
   }
-  const res = await fetch(apiUri().v0 + url, config)
-    .then((res) => {
-      return res.json()
-    })
-    .catch((e) => {
-      console.log(e)
-      throw new Error(e)
-    })
-  return {
-    role: role as 'investor' | 'startup' | undefined,
-    refId: user_id,
-    status: res?.data?.status,
-    token: token,
-    user: res?.data?.data,
-  } as InvestorUserData | StartupUserData
 }
 
+
 /**
- * Retrieves the cookie data. Don't use in client components
+ * Retrieves the cooie data. Don't use in client components
  *
  * The cookie data containing token, user_id, accelerator_id, and isLoggedin.
  * If the token or user_id cookie is missing, the function will redirect to the login page.

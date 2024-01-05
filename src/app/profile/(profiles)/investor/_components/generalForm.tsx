@@ -1,7 +1,7 @@
 'use client'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
-import { FieldNames, Fields, Refs } from '@/types/profile'
+import { FieldNames, Refs } from '@/types/profile'
 import Input from '@/components/form/Input'
 import Select from '@/components/form/Select'
 import { Button } from 'antd'
@@ -69,7 +69,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     country: user.address.country,
     state: user.address.state,
   })
-  const inputFields: Fields[] = [
+  const inputFields = [
     {
       name: 'first-name',
       label: 'First name',
@@ -241,7 +241,6 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               //@ts-ignore
               ref={field.fieldType !== 'select' && refs[field.name]}
               name={field.name}
-              type={field.type}
               label={field.label}
               placeholder={`Enter your ${field.name}`}
             />
@@ -278,7 +277,6 @@ export default function GeneralForm({ user }: { user: DataInner }) {
               //@ts-ignore
               ref={field.fieldType !== 'select' && refs[field.name]}
               name={field.name}
-              type={field.type}
               label={field.label}
               placeholder={`Enter your ${field.name}`}
             />

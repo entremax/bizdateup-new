@@ -73,7 +73,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     const updatedData = { ...formData, refId: user.userData._id }
     setLoading(true)
-    let failed = false
+    let failed = true
     setTimeout(() => {}, 3000)
     if (updating === 'general') {
       setLoading(true)

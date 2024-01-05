@@ -47,7 +47,7 @@ export default function SectionBar({
       icon: (
         <Profile
           className={
-            'stroke-black-lighter group-hover:fill-primary group-hover:stroke-primary  group-active:fill-primary'
+            'stroke-black-lighter group-hover:fill-primary group-hover:stroke-primary  group-active:stroke-primary'
           }
         />
       ),
@@ -90,7 +90,9 @@ export default function SectionBar({
       id: 5,
       name: 'Investment manager',
       icon: (
-        <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
+        <Work
+          className={'group: stroke-black-lighter  group-hover:stroke-primary'}
+        />
       ),
       segment: 'investment-manager',
       link: baseUri + '/investment-manager',
@@ -148,9 +150,9 @@ export default function SectionBar({
               key={name}
               href={link}
               className={cn(
-                'group flex w-full items-center gap-3 rounded-xl px-3  py-2 text-gray-800 delay-100 active:text-black lg:hover:bg-[#F0F0FF] lg:hover:text-primary' +
+                'group flex w-full items-center gap-3 rounded-xl px-3  py-2 text-gray-800 delay-100 active:text-black lg:hover:bg-[#F0F0FF] lg:hover:text-primary lg:active:text-primary' +
                   (routeSegment === segment &&
-                    'lg:group:stroke-primary lg:bg-[#F0F0FF]  lg:text-primary'),
+                    'lg:group:stroke-primary group-active:stroke-primary lg:bg-[#F0F0FF] lg:text-primary'),
               )}>
               <div
                 className={`flex h-8 w-8 items-center justify-center ${

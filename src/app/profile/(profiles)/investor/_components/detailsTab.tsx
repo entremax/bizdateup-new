@@ -20,6 +20,7 @@ type sectionDetails = {
   name: string
   editable: boolean
 }
+
 type sectionsInterface = {
   [key in sectionType]: sectionDetails
 }

@@ -171,10 +171,11 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
       })
     if (res?.code !== 200) {
       setCreating(false)
-      return router.push('/dashboard')
+      console.log('handleAccelerator', res)
+      notifyUser('error', 'Something went wrong!!')
+      return
     }
     if (res?.data?.code === 400) {
-      
       setCreating(false)
       return router.push('/referral')
     }

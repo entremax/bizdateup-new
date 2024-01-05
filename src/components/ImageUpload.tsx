@@ -3,6 +3,7 @@ import { notifyUser } from '@/components/notification'
 import Image from 'next/image'
 import Camera from '@/icons/Camera'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   previewImageUrl?: string
@@ -18,6 +19,7 @@ type FileDetails = {
   size: number
   type: string
 }
+export const dynamic = 'force-dynamic'
 
 const ImageUpload: React.FC<Props> = ({
   previewImageUrl = undefined,
@@ -27,6 +29,7 @@ const ImageUpload: React.FC<Props> = ({
   acceptedFileTypes = ['image/jpeg', 'image/png', 'image/gif'],
   maxFileSize = 10000000,
 }) => {
+  const router = useRouter()
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -75,6 +78,7 @@ const ImageUpload: React.FC<Props> = ({
       notifyUser('error', 'File size should be less than 10MB')
     } else {
       onFileSet(file)
+
       // Assuming you want to display a preview of the image
       setPreviewImage(URL.createObjectURL(file))
       setPreviewTitle(file.name)
@@ -85,6 +89,7 @@ const ImageUpload: React.FC<Props> = ({
         type: file.type,
         size: file.size,
       })
+      return router.refresh()
     }
   }
 
