@@ -53,7 +53,7 @@ export default function OurValues() {
         'my-8 flex flex-col items-center justify-center gap-4 lg:my-28 xl:my-32'
       }>
       <h4 className="text-4xl">Our Values</h4>
-      <div className="flex gap-4">
+      <div className="flex gap-4 overflow-auto">
         {tabs.map((tab) => (
           <div key={tab.id} className={'flex flex-col'}>
             <Button
@@ -74,7 +74,7 @@ export default function OurValues() {
           </div>
         ))}
       </div>
-      <div className="mx-auto mt-12 grid min-h-[46vh] w-3/4 grid-cols-2 items-center justify-center gap-12 px-12">
+      <div className="mx-auto mt-12 grid min-h-[46vh] w-3/4 items-center justify-center gap-12 px-12 lg:grid-cols-2">
         <div className="relative h-full w-full overflow-clip rounded-3xl">
           <Image
             src={'/about-tab.png'}
