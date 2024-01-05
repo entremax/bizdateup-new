@@ -49,12 +49,13 @@ const States = [
   },
 ]
 
+
 export default function GeneralForm({ user }: { user: DataInner }) {
   const router = useRouter()
   const refs: Refs = {
     'first-name': useRef<InputRef | null>(null),
     'last-name': useRef<InputRef | null>(null),
-    'email-id': useRef<InputRef | null>(null),
+    'p-ml': useRef<InputRef | null>(null),
     'phone-number': useRef<InputRef | null>(null),
     referral: useRef<InputRef | null>(null),
     address: useRef<InputRef | null>(null),
@@ -80,8 +81,8 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       defaultValue: user?.lastName,
     },
     {
-      name: 'email-id',
-      type: 'email',
+      name: 'p-ml',
+      // type: 'email',
       label: 'EmailID',
       defaultValue: user?.email,
       disabled: !!user?.email,
@@ -128,7 +129,9 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       name: 'country',
       label: 'Country',
       fieldType: 'select',
-      defaultValue: user?.address?.country,
+      defaultValue:
+        user?.address?.country === '' ? undefined : user?.address?.country,
+      placeholder: user?.address?.country === '' ? 'Select Country' : undefined,
       options: [
         {
           value: 'India',
@@ -143,7 +146,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     {
       name: 'city',
       label: 'City',
-      defaultValue: user.address.city === '' ? user.address.city : undefined,
+      defaultValue: user.address.city !== '' ? user.address.city : undefined,
     },
     {
       name: 'state',
@@ -181,7 +184,6 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       [fieldName]: value,
     }))
   }
-  console.log(user)
   const handleProfileUpdate = async () => {
     let values: { [key in FieldNames]: unknown | null } = {} as {
       [key in FieldNames]: unknown | null
@@ -194,7 +196,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       firstName: values['first-name'],
       lastName: values['last-name'],
       phone: values['phone-number'],
-      email: values['email-id'],
+      email: values['p-ml'],
       gender: selected.gender,
       address: values.address,
       city: values.city,
@@ -203,14 +205,13 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       country: selected.country,
       refer: values.referral,
     } as unknown as DataInner
-    console.log(formData, values)
     await handleUpdate(formData, 'general')
-    return router.refresh()
+    return
   }
 
   return (
     <div className="grid grid-cols-1">
-      <div className="grid gap-8 p-8 lg:grid-cols-2">
+      <div className="grid gap-8 p-8 md:grid-cols-2">
         {inputFields.slice(0, 6).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -248,7 +249,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
         )}
       </div>
       <div className="h-2 w-full bg-light-shadow"></div>
-      <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 lg:grid-cols-2">
+      <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 md:grid-cols-2">
         {inputFields.slice(6, 12).map((field) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
@@ -272,8 +273,8 @@ export default function GeneralForm({ user }: { user: DataInner }) {
           ) : (
             <Input
               key={field.name}
-              disabled={field.disabled}
               defaultValue={field.defaultValue}
+              disabled={field.disabled}
               //@ts-ignore
               ref={field.fieldType !== 'select' && refs[field.name]}
               name={field.name}

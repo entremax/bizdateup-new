@@ -22,7 +22,12 @@ export default function MobileAppAds({ ...props }) {
               </p>
             </div>
             <div className="col-span-3">
-              <Image src={'/iphone.png'} height={200} width={250} alt={'IOS'} />
+              <Image
+                src={'/iphone.webp'}
+                height={200}
+                width={250}
+                alt={'IOS'}
+              />
             </div>
           </div>
         </div>

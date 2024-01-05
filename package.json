@@ -28,6 +28,7 @@
     "antd-style": "^3.5.0",
     "autoprefixer": "10.4.16",
     "cashfree-pg-sdk-javascript": "^2.0.7",
+    "chart.js": "^4.4.1",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
     "eslint": "8.49.0",
@@ -36,12 +37,13 @@
     "jspdf": "^2.5.1",
     "jszip": "^3.10.1",
     "lodash": "^4.17.21",
-    "moment": "^2.30.1",
-    "next": "^14.0.0",
-    "next-redux-wrapper": "^8.1.0",
+  
     "pdfjs-dist": "^4.0.269",
+    "next": "^14.0.1",
+    "next-redux-wrapper": "^8.1.0",
     "postcss": "^8.4.31",
     "react": "18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.46.2",
@@ -51,6 +53,7 @@
     "react-redux": "^8.1.2",
     "react-slick": "^0.29.0",
     "redux-persist": "^6.0.0",
+    "sharp": "^0.33.1",
     "slick-carousel": "^1.8.1",
     "swr": "^2.2.4",
     "tailwind-merge": "^1.14.0",
@@ -59,8 +62,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/react-slick": "^0.23.13",
     "eslint-config-prettier": "^9.0.0",
-    "prettier": "3.1.0",
+    "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7"
   }
 }

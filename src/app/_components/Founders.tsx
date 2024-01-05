@@ -2,7 +2,7 @@ import Button from '@/components/LinkButton'
 
 export default function Founders() {
   return (
-    <div className="mb-16 mt-0  flex flex-col justify-between px-[19px] lg:flex-row lg:px-[158px]">
+    <div className="mb-16 mt-0  flex flex-col items-center justify-between px-[19px] lg:flex-row lg:px-[158px]">
       <div className="mb-0 pt-24 lg:w-[593px]">
         <p className="text-center text-[18px] font-semibold text-zinc-700/70 lg:mb-[12px] lg:text-left lg:text-[26px]">
           For Founders
@@ -25,7 +25,7 @@ export default function Founders() {
       </div>
       <div className="lg:[mt-49px] mt-0">
         <picture>
-          <img src="/Founder.png" alt="Founders" width="100%" height="auto" />
+          <img src="/Founder.webp" alt="Founders" width="100%" height="auto" />
         </picture>
       </div>
     </div>

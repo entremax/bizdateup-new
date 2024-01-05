@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useState } from 'react'
-import { DataInner } from '@/types'
+import { DataInner, KYCStatus } from '@/types'
 import { useUser } from '@/hooks/useUser'
 import { useAppDispatch } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
@@ -9,6 +9,7 @@ import {
   useUpdateOtherDetailsMutation,
   useUpdateUserMutation,
 } from '@/services/apiSlice'
+import { useRouter } from 'next/navigation'
 
 type UpdateType = 'general' | 'bank' | 'other' | 'aadhar' | 'pan'
 
@@ -22,11 +23,42 @@ export const useUpdateContext = () => useContext(UpdateContext)
 
 const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useUser()
+  const router = useRouter()
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
   const [updateUser] = useUpdateUserMutation()
   const [updateOtherDetails] = useUpdateOtherDetailsMutation()
   const [updateBankDetails] = useUpdateBankDetailsMutation()
+
+  function navigateNext(updated: UpdateType) {
+    const findNextPendingStep = () => {
+      const pendingSteps = [
+        { status: KYCStatus.aadhar, route: '/profile/investor/kyc' },
+        { status: KYCStatus.pan, route: '/profile/investor/kyc/pan' },
+        { status: KYCStatus.bank, route: '/profile/investor/bank' },
+        { status: KYCStatus.other, route: '/profile/investor/other' },
+      ]
+
+      const startIndex = pendingSteps.findIndex(
+        (step) => step.status === updated,
+      )
+
+      for (let i = startIndex + 1; i < pendingSteps.length; i++) {
+        const nextStep = pendingSteps[i]
+        if (user?.kycStatus.includes(nextStep.status)) {
+          return nextStep.route
+        }
+      }
+
+      return null // No, pending KYC steps
+    }
+
+    const nextPendingStep = findNextPendingStep()
+
+    if (nextPendingStep) {
+      router.push(nextPendingStep)
+    }
+  }
 
   const handleUpdate = (formData: DataInner | any, updating: UpdateType) => {
     console.log("🚀 ~ file: index.tsx:32 ~ handleUpdate ~ formData:", formData)
@@ -42,6 +74,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     const updatedData = { ...formData, refId: user.userData._id }
     setLoading(true)
+    let failed = false
     setTimeout(() => {}, 3000)
     if (updating === 'general') {
       setLoading(true)
@@ -60,6 +93,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         .catch((e) => {
           console.log(e)
           setLoading(false)
+          failed = true
           dispatch(
             setNotification({
               type: 'error',
@@ -84,10 +118,11 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         })
         .catch((e) => {
           setLoading(false)
+          failed = true
           dispatch(
             setNotification({
               type: 'error',
-              message: "Couldn't Update bank Details",
+              message: "Couldn't Update Details",
               description: e?.message ?? undefined,
             }),
           )
@@ -100,9 +135,17 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         .unwrap()
         .then((res) => {
           setLoading(false)
+          dispatch(
+            setNotification({
+              type: 'info',
+              message: res.message ?? '',
+            }),
+          )
           return res
         })
         .catch((e) => {
+          console.log('Error', e)
+          failed = true
           dispatch(
             setNotification({
               type: 'error',
@@ -123,16 +166,23 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           return res
         })
         .catch((e) => {
+          failed = true
           dispatch(
             setNotification({
               type: 'error',
-              message: "Couldn't Update bank Details",
+              message: "Couldn't Update PAN Details",
               description: e.message,
             }),
           )
           setLoading(false)
           console.log(e)
         })
+    }
+    console.log(failed, user)
+
+    if (!failed) {
+      navigateNext(updating)
+      router.refresh()
     }
     setLoading(false)
   }

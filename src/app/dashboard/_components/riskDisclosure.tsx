@@ -10,22 +10,18 @@ export const dynamic = 'force-dynamic'
 export default function RiskDisclosure() {
   const { role, user } = useAppSelector(({ authUser }) => authUser)
   const [riskAccepted, setRiskAccepted] = useState(
-    role === 'investor' && user?.acknowledgement !== 'false',
+    role === 'investor' && user?.acknowledgement === 'false',
   )
   const [checkRisk] = useCheckRiskMutation()
-  
+  React.useEffect(() => {
+    role === 'investor' && setRiskAccepted(user?.acknowledgement === 'false')
+  }, [role, user])
   const handler = () => {
     checkRisk('true')
       .unwrap()
       .then((res) => setRiskAccepted(!riskAccepted))
       .catch((e) => console.log(e))
   }
-  React.useEffect(() => {
-    const risk = localStorage.getItem('risk-accepted')
-    if (risk !== 'yes') {
-      setRiskAccepted(true)
-    }
-  }, [])
   return (
     <div>
       <CustomModal

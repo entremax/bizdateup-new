@@ -42,7 +42,7 @@ export type Fields = InputField | SelectField | TextAreaField | RadioGroup | Fil
 export type InputFieldNames =
   | 'first-name'
   | 'last-name'
-  | 'email-id'
+  | 'p-ml'
   | 'phone-number'
   | 'referral'
   | 'address'
@@ -89,6 +89,24 @@ export interface ForwardRefProps extends InputProps {
   labelClassName?: string
   wrapperClassName?: string
   changeHandler?: any
+}
+
+export interface TextAreaForwardRefProps extends TextAreaProps {
+  type?: string
+  name: string
+  className?: string
+  label: string
+  labelClassName?: string
+  wrapperClassName?: string
+}
+
+export interface TextAreaForwardRefProps extends TextAreaProps {
+  type?: string
+  name: string
+  className?: string
+  label: string
+  labelClassName?: string
+  wrapperClassName?: string
 }
 
 export interface TextAreaForwardRefProps extends TextAreaProps {

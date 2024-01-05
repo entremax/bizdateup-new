@@ -20,6 +20,7 @@ const baseQuery = fetchBaseQuery({
 
     if (token) {
       headers.set('authorization', `Bearer ${token}`)
+      headers.get('cookie')
     }
     return headers
   },
@@ -65,26 +66,28 @@ export const api = createApi({
         response.status,
     }),
     getTotalInvestment: builder.query({
-      query: (refId) => ({
+      query: ({ token, refId }: { token: string; refId: string }) => ({
         url: baseUrl + 'v0/investment/totalInvestmentbyinvestor',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         params: {
           investor: refId,
         },
       }),
       transformResponse: (response: ITotalInvestmentResponse) =>
-        response.data.length > 0 ? response.data[0].data.totalamount : 0,
+        response?.data?.length > 0 ? response?.data[0]?.data?.totalamount : 0,
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
     }),
     getInvestmentDetails: builder.query({
-      query: (refId) => ({
+      query: ({ token, refId }: { token: string; refId: string }) => ({
         url: baseUrl + 'v0/investment/investmentbyinvestor',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         params: {
           investor: refId,
@@ -144,7 +147,7 @@ export const api = createApi({
     }),
     updateOtherDetails: builder.mutation({
       query: (updatedData) => ({
-        url: baseUrl + '/kyc/add_other',
+        url: baseUrl + 'v0/kyc/add_other',
         method: 'POST',
         body: updatedData,
         headers: {
@@ -163,7 +166,7 @@ export const api = createApi({
     }),
     updateBankDetails: builder.mutation({
       query: (updatedData) => ({
-        url: baseUrl + '/kyc/verify_and_add_bank',
+        url: baseUrl + 'v0/kyc/verify_and_add_bank',
         method: 'POST',
         body: updatedData,
         headers: {
@@ -172,8 +175,8 @@ export const api = createApi({
       }),
       transformResponse: (response: ISendOtpResponseData) => {
         return {
-          message: response.data.message,
-          status: response.data.status,
+          message: response.data?.message ?? response.message ?? '',
+          status: response.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -186,7 +189,22 @@ export const api = createApi({
         body,
       }),
       transformResponse: (response: any) => {
-        console.log(response)
+        // console.log(response)
+        return response.data
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
+    checkRisk: builder.mutation({
+      query: (acknowledgement) => ({
+        url: 'v0/investor/add_acknowledgement',
+        method: 'POST',
+        body: {
+          acknowledgement,
+        },
+      }),
+      transformResponse: (response: any) => {
+        // console.log(response)
         return response.data
       },
       transformErrorResponse: (response: { status: string | number }) =>

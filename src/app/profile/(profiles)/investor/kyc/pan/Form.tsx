@@ -7,6 +7,7 @@ import UploadCheck from '@/components/profile/dropCheck'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
+import { notifyUser } from '@/components/notification'
 
 export default function PanForm({ user }: { user: DataInner }) {
   const { handleUpdate, loading } = useUpdateContext()
@@ -17,7 +18,11 @@ export default function PanForm({ user }: { user: DataInner }) {
 
   const handleBankUpdate = async () => {
     const panNumber = refs.panNo?.current?.input?.value ?? ''
+    const panRegex = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z])$/
 
+    if (!panRegex.test(panNumber)) {
+      return notifyUser('error', 'Invalid PAN')
+    }
     const formData = {
       panNo: user.pan.panNo === '' ? panNumber : user.pan.panNo,
     }

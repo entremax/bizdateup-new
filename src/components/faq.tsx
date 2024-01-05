@@ -1,19 +1,36 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useRef } from 'react'
 import { Collapse, CollapseProps } from 'antd'
 import data from '@/data'
 import { Icons } from '@/components/icons/icon'
+import { cn } from '@/lib/utils'
+
+type Props = {
+  all?: boolean
+  custom?: boolean
+  className?: string
+  faqData?: { _id: string; question: string; answer: string }[]
+}
 
 export const dynamic = 'force-dynamic'
 
-const FrequentlyAsked: React.FC<{
-  custom?: boolean
-  faqData?: { _id: string; question: string; answer: string }[]
-}> = ({ custom = false, faqData }) => {
-  const [items, setItems] = useState<any>([])
+const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case 'SET_ITEMS':
+      return action.payload
+    default:
+      return state
+  }
+}
 
-  // Opt out of caching for all data requests in the route segment
-
+const FrequentlyAsked: React.FC<Props> = ({
+  all = false,
+  className = '',
+  custom = false,
+  faqData,
+}) => {
+  const [items, dispatch] = useReducer(reducer, [])
+  let renderCount = useRef(0)
   function getRandomFourItems({ array }: { array: CollapseProps['items'] }) {
     if (!array) {
       return
@@ -26,19 +43,29 @@ const FrequentlyAsked: React.FC<{
       const j = Math.floor(Math.random() * (i + 1))
       ;[copyArr[i], copyArr[j]] = [copyArr[j], copyArr[i]]
     }
-    // console.log(copyArr)
     // Return the first 4 items
     return copyArr.slice(0, 4)
   }
 
   useEffect(() => {
-    if (custom) {
-      setItems(convertToCollapseFormat(faqData))
-    } else {
-      setItems(getRandomFourItems({ array: data.faqData }))
+    if (all) {
+      return dispatch({ type: 'SET_ITEMS', payload: data.faqData })
     }
-  }, [])
+    if (custom) {
+      return dispatch({
+        type: 'SET_ITEMS',
+        payload: convertToCollapseFormat(faqData),
+      })
+    }
+    if (!all || !custom) {
+      return dispatch({
+        type: 'SET_ITEMS',
+        payload: getRandomFourItems({ array: data.faqData }),
+      })
+    }
+  }, [all, custom, faqData])
 
+  // console.log('Redering', renderCount.current += 1)
   function convertToCollapseFormat(
     collapseData?: { _id: string; question: string; answer: string }[],
   ) {
@@ -53,7 +80,9 @@ const FrequentlyAsked: React.FC<{
 
   return (
     <Collapse
-      className={'mt-12 !rounded-none bg-transparent text-black-lighter'}
+      className={cn(
+        'mt-12 !rounded-none bg-transparent text-black-lighter ' + className,
+      )}
       expandIconPosition={'end'}
       expandIcon={({ isActive }) => (
         <Icons.ArrowRight

@@ -14,6 +14,9 @@ import ReduxProvider from '@/store/Provider'
 import FrequentlyAsked from '@/components/faq'
 import dynamic from 'next/dynamic'
 import { fetchData } from '@/lib/fetchApi'
+import getUserDetails from '@/action/user'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
@@ -32,19 +35,23 @@ const Dashboard = async () => {
     'get',
     0,
   )) as Campaign[]
-
+  const token = cookies().get('token')?.value
+  const { user, status } = await getUserDetails()
+  if (!token) {
+    return redirect('/login')
+  }
   const menu = [
     {
       name: 'Tutorials',
-      link: '/tutorials',
+      link: '/learn',
     },
     {
       name: 'Frequently asked questions',
-      link: '/faq',
+      link: '/learn/faqs',
     },
     {
       name: 'About us',
-      link: '/about_us',
+      link: '/learn/about-us',
     },
     {
       name: 'Terms & Conditions',
@@ -56,18 +63,27 @@ const Dashboard = async () => {
     },
   ]
 
+  if (!user || !(user && 'role' in user)) {
+    return
+  }
   return (
     <section className="ml-2 grid grid-cols-12 gap-2 pb-3 pr-3 pt-20">
       <div className="col-start-1 col-end-12 my-6 md:mt-5 xl:col-start-2 xl:col-end-11">
         <div className="grid text-primary-dark">
-          <Greet />
+          <Greet {...{ user, status }} />
           <h2 className="reset hidden font-bold sm:inline sm:text-3xl md:text-4xl">
             Check out Live Campaigns
           </h2>
         </div>
       </div>
       <div className="col-span-full flex flex-col gap-7 md:col-start-1 md:col-end-9 xl:col-start-2 xl:col-end-9">
-        <KycIndicator className={'md:hidden'} hidden={false} />
+        <KycIndicator
+          token={token}
+          user={user}
+          className={'md:hidden'}
+          hidden={false}
+          status={status}
+        />
         <LiveCampaigns data={campaign} />
         <Plans />
         <Startups data={campaign} />
@@ -76,7 +92,12 @@ const Dashboard = async () => {
         className={
           'md:col-end col-span-full md:col-start-9 md:pl-6 xl:col-start-9 xl:col-end-12 xl:pl-12'
         }>
-        <KycIndicator className={'hidden md:grid'} />
+        <KycIndicator
+          token={token}
+          user={user}
+          className={'hidden md:grid'}
+          status={status}
+        />
         <Membership />
         <div
           className={
@@ -109,10 +130,8 @@ const Dashboard = async () => {
           <div className={'flex'}>
             <div className="grow"></div>
             <Image
-              src={
-                'https://s3-alpha-sig.figma.com/img/66d5/70b3/9c6441c0a05bd78920817a27b7be7b9a?Expires=1697414400&Signature=MvGmZvjITHtgGcD4TDlGKg2t8XRtDUO~M4I5oUw-aeXWrGQZgW5zfuoZXTWDyFisr3fiSREALs~dMSOQJXPBovZAIGYle~klbeybWxsM~k1ya0AgSZfYE24dSZRi7UU4h6LtSooaQgKir6KLBXNNfcXald8r72spJWdtlyPuANnhTxmgTRvZL0aXAP--ktPh-OOmbSbG4giOdCpp8p-AIK-dTjhq8PrvOEK353QRasfDowi282D6zWqoJUSSY1xIiYq2lPeitSYrYgHklLOp0ga9SEtbdErAel~H3FnxpegsBqS5F0XIm71brrArQCs7ncVitlgeUIV14-pN1Fg1Iw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-              }
-              alt={'Person in a rocket'}
+              src={'/person-on-rocket.png'}
+              alt={'Person on a rocket'}
               height={140}
               width={130}
               className={'py-5'}
@@ -146,9 +165,7 @@ const Dashboard = async () => {
           <div className={'flex'}>
             <div className="grow"></div>
             <Image
-              src={
-                'https://s3-alpha-sig.figma.com/img/f943/214a/ec369e780b01be6be2acede7a288dfbe?Expires=1697414400&Signature=j-h12vBLij7tbTPNF2cFx5tRrSMUGY0DIpHZHMiGc99-WIZTps6X3r9r5h5QzJ4bL0to7g3qnZ6bB0HSIx8hJrvn8QP6jRfCXRNF9vHQcfemAHL73X1DHX8-VpIOgJ6z8NS8OpBTnvgQNYp0Ps0kBi54pRUrw1v7HHFy3y0dxjGincQUvxMVddFw5NyZg8NjhXquKHjxKP8WV784K1Psb-XbM-VxLKTLlgi6hPPXJ9YIInawqTkZ-G9I7w3qVBLfE~dgZvPAQoDkcp5JVQEEGn4UFW75qEExwQRKY0JfZ409Mo5fGJlc8PF079SBtSH228bY3XtzXODnZb542GnZwA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-              }
+              src={'/coin-person.png'}
               alt={'Person building money tower'}
               height={140}
               width={180}
@@ -204,9 +221,11 @@ const Dashboard = async () => {
           </div>
         </div>
       </div>
-      <ReduxProvider>
-        <RiskDisclosure />
-      </ReduxProvider>
+      {user.acknowledgement === 'false' && (
+        <ReduxProvider>
+          <RiskDisclosure />
+        </ReduxProvider>
+      )}
     </section>
   )
 }

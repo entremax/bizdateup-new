@@ -5,7 +5,7 @@ import { setUser } from '@/reducers/user/authSlice'
 import getUserDetails from '@/action/user'
 import localUser from '@/lib/getToken'
 import useCookieLocal from '@/lib/useCookieLocal'
-import { DataInner, KYCStatusArray  } from '@/types'
+import { DataInner, KYCStatusArray } from '@/types'
 import { useRouter } from 'next/navigation'
 
 type User = {
@@ -28,23 +28,25 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
   const [loading, setLoading] = useState(false)
   const dispatch = useAppDispatch()
-
+  console.log('Running Context (User)')
   useEffect(() => {
     const fetchUserDetails = async () => {
       if (reduxUser) return
+
       if (!role || role === '') return
 
       if (role === 'investor') {
         setLoading(true)
         const data = await getUserDetails()
-        if (data && data.role !== 'investor') return router.push('/login')
+        if ((data && data.role !== 'investor') || !data.user)
+          return router.push('/login')
 
         const dataUser = localUser.getUserLocal()
         if (!dataUser) return router.push('/login')
 
         const userInfo = {
           role: data.role,
-          userData: data?.user as DataInner | ,
+          userData: data?.user as DataInner,
           token: data?.token ?? '',
           refId: data?.refId ?? '',
           kycStatus: data?.status,
@@ -65,7 +67,6 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         )
       }
     }
-
     fetchUserDetails()
   }, [role, reduxUser])
 

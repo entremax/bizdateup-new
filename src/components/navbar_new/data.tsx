@@ -24,6 +24,12 @@ const NavbarData = {
     ],
     user_menu: [],
   },
+  accelerator: {
+    name: 'Referral',
+    icon: Icons.Referral,
+    to: '/referral',
+    roles: ['investor'],
+  },
   public: {
     main: [
       {
@@ -50,4 +56,4 @@ const NavbarData = {
   },
 }
 
-export default { NavbarData }
+export default NavbarData

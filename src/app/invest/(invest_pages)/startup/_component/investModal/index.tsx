@@ -58,7 +58,6 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
     payment_mode: 'online' | 'offline',
     referenceId?: String,
   ) => {
-    console.log('Payment mode', payment_mode)
     if (!user || !role || (role && role !== 'investor')) {
       return
     }

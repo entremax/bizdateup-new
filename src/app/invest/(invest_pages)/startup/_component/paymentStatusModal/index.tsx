@@ -43,7 +43,7 @@ const PaymentStatusModal: React.FC<{ startup: StartupData }> = ({
       onConditionalOpen={handleOpen}>
       <div className="flex flex-col items-center justify-center gap-4">
         <Image
-          src={'/cheers-beers.png'}
+          src={'/cheers-beers.webp'}
           alt={'cheers beers'}
           width={'140'}
           height={'120'}

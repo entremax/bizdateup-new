@@ -30,21 +30,21 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
   const referer = headers().get('referer')
   const url = new URL(referer ?? 'https://bizdateup-uat.vercel.app/referral')
   const originHost = `${url.protocol}//${url.host}`
-  console.log(originHost)
+  // console.log(originHost)
   const { role, user } = await getUserDetails()
   const accelerator = await getInviteeDetails()
   store.dispatch(setAccelerator(accelerator))
   const acceleratorState = store.getState().accelerator
   const { referrer_id } = await getCookieData()
   const { investorCommission, startupCommission, redeemable } = acceleratorState
-  
+
   return role !== 'investor' ? null : (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col px-3 md:px-14 lg:px-32">
         <h3 className="reset flex items-center gap-4 text-lg font-bold text-[rgba(32,32,84,0.62)] md:text-2xl">
           Hello {capitalize(user?.firstName || 'User')},
         </h3>
-        <h2 className="reset text-xl font-bold text-primary-dark sm:inline sm:text-3xl xl:text-4xl">
+        <h2 className="reset text-x  l font-bold text-primary-dark sm:inline sm:text-3xl xl:text-4xl">
           Check out your referral progress
         </h2>
       </div>
@@ -220,7 +220,7 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
         <SearchContextProvider
           searchParams={searchParams}
           accelerator={accelerator}>
-          <ReferralTransactions searchParams={searchParams} />
+          <ReferralTransactions />
         </SearchContextProvider>
       </div>
       <HowToUse />

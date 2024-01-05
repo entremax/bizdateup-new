@@ -1,12 +1,7 @@
 import React from 'react'
 import { Campaign } from '@/types'
 import Image from 'next/image'
-import {
-  apiUri,
-  capitalizeFirstLetter,
-  cn,
-  formatIndianValuation,
-} from '@/lib/utils'
+import { apiUri, capitalizeFirstLetter, cn, formatIndianValuation } from '@/lib/utils'
 import JoinWhatsApp from '@/app/dashboard/_components/_join_whatsapp'
 import '../dashboard.css'
 import Link from 'next/link'
@@ -24,7 +19,6 @@ const LiveCampaigns = ({ data }: { data: Campaign[] }): React.ReactElement => {
   let itemGrid =
     'card_article grid relative border_gray rounded-xl overflow-hidden col-span-2 xl:col-span-1 !text-black-lighter' // placeholder value for itemGri
   const campaignData = data
-  const baseUrl = apiUri().v1
 
   function truncateText(input: string, limit = 16) {
     const words = input.split(' ')

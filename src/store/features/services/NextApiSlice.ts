@@ -30,6 +30,7 @@ export const NextApi = createApi({
           investorData: {
             ...response.data.data,
           },
+          referedUrl: response.referedUrl,
         }
       },
       transformErrorResponse: (response: {
@@ -88,6 +89,7 @@ export const NextApi = createApi({
           investorData: {
             ...response.data.data,
           },
+          referedUrl: response.referedUrl,
         }
       },
       transformErrorResponse: (response: {

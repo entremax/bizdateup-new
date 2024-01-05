@@ -189,6 +189,7 @@ export type ISendOtpResponseData = {
   refId?: string
   data: Data
   method: 'login' | 'signup'
+  referedUrl: string | null
 }
 
 export type IResponse = {
@@ -374,3 +375,4 @@ export interface StartupUserData extends BaseUserData {
   role: 'startup'
   user: StartupData | null
 }
+

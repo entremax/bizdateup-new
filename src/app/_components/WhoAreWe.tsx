@@ -7,7 +7,7 @@ export default function WhoAreWe() {
         <div className="">
           <picture>
             <img
-              src="/who_are.png"
+              src="/who_are.webp"
               alt="who_are_we"
               width="100%"
               height="auto"

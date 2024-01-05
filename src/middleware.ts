@@ -25,9 +25,11 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
 
 const publicPaths = [
   /^\/$/,
-  /\.(svg|png|jpeg)$/,
+  /\/learn.*/,
+  /\/contact-us.*/,
+  /\.(svg|png|jpeg|webp|jpg)$/,
   /\.(js|css|map)$/, // <-- match js, css, map (sourcemap) files
-  /_next\//,
+  /_next.*\//,
 ] // <-- match next.js specific paths like static files]
 const unauthenticated = [
   /\/login/,

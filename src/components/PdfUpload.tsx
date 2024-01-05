@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { notifyUser } from '@/components/notification'
 import { CloseOutlined, CloudUploadOutlined } from '@ant-design/icons'
 import { Icons } from '@/icons/icon'
@@ -8,6 +8,7 @@ type Props = {
   className?: string
   onFileSet: (file: File | null) => void
   label?: string
+  children?: ReactNode
 }
 type FileDetails = {
   name: string
@@ -18,6 +19,7 @@ const PDFUpload: React.FC<Props> = ({
   label = 'Upload PDF',
   className = '',
   onFileSet,
+  children,
 }) => {
   const [dragging, setDragging] = useState(false)
   const [fileDetails, setFileDetails] = useState<FileDetails | null>(null)
@@ -106,6 +108,7 @@ const PDFUpload: React.FC<Props> = ({
           </p>
         </div>
       </label>
+      {children}
       {fileDetails && (
         <div className="flex ">
           <div className="border_gray flex items-center gap-3 rounded-xl p-2">
@@ -113,7 +116,8 @@ const PDFUpload: React.FC<Props> = ({
               className={
                 'flex items-center gap-3 text-xs font-semibold text-gray-600'
               }>
-              <Icons.TextFile /> {fileDetails.name}
+              <Icons.TextFile className={'stroke-gray-600'} />{' '}
+              {fileDetails.name}
             </p>
             <Button
               shape="circle"

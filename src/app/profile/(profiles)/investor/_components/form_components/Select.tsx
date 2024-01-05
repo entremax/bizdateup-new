@@ -17,18 +17,25 @@ const Select: React.ForwardRefRenderFunction<
         size={'large'}
         placeholder={'Select options'}
         optionFilterProp="children"
-        
-        filterOption={(input, option) =>
+        filterOption={(input, option) => {
+          const inputValue = input.toLowerCase()
           //@ts-ignore
-          (option?.label ?? '').toLowerCase().includes(input)
-        }
+          const label = option?.label?.toLowerCase()
+          //@ts-ignore
+          const value = option?.value?.toLowerCase()
 
+          return label.includes(inputValue) || value.includes(inputValue)
+        }}
         filterSort={(optionA, optionB) =>
+          //@ts-ignore
           (optionA?.label ?? '')
             //@ts-ignore
             .toLowerCase()
-            //@ts-ignore
-            .localeCompare((optionB?.label ?? '').toLowerCase())
+            .localeCompare(
+              (optionB?.label ?? '')
+                //@ts-ignore
+                .toLowerCase(),
+            )
         }
         ref={ref}
         {...props}

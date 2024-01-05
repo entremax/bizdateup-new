@@ -17,7 +17,7 @@ export default function InvestorProfileLayout({
 }: React.PropsWithChildren) {
   return (
     <ReduxProvider>
-      <section className="flex flex-col gap-4 lg:px-32">
+      <section className="flex flex-col gap-4 xl:px-32">
         <div className="hidden lg:inline-block">
           <ProfileHeader />
         </div>
@@ -26,7 +26,7 @@ export default function InvestorProfileLayout({
             <ProfileHeader />
           </SectionBar>
           <div className="border_gray col-span-9 grid overflow-clip rounded-r-3xl">
-            <div className="hidden flex-col xl:flex">
+            <div className="hidden flex-col lg:flex">
               <div className="border_gray flex items-center border-b-2 p-4 ">
                 <SectionHeader />
               </div>

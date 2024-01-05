@@ -13,13 +13,15 @@ import { useRouter } from 'next/navigation'
 type Startup = {
   startup: StartupData | StartupDataByType
   closed?: boolean
+  className?: string
 }
 type ClosedDeals = {
   startup: IClosedStartupDeal
   closed: boolean
+  className?: string
 }
 type Props = Startup | ClosedDeals
-export default function StartupCard({ startup, closed }: Props) {
+export default function StartupCard({ startup, closed, className }: Props) {
   const router = useRouter()
   const handleClick = (id: string, name: string) => {
     return router.push(`/invest/startup/${id}?name=${name}`)
@@ -29,7 +31,8 @@ export default function StartupCard({ startup, closed }: Props) {
       key={startup._id}
       onClick={() => handleClick(startup._id, startup.registeredCompanyName)}
       className={
-        'border_gray relative mt-4 w-full cursor-pointer overflow-clip rounded-2xl bg-white shadow md:w-[24rem]'
+        'border_gray relative mt-4 w-full cursor-pointer overflow-clip rounded-2xl bg-white shadow md:w-80 xl:w-[24rem] ' +
+        className
       }>
       {closed && (
         <p className="absolute left-2 top-2 flex items-center justify-center gap-1 rounded-full bg-[#16A713] px-1 py-[0.12rem] text-white">

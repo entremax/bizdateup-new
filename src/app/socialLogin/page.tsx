@@ -37,17 +37,8 @@ export default function SocialLogin() {
             const { responseCode, investorData, token, refId, status } =
               response
             localStorage.setItem('token', token)
-            console.log({
-              responseCode,
-              investorData,
-              token,
-              refId,
-              status,
-              response,
-            })
 
             // if (responseCode === 200) {
-            console.log('Call set user')
             await setUserInLocal({
               dispatch,
               setUser,

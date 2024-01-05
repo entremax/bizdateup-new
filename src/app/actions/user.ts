@@ -1,12 +1,22 @@
 'use server'
 import { cookies } from 'next/headers'
-import { redirect, RedirectType } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { fetch } from 'next/dist/compiled/@edge-runtime/primitives'
 import { apiUri } from '@/lib/utils'
 import { Cookies } from '@/types/referral'
-import { InvestorUserData, StartupUserData } from '@/types'
+import { InvestorUserData, KYCStatusArray, StartupUserData } from '@/types'
 
-export default async function getUserDetails() {
+interface NoUser {
+  role: undefined
+  refId: ''
+  status: KYCStatusArray
+  token: null
+  user: null
+}
+
+export default async function getUserDetails(): Promise<
+  InvestorUserData | StartupUserData | NoUser
+> {
   const token = cookies().get('token')?.value
   console.log("🚀 ~ file: user.ts:11 ~ getUserDetails ~ token:", token)
   const user_id = cookies().get('user_id')?.value
@@ -14,8 +24,9 @@ export default async function getUserDetails() {
   console.log("🚀 ~ file: user.ts:13 ~ getUserDetails ~ role:", role)
 
   if (!user_id || !token) {
-    redirect('/login', 'push' as RedirectType)
+    return { user: null, role: undefined, status: [], token: null, refId: '' }
   }
+
   let url = '/investor/fetchbyid'
   let config: any = {
     next: { revalidate: 0 },
@@ -39,7 +50,6 @@ export default async function getUserDetails() {
   }
   const res = await fetch(apiUri().v0 + url, config)
     .then((res) => {
-      // console.log("🚀 ~ file: user.ts:41 ~ .then ~ res:", res)
       return res.json()
     })
     .catch((e) => {
@@ -47,7 +57,7 @@ export default async function getUserDetails() {
       throw new Error(e)
     })
   return {
-    role: role,
+    role: role as 'investor' | 'startup' | undefined,
     refId: user_id,
     status: res?.data?.status,
     token: token,
@@ -79,7 +89,12 @@ export async function getCookieData() {
   const accelerator_id = cookies().get('accelerator_id')?.value
   const referrer_id = cookies().get('referrer_id')?.value
   const role = cookies().get('role')?.value
-  if (!token || !user_id || !(accelerator_id && referrer_id) || !role) {
+  if (
+    !token ||
+    !user_id ||
+    (role !== 'startup' && !(accelerator_id && referrer_id)) ||
+    !role
+  ) {
     return redirect('/login')
   }
   return {

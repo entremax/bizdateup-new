@@ -104,7 +104,7 @@ export const paymentApi = createApi({
         body: data,
       }),
       transformResponse: (response: RedeemResponse) => {
-        console.log(response)
+        // console.log(response)
         return response.data
       },
       transformErrorResponse: (response: { status: string | number }) =>

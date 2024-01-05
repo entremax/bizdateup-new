@@ -40,8 +40,8 @@ const SearchAndFilter: React.FC<Props> = ({ acceleratorData }) => {
 
   const onRangeChange = (dates: RangeValue, dateStrings: [string, string]) => {
     setDateRange(dates)
-    console.log(dates)
-    console.log(dateStrings)
+    // console.log(dates)
+    // console.log(dateStrings)
     dispatch(setDateRangeFilter(dateStrings))
     // Dispatch date range if needed
     // dispatch(setDateRange(dateStrings));

@@ -133,8 +133,8 @@ export default function OtpField({ id }: { id: string }) {
         token,
         refId = userId,
         status,
+        referedUrl,
       } = response.data
-      console.log(response)
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
@@ -152,8 +152,8 @@ export default function OtpField({ id }: { id: string }) {
             premiumMember: investorData?.membership?.isMember !== 'no',
           },
         })
-        // router.refresh()
-        return window.location.replace('/dashboard')
+        router.refresh()
+        return window.location.replace(referedUrl ? referedUrl : '/dashboard')
       } else {
         if (responseCode === 200) {
           await setUserInLocal({
@@ -168,7 +168,8 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData?.membership?.isMember !== 'no',
             },
           })
-          return window.location.replace('/dashboard')
+          // router.refresh()
+          return window.location.replace(referedUrl ? referedUrl : '/dashboard')
         }
       }
     }

@@ -65,11 +65,11 @@ type TotalInvestmentByDate = {
   [date: string]: number
 }
 
-type PercentageByCompany = {
+export type PercentageByCompany = {
   [company: string]: number
 }
 
-type TotalInvestmentPercentageByType = {
+export type TotalInvestmentPercentageByType = {
   [type: string]: number
 }
 
