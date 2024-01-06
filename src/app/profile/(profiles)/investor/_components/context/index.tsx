@@ -33,6 +33,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   function navigateNext(updated: UpdateType) {
     const findNextPendingStep = () => {
       const pendingSteps = [
+        { status: KYCStatus.profile, route: '/profile/investor' },
         { status: KYCStatus.aadhar, route: '/profile/investor/kyc' },
         { status: KYCStatus.pan, route: '/profile/investor/kyc/pan' },
         { status: KYCStatus.bank, route: '/profile/investor/bank' },
@@ -40,7 +41,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       ]
 
       const startIndex = pendingSteps.findIndex(
-        (step) => step.status === updated,
+        (step) => step.status === (updated === 'general' ? 'profile' : updated),
       )
 
       for (let i = startIndex + 1; i < pendingSteps.length; i++) {
@@ -49,8 +50,8 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           return nextStep.route
         }
       }
-
-      return null // No, pending KYC steps
+      router.refresh()
+      return pendingSteps[startIndex].route // No, pending KYC steps
     }
 
     const nextPendingStep = findNextPendingStep()
@@ -73,7 +74,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     const updatedData = { ...formData, refId: user.userData._id }
     setLoading(true)
-    let failed = true
+    let failed = false
     setTimeout(() => {}, 3000)
     if (updating === 'general') {
       setLoading(true)

@@ -34,7 +34,7 @@ export default async function NavbarNew() {
         <Link href={'/'} className={!authenticated ? 'flex-grow' : ''}>
           <Image
             priority
-            className="lg:pl-8"
+            className=""
             src={'/logo_full.svg'}
             height={80}
             width={176}
@@ -64,7 +64,7 @@ export default async function NavbarNew() {
             )
           )}
           {authenticated && (
-            <div className={' flex items-center justify-center gap-4 lg:gap-8'}>
+            <div className={' flex items-center justify-center gap-4'}>
               <UserMenu {...userData} />
             </div>
           )}

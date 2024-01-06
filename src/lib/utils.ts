@@ -71,17 +71,23 @@ export function convertNavigationKeyToKYCStatus(
   }
 }
 
+enum ApiVersion {
+  v0 = 'v0',
+  v1 = 'v0',
+}
+
 /**
  * Returns the API URIs based on the current environment's base URL.
  *
- * @returns {v0:string,v1:string} An object with v0 and v1 properties representing the API URIs.
- *                   If the base URL is available, the URIs are appended with the respective API versions.
- *                   Otherwise, empty strings are returned for both URIs.
  */
-export function apiUri(): { v0: string; v1: string; base: string } {
+export function apiUri() {
   const baseUrl = process.env.NEXT_PUBLIC_APP_TEST_URL
   if (baseUrl) {
-    return { v0: baseUrl + 'v0', v1: baseUrl + 'v0', base: baseUrl }
+    return {
+      v0: baseUrl + ApiVersion.v0,
+      v1: baseUrl + ApiVersion.v0,
+      base: baseUrl,
+    }
   } else {
     return { v0: '', v1: '', base: '' }
   }

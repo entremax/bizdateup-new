@@ -42,7 +42,7 @@ const Startups = ({ data }: { data: Campaign[] }) => {
               className={'w-full'}
             />
             <Image
-              src={apiUri().base + 'v1/logo/' + startup.logo}
+              src={apiUri().v0 + '/logo/' + startup.logo}
               height={40}
               width={40}
               alt={startup.registeredCompanyName}

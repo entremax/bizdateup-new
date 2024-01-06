@@ -154,6 +154,7 @@ export default async function ProfileHeader() {
       <div className="my-4 flex items-center justify-center gap-3 md:m-auto">
         <Button
           type={'default'}
+          href={'/portfolio'}
           className={
             'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
           }>
