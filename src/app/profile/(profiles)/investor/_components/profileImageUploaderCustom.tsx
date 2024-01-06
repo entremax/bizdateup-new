@@ -11,10 +11,10 @@ import { StartupData } from '@/types/invest'
 
 type IBorderColors = 'premium' | 'error' | 'normal' | 'uploading'
 type Props =
-  | { user: DataInner; role: 'investor' }
-  | { user: StartupData; role: 'startup' }
+  | { user: DataInner; role: 'investor'; refId: string }
+  | { user: StartupData; role: 'startup'; refId: string }
 
-const ImageUploader: React.FC<Props> = ({ user, role }) => {
+const ImageUploader: React.FC<Props> = ({ user, role, refId }) => {
   const borderColors = {
     premium: 'drop-shadow-lg !border-[#F3B518]',
     normal: 'drop-shadow-lg !border-[#8686F5]',
@@ -40,9 +40,9 @@ const ImageUploader: React.FC<Props> = ({ user, role }) => {
       setState((prevState) => ({ ...prevState, borderColor: 'uploading' }))
 
       body.append('file', file)
-      body.append('refId', user?._id ?? '')
+      body.append('refId', role === 'investor' ? user?._id : refId)
 
-      uploadImage(body)
+      uploadImage({ body, profileType: role })
         .unwrap()
         .then((res) => {
           setState((prevState) => ({
@@ -75,7 +75,7 @@ const ImageUploader: React.FC<Props> = ({ user, role }) => {
       <ImageUpload
         previewImageUrl={
           role === 'startup'
-            ? apiUri().v0 + '/investor/profile_pic/' + user?.logo
+            ? apiUri().v0 + '/logo/' + user?.logo
             : user?.profilePic === ''
               ? undefined
               : apiUri().v0 + '/investor/profile_pic/' + user?._id

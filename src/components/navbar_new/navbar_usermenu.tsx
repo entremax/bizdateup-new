@@ -236,7 +236,7 @@ const UserMenu = ({ user, role }: Props) => {
           dropdownRender={() => (
             <UserMenuDropdown items={items} onClick={onClick} />
           )}>
-          <Space>
+          <Space style={{ columnGap: 0 }}>
             <div className={cn(avatarClass)}>
               {role === 'investor' ? (
                 user?.profilePic === '' ? (
@@ -252,7 +252,7 @@ const UserMenu = ({ user, role }: Props) => {
                     />
                   )
                 )
-              ) : user?.logo !== '' ? (
+              ) : user?.logo === '' ? (
                 <Avatar size={'large'}>
                   {`${
                     user?.registeredCompanyName?.charAt(0).toUpperCase() ?? ''
@@ -261,7 +261,7 @@ const UserMenu = ({ user, role }: Props) => {
               ) : (
                 <Avatar
                   size="large"
-                  src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
+                  src={apiUri().v0 + '/logo/' + user?.logo}
                 />
               )}
               {role &&
