@@ -124,7 +124,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       name: 'referral',
       defaultValue: getReferCode(),
       label: 'Referral Code',
-      disabled: Boolean(user?.refer),
+      disabled: true,
     },
     {
       name: 'address',
