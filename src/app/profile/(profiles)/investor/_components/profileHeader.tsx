@@ -1,82 +1,71 @@
 import { Button } from 'antd'
 import ImageUploader from '@/components/profile/profileImageUploaderCustom'
 import ReduxProvider from '@/store/Provider'
-import {
-  DataInner,
-  InvestorUserData,
-  KYCStatusArray,
-  StartupUserData,
-} from '@/types'
+import { DataInner, InvestorUserData, StartupUserData } from '@/types'
 import { cookies } from 'next/headers'
-import { fetch } from 'next/dist/compiled/@edge-runtime/primitives'
 import { apiUri, cn } from '@/lib/utils'
 import { Icons } from '@/icons/icon'
 import React from 'react'
 import { StartupData } from '@/types/invest'
+import { redirect, RedirectType } from 'next/navigation'
 
-interface NoUser {
-  role: undefined
-  refId: ''
-  status: KYCStatusArray
-  token: null
-  user: null
-}
+async function getUserDetails() {
+  const token = cookies().get('token')?.value
+  const user_id = cookies().get('user_id')?.value
+  const role = cookies().get('role')?.value
 
-export async function getUserDetails(): Promise<
-  InvestorUserData | StartupUserData | NoUser
-> {
-  try {
-    const token = cookies()?.get('token')?.value
-    const user_id = cookies()?.get('user_id')?.value
-    const role = cookies()?.get('role')?.value
-
-    if (!user_id || !token) {
-      return { user: null, role: undefined, status: [], token: null, refId: '' }
-    }
-
-    let url = '/investor/fetchbyid'
-    let config: RequestInit = {
+  if (!user_id || !token) {
+    return redirect('/login', 'push' as RedirectType)
+  }
+  let url = '/investor/fetchbyid'
+  let config: any = {
+    next: { revalidate: 0 },
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ refId: user_id }),
+  }
+  if (role === 'startup') {
+    url = '/startup/fetchStartupById?refId=' + user_id
+    config = {
       next: { revalidate: 0 },
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ refId: user_id }),
     }
-
-    if (role === 'startup') {
-      url = '/startup/fetchStartupByRef?refId=' + user_id
-      config = {
-        next: { revalidate: 0 },
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    }
-
-    const response = await fetch(apiUri().v0 + url, config)
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch user data. Status: ${response.status}`)
-    }
-
-    const res = await response.json()
-
-    return {
-      role: role as 'investor' | 'startup' | undefined,
-      refId: user_id,
-      status: res?.data?.status || [],
-      token: token,
-      user: res?.data?.data || null,
-    } as InvestorUserData | StartupUserData
-  } catch (error) {
-    console.error('Error in getUserDetails:', error)
-    throw new Error('Failed to fetch user details.')
   }
+  const res = await fetch(apiUri().v0 + url, config)
+    .then((res) => {
+      return res.json()
+    })
+    .catch((e) => {
+      console.log(e)
+      throw new Error(e)
+    })
+
+  const userData: InvestorUserData | StartupUserData = res?.data?.data?.role
+    ? {
+        refId: user_id,
+        status: res?.data?.status,
+        token: token,
+        role: 'investor',
+        user: res?.data?.data as DataInner,
+      }
+    : {
+        refId: user_id,
+        status: res?.data?.status,
+        token: token,
+        role: 'startup',
+        user: res?.data?.data as StartupData,
+      }
+
+  return { ...userData }
 }
+
 
 export default async function ProfileHeader() {
   const { user, role, refId } = await getUserDetails()
