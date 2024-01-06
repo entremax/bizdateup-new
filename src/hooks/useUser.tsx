@@ -1,5 +1,11 @@
 'use client'
-import React, { createContext, useCallback, useContext, useEffect, useReducer } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react'
 import { useAppSelector } from '@/store/hooks'
 import { setUser } from '@/reducers/user/authSlice'
 import getUserDetails from '@/action/user'
@@ -41,21 +47,22 @@ const UserContext = createContext<State>({ user: null, loading: false })
 
 const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const router = useRouter();
-  onst [state, dispatch] = useReducer(reducer, { user: null, loading: false });
-  onst role = useCookieLocal('role');
-  onst { reduxUser } = useAppSelector(({ authUser }) => authUser);
-    console.log('Running Context (User)');
-    const fetchUserDetails = useCallback(async () => {
-    if (!role || role === '') return;
-   
+  const [state, dispatch] = useReducer(reducer, { user: null, loading: false })
+  const role = useCookieLocal('role')
+  const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
+  console.log('Running Context (User)')
+  const fetchUserDetails = useCallback(async () => {
+    if (!role || role === '') return
+
     if (role === 'investor') {
-      dispatch({ type: 'SET_LOADING', payload: true });
-     const data = await getUserDetails();
-     if ((data && data.role !== 'investor') || !data.user) return router.push('/login');
-     
-      const dataUser = localUser.getUserLocal();
-     if (!dataUser) return router.push('/login');
-     
+      dispatch({ type: 'SET_LOADING', payload: true })
+      const data = await getUserDetails()
+      if ((data && data.role !== 'investor') || !data.user)
+        return router.push('/login')
+
+      const dataUser = localUser.getUserLocal()
+      if (!dataUser) return router.push('/login')
+
       const userInfo = {
         role: data.role,
         userData: data?.user as DataInner,
@@ -63,18 +70,18 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         refId: data?.refId ?? '',
         kycStatus: data?.status,
         premiumMember: data?.user?.membership?.isMember !== 'no',
-      };
-     
-      dispatch({ type: 'SET_USER', payload: userInfo });
-     store.dispatch(setUser(userInfo))
+      }
+
+      dispatch({ type: 'SET_USER', payload: userInfo })
+      store.dispatch(setUser(userInfo))
     } else {
-      const data = localUser.getUserLocal();
-     if (!data) return router.push('/login/startup');
-     
-      dispatch({ type: 'SET_USER', payload: data });
-     store.dispatch(setUser(data))
+      const data = localUser.getUserLocal()
+      if (!data) return router.push('/login/startup')
+
+      dispatch({ type: 'SET_USER', payload: data })
+      store.dispatch(setUser(data))
     }
-  }, [role, router]);
+  }, [role, router])
   
   useEffect(() => {
     fetchUserDetails()

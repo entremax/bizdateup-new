@@ -50,8 +50,8 @@ export default async function getUserDetails(): Promise<
     }
 
     const response = await fetch(apiUri().v0 + url, config)
-
-    if (!respose.ok) {
+    
+    if (!response.ok) {
       throw new Error(`Failed to fetch user data. Status: ${response.status}`)
     }
 
@@ -65,8 +65,8 @@ export default async function getUserDetails(): Promise<
       user: res?.data?.data || null,
     } as InvestorUserData | StartupUserData
   } catch (error) {
-    consol.error('Error in getUserDetails:', error)
-    throw new Error('Failed to etch user details.')
+    console.error('Error in getUserDetails:', error)
+    throw new Error('Failed to fetch user details.')
   }
 }
 

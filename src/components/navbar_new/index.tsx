@@ -7,12 +7,25 @@ import Sidebar from '@/components/navbar_new/Sidebar'
 import NavbarLinks from '@/components/navbar_new/navbar_links'
 import getUserDetails from '@/action/user'
 import { cookies } from 'next/headers'
+import { StartupData } from '@/types/invest'
+import { DataInner } from '@/types'
 
 export default async function NavbarNew() {
   const { user, role } = await getUserDetails()
 
   const token = cookies()?.get('token')?.value
   const authenticated = !!token
+
+  const userData:
+    | {
+        user: DataInner | null
+        role: 'investor'
+      }
+    | {
+        user: StartupData | null
+        role: 'startup'
+      } =
+    role === 'investor' ? { user, role: 'investor' } : { user, role: 'startup' }
 
   return (
     <>
@@ -52,7 +65,7 @@ export default async function NavbarNew() {
           )}
           {authenticated && (
             <div className={' flex items-center justify-center gap-4 lg:gap-8'}>
-              <UserMenu userData={{ user, role: role ?? 'startup' }} />
+              <UserMenu {...userData} />
             </div>
           )}
           {!authenticated && (

@@ -7,13 +7,14 @@ import { notifyUser } from '@/components/notification'
 import { apiUri, cn } from '@/lib/utils'
 import { useUser } from '@/hooks/useUser'
 import { DataInner } from '@/types'
+import { StartupData } from '@/types/invest'
 
 type IBorderColors = 'premium' | 'error' | 'normal' | 'uploading'
-type Props = {
-  user: DataInner
-}
+type Props =
+  | { user: DataInner; role: 'investor' }
+  | { user: StartupData; role: 'startup' }
 
-const ImageUploader: React.FC<Props> = () => {
+const ImageUploader: React.FC<Props> = ({ user, role }) => {
   const borderColors = {
     premium: 'drop-shadow-lg !border-[#F3B518]',
     normal: 'drop-shadow-lg !border-[#8686F5]',
@@ -22,12 +23,12 @@ const ImageUploader: React.FC<Props> = () => {
   }
   const { user: loacl } = useUser()
   const dispatch = useAppDispatch()
-  const user = loacl?.userData
+
   const [uploadImage] = useUpdateProfileImageMutation()
   const [state, setState] = useState({
     file: null as File | null,
     borderColor:
-      user?.membership?.isMember === 'yes'
+      role === 'investor' && user?.membership?.isMember === 'yes'
         ? 'premium'
         : ('normal' as IBorderColors),
   })
@@ -58,7 +59,9 @@ const ImageUploader: React.FC<Props> = () => {
   }
 
   const determineBorderColor = () => {
-    return user?.membership?.isMember === 'yes' ? 'premium' : 'normal'
+    return role === 'investor' && user?.membership?.isMember === 'yes'
+      ? 'premium'
+      : 'normal'
   }
 
   useEffect(() => {
@@ -66,19 +69,21 @@ const ImageUploader: React.FC<Props> = () => {
       ...prevState,
       borderColor: determineBorderColor(),
     }))
-  }, [user?.membership?.isMember])
+  }, [])
   return (
     <div className={'max-h-[6rem] max-w-[6rem]'}>
       <ImageUpload
         previewImageUrl={
-          user?.profilePic === ''
-            ? undefined
-            : apiUri().v0 + '/investor/profile_pic/' + user?._id
+          role === 'startup'
+            ? apiUri().v0 + '/investor/profile_pic/' + user?.logo
+            : user?.profilePic === ''
+              ? undefined
+              : apiUri().v0 + '/investor/profile_pic/' + user?._id
         }
         onFileSet={handleFileChange}
         className={cn(
           `${
-            user && user?.role === 'investor' && user?.profilePic !== ''
+            user && role === 'investor' && user?.profilePic !== ''
               ? borderColors[state.borderColor]
               : '!border-0 '
           } relative !border-[6px] border-solid`,

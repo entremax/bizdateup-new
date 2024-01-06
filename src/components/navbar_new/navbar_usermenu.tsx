@@ -30,14 +30,11 @@ import { DollarOutlined } from '@ant-design/icons'
 import { StartupData } from '@/types/invest'
 import { useUser } from '@/hooks/useUser'
 
-type Props = {
-  userData: {
-    user: DataInner | StartupData | null
-    role: 'investor' | 'startup'
-  }
-}
+type Props =
+  | { user: DataInner | null; role: 'investor' }
+  | { user: StartupData | null; role: 'startup' }
 
-const UserMenu = ({ userData: { user, role } }: Props) => {
+const UserMenu = ({ user, role }: Props) => {
   const [windowWidth, setWindowWidth] = useState(0)
   const logged_in = useCookieLocal('logged-in')
   const [creating, setCreating] = useState(false)
@@ -101,9 +98,10 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
     },
     {
       label: <p className={'reset px-4'}>Refer & Earn</p>,
-      // hidden: role && role !== 'investor',
       key: '3',
-      hidden: role && role === 'investor' && windowWidth > 900,
+      hidden:
+        (role && role === 'startup') ||
+        (role === 'investor' && windowWidth > 900),
       icon: <DollarOutlined />,
     },
     {
@@ -144,9 +142,6 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
       : 'relative rounded-full'
 
   const handleCreateAccelerator = async () => {
-    // console.log('creating accelerator')
-    // const success = await createAccelerator()
-    // console.log(success)
     setCreating(true)
     if (user && 'isAccelerator' in user && user?.isAccelerator) {
       setCreating(false)
@@ -205,42 +200,46 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
   }
   return (
     <>
-      {role && role === 'investor' && (
+      {role && (
         <>
-          <Button
-            loading={creating}
-            type={'default'}
-            onClick={handleCreateAccelerator}
-            className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  lg:inline-block">
-            Refer & Earn
-          </Button>
+          {role && role === 'investor' && (
+            <>
+              <Button
+                loading={creating}
+                type={'default'}
+                onClick={handleCreateAccelerator}
+                className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  lg:inline-block">
+                Refer & Earn
+              </Button>
 
-          <Tooltip title={badgeTitle}>
-            <Dropdown
-              dropdownRender={() => <StartupUpdatesDropDown />}
-              trigger={['click']}>
-              <Badge count={0}>
-                <Button
-                  onClick={handleFetchUpdates}
-                  icon={<Icons.Bell />}
-                  shape="circle"
-                  className={'relative !outline-none'}
-                />
-              </Badge>
-            </Dropdown>
-          </Tooltip>
+              <Tooltip title={badgeTitle}>
+                <Dropdown
+                  dropdownRender={() => <StartupUpdatesDropDown />}
+                  trigger={['click']}>
+                  <Badge count={0}>
+                    <Button
+                      onClick={handleFetchUpdates}
+                      icon={<Icons.Bell />}
+                      shape="circle"
+                      className={'relative !outline-none'}
+                    />
+                  </Badge>
+                </Dropdown>
+              </Tooltip>
+            </>
+          )}
         </>
       )}
-      {user && 'role' in user && (
-        <div className={'flex items-center justify-center gap-2'}>
-          <Dropdown
-            className={'relative'}
-            dropdownRender={() => (
-              <UserMenuDropdown items={items} onClick={onClick} />
-            )}>
-            <Space>
-              <div className={cn(avatarClass)}>
-                {user?.profilePic === '' ? (
+      <div className={'flex items-center justify-center gap-2'}>
+        <Dropdown
+          className={'relative'}
+          dropdownRender={() => (
+            <UserMenuDropdown items={items} onClick={onClick} />
+          )}>
+          <Space>
+            <div className={cn(avatarClass)}>
+              {role === 'investor' ? (
+                user?.profilePic === '' ? (
                   <Avatar size={'large'}>
                     {`${user?.firstName.charAt(0).toUpperCase() ?? ''}
                   ${user?.lastName.charAt(0).toUpperCase() ?? ''}`}
@@ -252,31 +251,42 @@ const UserMenu = ({ userData: { user, role } }: Props) => {
                       src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
                     />
                   )
-                )}
-                {role &&
-                role === 'investor' &&
-                user &&
-                user?.membership?.isMember !== 'no' ? (
-                  <>
-                    <Icons.Premium
-                      className={'absolute -top-4 right-0.5 z-[999] rotate-12'}
-                      height={'1.5rem'}
-                      width={'1.5rem'}
-                    />
-                    <div
-                      className={
-                        'absolute -bottom-2 left-[0.2rem] rounded-full bg-primary px-2 text-xs font-semibold text-white'
-                      }>
-                      VIP
-                    </div>
-                  </>
-                ) : null}
-              </div>
-              <Icons.ArrowDown />
-            </Space>
-          </Dropdown>
-        </div>
-      )}
+                )
+              ) : user?.logo !== '' ? (
+                <Avatar size={'large'}>
+                  {`${
+                    user?.registeredCompanyName?.charAt(0).toUpperCase() ?? ''
+                  }`}
+                </Avatar>
+              ) : (
+                <Avatar
+                  size="large"
+                  src={apiUri().v0 + '/investor/profile_pic/' + user?._id}
+                />
+              )}
+              {role &&
+              user &&
+              role === 'investor' &&
+              user?.membership?.isMember !== 'no' ? (
+                <>
+                  <Icons.Premium
+                    className={'absolute -top-4 right-0.5 z-[999] rotate-12'}
+                    height={'1.5rem'}
+                    width={'1.5rem'}
+                  />
+                  <div
+                    className={
+                      'absolute -bottom-2 left-[0.2rem] rounded-full bg-primary px-2 text-xs font-semibold text-white'
+                    }>
+                    VIP
+                  </div>
+                </>
+              ) : null}
+            </div>
+            <Icons.ArrowDown />
+          </Space>
+        </Dropdown>
+      </div>
     </>
   )
 }
