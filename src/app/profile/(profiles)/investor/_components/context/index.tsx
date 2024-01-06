@@ -178,6 +178,27 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
+    if (updating === 'aadhar') {
+      setLoading(true)
+      updateBankDetails(updatedData)
+        .unwrap()
+        .then((res) => {
+          setLoading(false)
+          return res
+        })
+        .catch((e) => {
+          failed = true
+          dispatch(
+            setNotification({
+              type: 'error',
+              message: "Couldn't Update Aadhar Details",
+              description: e.message,
+            }),
+          )
+          setLoading(false)
+          console.log(e)
+        })
+    }
     console.log(failed, user)
 
     if (!failed) {
@@ -186,6 +207,8 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     setLoading(false)
   }
+  
+  
   return (
     <UpdateContext.Provider
       value={{

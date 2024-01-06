@@ -69,6 +69,12 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     country: user.address.country,
     state: user.address.state,
   })
+  const getReferCode = () => {
+    if (user?.refer) {
+      return user?.refer
+    }
+    return sessionStorage.getItem('refer_code') ?? undefined
+  }
   const inputFields = [
     {
       name: 'first-name',
@@ -116,9 +122,9 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     },
     {
       name: 'referral',
-      defaultValue: user?.refer as string,
+      defaultValue: getReferCode(),
       label: 'Referral Code',
-      disabled: !!user?.refer,
+      disabled: Boolean(user?.refer),
     },
     {
       name: 'address',
@@ -184,6 +190,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       [fieldName]: value,
     }))
   }
+
   const handleProfileUpdate = async () => {
     let values: { [key in FieldNames]: unknown | null } = {} as {
       [key in FieldNames]: unknown | null
@@ -192,6 +199,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       //@ts-ignore
       values[key] = refs[key]?.current?.input.value ?? ''
     }
+
     const formData = {
       firstName: values['first-name'],
       lastName: values['last-name'],

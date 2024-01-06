@@ -55,7 +55,7 @@ const Footer = () => {
                   alt={'Bizdateup logo'}
                   src={'/logo.webp'}
                   fill
-                  sizes={'100vw'}
+                  sizes={'100%'}
                 />
               </div>
               <div className="grow-0 md:grow"></div>

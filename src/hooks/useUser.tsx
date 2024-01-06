@@ -46,11 +46,12 @@ const reducer = (state: State, action: Action): State => {
 const UserContext = createContext<State>({ user: null, loading: false })
 
 const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const router = useRouter();
+  const router = useRouter()
   const [state, dispatch] = useReducer(reducer, { user: null, loading: false })
   const role = useCookieLocal('role')
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
   console.log('Running Context (User)')
+
   const fetchUserDetails = useCallback(async () => {
     if (!role || role === '') return
 
@@ -82,16 +83,16 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       store.dispatch(setUser(data))
     }
   }, [role, router])
-  
+
   useEffect(() => {
     fetchUserDetails()
   }, [fetchUserDetails])
-  
+
   // console.log('USER HOOK RENDER_COUNT:', renderCount);
   // if (reduxUser && renderCount.current > 3) {
   //   return null; // Or some other logic, e.g., return a loading spinner
   // }
-  
+
   return <UserContext.Provider value={state}>{children}</UserContext.Provider>
 };
 

@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Button, Divider, Input } from 'antd'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch } from '@/store/hooks'
 import { Icons } from '@/components/icons/icon'
 import { setInvestorId, temp_values } from '@/reducers/user/authSlice'
@@ -24,12 +24,13 @@ export default function UserAuthForm({
 }: UserAuthFormProps) {
   const router = useRouter()
   const dispatch = useAppDispatch()
-
+  const searchParams = useSearchParams()
+  const newUser = searchParams.get('new_user')
   const baseUrl = `${apiUri().v1}/auth/`
   const url = requestType === 'login' ? `${baseUrl}login/` : baseUrl
-
-  const [withEmail, setWithEmail] = useState(false)
-  const [email, setEmail] = useState('')
+  
+  const [withEmail, setWithEmail] = useState(!!newUser)
+  const [email, setEmail] = useState(newUser ?? '')
   const [loader, setLoader] = useState(false) // Fix variable name
 
   const [sendOtp, { isLoading }] = useSendOtpMutation()
@@ -99,6 +100,11 @@ export default function UserAuthForm({
               } ${email} before proceeding.`,
             )
             setLoader(false)
+            return router.push(
+              `${
+                role === 'investor' ? '/signup' : '/signup/startup'
+              }?new_user=${email}`,
+            )
           } else if (res.code === 401 && res.message === 'ALREADY_EXIST') {
             notifyUser(
               'error',
