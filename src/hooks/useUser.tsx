@@ -50,7 +50,6 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, { user: null, loading: false })
   const role = useCookieLocal('role')
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
-  console.log('Running Context (User)')
 
   const fetchUserDetails = useCallback(async () => {
     if (!role || role === '') return
