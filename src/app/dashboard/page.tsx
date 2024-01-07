@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   title: 'Dashboard - Investor | Bizdateup',
   description: 'Dashboard for investor',
 }
+
 const RiskDisclosure = dynamic(
   () => import('@/components/dashboard/riskDisclosure'),
   {

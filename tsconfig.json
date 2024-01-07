@@ -71,6 +71,10 @@
         "./src/app/dashboard/_components/*",
         "./src/app/dashboard/startup/components/*"
       ],
+      
+      "@/components/dashboard/startup/*": [
+        "./src/app/dashboard/startup/_component/*"
+      ],
       "@/components/learn/*": [
         "./src/app/learn/components/*",
         "./src/app/learn/faqs/components/*",

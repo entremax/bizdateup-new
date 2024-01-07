@@ -132,6 +132,7 @@ export default async function ProfileHeader() {
         </div>
         }
       </div>
+      
       <div className="my-4 flex items-center justify-center gap-3 md:m-auto">
         {role=="startup"?
         <button

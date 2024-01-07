@@ -70,10 +70,17 @@ export type InputFieldNames =
   | 'last_name'
   | 'email' | 'phone'
   | 'company_based' | 'video_url' | 'banner';
+  
 export type SelectFieldNames = 'state' | 'country' | 'gender'
 export type FieldNames = InputFieldNames | SelectFieldNames | StartupInputFieldNames
 
-type Refs = {
+export type Refs = {
+  [key in InputFieldNames]: React.MutableRefObject<any> | undefined;
+} & {
+  [key in StartupInputFieldNames]: React.MutableRefObject<any> | undefined;
+}
+;
+export type Refs2 = {
   [key in InputFieldNames]: React.MutableRefObject<any>;
 } & {
   [key in StartupInputFieldNames]: React.MutableRefObject<any>;

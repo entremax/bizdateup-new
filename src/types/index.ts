@@ -366,6 +366,22 @@ export type BaseUserData = {
   user: DataInner | StartupData | null
 }
 
+export type InvestmentType = {
+  createdAt: Date 
+  investorName: string 
+  type: string 
+  status: string 
+  amountBreakdown: {
+    totalamount: number
+    amount: number
+    convenienceFee: number
+    tds: number
+    gst: number
+  } | {}
+}
+
+export type StartupInvestment = [InvestmentType] | []
+
 export interface InvestorUserData extends BaseUserData {
   role: 'investor'
   user: DataInner | null
@@ -375,4 +391,3 @@ export interface StartupUserData extends BaseUserData {
   role: 'startup'
   user: StartupData | null
 }
-

@@ -55,14 +55,15 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
         setUserState(userInfo)
         dispatch(setUser(userInfo))
-      } else {
+      } 
+      if(role==='startup') {
         const data = localUser.getUserLocal()
         if (!data) return router.push('/login/startup')
 
         setUserState(data)
         dispatch(
           setUser({
-            ...data,
+            ...data,role:'startup'
           }),
         )
       }

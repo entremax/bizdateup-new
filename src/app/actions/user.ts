@@ -56,6 +56,7 @@ export default async function getUserDetails(): Promise<
       console.log(e)
       throw new Error(e)
     })
+    
   return {
     role: role as 'investor' | 'startup' | undefined,
     refId: user_id,

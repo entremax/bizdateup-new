@@ -1,7 +1,8 @@
 export interface KeyHighlights {
-  keyHighlight1: string
-  keyHighlight2: string
-  keyHighlight3: string
+  keyHighlight1?: string
+  keyHighlight2?: string
+  keyHighlight3?: string
+  keyHighlight4?: string
 }
 
 export interface DealTerms {

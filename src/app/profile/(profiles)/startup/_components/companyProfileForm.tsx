@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { TextAreaRef } from 'antd/lib/input/TextArea'
-import { FieldNames, Fields, Refs } from '@/types/profile'
+import { FieldNames, Fields, Refs , BaseField} from '@/types/profile'
 import Input from '@/components/form/Input'
 import Select from '@/components/form/Select'
 import TextArea from '@/components/form/TextArea'
@@ -10,16 +10,16 @@ import RadioGroup from '@/components/form/RadioGroup'
 import ImageUploader from '@/components/form/ImageUploader'
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
-import { DataStartup } from '@/types'
-import { useUpdateContext } from '@/components/profile/context'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
 import type { RadioChangeEvent ,UploadProps  , RadioGroupOptionType } from 'antd';
+import {StartupData} from '@/types/invest'
 
 // import type { UploadProps } from 'antd';
 
-export default function GeneralForm({ user }: { user: DataStartup }) {
+export default function GeneralForm({ user }: { user: StartupData }) {
   const router = useRouter()
+    //@ts-ignore
   const refs: Refs = {
     'company-name': useRef<InputRef | null>(null),
     'registered-name': useRef<InputRef | null>(null),
@@ -39,7 +39,7 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
     // 'banner': useRef<InputRef | null>(null),
     stage: useRef<InputRef | null>(null),
   }
-
+  //@ts-ignore
   const refs2: Refs = {
     'short-description': useRef<TextAreaRef | null>(null),
    
@@ -249,6 +249,7 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
       console.log("🚀 ~ file: companyProfileForm.tsx:215 ~ handleProfileUpdate ~ current:", refs2[key]?.current?.resizableTextArea?.textArea)
 
       console.log("🚀 ~ file: companyProfileForm.tsx:215 ~ handleProfileUpdate ~ key:", key)
+        //@ts-ignore
       values[key] = refs2[key]?.current?.resizableTextArea?.textArea.value || "";
     }
 
@@ -269,12 +270,14 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
     if (user._id) {
       formData.append('refId', user._id);
     }
+      //@ts-ignore
     if (values['first_name']) {
       formData.append('founderFirstName', values['first_name']);
     }
     if (values['last_name']) {
       formData.append('founderLastName', values['last_name']);
     }
+
     formData.append('phone', values['phone'] || ''); // Example: Handle null or undefined with default value
     formData.append('email', values['email'] || '');
     formData.append('companyBased', values['company_based'] || '');
@@ -323,7 +326,7 @@ export default function GeneralForm({ user }: { user: DataStartup }) {
               }
               // placeholder={field.placeholder}
             />
-           ) : field.fieldType === 'textarea' ?(
+           ) : field.fieldType === 'textarea' && field?.name=="stage" ?(
             <TextArea
               key={field.name}
               defaultValue={field.defaultValue}
