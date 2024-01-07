@@ -45,7 +45,7 @@ const AntNotification: React.FC = () => {
   )
 }
 export const notifyUser = (
-  type: 'success' | 'error',
+  type: NotificationType,
   message: string,
   description?: string,
 ) => {

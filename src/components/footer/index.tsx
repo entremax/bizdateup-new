@@ -43,9 +43,9 @@ const Footer = () => {
     }
   }, [pathName])
   return (
-    <section className={'my-20 flex flex-col gap-4 lg:mb-0'}>
+    <>
       {show && (
-        <>
+        <section className={'my-20 flex flex-col gap-4 lg:mb-0'}>
           {' '}
           <ReferFooter />
           <div className="flex flex-col gap-4 px-4 py-4 md:px-20 lg:px-40">
@@ -153,9 +153,9 @@ const Footer = () => {
               <p className="text-xs text-gray-400">{footerData.disclaimer}</p>
             </div>
           </div>
-        </>
+        </section>
       )}
-    </section>
+    </>
   )
 }
 

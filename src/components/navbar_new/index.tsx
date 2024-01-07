@@ -7,8 +7,7 @@ import Sidebar from '@/components/navbar_new/Sidebar'
 import NavbarLinks from '@/components/navbar_new/navbar_links'
 import getUserDetails from '@/action/user'
 import { cookies } from 'next/headers'
-import { StartupData } from '@/types/invest'
-import { DataInner } from '@/types'
+import { InvestorUserData, StartupUserData } from '@/types'
 
 export default async function NavbarNew() {
   const { user, role } = await getUserDetails()
@@ -17,14 +16,8 @@ export default async function NavbarNew() {
   const authenticated = !!token
 
   const userData:
-    | {
-        user: DataInner | null
-        role: 'investor'
-      }
-    | {
-        user: StartupData | null
-        role: 'startup'
-      } =
+    | Pick<InvestorUserData, 'user' | 'role'>
+    | Pick<StartupUserData, 'user' | 'role'> =
     role === 'investor' ? { user, role: 'investor' } : { user, role: 'startup' }
 
   return (

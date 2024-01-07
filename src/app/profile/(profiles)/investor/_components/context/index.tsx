@@ -44,7 +44,11 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         (step) => step.status === (updated === 'general' ? 'profile' : updated),
       )
 
-      for (let i = startIndex + 1; i < pendingSteps.length; i++) {
+      for (
+        let i = updated === 'other' ? 0 : startIndex + 1;
+        i < pendingSteps.length;
+        i++
+      ) {
         const nextStep = pendingSteps[i]
         if (user?.kycStatus.includes(nextStep.status)) {
           return nextStep.route
@@ -199,7 +203,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-    console.log(failed, user)
 
     if (!failed) {
       navigateNext(updating)
@@ -207,8 +210,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     setLoading(false)
   }
-  
-  
+
   return (
     <UpdateContext.Provider
       value={{

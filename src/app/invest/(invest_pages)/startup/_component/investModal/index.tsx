@@ -10,9 +10,11 @@ import InvestForm from '@/components/invest/investModal/investForm'
 import OfflinePayment from '@/components/invest/investModal/offlinePayment'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { usePaymentMutation } from '@/services/paymentSlice'
-import { setNotification, showModal } from '@/reducers/others/notificationSlice'
+import { showModal } from '@/reducers/others/notificationSlice'
 import { useRouter } from 'next/navigation'
 import { setAmountToInvest } from '@/reducers/user/investorSlice'
+import { notifyUser } from '@/components/notification'
+import { NotificationType } from '@/types'
 
 type TransactionTypes = 'online' | 'offline' | null
 /**
@@ -82,6 +84,37 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
         dateOfpayment: '',
       }
     }
+
+    /**
+     * This function modifies the notification message
+     *
+     */
+    function modifyMessage(
+      messageType: NotificationType,
+      message: string,
+      description?: string,
+    ) {
+      let notification = {
+        type: messageType,
+        message: message,
+        description,
+      } as { type: NotificationType; message: string; description?: string }
+
+      if (description === 'KYC_INCOMPLETE') {
+        description = 'Please complete your profile and kyc'
+        notification = {
+          type: 'error',
+          message,
+          description,
+        }
+      }
+
+      return notifyUser(
+        notification.type,
+        notification.message,
+        notification.description,
+      )
+    }
     const payment_res = await payment({
       payment_mode,
       paymentData: { ...payment_data },
@@ -89,26 +122,16 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
       .unwrap()
       .then((res) => {
         if (res?.code !== 200) {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Finish Payment",
-              description: res?.message,
-            }),
-          )
+          'Couldn\'t Finish Payment'ouldn't Finish Payment", res?.message)
           return
         }
         return res.data
       })
       .catch((e) => {
-        dispatch(
-          setNotification({
-            type: 'error',
-            message: "Couldn't Finish Payment",
-            description: e?.data?.message
-              ? e?.data?.message
-              : 'Something went wrong!',
-          }),
+        modifyMessage(
+          'error',
+          "Couldn't Finish Payment",
+          e?.data?.message ?? 'Something went wrong!',
         )
         return
       })

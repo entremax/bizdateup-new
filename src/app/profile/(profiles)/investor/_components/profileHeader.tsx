@@ -9,6 +9,8 @@ import React from 'react'
 import { StartupData } from '@/types/invest'
 import { redirect, RedirectType } from 'next/navigation'
 
+export const fetchCache = 'default-no-store'
+
 async function getUserDetails() {
   const token = cookies().get('token')?.value
   const user_id = cookies().get('user_id')?.value
