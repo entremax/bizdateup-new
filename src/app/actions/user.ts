@@ -66,8 +66,9 @@ export default async function getUserDetails(): Promise<
   } as InvestorUserData | StartupUserData
 }
 
+
 /**
- * Retrieves the cookie data. Don't use in client components
+ * Retrieves the cooie data. Don't use in client components
  *
  * The cookie data containing token, user_id, accelerator_id, and isLoggedin.
  * If the token or user_id cookie is missing, the function will redirect to the login page.

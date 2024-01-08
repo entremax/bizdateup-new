@@ -112,7 +112,7 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
             </div>
           </div>
           <div className="flex h-full items-center justify-center">
-            <CopyWrapper text={`${originHost}/in${referrer_id}`}>
+            <CopyWrapper text={`${originHost}/refer_code/in${referrer_id}`}>
               <Button
                 type={'default'}
                 size={'large'}
@@ -195,7 +195,7 @@ const ReferralPage: React.FC<Props> = async ({ searchParams }) => {
               </div>
             </div>
             <div className="flex h-full w-full items-center justify-center">
-              <CopyWrapper text={`${originHost}/su${referrer_id}`}>
+              <CopyWrapper text={`${originHost}/refer_code/su${referrer_id}`}>
                 <Button
                   type={'default'}
                   size={'large'}

@@ -143,14 +143,14 @@ const OtherDetailsForm: React.FC<{ user: DataInner }> = ({ user }) => {
           ),
         )}
       </div>
-      <div className=" my-6 flex items-center justify-end px-8 pb-8">
+      <div className=" my-6 flex items-center  px-8 pb-8 md:w-1/6  md:justify-self-end">
         <Button
           loading={loading}
           disabled={loading}
           type={'default'}
           onClick={handleOtherUpdate}
           className={
-            '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+            '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block md:!bg-primary md:!text-white'
           }
           block>
           Save

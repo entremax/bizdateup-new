@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   IInvestmentDataResponse,
+  IInvestmentItem,
   ISendOtpResponseData,
   ITotalInvestmentResponse,
 } from '@/types'
@@ -82,8 +83,11 @@ export const api = createApi({
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
     }),
-    getInvestmentDetails: builder.query({
-      query: ({ token, refId }: { token: string; refId: string }) => ({
+    getInvestmentDetails: builder.query<
+      IInvestmentItem[],
+      { token: string; refId: string }
+    >({
+      query: ({ token, refId }) => ({
         url: baseUrl + 'v0/investment/investmentbyinvestor',
         headers: {
           'Content-Type': 'application/json',
@@ -183,8 +187,17 @@ export const api = createApi({
         response,
     }),
     updateProfileImage: builder.mutation({
-      query: (body) => ({
-        url: 'v0/investor/profile_pic',
+      query: ({
+        body,
+        profileType,
+      }: {
+        body: any
+        profileType: 'startup' | 'investor'
+      }) => ({
+        url:
+          profileType === 'investor'
+            ? 'v0/investor/profile_pic'
+            : 'v0/startup/logo',
         method: 'POST',
         body,
       }),

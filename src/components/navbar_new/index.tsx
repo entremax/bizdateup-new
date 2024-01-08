@@ -7,12 +7,18 @@ import Sidebar from '@/components/navbar_new/Sidebar'
 import NavbarLinks from '@/components/navbar_new/navbar_links'
 import getUserDetails from '@/action/user'
 import { cookies } from 'next/headers'
+import { InvestorUserData, StartupUserData } from '@/types'
 
 export default async function NavbarNew() {
   const { user, role } = await getUserDetails()
 
   const token = cookies()?.get('token')?.value
   const authenticated = !!token
+
+  const userData:
+    | Pick<InvestorUserData, 'user' | 'role'>
+    | Pick<StartupUserData, 'user' | 'role'> =
+    role === 'investor' ? { user, role: 'investor' } : { user, role: 'startup' }
 
   return (
     <>
@@ -21,7 +27,7 @@ export default async function NavbarNew() {
         <Link href={'/'} className={!authenticated ? 'flex-grow' : ''}>
           <Image
             priority
-            className="lg:pl-8"
+            className=""
             src={'/logo_full.svg'}
             height={80}
             width={176}
@@ -51,8 +57,8 @@ export default async function NavbarNew() {
             )
           )}
           {authenticated && (
-            <div className={' flex items-center justify-center gap-4 lg:gap-8'}>
-              <UserMenu userData={{ user, role: role ?? 'startup' }} />
+            <div className={' flex items-center justify-center gap-4'}>
+              <UserMenu {...userData} />
             </div>
           )}
           {!authenticated && (

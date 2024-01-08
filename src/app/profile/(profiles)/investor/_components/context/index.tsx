@@ -33,6 +33,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   function navigateNext(updated: UpdateType) {
     const findNextPendingStep = () => {
       const pendingSteps = [
+        { status: KYCStatus.profile, route: '/profile/investor' },
         { status: KYCStatus.aadhar, route: '/profile/investor/kyc' },
         { status: KYCStatus.pan, route: '/profile/investor/kyc/pan' },
         { status: KYCStatus.bank, route: '/profile/investor/bank' },
@@ -40,17 +41,21 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       ]
 
       const startIndex = pendingSteps.findIndex(
-        (step) => step.status === updated,
+        (step) => step.status === (updated === 'general' ? 'profile' : updated),
       )
 
-      for (let i = startIndex + 1; i < pendingSteps.length; i++) {
+      for (
+        let i = updated === 'other' ? 0 : startIndex + 1;
+        i < pendingSteps.length;
+        i++
+      ) {
         const nextStep = pendingSteps[i]
         if (user?.kycStatus.includes(nextStep.status)) {
           return nextStep.route
         }
       }
-
-      return null // No, pending KYC steps
+      router.refresh()
+      return pendingSteps[startIndex].route // No, pending KYC steps
     }
 
     const nextPendingStep = findNextPendingStep()
@@ -178,7 +183,27 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-    console.log(failed, user)
+    if (updating === 'aadhar') {
+      setLoading(true)
+      updateBankDetails(updatedData)
+        .unwrap()
+        .then((res) => {
+          setLoading(false)
+          return res
+        })
+        .catch((e) => {
+          failed = true
+          dispatch(
+            setNotification({
+              type: 'error',
+              message: "Couldn't Update Aadhar Details",
+              description: e.message,
+            }),
+          )
+          setLoading(false)
+          console.log(e)
+        })
+    }
 
     if (!failed) {
       navigateNext(updating)
@@ -186,6 +211,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     setLoading(false)
   }
+
   return (
     <UpdateContext.Provider
       value={{

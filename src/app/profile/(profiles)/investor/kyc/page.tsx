@@ -2,8 +2,8 @@ import React from 'react'
 import getUserDetails from '@/action/user'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
 import { redirect } from 'next/navigation'
+import AadharForm from '@/app/profile/(profiles)/investor/kyc/KYCForm'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -74,7 +74,7 @@ export default async function KYC({ searchParams }: Props) {
           <div className="h-1 w-full bg-light-shadow"></div>
         </div>
       ) : (
-        <PanForm user={user} />
+        <AadharForm user={user} />
       )}
     </div>
   )

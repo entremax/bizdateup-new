@@ -1,13 +1,15 @@
 import { Button } from 'antd'
 import ImageUploader from '@/components/profile/profileImageUploaderCustom'
 import ReduxProvider from '@/store/Provider'
-import { DataInner , DataStartup } from '@/types'
+import { DataInner, InvestorUserData, StartupUserData , DataStartup } from '@/types'
 import { cookies } from 'next/headers'
-import { redirect, RedirectType } from 'next/navigation'
-import { fetch } from 'next/dist/compiled/@edge-runtime/primitives'
 import { apiUri, cn } from '@/lib/utils'
 import { Icons } from '@/icons/icon'
 import React from 'react'
+import { StartupData } from '@/types/invest'
+import { redirect, RedirectType } from 'next/navigation'
+
+export const fetchCache = 'default-no-store'
 
 async function getUserDetails(role) {
   const token = cookies().get('token')?.value
@@ -18,7 +20,7 @@ async function getUserDetails(role) {
   // console.log("🚀 ~ file: profileHeader.tsx:15 ~ getUserDetails ~ role:", role)
 
   if (!user_id || !token) {
-    redirect('/login', 'push' as RedirectType)
+    return redirect('/login', 'push' as RedirectType)
   }
   
   let url = '/investor/fetchbyid'
@@ -50,30 +52,51 @@ async function getUserDetails(role) {
       console.log("🚀 ~ file: profileHeader.tsx:46 ~ getUserDetails ~ e:", e)
       throw new Error(e)
     })
-    const data = {
-      refId: user_id,
-      status: 200,
-      token: token,
-      user: res?.data?.data as any,
-    }
-    // console.log("🚀 ~ file: profileHeader.tsx:58 ~ getUserDetails ~ data:", data)
-  return data;
+
+  const userData: InvestorUserData | StartupUserData = res?.data?.data?.role
+    ? {
+        refId: user_id,
+        status: res?.data?.status,
+        token: token,
+        role: 'investor',
+        user: res?.data?.data as DataInner,
+      }
+    : {
+        refId: user_id,
+        status: res?.data?.status,
+        token: token,
+        role: 'startup',
+        user: res?.data?.data as StartupData,
+      }
+
+  return { ...userData }
 }
 
-export default async function ProfileHeader() {
-  const role = cookies().get('role')?.value
-  const { user }: { user: any } = await getUserDetails(role)
-  // console.log("🚀 ~ file: profileHeader.tsx:58 ~ ProfileHeader ~ user:", user)
 
+export default async function ProfileHeader() {
+  const { user, role, refId } = await getUserDetails()
+  if (!user || !role) {
+    return
+  }
+  const userData:
+    | { user: DataInner; role: 'investor'; refId: string }
+    | {
+        user: StartupData
+        role: 'startup'
+        refId: string
+      } =
+    role === 'investor'
+      ? { user, role: 'investor', refId }
+      : { user, role: 'startup', refId }
   return (
     <div className={cn(`flex flex-col items-center py-6 md:flex-row`)}>
       <div className="flex flex-col items-center gap-4 sm:flex-row md:flex-grow">
         <div className="relative flex h-28 w-28 items-center justify-center">
           <ReduxProvider>
-            <ImageUploader user={user} />
+            <ImageUploader {...userData} />
           </ReduxProvider>
           {user &&
-            user.role === 'investor' &&
+            role === 'investor' &&
             user.membership.isMember === 'yes' && (
               <div className="absolute -top-[1.6rem] right-2 rotate-12">
                 <Icons.Premium className={'h-12 w-16'} />
@@ -99,12 +122,14 @@ export default async function ProfileHeader() {
         {/* <Button>test</Button> */}
         {role == "investor"?
         <div className="justify-left grid items-center gap-2">
-          <h4 className="text-2xl text-primary-dark md:text-4xl">
-            {user?.firstName + ' ' + user?.lastName}
+          <h4 className="text-xl text-primary-dark md:text-4xl">
+            {role === 'investor'
+              ? user?.firstName + ' ' + user?.lastName
+              : user?.registeredCompanyName}
           </h4>
           <p className="flex items-center gap-3 font-semibold text-neutral-500">
             {user &&
-              user.role === 'investor' &&
+              role === 'investor' &&
               user.membership.isMember === 'yes' && (
                 <svg
                   width="106"
@@ -134,19 +159,9 @@ export default async function ProfileHeader() {
       </div>
       
       <div className="my-4 flex items-center justify-center gap-3 md:m-auto">
-        {role=="startup"?
-        <button
-          // type={'default'}
-          className={
-            '!h-auto w-full !border-none !bg-primary !px-6 !py-2 !text-white !outline-none md:w-auto'
-          }
-          >
-          Learn to Create Best Profile
-        </button>
-        :
-        <>
-        <button
-          // type={'default'}
+        <Button
+          type={'default'}
+          href={'/portfolio'}
           className={
             'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
           }

@@ -15,7 +15,6 @@ import FrequentlyAsked from '@/components/faq'
 import dynamic from 'next/dynamic'
 import { fetchData } from '@/lib/fetchApi'
 import getUserDetails from '@/action/user'
-import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -36,8 +35,7 @@ const Dashboard = async () => {
     'get',
     0,
   )) as Campaign[]
-  const token = cookies().get('token')?.value
-  const { user, status } = await getUserDetails()
+  const { user, status, token } = await getUserDetails()
   if (!token) {
     return redirect('/login')
   }

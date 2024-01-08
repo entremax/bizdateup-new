@@ -7,12 +7,14 @@ import { notifyUser } from '@/components/notification'
 import { apiUri, cn } from '@/lib/utils'
 import { useUser } from '@/hooks/useUser'
 import { DataInner } from '@/types'
-import {StartupData} from '@/types/invest'
+import { StartupData } from '@/types/invest'
 
 type IBorderColors = 'premium' | 'error' | 'normal' | 'uploading'
-type Props={user:DataInner,role:'investor'}|{user:StartupData,role:'startup'}
+type Props =
+  | { user: DataInner; role: 'investor'; refId: string }
+  | { user: StartupData; role: 'startup'; refId: string }
 
-const ImageUploader: React.FC<Props> = ({user,role}) => {
+const ImageUploader: React.FC<Props> = ({ user, role, refId }) => {
   const borderColors = {
     premium: 'drop-shadow-lg !border-[#F3B518]',
     normal: 'drop-shadow-lg !border-[#8686F5]',
@@ -21,12 +23,12 @@ const ImageUploader: React.FC<Props> = ({user,role}) => {
   }
   const { user: loacl } = useUser()
   const dispatch = useAppDispatch()
-  const clientUser = loacl?.userData
+
   const [uploadImage] = useUpdateProfileImageMutation()
   const [state, setState] = useState({
     file: null as File | null,
     borderColor:
-     (role==='investor'&&user?.membership?.isMember === 'yes')
+      role === 'investor' && user?.membership?.isMember === 'yes'
         ? 'premium'
         : ('normal' as IBorderColors),
   })
@@ -38,9 +40,9 @@ const ImageUploader: React.FC<Props> = ({user,role}) => {
       setState((prevState) => ({ ...prevState, borderColor: 'uploading' }))
 
       body.append('file', file)
-      body.append('refId', user?._id ?? '')
+      body.append('refId', role === 'investor' ? user?._id : refId)
 
-      uploadImage(body)
+      uploadImage({ body, profileType: role })
         .unwrap()
         .then((res) => {
           setState((prevState) => ({
@@ -57,7 +59,9 @@ const ImageUploader: React.FC<Props> = ({user,role}) => {
   }
 
   const determineBorderColor = () => {
-    return role==='investor'&&user?.membership?.isMember === 'yes' ? 'premium' : 'normal'
+    return role === 'investor' && user?.membership?.isMember === 'yes'
+      ? 'premium'
+      : 'normal'
   }
 
   useEffect(() => {
@@ -70,9 +74,11 @@ const ImageUploader: React.FC<Props> = ({user,role}) => {
     <div className={'max-h-[6rem] max-w-[6rem]'}>
       <ImageUpload
         previewImageUrl={
-          role!=='investor'
-            ? user?.logo===''?undefined:apiUri().v0 + '/logo/' + user?.logo
-            : user?.profilePic === ''?undefined:apiUri().v0 + '/investor/profile_pic/' + user?._id
+          role === 'startup'
+            ? apiUri().v0 + '/logo/' + user?.logo
+            : user?.profilePic === ''
+              ? undefined
+              : apiUri().v0 + '/investor/profile_pic/' + user?._id
         }
         onFileSet={handleFileChange}
         className={cn(

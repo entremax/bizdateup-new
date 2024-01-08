@@ -39,25 +39,32 @@ export async function createAccelerator() {
 
 /**
  * Use this method to retrieve the details of an invitee.
- * @returns  @type {Promise<Object>} - A promise that resolves to the invitee details.
+ * @returns {Promise<InviteeDetails>} - A promise that resolves to the invitee details.
  */
-export async function getInviteeDetails() {
-  let { accelerator_id, referrer_id } = await getCookieData()
+export async function getInviteeDetails(): Promise<InviteeDetails> {
+  try {
+    const { accelerator_id, referrer_id } = await getCookieData()
 
-  if (!accelerator_id) {
-    return redirect('/dashboard')
+    if (!accelerator_id) {
+      // Assuming redirect is a function to handle redirection
+      return redirect('/dashboard')
+    }
+
+    const response = await fetch(acceleratorApis.inviteeDetails + referrer_id)
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch invitee details. Status: ${response.status}`,
+      )
+    }
+
+    const res: { data: { data: InviteeDetails } } = await response.json()
+
+    return { ...res.data.data, accelerator_id, referrer_id }
+  } catch (error) {
+    console.error('Error in getInviteeDetails:', error)
+    throw new Error('Failed to fetch invitee details.')
   }
-  console.log(acceleratorApis.inviteeDetails + accelerator_id)
-  const res: { data: { data: InviteeDetails } } = await fetch(
-    acceleratorApis.inviteeDetails + referrer_id,
-  )
-    .then((res) => {
-      return res.json()
-    })
-    .catch((e) => {
-      throw new Error(e)
-    })
-  return { ...res.data.data, accelerator_id, referrer_id }
 }
 
 export async function setAcceleratorCookies(accelerator: {

@@ -30,6 +30,8 @@ const publicPaths = [
   /\.(svg|png|jpeg|webp|jpg)$/,
   /\.(js|css|map)$/, // <-- match js, css, map (sourcemap) files
   /_next.*\//,
+  /^\/?(su|in)\d+[a-z]*\d*[a-z]*\d*$/,
+  /\/refer_code.*/,
 ] // <-- match next.js specific paths like static files]
 const unauthenticated = [
   /\/login/,
@@ -39,7 +41,8 @@ const unauthenticated = [
   /\/socialLogin.*/,
 ]
 
-export function middleware(req: NextRequest) {
+
+export async function middleware(req: NextRequest) {
   const token = req.cookies.get('token')
   const role = req.cookies.get('role')?.value as UserRole
   const path = req.nextUrl.pathname
