@@ -126,8 +126,9 @@ export default  function Investments({investData}:{investData:StartupInvestment}
     String(index+1),                           
     startup.investorName,                    
     startup.type,                            
-    startup.createdAt,                       
-    startup.amountBreakdown.amount,                 
+    startup.createdAt,             
+    // @ts-ignore          
+    startup.amountBreakdown?.amount,                 
     startup.status,                          
   ]);
 
@@ -140,6 +141,8 @@ export default  function Investments({investData}:{investData:StartupInvestment}
    <div className={' flex flex-row items-center justify-between md:mx-4 lg:mx-4'}>
     <h2>Investors</h2>
    {investData?
+    // @ts-ignore          
+   
     <Download columnDefinitions={columnDefinitions} rowData={rowData} />:null
    }
 

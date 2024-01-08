@@ -64,7 +64,7 @@ const generatePdfBlob = (columnDefinitions: [any] , rowData : [any]) => {
             {/* Render data rows based on row data */}
             {rowData.map((row, rowIndex) => (
               <View key={rowIndex} style={styles.tableRow}>
-                {row.map((cell, colIndex) => (
+                {row.map((cell:any, colIndex:number) => (
                   <View key={colIndex} style={styles.tableCell}>
                     <Text style={styles.cellText}>
                       {columnDefinitions[colIndex].fieldType === 'Date'

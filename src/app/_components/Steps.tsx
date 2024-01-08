@@ -41,7 +41,7 @@ const OnboardingSteps: React.FC = () => {
             ),
             description: (
               <p className="whitespace-wrap text-[14px] font-normal text-[#6E6E73]">
-                Get on a Quick 15 min's Zoom Call with our Experts to understand
+                Get on a Quick 15 min &apos s Zoom Call with our Experts to understand
                 the Process & Terms for Selections & Investment.
               </p>
             ),

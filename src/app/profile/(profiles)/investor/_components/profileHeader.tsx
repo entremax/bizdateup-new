@@ -1,7 +1,8 @@
 import { Button } from 'antd'
 import ImageUploader from '@/components/profile/profileImageUploaderCustom'
 import ReduxProvider from '@/store/Provider'
-import { DataInner, InvestorUserData, StartupUserData , DataStartup } from '@/types'
+
+import { DataInner, InvestorUserData, StartupUserData } from '@/types'
 import { cookies } from 'next/headers'
 import { apiUri, cn } from '@/lib/utils'
 import { Icons } from '@/icons/icon'
@@ -11,7 +12,7 @@ import { redirect, RedirectType } from 'next/navigation'
 
 export const fetchCache = 'default-no-store'
 
-async function getUserDetails(role) {
+async function getUserDetails(role:any) {
   const token = cookies().get('token')?.value
   // console.log("🚀 ~ file: profileHeader.tsx:12 ~ getUserDetails ~ token:", token)
   const user_id = cookies().get('user_id')?.value
@@ -71,7 +72,6 @@ async function getUserDetails(role) {
 
   return { ...userData }
 }
-
 
 export default async function ProfileHeader() {
   const { user, role, refId } = await getUserDetails()
@@ -164,6 +164,23 @@ export default async function ProfileHeader() {
           href={'/portfolio'}
           className={
             'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+          }>
+          Check Portfolio
+        </Button>
+        <button
+          type={'default'}
+          className={
+            '!h-auto w-full !border-none !bg-primary !px-6 !py-2 !text-white !outline-none md:w-auto'
+          }
+          >
+          Learn to Create Best Profile
+        </button>
+        :
+        <>
+        <button
+          // type={'default'}
+          className={
+            'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
           }
           >
           
@@ -178,7 +195,7 @@ export default async function ProfileHeader() {
           >
           Book a Call
         </button>
-        </>}
+        </>
       </div>
     </div>
   )
