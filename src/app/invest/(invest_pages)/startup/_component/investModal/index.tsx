@@ -122,7 +122,11 @@ const InvestTransactionModal: React.FC<{ startup: StartupData }> = ({
       .unwrap()
       .then((res) => {
         if (res?.code !== 200) {
-          'Couldn\'t Finish Payment'ouldn't Finish Payment", res?.message)
+          modifyMessage(
+            'error',
+            'Couldn\'t Finish Payment',
+            res?.message ?? 'Something went wrong!',
+          )
           return
         }
         return res.data
