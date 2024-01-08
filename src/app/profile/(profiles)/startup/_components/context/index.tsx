@@ -4,30 +4,30 @@ import { DataInner } from '@/types'
 import { useUser } from '@/hooks/useUser'
 import { useAppDispatch } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
-import {  useUpdateCompanyDetailsMutation,
+import {
+  useUpdateCompanyDetailsMutation,
   useUpdateTeamMutation,
   useUpdateMentorMutation,
   useUpdatePitchMutation,
   useUpdateDealtermMutation,
   useUpdateDuefileMutation,
   useUpdateFaqMutation,
-  useUpdateEventMutation, 
-
+  useUpdateEventMutation,
   useDeleteMentorMutation,
   useDeleteTeamMutation,
   useDeleteEventMutation,
   useDeleteFaqMutation,
   useDeletePitchMutation,
   useDeleteDealfileMutation,
-
-} from '@/services/startupApiSlice' 
+} from '@/services/startupApiSlice'
+import { StartupData } from '@/types/invest'
 
 type UpdateType = 'company_details' | 'team' | 'delete_team' | 'delete_mentor' |  'delete_faq' | 'delete_event'
 |'delete_dealfile' |'mentor' | 'faq' | 'event' | 'dealterm' | 'duefile' | 'pitch' | 'logo' | 'delete_pitch'
 
 type ContextProps = {
   loading: boolean
-  handleUpdate: (formData: DataInner | unknown, updating: UpdateType) => any
+  handleUpdate: (formData: StartupData | unknown, updating: UpdateType) => any
 }
 const UpdateContext = createContext<ContextProps>({} as ContextProps)
 
@@ -37,7 +37,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useUser()
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
-
   const [updateCompany] = useUpdateCompanyDetailsMutation()
   const [updateTeam] = useUpdateTeamMutation()
   const [updateMentor] = useUpdateMentorMutation()
@@ -46,7 +45,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [duefile] = useUpdateDuefileMutation()
   const [updateFaq] = useUpdateFaqMutation()
   const [updateEvent] = useUpdateEventMutation()
-
   const [deleteMentor] = useDeleteMentorMutation()
   const [deleteTeam] = useDeleteTeamMutation()
   const [deleteFaq] = useDeleteFaqMutation()
@@ -54,8 +52,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [deleteDealFile] = useDeleteDealfileMutation()
   const [deletePitch] = useDeletePitchMutation()
   
-  const handleUpdate = (formData: DataInner | any, updating: UpdateType) => {
-    console.log("🚀 ~ file: index.tsx:49 ~ handleUpdate ~ formData:", formData)
+  const handleUpdate = (formData: StartupData | any, updating: UpdateType) => {
     if (!user) {
       dispatch(
         setNotification({
@@ -66,21 +63,14 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       )
       return
     }
-
     const updatedData = { ...formData, refId: user.userData._id }
-   
-    console.log("🚀 ~ file: index.tsx:53 ~ handleUpdate ~ formData:", formData)
-    console.log("🚀 ~ file: index.tsx:53 ~ handleUpdate ~ updatedData:", updatedData)
     setLoading(true)
-    setTimeout(() => {}, 3000)
-    
     if (updating === 'company_details') {
       setLoading(true)
-      console.log("company_details")
       updateCompany(formData)
         .unwrap()
         .then((res) => {
-          console.log("🚀 ~ file: index.tsx:62 ~ .then ~ res:", res)
+          console.log('🚀 ~ file: index.tsx:62 ~ .then ~ res:', res)
           setLoading(false)
           return res
         })
@@ -88,7 +78,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           dispatch(
             setNotification({
               type: 'error',
-              message: "Couldn't Update bank Details",
+              message: "Couldn't Update Company Details",
               description: e.message,
             }),
           )
@@ -96,7 +86,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'mentor') {
       setLoading(true)
       updateMentor(formData)
@@ -117,7 +106,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'team') {
       setLoading(true)
       updateTeam(formData)
@@ -138,7 +126,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'delete_team') {
       setLoading(true)
       deleteTeam(formData)
@@ -159,7 +146,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'delete_mentor') {
       setLoading(true)
       deleteMentor(formData)
@@ -180,7 +166,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'delete_faq') {
       setLoading(true)
       deleteFaq(formData)
@@ -201,7 +186,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'delete_event') {
       setLoading(true)
       deleteEvent(formData)
@@ -222,7 +206,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'delete_dealfile') {
       setLoading(true)
       deleteDealFile(formData)
@@ -243,7 +226,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'faq') {
       setLoading(true)
       updateFaq(formData)
@@ -264,7 +246,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'event') {
       setLoading(true)
       updateEvent(formData)
@@ -285,7 +266,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
     if (updating === 'pitch') {
       setLoading(true)
       updatePitch(formData)
@@ -366,7 +346,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-    
+
     setLoading(false)
   }
   return (

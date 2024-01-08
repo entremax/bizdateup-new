@@ -8,7 +8,7 @@ import DetailsTab from '@/components/profile/detailsTab'
 import dynamic from 'next/dynamic'
 
 export const metadata: Metadata = {
-  title: 'Profile - Investor | Bizdateup',
+  title: 'Profile/Investor | Bizdateup',
   description: 'General Profile of Investor',
 }
 const ProfileHeader = dynamic(

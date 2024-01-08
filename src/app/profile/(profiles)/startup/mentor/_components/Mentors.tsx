@@ -13,12 +13,12 @@ export default function TeamMembers({ startup }: { startup: StartupData }) {
       <div className="grid md:grid-cols-2">
         {startup.mentors.map((mentor: Mentors) => (
           <div
-              key={mentor.fullName}
-            className={'flex  items-center gap-4 py-4 px-4 lg:gap-2'}>
+            key={mentor.fullName}
+            className={'flex  items-center gap-4 px-4 py-4 lg:gap-2'}>
             <div className="min-w-[32px]">
               <Avatar
                 size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
-                src={api + '/teammember/' + mentor.profileImage}
+                src={api + '/mentorfile/' + mentor.profileImage}
               />
             </div>
             <div className="flex flex-col gap-0.5 lg:gap-1">

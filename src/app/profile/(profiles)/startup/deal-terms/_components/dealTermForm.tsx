@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { MutableRefObject, useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { FieldNames, Fields, Refs } from '@/types/profile'
 import Input from '@/components/form/Input'
@@ -15,18 +15,18 @@ import { useRouter } from 'next/navigation'
 
 export default function DealTerms({ deal }: { deal: dealTerms }) {
   const router = useRouter()
-  const refs: Refs = {
-    'valuation': useRef<InputRef | null>(null),
-    'discount': useRef<InputRef | null>(null),
-    'minimumInvestment': useRef<InputRef | null>(null),
-    'targetAmount': useRef<InputRef | null>(null),
+  const refs: Record<string, MutableRefObject<null | InputRef>> = {
+    valuation: useRef<InputRef | null>(null),
+    discount: useRef<InputRef | null>(null),
+    minimumInvestment: useRef<InputRef | null>(null),
+    targetAmount: useRef<InputRef | null>(null),
   }
 
   const { handleUpdate, loading } = useStartupUpdateContext();
   const [selected, setSelected] = useState({
     typeOfSecurity: deal.typeOfSecurity,
   })
-  const inputFields: Fields[] = [
+  const inputFields = [
     {
       name: 'typesOfSecurity',
       label: 'Types of Security',
@@ -63,7 +63,6 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
       label: 'Minimum Investment',
       defaultValue: deal?.minimumInvestment,
       disabled: !!deal?.minimumInvestment,
-      
     },
     {
       name: 'targetAmount',
@@ -71,7 +70,7 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
       label: 'Target Amount',
       disabled: !!deal?.targetAmount,
     },
-  ];
+  ]
   
   const handleChange = (
     fieldName: any,
@@ -84,8 +83,8 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
   }
   console.log(deal)
   const handleProfileUpdate = async () => {
-    let values: { [key in FieldNames]: unknown | null } = {} as {
-      [key in FieldNames]: unknown | null
+    let values = {} as {
+      [key: keyof typeof refs]: unknown | null
     }       
     for (let key in refs) {
       //@ts-ignore
@@ -107,7 +106,7 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
   return (
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 lg:grid-cols-2">
-        {inputFields.slice(0, 6).map((field , index) =>
+        {inputFields.slice(0, 6).map((field, index) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
               key={field.label}
@@ -120,7 +119,6 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
                 value: option.value,
                 label: option.label,
               }))}
-              placeholder={field.placeholder}
               defaultValue={field.defaultValue}
               name={field.name}
               onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
@@ -128,14 +126,13 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
               }
               // placeholder={field.placeholder}
             />
-           ) : (
+          ) : (
             <Input
               key={field.name}
               defaultValue={field.defaultValue}
               disabled={field.disabled}
-              ref={field.fieldType !== 'select' && refs[field.name]}
+              ref={field.fieldType !== 'select' ? undefined : refs[field.name]}
               name={field.name}
-              type={field.type}
               label={field.label}
               className={index === 2 ? 'lg:col-span-2' : ''}
               placeholder={`Enter your ${field.name}`}
@@ -143,7 +140,7 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
           ),
         )}
       </div>
-      
+
       <div className=" flex items-center justify-end px-8 pb-8">
         <Button
           loading={loading}

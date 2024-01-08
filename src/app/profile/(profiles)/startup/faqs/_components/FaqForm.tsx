@@ -1,9 +1,9 @@
 'use client'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { StartupData, TeamMember } from '@/types/invest'
+import React, { useCallback, useMemo, useState } from 'react'
+import { FAQ, StartupData } from '@/types/invest'
 import FaqFormSingleItem from './FaqFormSingleItem'
 import { Button } from 'antd'
-import { useStartupUpdateContext } from '@/components/profile/startup/context';
+import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
 
 export default function FaqForm({ initialUsers }: { initialUsers: StartupData }) {
@@ -37,20 +37,23 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
     await handleUpdate(data, 'faq');
     return router.refresh();
   };
-
-  const changeHandler = useCallback((index: number, field: string, newData: any) => {
-    setFaq((prevFaq) => {
-      const updatedData = [...prevFaq];
-      if (index >= 0 && index < updatedData.length) {
-        updatedData[index][field] = newData;
-        console.log("Updated Data:", updatedData);
-        return updatedData;
-      } else {
-        console.error("Invalid index:", index);
-        return prevFaq;
-      }
-    });
-  }, []);
+  
+  const changeHandler = useCallback(
+    (index: number, field: keyof FAQ, newData: any) => {
+      setFaq((prevFaq) => {
+        const updatedData = [...prevFaq]
+        if (index >= 0 && index < updatedData.length) {
+          updatedData[index][field] = newData
+          console.log('Updated Data:', updatedData)
+          return updatedData
+        } else {
+          console.error('Invalid index:', index)
+          return prevFaq
+        }
+      })
+    },
+    [],
+  )
 
   const memoizedChangeHandler = useMemo(() => changeHandler, [changeHandler]);
 
@@ -60,17 +63,18 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
         const deletedFaq = prevFaq[index];
 
         if (deletedFaq._id) {
-            const data = {
-              refId:initialUsers._id,
-              delId:deletedFaq._id
-            }
-            console.log("🚀 ~ file: TeamForm.tsx:87 ~ setTeamMembers ~ data:", data)
-            handleUpdate(data , 'delete_faq')
+          const data = {
+            refId: initialUsers._id,
+            delId: deletedFaq._id,
+          }
+          console.log(
+            '🚀 ~ file: TeamForm.tsx:87 ~ setTeamMembers ~ data:',
+            data,
+          )
+          handleUpdate(data, 'delete_faq')
         }
 
-        const updatedFaq = [...prevFaq.slice(0, index), ...prevFaq.slice(index + 1)];
-
-        return updatedFaq;
+        return [...prevFaq.slice(0, index), ...prevFaq.slice(index + 1)]
       } else {
         console.error('Invalid index:', index);
         return prevFaq;
@@ -95,31 +99,31 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
   return (
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 lg:grid-cols-1">
-        {faq.map((faqs , index) =>
-        <>
-          <FaqFormSingleItem 
-          key={index} 
-          faq={faqs}  
-          index={index}
-          changeHandler={memoizedChangeHandler}
-          removeHandler={remove}/>
-          {index+1<faq?.length?
-          <div key={index} className="h-2 w-full bg-light-shadow"></div>:null
-        }
+        {faq.map((faqs, index) => (
+          <>
+            <FaqFormSingleItem
+              key={index}
+              faq={faqs}
+              index={index}
+              changeHandler={memoizedChangeHandler}
+              removeHandler={remove}
+            />
+            {index + 1 < faq?.length ? (
+              <div key={index} className="h-2 w-full bg-light-shadow"></div>
+            ) : null}
           </>
-        )}
+        ))}
       </div>
-      
+
       <div className="flex items-center justify-between px-8 pb-8">
         <Button
           loading={loading}
           disabled={loading}
           type={'default'}
-          onClick={addNew}  
+          onClick={addNew}
           className={
-            '!h-auto !border-none !bg-none !px-6 !py-2 font-medium !text-primary !outline-none w-1/4 md:w-1/4'
-          }
-          >
+            '!h-auto w-1/4 !border-none !bg-none !px-6 !py-2 font-medium !text-primary !outline-none md:w-1/4'
+          }>
           + Add another question
         </Button>
         <Button
@@ -128,9 +132,8 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
           type={'default'}
           onClick={handleFaqUpdate}
           className={
-            '!bg-light-shadow !px-6 !py-2 font-medium  !outline-none  !h-auto !border-none !bg-primary !px-6 !py-2 !text-white !outline-none w-1/4 md:w-1/4'
-          }
-          >
+            '!h-auto   w-1/4 !border-none !bg-primary !px-6 !py-2 font-medium !text-white !outline-none md:w-1/4'
+          }>
           Save
         </Button>
       </div>

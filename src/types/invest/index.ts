@@ -48,7 +48,7 @@ export interface Mentors {
   fullName: string
   description: string
   linkedinUrl: string
-  _id: string
+  _id?: string
 }
 export interface Events {
   banner: string
@@ -114,9 +114,9 @@ export interface StartupData {
   profileComplete: string
   teamMembers: TeamMember[]
   faq: FAQ[]
-  mentors: any[] // Empty for now
+  mentors: Mentors[] // Empty for now
   dueDiligenceFiles: DueDiligenceFile[]
-  events: any[] // Empty for now
+  events: Events[] // Empty for now
   created_at: string
   __v: number
 }

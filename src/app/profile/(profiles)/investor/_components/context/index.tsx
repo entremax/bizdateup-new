@@ -31,6 +31,9 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [updateBankDetails] = useUpdateBankDetailsMutation()
 
   function navigateNext(updated: UpdateType) {
+    if (user && user.role !== 'investor') {
+      return
+    }
     const findNextPendingStep = () => {
       const pendingSteps = [
         { status: KYCStatus.profile, route: '/profile/investor' },
@@ -50,7 +53,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         i++
       ) {
         const nextStep = pendingSteps[i]
-        if (user?.kycStatus.includes(nextStep.status)) {
+        if (user?.kycStatus?.includes(nextStep.status)) {
           return nextStep.route
         }
       }

@@ -84,7 +84,7 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
         return router.refresh();
       }
     } catch (error) {
-      console.error('Error updating profile:', error);   
+      console.error('Error updating profile:', error)
     }
   };
 
@@ -114,39 +114,41 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
   return (
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 lg:grid-cols-1">
-      <ImageUploader
-              // key={user._id}
-              // disabled={false}
-              // defaultValue={event.url}
-              //@ts-ignore
-              // ref={field.fieldType !== 'select' && refs[field.name]}
-              name={"event"}
-              type={"docs"}
-              onChange={onChange}
-              // label={"Image"}
-              multiple={true}
-              placeholder={`Upload Image`}
-            />
+        <ImageUploader
+          // key={user._id}
+          // disabled={false}
+          // defaultValue={event.url}
+          //@ts-ignore
+          // ref={field.fieldType !== 'select' && refs[field.name]}
+          name={'event'}
+          type={'docs'}
+          //@ts-ignore
+          onChange={(file) => onChange(file)}
+          // label={"Image"}
+          multiple={true}
+          placeholder={`Upload Image`}
+        />
       </div>
-      
+
       <div className="grid grid-cols-1 px-8 py-4 pb-8">
-      {user.map(( file , index ) => (
-              <React.Fragment key={file._id}>
-                <div className="border_gray rounded-2xl my-2 p-5 flex flex-row items-center gap-2">
-              <FileIcons.Pdf/>    <span className="text-md text-gray-400">{file.name}</span>
-              <div onClick={()=>removeUploaded(index)}>X</div>
-              </div>
-              </React.Fragment>
-            ))}
-      {files.map(( file , index ) => (
-              <React.Fragment key={index}>
-                <div className="border_gray rounded-2xl my-2 p-5 flex flex-row items-center gap-2">
-              <FileIcons.Pdf/>    <span className="text-md text-gray-400">{file.name}</span>
-               <div onClick={()=>removeUnUploaded(index)}>X</div>
-              </div>
-              
-              </React.Fragment>
-            ))}
+        {user.map((file, index) => (
+          <React.Fragment key={file._id}>
+            <div className="border_gray my-2 flex flex-row items-center gap-2 rounded-2xl p-5">
+              <FileIcons.Pdf />{' '}
+              <span className="text-md text-gray-400">{file.name}</span>
+              <div onClick={() => removeUploaded(index)}>X</div>
+            </div>
+          </React.Fragment>
+        ))}
+        {files.map((file, index) => (
+          <React.Fragment key={index}>
+            <div className="border_gray my-2 flex flex-row items-center gap-2 rounded-2xl p-5">
+              <FileIcons.Pdf />{' '}
+              <span className="text-md text-gray-400">{file.name}</span>
+              <div onClick={() => removeUnUploaded(index)}>X</div>
+            </div>
+          </React.Fragment>
+        ))}
       </div>
       <div className="flex items-center justify-between px-8 pb-8">
         <Button
@@ -155,9 +157,8 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
           type={'default'}
           onClick={handleProfileUpdate}
           className={
-            '!bg-light-shadow !px-6 !py-2 font-medium  !outline-none  !h-auto !border-none !bg-primary !px-6 !py-2 !text-white !outline-none w-1/4 md:w-1/4'
-          }
-          >
+            '!h-auto w-1/4 !border-none !bg-light-shadow  !bg-primary  !px-6 !px-6 !py-2 !py-2 font-medium !text-white !outline-none !outline-none md:w-1/4'
+          }>
           Save
         </Button>
       </div>

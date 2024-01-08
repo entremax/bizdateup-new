@@ -51,10 +51,10 @@ const States = [
 
 export default function RegistrationForm({ user }: { user: DataInner }) {
   const router = useRouter()
-  const refs: Refs = {
+  const refs: Record<string, React.MutableRefObject<InputRef | null>> = {
     'first-name': useRef<InputRef | null>(null),
     'last-name': useRef<InputRef | null>(null),
-    'email-id': useRef<InputRef | null>(null),
+    'p-ml': useRef<InputRef | null>(null),
     'phone-number': useRef<InputRef | null>(null),
     referral: useRef<InputRef | null>(null),
     address: useRef<InputRef | null>(null),
@@ -80,7 +80,7 @@ export default function RegistrationForm({ user }: { user: DataInner }) {
       defaultValue: user?.lastName,
     },
     {
-      name: 'email-id',
+      name: 'p-ml',
       type: 'email',
       label: 'EmailID',
       defaultValue: user?.email,
@@ -194,7 +194,7 @@ export default function RegistrationForm({ user }: { user: DataInner }) {
       firstName: values['first-name'],
       lastName: values['last-name'],
       phone: values['phone-number'],
-      email: values['email-id'],
+      email: values['p-ml'],
       gender: selected.gender,
       address: values.address,
       city: values.city,

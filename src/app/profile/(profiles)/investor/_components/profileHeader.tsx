@@ -1,7 +1,6 @@
 import { Button } from 'antd'
 import ImageUploader from '@/components/profile/profileImageUploaderCustom'
 import ReduxProvider from '@/store/Provider'
-
 import { DataInner, InvestorUserData, StartupUserData } from '@/types'
 import { cookies } from 'next/headers'
 import { apiUri, cn } from '@/lib/utils'
@@ -9,73 +8,73 @@ import { Icons } from '@/icons/icon'
 import React from 'react'
 import { StartupData } from '@/types/invest'
 import { redirect, RedirectType } from 'next/navigation'
+import getUserDetails from '@/action/user'
 
 export const fetchCache = 'default-no-store'
 
-async function getUserDetails(role:any) {
-  const token = cookies().get('token')?.value
-  // console.log("🚀 ~ file: profileHeader.tsx:12 ~ getUserDetails ~ token:", token)
-  const user_id = cookies().get('user_id')?.value
-  // console.log("🚀 ~ file: profileHeader.tsx:13 ~ getUserDetails ~ user_id:", user_id)
-  // const role = cookies().get('role')?.value
-  // console.log("🚀 ~ file: profileHeader.tsx:15 ~ getUserDetails ~ role:", role)
+// async function getUserDetails() {
+//   const token = cookies().get('token')?.value
+//   const user_id = cookies().get('user_id')?.value
+//   const role = cookies().get('role')?.value
+//
+//   if (!user_id || !token) {
+//     return redirect('/login', 'push' as RedirectType)
+//   }
+//   let url = '/investor/fetchbyid'
+//   let config: any = {
+//     next: { revalidate: 0 },
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       Authorization: `Bearer ${token}`,
+//     },
+//     body: JSON.stringify({ refId: user_id }),
+//   }
+//   if (role === 'startup') {
+//     url = '/startup/fetchStartupById?refId=' + user_id
+//     config = {
+//       next: { revalidate: 0 },
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${token}`,
+//       },
+//     }
+//   }
+//   const res = await fetch(apiUri().v0 + url, config)
+//     .then((res) => {
+//       return res.json()
+//     })
+//     .catch((e) => {
+//       console.log(e)
+//       throw new Error(e)
+//     })
+//
+//   const userData: InvestorUserData | StartupUserData = res?.data?.data?.role
+//     ? {
+//       refId: user_id,
+//       status: res?.data?.status,
+//       token: token,
+//       role: 'investor',
+//       user: res?.data?.data as DataInner,
+//     }
+//     : {
+//       refId: user_id,
+//       status: res?.data?.status,
+//       token: token,
+//       role: 'startup',
+//       user: res?.data?.data as StartupData,
+//     }
+//
+//   return { ...userData }
+// }
 
-  if (!user_id || !token) {
-    return redirect('/login', 'push' as RedirectType)
-  }
-  
-  let url = '/investor/fetchbyid'
-  let config: any = {
-    next: { revalidate: 0 },
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ refId: user_id }),
-  }
-  if (role === 'startup') {
-    url = '/startup/fetchStartupByRef?refId=' + user_id
-    config = {
-      next: { revalidate: 0 },
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  }
-  const res = await fetch(apiUri().v0 + url, config)
-    .then((res) => {
-      return res.json()
-    })
-    .catch((e) => {
-      console.log("🚀 ~ file: profileHeader.tsx:46 ~ getUserDetails ~ e:", e)
-      throw new Error(e)
-    })
-
-  const userData: InvestorUserData | StartupUserData = res?.data?.data?.role
-    ? {
-        refId: user_id,
-        status: res?.data?.status,
-        token: token,
-        role: 'investor',
-        user: res?.data?.data as DataInner,
-      }
-    : {
-        refId: user_id,
-        status: res?.data?.status,
-        token: token,
-        role: 'startup',
-        user: res?.data?.data as StartupData,
-      }
-
-  return { ...userData }
-}
 
 export default async function ProfileHeader() {
   const { user, role, refId } = await getUserDetails()
+  console.log(user)
   if (!user || !role) {
+    'Check failed'
     return
   }
   const userData:
@@ -119,8 +118,6 @@ export default async function ProfileHeader() {
             </svg>
           </div>
         </div>
-        {/* <Button>test</Button> */}
-        {role == "investor"?
         <div className="justify-left grid items-center gap-2">
           <h4 className="text-xl text-primary-dark md:text-4xl">
             {role === 'investor'
@@ -147,55 +144,62 @@ export default async function ProfileHeader() {
           </p>
           <p className="font-normal text-neutral-400">{user?.email}</p>
         </div>
-        :
-        <div className="justify-left grid items-center gap-2">
-          <h4 className="text-2xl text-primary-dark md:text-4xl">
-            {user?.registeredCompanyName}
-          </h4>
- 
-          <p className="font-normal text-neutral-400">Profile Owner : {user?.founderLastName}</p>
-        </div>
-        }
       </div>
-      
       <div className="my-4 flex items-center justify-center gap-3 md:m-auto">
-        <Button
-          type={'default'}
-          href={'/portfolio'}
-          className={
-            'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
-          }>
-          Check Portfolio
-        </Button>
-        <button
-          type={'default'}
-          className={
-            '!h-auto w-full !border-none !bg-primary !px-6 !py-2 !text-white !outline-none md:w-auto'
-          }
-          >
-          Learn to Create Best Profile
-        </button>
-        :
-        <>
-        <button
-          // type={'default'}
-          className={
-            'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
-          }
-          >
-          
-        </button>
-        
-        <button
-          // type={'default'}
-          className={
-            '!h-auto w-full !border-none !bg-primary !px-6 !py-2 !text-white !outline-none md:w-auto'
-          }
-          // block
-          >
-          Book a Call
-        </button>
-        </>
+        {role === 'investor' ? (
+          <>
+            <Button
+              type={'default'}
+              href={'/portfolio'}
+              className={
+                'hidden !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+              }>
+              Check Portfolio
+            </Button>
+            <Button
+              type={'default'}
+              className={
+                '!h-auto w-full !border-none !bg-primary !px-6 !py-2 !text-white !outline-none md:w-auto'
+              }
+              block>
+              Book a Call
+            </Button>
+          </>
+        ) : (
+          <Button
+            type={'default'}
+            className={
+              '!flex !h-auto w-full !items-center !border-none !bg-primary !px-6 !py-2 !text-white !outline-none md:w-auto'
+            }
+            icon={
+              <svg
+                width="18"
+                height="14"
+                viewBox="0 0 18 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12.5781 9.94843C12.6455 11.4752 11.4133 12.7662 9.8262 12.8311C9.7093 12.836 4.01011 12.8245 4.01011 12.8245C2.43066 12.9444 1.04831 11.8094 0.923731 10.2884C0.914345 10.1751 0.916905 4.06 0.916905 4.06C0.846934 2.53163 2.07739 1.23733 3.66538 1.16998C3.78399 1.16424 9.47549 1.17491 9.47549 1.17491C11.0626 1.05665 12.4492 2.19984 12.5721 3.72821C12.5806 3.83826 12.5781 9.94843 12.5781 9.94843Z"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M12.5781 5.31621L15.3223 3.07037C16.0023 2.51371 17.0223 2.99871 17.0215 3.87621L17.0115 10.0004C17.0106 10.8779 15.9898 11.3587 15.3115 10.802L12.5781 8.55621"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            }
+            block>
+            Learn to create best profile
+          </Button>
+        )}
       </div>
     </div>
   )

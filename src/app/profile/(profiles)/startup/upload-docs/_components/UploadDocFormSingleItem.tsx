@@ -48,7 +48,6 @@ export default function FaqSingleItem({ event }: { event: Events }) {
             <div className="py-4 px-4 col-span-2">
             <ImageUploader
               key={event._id}
-              disabled={false}
               defaultValue={event.url}
               //@ts-ignore
               // ref={field.fieldType !== 'select' && refs[field.name]}

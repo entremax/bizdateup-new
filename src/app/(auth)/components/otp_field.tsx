@@ -53,7 +53,7 @@ export default function OtpField({ id }: { id: string }) {
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
   const [otp, setOtp] = useState('')
   const actionType = searchParams.get('type')
-  const userRole = searchParams.get('role') as 'investor' | 'startup' | null
+  const userRole = searchParams.get('role') as 'investor' | 'startup'
   const { temp_auth_medium, userId } = useAppSelector(
     ({ authUser }) => authUser,
   )
@@ -144,7 +144,7 @@ export default function OtpField({ id }: { id: string }) {
           dispatch,
           setUser,
           user: {
-            role: userRole ?? 'investor',
+            role: userRole,
             userData: investorData,
             token,
             refId,
@@ -160,7 +160,7 @@ export default function OtpField({ id }: { id: string }) {
             dispatch,
             setUser,
             user: {
-              role: userRole ?? 'investor',
+              role: userRole,
               userData: investorData,
               token,
               refId,

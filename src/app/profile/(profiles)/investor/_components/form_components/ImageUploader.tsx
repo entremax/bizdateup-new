@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { message } from 'antd';
+import { message, type UploadProps } from 'antd'
 import Image from 'next/image';
 interface ImageUploaderProps {
   wrapperClassName?: string;

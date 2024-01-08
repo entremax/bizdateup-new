@@ -1,15 +1,12 @@
 "use client"
-// Import necessary libraries and components
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { InputRef } from 'antd/lib/input';
+import React, { useCallback, useMemo, useState } from 'react'
 import { Button } from 'antd';
 import { DefaultOptionType } from 'rc-select/lib/Select';
 import { UploadProps } from 'antd';
 import TeamFormSingleItem from '@/components/profile/startup/TeamFormSingleItem';
 import { useStartupUpdateContext } from '@/components/profile/startup/context';
 import { useRouter } from 'next/navigation';
-import { StartupData } from '@/types/invest';
-import { FieldNames, Refs } from '@/types/profile';
+import { StartupData, TeamMember } from '@/types/invest'
 
 export default function TeamForm({ initialUsers }: { initialUsers: StartupData }) {
   console.log("🚀 ~ file: TeamForm.tsx:15 ~ TeamForm ~ initialUsers:", initialUsers)
@@ -32,44 +29,47 @@ export default function TeamForm({ initialUsers }: { initialUsers: StartupData }
 
   // Function to update team members
   const handleTeamMembersUpdate = async () => {
-    const data = new FormData();
-    data.append('refId', initialUsers._id);
-    
+    const data = new FormData()
+    data.append('refId', initialUsers._id)
+
     teamMembers?.forEach((item, index) => {
-      console.log("Index:", index);
+      console.log('Index:', index)
       if (item.fullName && item.linkedinUrl) {
-        data.append(`_id[]`, item._id || "new");
-        data.append(`fullName[]`, item.fullName);
-        data.append(`designation[]`, item.designation);
-        data.append(`linkedinUrl[]`, item.linkedinUrl);
-        
-        if (typeof item.profileImage == 'string') {
-          data.append(`unchanged_file[]`, index);
+        data.append(`_id[]`, item._id || 'new')
+        data.append(`fullName[]`, item.fullName)
+        data.append(`designation[]`, item.designation)
+        data.append(`linkedinUrl[]`, item.linkedinUrl)
+
+        if (typeof item.profileImage === 'string') {
+          data.append(`unchanged_file[]`, index as unknown as string)
         } else {
-          data.append(`files`, item.profileImage);
-          data.append(`changed_file[]`, index);
+          data.append(`files`, item.profileImage)
+          data.append(`changed_file[]`, index as unknown as string)
         }
       }
-    });
+    })
 
-    await handleUpdate(data, 'team');
-    return router.refresh();
-  };
+    await handleUpdate(data, 'team')
+    return router.refresh()
+  }
 
-  const changeHandler = useCallback((index: number, field: string, newData: any) => {
-    setTeamMembers((prevTeamMembers) => {
-      const updatedData = [...prevTeamMembers];
+  const changeHandler = useCallback(
+    (index: number, field: keyof TeamMember, newData: any) => {
+      setTeamMembers((prevTeamMembers) => {
+        const updatedData = [...prevTeamMembers]
 
-      if (index >= 0 && index < updatedData.length) {
-        updatedData[index][field] = newData;
-        console.log("Updated Data:", updatedData);
-        return updatedData;
-      } else {
-        console.error("Invalid index:", index);
-        return prevTeamMembers;
-      }
-    });
-  }, []);
+        if (index >= 0 && index < updatedData.length) {
+          updatedData[index][field] = newData
+          console.log('Updated Data:', updatedData)
+          return updatedData
+        } else {
+          console.error('Invalid index:', index)
+          return prevTeamMembers
+        }
+      })
+    },
+    [],
+  )
 
   const memoizedChangeHandler = useMemo(() => changeHandler, [changeHandler]);
 

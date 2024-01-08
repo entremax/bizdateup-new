@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { FieldNames, Refs } from '@/types/profile'
 import Input from '@/components/form/Input'
@@ -52,7 +52,10 @@ const States = [
 
 export default function GeneralForm({ user }: { user: DataInner }) {
   const router = useRouter()
-  const refs: Refs = {
+  const [refer_code, setReferCode] = useState<string | undefined>(
+    user?.refer ?? '',
+  )
+  const refs: Record<string, MutableRefObject<null | InputRef>> = {
     'first-name': useRef<InputRef | null>(null),
     'last-name': useRef<InputRef | null>(null),
     'p-ml': useRef<InputRef | null>(null),
@@ -69,12 +72,14 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     country: user.address.country,
     state: user.address.state,
   })
-  const getReferCode = () => {
-    if (user?.refer) {
-      return user?.refer
-    }
-    return sessionStorage.getItem('refer_code') ?? undefined
-  }
+
+  useEffect(() => {
+    setReferCode(
+      sessionStorage
+        ? sessionStorage?.getItem('refer_code') ?? undefined
+        : user?.refer ?? undefined,
+    )
+  }, [user.refer])
   const inputFields = [
     {
       name: 'first-name',
@@ -122,7 +127,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     },
     {
       name: 'referral',
-      defaultValue: getReferCode(),
+      defaultValue: refer_code,
       label: 'Referral Code',
       disabled: true,
     },

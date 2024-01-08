@@ -30,27 +30,26 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
   const handleProfileUpdate = async () => {
     try {
       if (file) {
-        const data = new FormData();
-        data.append('refId', initialUsers._id);
-  
-          data.append('files', file);
-      
-        await handleUpdate(data, 'pitch');
-        return router.refresh();
+        const data = new FormData()
+        data.append('refId', initialUsers._id)
+
+        data.append('files', file)
+
+        await handleUpdate(data, 'pitch')
+        return router.refresh()
       }
     } catch (error) {
-      console.error('Error updating profile:', error);   
+      console.error('Error updating profile:', error)
     }
-  };
+  }
 
-  const onChange = (selectedFiles: File |  undefined) => {
-    console.log("🚀 ~ file: PitchForm.tsx:47 ~ onChange ~ selectedFiles:", selectedFiles)
-    if (selectedFiles ) {
-      
-           setFiles(selectedFiles);
-           setUser("");
+  const onChange = (file: any) => {
+    console.log('🚀 ~ file: PitchForm.tsx:47 ~ onChange ~ selectedFiles:', file)
+    if (file) {
+      setFiles(file)
+      setUser('')
     }
-  };
+  }
   
   return (
     <div className="grid grid-cols-1">

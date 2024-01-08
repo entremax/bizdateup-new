@@ -31,8 +31,8 @@ export default function TeamSingleItem({
       const reader = new FileReader();
       reader.onload = () => {
         const base64String = reader.result as string;
-        setPreviewImage(base64String);
-        changeHandler && changeHandler(index, "banner", file); 
+        setPreviewImage(base64String)
+        changeHandler && changeHandler(index, 'profileImage', file)
       };
 
       // Read the file as a data URL (base64)

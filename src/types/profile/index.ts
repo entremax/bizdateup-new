@@ -1,5 +1,10 @@
 import React, { HTMLInputTypeAttribute } from 'react'
-import { InputProps, SelectProps } from 'antd'
+import {
+  InputProps,
+  RadioChangeEvent,
+  RadioGroupProps,
+  SelectProps,
+} from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import {TextAreaProps} from 'antd/lib/input'
 
@@ -129,5 +134,16 @@ export interface CustomSelectProps extends SelectProps {
   name: string
   label: string
   options: DefaultOptionType[]
+  wrapperClassName?: string
+}
+
+export interface RadioInputProps extends RadioGroupProps {
+  options: Array<{ label: string; value: string | number }>
+  defaultValue?: string | number | any
+  onChange?: (e: RadioChangeEvent) => void
+  name: string
+  className?: string
+  label: string
+  labelClassName?: string
   wrapperClassName?: string
 }

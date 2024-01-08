@@ -90,13 +90,19 @@ const Investments = ({ columnDefinitions , rowData }: { columnDefinitions: [any]
   }, [])
   return (
     <div>
-{isClient?
-      <PDFDownloadLink document={generatePdfBlob(columnDefinitions , rowData )} fileName="investment_details.pdf">
-        {({ blob, url, loading, error }) => (loading ? 'Loading document...' : <Export/>)}
-      </PDFDownloadLink>:'Loading document...'
-}
+      {isClient ? (
+        <PDFDownloadLink
+          document={generatePdfBlob(columnDefinitions, rowData)}
+          fileName="investment_details.pdf">
+          {({ loading }: { loading: boolean }) =>
+            loading ? 'Loading document...' : <Export />
+          }
+        </PDFDownloadLink>
+      ) : (
+        'Loading document...'
+      )}
     </div>
-  );
+  )
 };
 
 export default Investments;

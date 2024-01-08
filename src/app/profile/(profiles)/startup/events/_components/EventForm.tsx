@@ -1,12 +1,10 @@
 'use client'
-import React, {  useCallback, useMemo, useState } from 'react'
-import { StartupData, TeamMember } from '@/types/invest'
+import React, { useCallback, useMemo, useState } from 'react'
+import { Events, StartupData } from '@/types/invest'
 import EventFormSingleItem from './EventFormSingleItem'
 import { Button } from 'antd'
-import { DefaultOptionType } from 'rc-select/lib/Select'
-import { DataStartup } from '@/types'
 import { useRouter } from 'next/navigation'
-import { useStartupUpdateContext } from '@/components/profile/startup/context';
+import { useStartupUpdateContext } from '@/components/profile/startup/context'
 
 export default function FaqForm({ initialUsers }: { initialUsers: StartupData }) {
   const router = useRouter()
@@ -25,34 +23,40 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
         data.append(`time[]`, item.time);
         data.append(`date[]`, item.date);
         if (typeof item.banner == 'string') {
-          data.append(`unchanged_file[]`, index);
+          data.append(`unchanged_file[]`, String(index))
         } else {
           data.append(`files`, item.banner);
-          data.append(`changed_file[]`, index);
+          data.append(`changed_file[]`, String(index))
         }
       }
     });
     await handleUpdate(data, 'event')
     return router.refresh()
   }
+  
+  const changeHandler = useCallback(
+    (index: number, field: keyof Events, newData: any) => {
+      console.log('🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ index:', index)
+      console.log(
+        '🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ newData:',
+        newData,
+      )
+      console.log('🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ field:', field)
 
-  const changeHandler = useCallback((index: number, field: string, newData: any) => {
-    console.log("🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ index:", index)
-    console.log("🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ newData:", newData)
-    console.log("🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ field:", field)
-
-    setEvents((prevEvent) => {
-      const updatedData = [...prevEvent];
-      if (index >= 0 && index < updatedData.length) {
-        updatedData[index][field] = newData;
-        console.log("Updated Data:", updatedData);
-        return updatedData;
-      } else {
-        console.error("Invalid index:", index);
-        return prevEvent;
-      }
-    });
-  }, []);
+      setEvents((prevEvent) => {
+        const updatedData = [...prevEvent]
+        if (index >= 0 && index < updatedData.length) {
+          updatedData[index][field] = newData
+          console.log('Updated Data:', updatedData)
+          return updatedData
+        } else {
+          console.error('Invalid index:', index)
+          return prevEvent
+        }
+      })
+    },
+    [],
+  )
 
   const memoizedChangeHandler = useMemo(() => changeHandler, [changeHandler]);
 
@@ -71,10 +75,8 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
           console.log("🚀 ~ file: TeamForm.tsx:87 ~ setTeamMembers ~ data:", data)
           handleUpdate(data , 'delete_event')
         }
-
-        const updatedTeamMembers = [...prevEvent.slice(0, index), ...prevEvent.slice(index + 1)];
-
-        return updatedTeamMembers;
+        
+        return [..prevEvent.slice(0, index), ...prevEvent.slice(index + 1)];
       } else {
         console.error('Invalid index:', index);
         return prevEvent;
@@ -134,7 +136,7 @@ export default function FaqForm({ initialUsers }: { initialUsers: StartupData })
           type={'default'}
           onClick={handleProfileUpdate}
           className={
-            '!bg-light-shadow !px-6 !py-2 font-medium  !outline-none  !h-auto !border-none !bg-primary !px-6 !py-2 !text-white !outline-none w-1/4 md:w-1/4'
+            'font-medium  !h-auto !border-none !bg-primary !px-6 !py-2 !text-white !outline-none w-1/4 md:w-1/4'
           }
           >
           Save

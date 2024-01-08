@@ -1,17 +1,15 @@
 //This file will be deleted as localstorage will be no longer be use
-import { DataInner, KYCStatusArray } from '@/types'
+import {
+  DataInner,
+  InvestorUserPayload,
+  KYCStatusArray,
+  StartupUserPayload,
+} from '@/types'
 import { StartupData } from '@/types/invest'
 import { store } from '@/store'
 import { setUser } from '@/reducers/user/authSlice'
 
-function getUserLocal(): {
-  role: 'investor' | 'startup'
-  token: string
-  userData: DataInner
-  refId: string
-  kycStatus: KYCStatusArray
-  premiumMember: boolean
-} | null {
+function getUserLocal(): InvestorUserPayload | StartupUserPayload | null {
   const user = localStorage.getItem('user')
   // If 'user' is not null then parse and dispatch
   if (user) {
@@ -26,14 +24,7 @@ async function setUserInLocal({
 }: {
   dispatch: any
   setUser: any
-  user: {
-    role: 'investor' | 'startup'
-    token: string
-    userData: DataInner | StartupData
-    refId: string
-    kycStatus: KYCStatusArray
-    premiumMember: boolean
-  }
+  user: InvestorUserPayload | StartupUserPayload
 }) {
   // console.log('Setting users')
   localStorage.setItem('user', JSON.stringify(user))

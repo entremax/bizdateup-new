@@ -367,17 +367,19 @@ export type BaseUserData = {
 }
 
 export type InvestmentType = {
-  createdAt: Date 
-  investorName: string 
-  type: string 
-  status: string 
-  amountBreakdown: {
-    totalamount: number
-    amount: number
-    convenienceFee: number
-    tds: number
-    gst: number
-  } | {}
+  createdAt: Date
+  investorName: string
+  type: string
+  status: string
+  amountBreakdown:
+    | {
+        totalamount: number
+        amount: number
+        convenienceFee: number
+        tds: number
+        gst: number
+      }
+    | {}
 }
 
 export type StartupInvestment = [InvestmentType] | []
@@ -390,4 +392,25 @@ export interface InvestorUserData extends BaseUserData {
 export interface StartupUserData extends BaseUserData {
   role: 'startup'
   user: StartupData | null
+}
+
+export interface BaseUserPayload {
+  token: string
+  userData: DataInner | StartupData
+  refId: string
+  premiumMember?: boolean
+  role: 'investor' | 'startup'
+}
+
+export interface InvestorUserPayload extends BaseUserPayload {
+  userData: DataInner
+  kycStatus: KYCStatusArray
+  premiumMember: boolean
+  role: 'investor'
+}
+
+export interface StartupUserPayload extends BaseUserPayload {
+  userData: StartupData
+  premiumMember: false
+  role: 'startup'
 }

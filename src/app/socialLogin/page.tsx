@@ -14,7 +14,7 @@ export default function SocialLogin() {
   const renderCount = useRef(0)
   const searchParams = useSearchParams()
   const [OAuthLogin] = useOAuthLoginMutation()
-  const role = searchParams.get('role')
+  const role = searchParams.get('role') as 'investor' | 'startup'
   const refId = searchParams.get('refid')
   const authType = searchParams.get('type')
   const token = searchParams.get('token')
@@ -43,7 +43,7 @@ export default function SocialLogin() {
               dispatch,
               setUser,
               user: {
-                role: role as 'investor' | 'startup',
+                role: role,
                 userData: investorData,
                 token,
                 refId,

@@ -5,8 +5,12 @@ import Input from '@/components/form/InputWithoutRef'
 import React , {useState} from 'react'
 import { apiUri } from '@/lib/utils'
 import  Trash  from '@/components/icons/Trash'
-import  Camera  from '@/components/icons/CameraIcon'
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import Camera from '@/components/icons/CameraIcon'
+import {
+  CameraOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+} from '@ant-design/icons'
 export default function MentorSingleItem({ mentor , index , changeHandler ,removeHandler}: 
   { mentor: Mentors , index:number , changeHandler:any  , removeHandler:any }) {
     const api = apiUri().v1;
@@ -20,7 +24,7 @@ export default function MentorSingleItem({ mentor , index , changeHandler ,remov
       reader.onload = () => {
         const base64String = reader.result as string;
         setPreviewImage(base64String);
-        changeHandler && changeHandler(index, "banner", file); 
+        changeHandler && changeHandler(in'banner'nner", ile);
       };
 
       // Read the file as a data URL (base64)
@@ -46,7 +50,7 @@ export default function MentorSingleItem({ mentor , index , changeHandler ,remov
     <Avatar
       size={{ xs: 24, sm: 32, md: 80, lg: 80, xl: 80, xxl: 100 }}
       src={typeof mentor.profileImage == "string" && !previewImage ? api + '/mentorfile/' + mentor.profileImage : previewImage? previewImage : undefined}
-      icon={<PlusOutlined />}
+      icon={<CameraOutlined />}
       className={" bg-gray-100 object-contain p-0 text-gray-400 outline-none transition duration-300 ease-in-out hover:cursor-pointer hover:border-yellow-500 !border-4 border-solid drop-shadow-lg !border-[#8686F5]"}
     />
     <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
@@ -68,7 +72,7 @@ export default function MentorSingleItem({ mentor , index , changeHandler ,remov
                   changeHandler(index , 'fullName', event.target.value )
                 }
                 index={index}
-                placeholder={`Enter your ${mentor.fullName}`}
+                placeholder={`Enter your full name`}
               />
             </div>
             <div className="py-4 px-4">
@@ -82,7 +86,7 @@ export default function MentorSingleItem({ mentor , index , changeHandler ,remov
                   changeHandler(index , 'description', event.target.value )
                 }
                 index={index}
-                placeholder={`Enter your ${mentor.description}`}
+                placeholder={`Enter your designation`}
               />
             </div>
             <div className="col-span-2 py-4 px-4">
@@ -96,7 +100,7 @@ export default function MentorSingleItem({ mentor , index , changeHandler ,remov
                   changeHandler(index , 'linkedinUrl', event.target.value )
                 }
                 index={index}
-                placeholder={`Enter your ${mentor.linkedinUrl}`}
+                placeholder={`Enter your linkedin url`}
               />
             </div>
           </div>
