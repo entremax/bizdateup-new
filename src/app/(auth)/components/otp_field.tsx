@@ -50,6 +50,7 @@ export default function OtpField({ id }: { id: string }) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const dispatch = useAppDispatch()
+  const { referer } = useAppSelector(({ Notify }) => Notify)
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
   const [otp, setOtp] = useState('')
   const actionType = searchParams.get('type')
@@ -133,7 +134,6 @@ export default function OtpField({ id }: { id: string }) {
         token,
         refId = userId,
         status,
-        referedUrl,
       } = response.data
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
@@ -153,7 +153,9 @@ export default function OtpField({ id }: { id: string }) {
           },
         })
         router.refresh()
-        return window.location.replace(referedUrl ? referedUrl : '/dashboard')
+        return window.location.replace(
+          referer && referer !== ('/' || '/login') ? referer : '/dashboard',
+        )
       } else {
         if (responseCode === 200) {
           await setUserInLocal({
@@ -168,8 +170,10 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: investorData?.membership?.isMember !== 'no',
             },
           })
-          // router.refresh()
-          return window.location.replace(referedUrl ? referedUrl : '/dashboard')
+          router.refresh()
+          return window.location.replace(
+            referer && referer !== ('/' || '/login') ? referer : '/dashboard',
+          )
         }
       }
     }

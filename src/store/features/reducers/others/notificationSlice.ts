@@ -8,6 +8,7 @@ interface IInitialState {
   message: string | null
   description?: string | null
   payment?: IStatus | null
+  referer?: string | null
 }
 
 const initialState: IInitialState = {
@@ -15,6 +16,7 @@ const initialState: IInitialState = {
   message: null,
   description: null,
   payment: null,
+  referer: null,
 }
 
 export const Notify = createSlice({
@@ -35,13 +37,27 @@ export const Notify = createSlice({
       state.message = message
       state.description = description
     },
-    destroyNotification: () => initialState,
+    destroyNotification: (state) => {
+      state.type = null
+      state.message = null
+      state.description = null
+      state.payment = null
+    },
     showModal: (state, { payload }: PayloadAction<IStatus>) => {
       state.payment = payload
+    },
+    setReferer: (state, { payload }: PayloadAction<string | null>) => {
+      let pathnameInfo: string | null = null
+      console.log('Payload', payload)
+      if (payload) {
+        pathnameInfo = new URL(payload)?.pathname
+      }
+      console.log('PathName', pathnameInfo)
+      state.referer = pathnameInfo
     },
   },
 })
 
-export const { setNotification, destroyNotification, showModal } =
+export const { setNotification, setReferer, destroyNotification, showModal } =
   Notify.actions
 export default Notify.reducer

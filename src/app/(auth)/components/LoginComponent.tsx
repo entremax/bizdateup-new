@@ -6,6 +6,7 @@ import { UserRole } from '@/types'
 
 type Props = {
   role: UserRole
+  referer?: string | null
 }
 
 const roleBasedSetup = {
@@ -22,7 +23,7 @@ const roleBasedSetup = {
     role: 'startup',
   },
 }
-export default function LoginComponent({ role }: Props) {
+export default function LoginComponent({ role, referer }: Props) {
   const setup = roleBasedSetup[role]
   return (
     <div className="auth">
@@ -32,7 +33,7 @@ export default function LoginComponent({ role }: Props) {
         <p className="text-sm text-gray-400">
           Take a first step towards investing journey with bizdateup
         </p>
-        <UserAuthForm requestType={'login'} role={role} />
+        <UserAuthForm requestType={'login'} role={role} referer={referer} />
         <div className=" warp !my-6 items-center justify-center text-sm text-gray-400">
           By signing up I agree to{' '}
           <Link href={'/privacy-policy'} className=" text-brust underline">
