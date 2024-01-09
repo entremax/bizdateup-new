@@ -45,7 +45,7 @@ export async function generateMetadata(
 
   // fetch data
   const { data }: { data: StartupDataResponse } = await fetch(
-    apiV1 + `/startup/fetchStartupById?refId=${id}`,
+    apiV1 + `/startup/fetchStartupByRef?refId=${id}`,
     { next: { revalidate: 3600 } },
   )
     .then((res) => {

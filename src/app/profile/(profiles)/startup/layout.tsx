@@ -1,23 +1,26 @@
-import ProfileHeader from '@/components/profile/profileHeader'
 import type { Metadata } from 'next'
-import SectionBar from '@/components/profile/sidebarSection'
+import SectionBar from '@/components/profile/startup/sidebarSectionStartup'
 import React from 'react'
-import SectionHeader from '@/components/profile/sectionHeader'
+import SectionHeader from '@/components/profile/startup/sectionHeaderStartup'
 import ReduxProvider from '@/store/Provider'
-import UpdateContextProvider from '@/components/profile/context'
-import DetailsTab from '@/components/profile/detailsTab'
+import UpdateContextProvider from '@/components/profile/startup/context'
+import DetailsTab from '@/components/profile/startup/detailsTabStartup'
+import dynamic from 'next/dynamic'
 
 export const metadata: Metadata = {
-  title: 'Profile - Investor | Bizdateup',
+  title: 'Profile/Startup | Bizdateup',
   description: 'General Profile of Investor',
 }
+const ProfileHeader = dynamic(
+  () => import('@/components/profile/profileHeader'),
+)
 
 export default function InvestorProfileLayout({
   children,
 }: React.PropsWithChildren) {
   return (
     <ReduxProvider>
-      <section className="flex flex-col gap-4 lg:px-32">
+      <section className="flex flex-col gap-4 xl:px-32">
         <div className="hidden lg:inline-block">
           <ProfileHeader />
         </div>
@@ -26,7 +29,7 @@ export default function InvestorProfileLayout({
             <ProfileHeader />
           </SectionBar>
           <div className="border_gray col-span-9 grid overflow-clip rounded-r-3xl">
-            <div className="hidden flex-col xl:flex">
+            <div className="hidden flex-col lg:flex">
               <div className="border_gray flex items-center border-b-2 p-4 ">
                 <SectionHeader />
               </div>

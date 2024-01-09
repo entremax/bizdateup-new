@@ -71,6 +71,9 @@
         "./src/app/dashboard/_components/*",
         "./src/app/dashboard/startup/components/*"
       ],
+      "@/components/dashboard/startup/*": [
+        "./src/app/dashboard/startup/_component/*"
+      ],
       "@/components/learn/*": [
         "./src/app/learn/components/*",
         "./src/app/learn/faqs/components/*",
@@ -87,6 +90,16 @@
       "@/components/payment/*": [
         "./src/app/payment/_components/*"
       ],
+      "@/components/profile/startup/*": [
+        "./src/app/profile/(profiles)/startup/_components/*",
+        "./src/app/profile/(profiles)/startup/deal-terms/_components/*",
+        "./src/app/profile/(profiles)/startup/upload-docs/_components/*",
+        "./src/app/profile/(profiles)/startup/events/_components/*",
+        "./src/app/profile/(profiles)/startup/mentor/_components/*",
+        "./src/app/profile/(profiles)/startup/team/_components/*",
+        "./src/app/profile/(profiles)/startup/faqs/_components/*",
+        "./src/app/profile/(profiles)/startup/pitch/_components/*"
+      ],
       "@/components/profile/*": [
         "./src/app/profile/(profiles)/investor/_components/*",
         "./src/app/profile/(profiles)/startup/_components/*",
@@ -100,8 +113,12 @@
         "./src/app/referral/components/*"
       ],
       "@/context/profile/*": [
-        "./src/app/profile/(profiles)/investor/_components/context/*"
+        "./src/app/profile/(profiles)/investor/_components/context/*",
+        "./src/app/profile/(profiles)/startup/_components/context/*"
       ],
+      // "@/context/startup_profile/*": [
+      //   "./src/app/profile/(profiles)/startup/_components/context/*"
+      // ],
       "@/hooks/common/*": [
         "./src/hooks/*"
       ],
@@ -115,6 +132,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
+,
+    "src/app/profile/(profiles)/investor/_components/sidebarSection.tsx"
   ],
   "exclude": [
     "node_modules"

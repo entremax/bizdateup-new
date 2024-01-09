@@ -10,6 +10,8 @@ const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
     wrapperClassName,
     label,
     name,
+    onChange,
+    changeHandler,
     className,
     labelClassName,
     ...props
@@ -28,13 +30,13 @@ const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
         type={type}
         id={name}
         name={name}
-        ref={ref}
         className={cn(
           'peer block min-h-[auto] w-full rounded-sm border-0 !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none !outline-gray-300 transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:placeholder:font-normal dark:placeholder:text-neutral-300 dark:peer-focus:text-primary ' +
             className,
         )}
         placeholder={`Enter ${label}`}
         {...props}
+        ref={ref}
       />
 
       <label

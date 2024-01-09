@@ -106,6 +106,7 @@ const BankDetail = ({
       </div>
       {label === 'Amount to be Paid' ? null : (
         <CopyToClipboard text={value.toString()} onCopy={handleTooltipChange}>
+          {/* @ts-ignore */}
           <Tooltip title={tooltipTitle}>
             <Icons.Copy />
           </Tooltip>

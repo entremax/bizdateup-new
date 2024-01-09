@@ -10,6 +10,7 @@ import { validateEmailOrPhone } from '@/lib/utils'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import { useVerifyOtpMutation } from '@/services/NextApiSlice'
 import localUser from '@/lib/getToken'
+import { DataInner, InvestorUserPayload, StartupUserPayload } from '@/types'
 
 interface OtpVerifyData {
   code: string
@@ -50,10 +51,11 @@ export default function OtpField({ id }: { id: string }) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const dispatch = useAppDispatch()
+  const { referer } = useAppSelector(({ Notify }) => Notify)
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
   const [otp, setOtp] = useState('')
   const actionType = searchParams.get('type')
-  const userRole = searchParams.get('role') as 'investor' | 'startup' | null
+  const userRole = searchParams.get('role') as 'investor' | 'startup'
   const { temp_auth_medium, userId } = useAppSelector(
     ({ authUser }) => authUser,
   )
@@ -133,43 +135,49 @@ export default function OtpField({ id }: { id: string }) {
         token,
         refId = userId,
         status,
-        referedUrl,
       } = response.data
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
+      const user: InvestorUserPayload | StartupUserPayload =
+        'role' in investorData
+          ? {
+              role: 'investor',
+              userData: investorData as DataInner,
+              token,
+              refId,
+              kycStatus: status ?? [],
+              premiumMember: investorData.membership.isMember !== 'no',
+            }
+          : {
+              role: 'startup',
+              userData: investorData,
+              token,
+              refId,
+              premiumMember: false,
+            }
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
         localStorage.setItem('token', token)
 
         await setUserInLocal({
           dispatch,
           setUser,
-          user: {
-            role: userRole ?? 'investor',
-            userData: investorData,
-            token,
-            refId,
-            kycStatus: status,
-            premiumMember: investorData?.membership?.isMember !== 'no',
-          },
+          user,
         })
         router.refresh()
-        return window.location.replace(referedUrl ? referedUrl : '/dashboard')
+        return window.location.replace(
+          referer && referer !== ('/' || '/login') ? referer : '/dashboard',
+        )
       } else {
         if (responseCode === 200) {
           await setUserInLocal({
             dispatch,
             setUser,
-            user: {
-              role: userRole ?? 'investor',
-              userData: investorData,
-              token,
-              refId,
-              kycStatus: status,
-              premiumMember: investorData?.membership?.isMember !== 'no',
-            },
+            user,
           })
-          // router.refresh()
-          return window.location.replace(referedUrl ? referedUrl : '/dashboard')
+          router.refresh()
+          return window.location.replace(
+            referer && referer !== ('/' || '/login') ? referer : '/dashboard',
+          )
         }
       }
     }

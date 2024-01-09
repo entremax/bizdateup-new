@@ -2,7 +2,6 @@ import React from 'react'
 import getUserDetails from '@/action/user'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 import AadharForm from '@/app/profile/(profiles)/investor/kyc/KYCForm'
 
 type Props = {
@@ -18,9 +17,9 @@ export default async function KYC({ searchParams }: Props) {
   if (!user || role !== 'investor') {
     return <>Loading</>
   }
-  if (user.aadhar.status === 'verified' && user.pan.status !== 'verified') {
-    return redirect('/profile/kyc/pan')
-  }
+  // if (user.aadhar.status === 'verified' && user.pan.status !== 'verified') {
+  //   return redirect('/profile/investor/kyc/pan')
+  // }
   const data = {
     aadhar: [
       {

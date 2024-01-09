@@ -7,7 +7,10 @@ import { Icons } from '@/components/icons/icon'
 import { setInvestorId, temp_values } from '@/reducers/user/authSlice'
 import { apiUri, validateEmailOrPhone } from '@/lib/utils'
 import { useSendOtpMutation } from '@/services/apiSlice'
-import { setNotification } from '@/reducers/others/notificationSlice'
+import {
+  setNotification,
+  setReferer,
+} from '@/reducers/others/notificationSlice'
 import { UserRole } from '@/types'
 import { notifyUser } from '@/components/notification'
 
@@ -15,12 +18,14 @@ interface UserAuthFormProps {
   className?: string
   requestType: 'login' | 'signup'
   role: UserRole
+  referer?: string | null
 }
 
 export default function UserAuthForm({
   className,
   requestType,
   role,
+  referer,
 }: UserAuthFormProps) {
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -28,7 +33,7 @@ export default function UserAuthForm({
   const newUser = searchParams.get('new_user')
   const baseUrl = `${apiUri().v1}/auth/`
   const url = requestType === 'login' ? `${baseUrl}login/` : baseUrl
-  
+
   const [withEmail, setWithEmail] = useState(!!newUser)
   const [email, setEmail] = useState(newUser ?? '')
   const [loader, setLoader] = useState(false) // Fix variable name
@@ -64,7 +69,10 @@ export default function UserAuthForm({
   async function performAuthentication(actionType: string) {
     localStorage.setItem('loginMethod', 'local')
     localStorage.setItem('loginMethod2', actionType)
-
+    console.log(referer)
+    if (referer) {
+      dispatch(setReferer(referer))
+    }
     if (email === '') {
       return
     }

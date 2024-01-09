@@ -4,7 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.env
+package-lock.json
 # testing
 /coverage
 .idea
@@ -35,4 +36,5 @@ yarn-error.log*
 next-env.d.ts
 
 src/app/draft
-package-lock.json
+yarn.lock
+pnpm-lock.yaml

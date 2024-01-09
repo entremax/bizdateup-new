@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import SectionBar from '@/components/profile/sidebarSection'
+import SectionBar from '@/app/profile/(profiles)/investor/_components/sidebarSection'
 import React from 'react'
 import SectionHeader from '@/components/profile/sectionHeader'
 import ReduxProvider from '@/store/Provider'
@@ -8,7 +8,7 @@ import DetailsTab from '@/components/profile/detailsTab'
 import dynamic from 'next/dynamic'
 
 export const metadata: Metadata = {
-  title: 'Profile - Investor | Bizdateup',
+  title: 'Profile/Investor | Bizdateup',
   description: 'General Profile of Investor',
 }
 const ProfileHeader = dynamic(

@@ -72,6 +72,38 @@ export interface DataInner {
   acknowledgement: 'false' | 'true'
 }
 
+export interface DataStartup {
+  _id: string
+  companyName: string
+  registeredCompanyName: string
+  shortDescription: string
+  raisedFund: string
+  sector: string
+  stage: string
+  keyHighlights: {
+    keyHighlight1: string | undefined
+    keyHighlight2: string | undefined
+    keyHighlight3: string | undefined
+    keyHighlight4: string | undefined
+  }
+  founderFirstName: string
+  founderLastName: string
+  email: string
+  phone: number
+  companyBased: string
+  youtubeVideoUrl: string
+  banner: string
+}
+
+export interface dealTerms {
+  typeOfSecurity: string
+  valuation: number
+  minimumInvestment: number
+  targetAmount: number
+  discount: number
+  // Add any other properties as needed
+}
+
 export interface IInvestorData {
   acknowledgement: 'false' | 'true'
   aadhar: Aadhar
@@ -148,8 +180,8 @@ export interface Data {
   code: number
   message: string
   refId: string
-  data: DataInner
-  status: KYCStatusArray
+  data: DataInner | StartupData
+  status?: KYCStatusArray
   token: string
 }
 
@@ -336,6 +368,24 @@ export type BaseUserData = {
   user: DataInner | StartupData | null
 }
 
+export type InvestmentType = {
+  createdAt: Date
+  investorName: string
+  type: string
+  status: string
+  amountBreakdown:
+    | {
+        totalamount: number
+        amount: number
+        convenienceFee: number
+        tds: number
+        gst: number
+      }
+    | {}
+}
+
+export type StartupInvestment = [InvestmentType] | []
+
 export interface InvestorUserData extends BaseUserData {
   role: 'investor'
   user: DataInner | null
@@ -344,4 +394,25 @@ export interface InvestorUserData extends BaseUserData {
 export interface StartupUserData extends BaseUserData {
   role: 'startup'
   user: StartupData | null
+}
+
+export interface BaseUserPayload {
+  token: string
+  userData: DataInner | StartupData
+  refId: string
+  premiumMember?: boolean
+  role: 'investor' | 'startup'
+}
+
+export interface InvestorUserPayload extends BaseUserPayload {
+  userData: DataInner
+  kycStatus: KYCStatusArray
+  premiumMember: boolean
+  role: 'investor'
+}
+
+export interface StartupUserPayload extends BaseUserPayload {
+  userData: StartupData
+  premiumMember: false
+  role: 'startup'
 }
