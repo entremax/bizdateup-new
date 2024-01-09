@@ -2,6 +2,7 @@ import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
 import {
   IInterestCheckResponse,
   securityType,
+  StartupData,
   StartupDataResponse,
 } from '@/types/invest'
 import type { Metadata, ResolvingMetadata } from 'next'
@@ -27,6 +28,7 @@ import PaymentStatusModal from '@/components/invest/paymentStatusModal'
 import { startupApis } from '@/lib/startup'
 import InvestButtonWInput from '@/components/invest/investButtonWInput'
 import HowItWorks from '@/components/invest/howItWorks'
+import { fetchData } from '@/lib/fetchApi'
 
 const { v0: apiV1 } = apiUri()
 
@@ -45,7 +47,7 @@ export async function generateMetadata(
 
   // fetch data
   const { data }: { data: StartupDataResponse } = await fetch(
-    apiV1 + `/startup/fetchStartupByRef?refId=${id}`,
+    apiV1 + `/startup/fetchStartupById?refId=${id}`,
     { next: { revalidate: 3600 } },
   )
     .then((res) => {
@@ -57,26 +59,14 @@ export async function generateMetadata(
     })
 
   const companyName = capitalizeFirstLetter(
-    data.data.registeredCompanyName.trim().split(' '),
+    data?.data?.registeredCompanyName.trim().split(' '),
   )
   return {
     title: companyName.join(' ') + ' | Bizdateup',
-    description: data.data.shortDescription,
+    description: data?.data?.shortDescription,
   }
 }
 
-const getStartupDetails = async (id: string) => {
-  const res = await fetch(apiV1 + startupApis.fetchById + id, {
-    next: { revalidate: 3600 },
-  })
-
-  if (!res.ok || !res) {
-    throw new Error('Something Went Wrong')
-  }
-
-  const { data }: { data: StartupDataResponse } = await res.json()
-  return { details: data }
-}
 const checkInterest = async (id: string) => {
   const cookie = cookies()
   const tokenKey = cookie.get('token')?.value
@@ -113,10 +103,12 @@ const checkInterest = async (id: string) => {
 const Startup: React.FC<{ params: { id: string } }> = async ({
   params: { id },
 }) => {
-  const {
-    details: { data: startupData },
-  } = await getStartupDetails(id)
-
+  
+  const startupData: StartupData = await fetchData(
+    startupApis.fetchById + id,
+    'GET',
+    3600,
+  )
   const { interested } = (await checkInterest(id)) as IInterestCheckResponse
   const isClosed = startupData.activeStatus.status === 'closed'
 
@@ -129,7 +121,7 @@ const Startup: React.FC<{ params: { id: string } }> = async ({
         <div className="col-span-full flex flex-col gap-7 md:col-start-1 md:col-end-8 xl:col-start-2 xl:col-end-8">
           <Highlights startup={startupData} />
           <DealTerms className={'md:hidden'} startup={startupData} />
-          <PitchDeck />
+          <PitchDeck pdf={startupData.pitch} />
           <TeamMembers startup={startupData} />
           <DownloadFiles className={'md:hidden'} startup={startupData} />
           {!isClosed && <InvestButtonWInput startupData={startupData} />}

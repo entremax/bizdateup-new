@@ -5,7 +5,8 @@
  */
 export const startupApis = {
   fetchStartupsUpdate: '/fetchStartupUpdates',
-  fetchById: '/startup/fetchStartupByRef?refId=',
+  fetchByRefId: '/startup/fetchStartupByRef?refId=',
+  fetchById: '/startup/fetchStartupById?refId=',
   onboarding: '/startup/register',
   fetchForm: '/fetchForm',
   fetchByType: '/startup/fetchStartupByType?tos=',
