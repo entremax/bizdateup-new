@@ -68,6 +68,7 @@ export async function middleware(req: NextRequest) {
     if (matchPath(publicPaths)) {
       return NextResponse.next()
     }
+    console.log('Redirecting to dashboard')
     url.pathname = role !== 'investor' ? `/dashboard/${role}` : '/dashboard'
     return NextResponse.redirect(url)
   }

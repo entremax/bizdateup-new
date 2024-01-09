@@ -62,7 +62,6 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     city: useRef<InputRef | null>(null),
     'pin-code': useRef<InputRef | null>(null),
   }
-
   const { handleUpdate, loading } = useUpdateContext()
   const [selected, setSelected] = useState({
     gender: user.gender,
@@ -213,6 +212,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       country: selected.country,
       refer: values.referral,
     } as unknown as DataInner
+    console.log(values)
     await handleUpdate(formData, 'general')
     return
   }

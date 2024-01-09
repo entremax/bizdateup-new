@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button } from 'antd'
 import {
   useRouter,
@@ -12,7 +12,6 @@ import { useUser } from '@/hooks/useUser'
 import { KYCStatus } from '@/types'
 import Edit from '@/icons/Edit'
 import { cn } from '@/lib/utils'
-import useCookieLocal from '@/lib/useCookieLocal'
 
 type SectionType =
   | 'general-info'
@@ -32,7 +31,6 @@ type SectionsInterface = {
 }
 
 export default function SectionHeader() {
-  const role = useCookieLocal('role')
   const segment: SectionType | null =
     useSelectedLayoutSegment() as SectionType | null
   const [loading, setLoading] = useState(false)
@@ -40,34 +38,36 @@ export default function SectionHeader() {
   const router = useRouter()
   const editState = searchParams.get('edit')
   const { user } = useUser()
-  const { kycCompletionPercentage, kycStatus } = useAppSelector(
-    ({ authUser }) => authUser,
+  const { kycStatus } = useAppSelector(({ authUser }) => authUser)
+  
+  const sections: SectionsInterface = useMemo(
+    () => ({
+      'general-info': { id: 1, name: 'General Information', editable: true },
+      kyc: {
+        id: 2,
+        name: 'KYC',
+        editable:
+          user?.role === 'investor' &&
+          (user?.kycStatus?.includes(KYCStatus.aadhar || KYCStatus.pan) ??
+            false),
+      },
+      bank: { id: 3, name: 'Bank Details', editable: true },
+      other: { id: 4, name: 'Other Details', editable: true },
+      'investment-manager': {
+        id: 5,
+        name: 'Investment Manager',
+        editable: false,
+      },
+    }),
+    [user],
   )
-
-  const sections: SectionsInterface = {
-    'general-info': { id: 1, name: 'General Information', editable: true },
-    kyc: {
-      id: 2,
-      name: 'KYC',
-      editable:
-        user?.kycStatus?.includes(KYCStatus.aadhar || KYCStatus.pan) ?? false,
-    },
-    bank: { id: 3, name: 'Bank Details', editable: true },
-    other: { id: 4, name: 'Other Details', editable: true },
-    'investment-manager': {
-      id: 5,
-      name: 'Investment Manager',
-      editable: false,
-    },
-  }
-
   const [section, setSection] = useState<SectionDetails>(
     sections['general-info'],
   )
 
   useEffect(() => {
     setSection(segment ? sections[segment] : sections['general-info'])
-  }, [segment])
+  }, [sections, segment])
 
   const handleEdit = () => {
     setLoading(true)

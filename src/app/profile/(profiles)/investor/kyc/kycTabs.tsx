@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { useAppSelector } from '@/store/hooks'
 
 export default function KycTabs() {
   const kycType = useSelectedLayoutSegment()
+  const { user } = useAppSelector(({ authUser }) => authUser)
 
-  // console.log(kycType)
   return (
     <div className="border_gray grid grid-cols-2 items-center justify-center divide-gray-400 !border-b-0">
       <Link

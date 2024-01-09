@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
           value: response.data.refId as string,
           httpOnly: true,
           path: '/',
-          maxAge: 60 * 60,
+          maxAge: 60 * 60 * 24,
         })
 
         if (
@@ -75,14 +75,14 @@ export async function POST(req: NextRequest) {
             value: accelerator?._id as string,
             httpOnly: true,
             path: '/',
-            maxAge: 60 * 60,
+            maxAge: 60 * 60 * 24,
           })
           cookies().set({
             name: 'referrer_id',
             value: accelerator?.referral_code as string,
             httpOnly: true,
             path: '/',
-            maxAge: 60 * 60,
+            maxAge: 60 * 60 * 24,
           })
         }
         cookies().set({
@@ -90,12 +90,12 @@ export async function POST(req: NextRequest) {
           value: response.data?.token as string,
           httpOnly: true,
           path: '/',
-          maxAge: 60 * 60,
+          maxAge: 60 * 60 * 24,
         })
-        cookies().set('logged-in', 'true', { maxAge: 60 * 60 })
+        cookies().set('logged-in', 'true', { maxAge: 60 * 60 * 24 })
         //@ts-ignore
         cookies().set('role', response.data.data?.role ?? 'startup', {
-          maxAge: 60 * 60,
+          maxAge: 60 * 60 * 24,
         })
         console.log('Cookies set successfully')
         return NextResponse.json({

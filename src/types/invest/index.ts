@@ -2,11 +2,13 @@ export interface KeyHighlights {
   keyHighlight1?: string
   keyHighlight2?: string
   keyHighlight3?: string
+  keyHighlight4?: string
 }
 
 export interface DealTerms {
   typeOfSecurity: string
   valuation: number
+  discount: number
   minimumInvestment: number
   targetAmount: number
 }
@@ -39,6 +41,22 @@ export interface TeamMember {
   designation: string
   description: string
   linkedinUrl: string
+  _id: string
+}
+
+export interface Mentors {
+  profileImage: string
+  fullName: string
+  description: string
+  linkedinUrl: string
+  _id?: string
+}
+
+export interface Events {
+  banner: string
+  date: string
+  time: string
+  url: string
   _id: string
 }
 
@@ -98,9 +116,9 @@ export interface StartupData {
   profileComplete: string
   teamMembers: TeamMember[]
   faq: FAQ[]
-  mentors: any[] // Empty for now
+  mentors: Mentors[] // Empty for now
   dueDiligenceFiles: DueDiligenceFile[]
-  events: any[] // Empty for now
+  events: Events[] // Empty for now
   created_at: string
   __v: number
 }

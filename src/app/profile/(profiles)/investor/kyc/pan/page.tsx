@@ -2,7 +2,7 @@ import React from 'react'
 import getUserDetails from '@/action/user'
 import Link from 'next/link'
 import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
-import { redirect } from 'next/navigation'
+import { redirect, RedirectType } from 'next/navigation'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -12,8 +12,8 @@ export default async function PanPage({ searchParams }: Props) {
   if (role !== 'investor' || !user) {
     return <>Loading</>
   }
-  if (user.aadhar.status !== 'verified' && user.pan.status === 'verified') {
-    return redirect('/profile/kyc')
+  if (user.aadhar.status !== 'verified') {
+    return redirect('/profile/investor/kyc', RedirectType.push)
   }
   const data = {
     pan: [
@@ -43,7 +43,7 @@ export default async function PanPage({ searchParams }: Props) {
   }
   return (
     <div className="flex flex-col">
-      {user?.aadhar.status === 'verified' && !searchParams.edit ? (
+      {user?.pan.status === 'verified' && !searchParams.edit ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.pan.map(({ label, value, link }) => (
