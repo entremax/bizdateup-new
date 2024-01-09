@@ -11,25 +11,20 @@ import { setUser } from '@/reducers/user/authSlice'
 import getUserDetails from '@/action/user'
 import localUser from '@/lib/getToken'
 import useCookieLocal from '@/lib/useCookieLocal'
-import { DataInner, KYCStatusArray } from '@/types'
+import { DataInner, InvestorUserPayload, StartupUserPayload } from '@/types'
 import { useRouter } from 'next/navigation'
 import { store } from '@/store'
 
-type User = {
-  token: string
-  userData: DataInner
-  refId: string
-  kycStatus: KYCStatusArray
-  premiumMember: boolean
-}
-
 type State = {
-  user: User | null
+  user: InvestorUserPayload | StartupUserPayload | null
   loading: boolean
 }
 
 type Action =
-  | { type: 'SET_USER'; payload: User }
+  | {
+      type: 'SET_USER'
+      payload: InvestorUserPayload | StartupUserPayload | null
+    }
   | { type: 'SET_LOADING'; payload: boolean }
 
 const reducer = (state: State, action: Action): State => {
@@ -54,16 +49,19 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const fetchUserDetails = useCallback(async () => {
     if (!role || role === '') return
 
-    if (role === 'investor') {
+    const data = await getUserDetails()
+    if (!data || !data.role || !data.user) {
+      return router.push('/login')
+    }
+    if (data.role === 'investor') {
       dispatch({ type: 'SET_LOADING', payload: true })
-      const data = await getUserDetails()
       if ((data && data.role !== 'investor') || !data.user)
         return router.push('/login')
 
-      const dataUser = localUser.getUserLocal()
-      if (!dataUser) return router.push('/login')
+      const localData = localUser.getUserLocal()
+      if (!localData) return router.push('/login')
 
-      const userInfo = {
+      const userInfo: InvestorUserPayload = {
         role: data.role,
         userData: data?.user as DataInner,
         token: data?.token ?? '',
@@ -75,11 +73,26 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       dispatch({ type: 'SET_USER', payload: userInfo })
       store.dispatch(setUser(userInfo))
     } else {
-      const data = localUser.getUserLocal()
-      if (!data) return router.push('/login/startup')
+      const authMethod = localStorage.getItem('loginMethod') ?? ''
+      const authAction = localStorage.getItem('loginMethod2') ?? ''
 
-      dispatch({ type: 'SET_USER', payload: data })
-      store.dispatch(setUser(data))
+      if (authMethod === 'local' && authAction === 'signup') {
+        const localData = localUser.getUserLocal()
+        if (!localData || localData.role !== 'startup')
+          return router.push('/login/startup')
+        dispatch({ type: 'SET_USER', payload: localData })
+        store.dispatch(setUser(localData))
+        return
+      }
+      const userInfo: StartupUserPayload = {
+        role: data.role,
+        userData: data.user,
+        token: data.token ?? '',
+        refId: data.refId ?? '',
+        premiumMember: false,
+      }
+      dispatch({ type: 'SET_USER', payload: userInfo })
+      store.dispatch(setUser(userInfo))
     }
   }, [role, router])
 

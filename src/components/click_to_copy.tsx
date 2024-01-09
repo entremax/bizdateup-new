@@ -5,7 +5,7 @@ import { Tooltip } from 'antd'
 
 type Props = {
   text: string
-  children: React.ReactNode
+  children: any
   description?: string
 }
 const CopyWrapper: React.FC<Props> = ({ text, children }) => {
@@ -14,9 +14,11 @@ const CopyWrapper: React.FC<Props> = ({ text, children }) => {
     setTitle(`Copied ${text}`)
   }
   return (
-    <CopyToClipboard text={text.toString()} onCopy={handleCopy}>
-      <Tooltip title={title}>{children}</Tooltip>
-    </CopyToClipboard>
+    <Tooltip title={title}>
+      <CopyToClipboard text={text.toString()} onCopy={handleCopy}>
+        {children}
+      </CopyToClipboard>
+    </Tooltip>
   )
 }
 export default CopyWrapper

@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     }
     let url = '/investor/fetchbyid'
     if (role === 'startup') {
-      url = '/startup/fetchStartupById'
+      url = '/startup/fetchStartupByRef'
     }
     const res = await fetch(apiUri().v0 + url, {
       method: 'POST',

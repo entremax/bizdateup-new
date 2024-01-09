@@ -1,2 +1,6 @@
 declare module 'cashfree-pg-sdk-javascript'
 declare module 'lodash'
+declare module 'react-data-export'
+declare module 'pdfjs-dist/build/pdf.mjs'
+declare module 'pdfjs-dist/build/pdf.worker.min.mjs'
+declare module 'pdfjs-dist/build/pdf.mjs'

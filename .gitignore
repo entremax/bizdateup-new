@@ -4,7 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.env
+package-lock.json
 # testing
 /coverage
 .idea
@@ -36,3 +37,7 @@ next-env.d.ts
 
 src/app/draft
 package-lock.json
+yarn.lock
+yarn.lock
+.env
+yarn.lock

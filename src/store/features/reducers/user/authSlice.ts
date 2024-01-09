@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
-  DataInner,
+  InvestorUserPayload,
   InvestorUserState,
   KYCStatus,
   KYCStatusArray,
+  StartupUserPayload,
   StartupUserState,
 } from '@/types'
-import { StartupData } from '@/types/invest'
 
 const initialState = {
   token: null,
@@ -34,22 +34,14 @@ export const authUser = createSlice({
     reset: () => initialState,
     setUser: (
       state,
-      {
-        payload: { token, userData, refId, kycStatus, premiumMember, role },
-      }: PayloadAction<{
-        token: string
-        userData: DataInner | StartupData
-        refId: string
-        kycStatus: KYCStatusArray
-        premiumMember: boolean
-        role: 'investor' | 'startup'
-      }>,
+      { payload }: PayloadAction<InvestorUserPayload | StartupUserPayload>,
     ) => {
-      state.token = token
-      state.user = userData
-      state.refId = refId
-      state.role = role
-      if (state.role === 'investor') {
+      state.token = payload.token
+      state.user = payload.userData
+      state.refId = payload.refId
+      state.role = payload.role
+      if (payload.role === 'investor') {
+        const { kycStatus, premiumMember } = payload
         const pendingStatuses: KYCStatus[] = []
         const totalStatuses: KYCStatus[] = [
           KYCStatus.profile,
