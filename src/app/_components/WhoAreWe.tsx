@@ -1,16 +1,19 @@
 import Button from '@/components/common/LinkButton'
+import Image from 'next/image'
 
 export default function WhoAreWe() {
   return (
     <>
       <div className="my-[80px] items-center gap-x-32 px-6 lg:mt-[132px] lg:flex xl:px-[130px]">
-        <div className="">
+        <div className="relative h-[30vw] w-2/4">
           <picture>
-            <img
-              src="/who_are.webp"
+            <Image
+              className={'absolute'}
+              src="/who_are_we.svg"
+              quality={60}
               alt="who_are_we"
-              width="100%"
-              height="auto"
+              fill
+              sizes={'100%'}
             />
           </picture>
         </div>
@@ -18,14 +21,14 @@ export default function WhoAreWe() {
           <h2 className="text-4xl font-bold leading-[36px] lg:text-5xl lg:leading-[64px] lg:-tracking-[2.16px]">
             Who are we?
           </h2>
-          <p className="text-balance text-[15px] font-normal leading-[20px] lg:my-7 lg:text-[18px] lg:leading-[24px]">
+          <p className="text-balance text-[15px] font-normal leading-[20px] lg:text-[18px] lg:leading-[24px]">
             Bizdateup is a Startup Investment platform which enables Investors
             like you to explore and invest in groundbreaking & Highly-Profitable
             Indian startup ventures starting at ₹50,000.
           </p>
           <div className="my-4 mt-4 flex lg:items-start">
             <Button
-              href={'/get-started'}
+              href={'/signup'}
               title="Get Started"
               className={'my-4 py-4 lg:w-1/2'}
             />
