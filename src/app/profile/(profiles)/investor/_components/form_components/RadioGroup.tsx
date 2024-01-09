@@ -1,9 +1,8 @@
 'use client'
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 import { Radio } from 'antd'
-import React, { ChangeEventHandler, ForwardRefRenderFunction } from 'react'
-import { ForwardRefProps, RadioInputProps } from '@/types/profile'
-
+import React from 'react'
+import { RadioInputProps } from '@/types/profile'
 
 const RadioInput: React.FC<RadioInputProps> = ({
   wrapperClassName,
@@ -35,7 +34,7 @@ const RadioInput: React.FC<RadioInputProps> = ({
       <label
         htmlFor={name}
         className={cn(
-          'pointer-events-none absolute left-3 top-[0.5rem] mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white p-0 px-[0.022rem] font-medium !text-gray-900 text-black transition-all duration-200 ease-out' +
+          'pointer-events-none absolute -top-[0.5rem] left-0 mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white p-0 px-[0.022rem] font-medium !text-gray-900 text-black transition-all duration-200 ease-out ' +
             (labelClassName && labelClassName),
         )}>
         {label}

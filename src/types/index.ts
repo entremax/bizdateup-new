@@ -178,8 +178,8 @@ export interface Data {
   code: number
   message: string
   refId: string
-  data: DataInner
-  status: KYCStatusArray
+  data: DataInner | StartupData
+  status?: KYCStatusArray
   token: string
 }
 

@@ -6,7 +6,7 @@ import {
   SelectProps,
 } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
-import {TextAreaProps} from 'antd/lib/input'
+import { TextAreaProps } from 'antd/lib/input'
 
 export type FieldType = 'select'
 
@@ -79,12 +79,13 @@ export type InputFieldNames =
 export type SelectFieldNames = 'state' | 'country' | 'gender'
 export type FieldNames = InputFieldNames | SelectFieldNames | StartupInputFieldNames
 
-export type Refs = {
-  [key in InputFieldNames]: React.MutableRefObject<any> | undefined;
-} & {
-  [key in StartupInputFieldNames]: React.MutableRefObject<any> | undefined;
-}
-;
+export type Refs =
+  | {
+      [key in InputFieldNames]: React.MutableRefObject<any> | undefined
+    }
+  | {
+      [key in StartupInputFieldNames]: React.MutableRefObject<any> | undefined
+    }
 export type Refs2 = {
   [key in InputFieldNames]: React.MutableRefObject<any>;
 } & {

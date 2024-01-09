@@ -6,6 +6,8 @@ import { notifyUser } from '@/components/notification'
 import { setUser } from '@/reducers/user/authSlice'
 import localUser from '@/lib/getToken'
 import { useAppDispatch } from '@/store/hooks'
+import { DataInner, InvestorUserPayload, StartupUserPayload } from '@/types'
+import { StartupData } from '@/types/invest'
 
 export default function SocialLogin() {
   const { setUserInLocal } = localUser
@@ -37,19 +39,28 @@ export default function SocialLogin() {
             const { responseCode, investorData, token, refId, status } =
               response
             localStorage.setItem('token', token)
+            const user: InvestorUserPayload | StartupUserPayload =
+              role === 'investor'
+                ? {
+                    role: 'investor',
+                    userData: investorData as DataInner,
+                    token,
+                    refId,
+                    kycStatus: status,
+                    premiumMember: investorData.membership.isMember !== 'no',
+                  }
+                : {
+                    role: 'startup',
+                    userData: investorData as StartupData,
+                    token,
+                    refId,
+                    premiumMember: false,
+                  }
 
-            // if (responseCode === 200) {
             await setUserInLocal({
               dispatch,
               setUser,
-              user: {
-                role: role,
-                userData: investorData,
-                token,
-                refId,
-                kycStatus: status,
-                premiumMember: investorData.membership.isMember !== 'no',
-              },
+              user,
             })
             return window.location.replace('/dashboard')
           } else {

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import getUserDetails from '@/action/user'
 import React from 'react'
-import Image from 'next/image';
+import Image from 'next/image'
 import CompanyProfileForm from '@/components/profile/startup/companyProfileForm'
 
 type Props = {
@@ -26,7 +26,7 @@ export default async function StartupProfile({ searchParams }: Props) {
     {
       label: 'Company Name',
       value: user?.companyName,
-      hidden:false
+      hidden: false,
     },
     {
       label: 'Registered Name',
@@ -55,71 +55,76 @@ export default async function StartupProfile({ searchParams }: Props) {
     // },
     {
       label: 'keyHighlight1',
-    value: user?.keyHighlights?.keyHighlight1,
-    hidden:false
+      value: user?.keyHighlights?.keyHighlight1,
+      hidden: false,
     },
     {
       label: 'keyHighlight2',
-    value: user?.keyHighlights?.keyHighlight2,
-    hidden:false
+      value: user?.keyHighlights?.keyHighlight2,
+      hidden: false,
     },
     {
       label: 'keyHighlight3',
-    value: user?.keyHighlights?.keyHighlight3,
-    hidden:false
+      value: user?.keyHighlights?.keyHighlight3,
+      hidden: false,
     },
     {
       label: 'keyHighlight4',
-    value: user?.keyHighlights?.keyHighlight4,
-    hidden:false
+      value: user?.keyHighlights?.keyHighlight4,
+      hidden: false,
     },
     {
       label: 'First Name',
-    value: user?.founderFirstName,
-    hidden:false
+      value: user?.founderFirstName,
+      hidden: false,
     },
     {
       label: 'Last Name',
-    value: user?.founderLastName,
-    hidden:false
+      value: user?.founderLastName,
+      hidden: false,
     },
     {
       label: 'Email',
-    value: user?.email,
-    hidden:false
+      value: user?.email,
+      hidden: false,
     },
     {
       label: 'Mobile Number',
-    value: user?.phone,
-    hidden:false
+      value: user?.phone,
+      hidden: false,
     },
     {
       label: 'Company based in city',
-    value: user?.companyBased,
-    hidden:false
+      value: user?.companyBased,
+      hidden: false,
     },
     {
       label: 'Video URL',
-    value: user?.youtubeVideoUrl,
-    hidden:false
+      value: user?.youtubeVideoUrl,
+      hidden: false,
     },
     {
       label: 'Banner',
-    value: user?.banner,
-    hidden:false
+      value: user?.banner,
+      hidden: false,
     },
-    
   ]
-
-  return <div className="h1 p-20">
-     {!(user.companyName === '' && user.registeredCompanyName === '') &&
+  
+  return (
+    <>
+      {!(user.companyName === '' && user.registeredCompanyName === '') &&
       editState ? (
-     <div className="grid grid-cols-1">
+        <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-2">
             {data.slice(0, 3).map(({ label, value, hidden }) => (
               <React.Fragment key={label}>
-                {!hidden &&  (
-                  <div className={label=="Short Description"?"grid gap-2 col-span-2":"grid gap-2"}>
+                {!hidden && (
+                  <div
+                    className={
+                      label == 'Short Description'
+                        ? 'col-span-2 grid gap-2'
+                        : 'grid gap-2'
+                    }>
                     <p className="text-md text-gray-400">{label}</p>
                     <p className="text-md font-semi">{value}</p>
                   </div>
@@ -141,24 +146,24 @@ export default async function StartupProfile({ searchParams }: Props) {
             ))}
           </div>
           <div className="h-2 w-full bg-light-shadow"></div>
-         
+
           <div>
-            <div className="pt-6 ml-8 text-md font-extrabold  items-center ">
+            <div className="text-md ml-8 items-center pt-6  font-extrabold ">
               Highlights
             </div>
-          <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 xl:grid-cols-1">
-          {data.slice(6, 10).map(({ label, value, hidden }) => (
-              <React.Fragment key={label}>
-                {!hidden && (
-                  <div className="grid gap-2">
-                    <p className="text-md text-gray-400">{label}</p>
-                    <p className="text-md font-semibold">{value}</p>
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
+            <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 xl:grid-cols-1">
+              {data.slice(6, 10).map(({ label, value, hidden }) => (
+                <React.Fragment key={label}>
+                  {!hidden && (
+                    <div className="grid gap-2">
+                      <p className="text-md text-gray-400">{label}</p>
+                      <p className="text-md font-semibold">{value}</p>
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
 
-            {/* {data.slice(7, 12).map(({ label, value, hidden } , index) => (
+              {/* {data.slice(7, 12).map(({ label, value, hidden } , index) => (
               <React.Fragment key={label}>
                 {!hidden && (
                   <div className="grid gap-2">
@@ -168,34 +173,40 @@ export default async function StartupProfile({ searchParams }: Props) {
                 )}
               </React.Fragment>
             ))} */}
-          </div>
+            </div>
           </div>
           <div className="h-2 w-full bg-light-shadow"></div>
-            <div>
-            <div className="pt-6 ml-8 text-md font-extrabold  items-center ">
+          <div>
+            <div className="text-md ml-8 items-center pt-6  font-extrabold ">
               Additional information
             </div>
-          <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 xl:grid-cols-3">
-          {data.slice(10, 17).map(({ label, value, hidden }) => (
-  <React.Fragment key={label}>
-    {!hidden && (
-      <div className="grid gap-2">
-        <p className="text-md text-gray-400">{label}</p>
-        {label === "Banner" ? (
-          <Image src={"https://www.bizdateup.com/v1/banner/" + value} width={512} height={221}  alt="Banner" className="banner-image rounded" />
-        ) : (       
-            <p className="text-md font-bold">{value}</p>
-        )}
-      </div>
-    )}
-  </React.Fragment>
-))}
-
-          </div>
+            <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 xl:grid-cols-3">
+              {data.slice(10, 17).map(({ label, value, hidden }) => (
+                <React.Fragment key={label}>
+                  {!hidden && (
+                    <div className="grid gap-2">
+                      <p className="text-md text-gray-400">{label}</p>
+                      {label === 'Banner' ? (
+                        <Image
+                          src={'https://www.bizdateup.com/v1/banner/' + value}
+                          width={512}
+                          height={221}
+                          alt="Banner"
+                          className="banner-image rounded"
+                        />
+                      ) : (
+                        <p className="text-md font-bold">{value}</p>
+                      )}
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         </div>
-         ) : (
-          <CompanyProfileForm user={user} />
-        )}
-    </div>
+      ) : (
+        <CompanyProfileForm user={user} />
+      )}
+    </>
+  )
 }

@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils';
-import { Input  } from 'antd';
-import React, { ForwardRefRenderFunction } from 'react';
-import { TextAreaRef } from 'antd/lib/input/TextArea';
-import { ForwardRefProps , TextAreaForwardRefProps } from '@/types/profile';
+import { cn } from '@/lib/utils'
+import { Input } from 'antd'
+import React, { ForwardRefRenderFunction } from 'react'
+import { TextAreaRef } from 'antd/lib/input/TextArea'
+import { TextAreaForwardRefProps } from '@/types/profile'
 
-const { TextArea } = Input;
+const { TextArea } = Input
 
 const TextAreaInput: ForwardRefRenderFunction<TextAreaRef,
 TextAreaForwardRefProps> = (

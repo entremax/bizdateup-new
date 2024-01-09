@@ -76,13 +76,13 @@ export async function setAcceleratorCookies(accelerator: {
     value: accelerator?._id as string,
     httpOnly: true,
     path: '/',
-    maxAge: 60 * 60,
+    maxAge: 60 * 60 * 24,
   })
   cookies().set({
     name: 'referrer_id',
     value: accelerator?.referral_code as string,
     httpOnly: true,
     path: '/',
-    maxAge: 60 * 60,
+    maxAge: 60 * 60 * 24,
   })
 }

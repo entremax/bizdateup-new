@@ -1,33 +1,46 @@
 'use client'
 import React, { createContext, useContext, useState } from 'react'
-import { DataInner } from '@/types'
 import { useUser } from '@/hooks/useUser'
 import { useAppDispatch } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import {
-  useUpdateCompanyDetailsMutation,
-  useUpdateTeamMutation,
-  useUpdateMentorMutation,
-  useUpdatePitchMutation,
-  useUpdateDealtermMutation,
-  useUpdateDuefileMutation,
-  useUpdateFaqMutation,
-  useUpdateEventMutation,
-  useDeleteMentorMutation,
-  useDeleteTeamMutation,
+  useDeleteDealfileMutation,
   useDeleteEventMutation,
   useDeleteFaqMutation,
+  useDeleteMentorMutation,
   useDeletePitchMutation,
-  useDeleteDealfileMutation,
+  useDeleteTeamMutation,
+  useUpdateCompanyDetailsMutation,
+  useUpdateDealtermMutation,
+  useUpdateDuefileMutation,
+  useUpdateEventMutation,
+  useUpdateFaqMutation,
+  useUpdateMentorMutation,
+  useUpdatePitchMutation,
+  useUpdateTeamMutation,
 } from '@/services/startupApiSlice'
 import { StartupData } from '@/types/invest'
 
-type UpdateType = 'company_details' | 'team' | 'delete_team' | 'delete_mentor' |  'delete_faq' | 'delete_event'
-|'delete_dealfile' |'mentor' | 'faq' | 'event' | 'dealterm' | 'duefile' | 'pitch' | 'logo' | 'delete_pitch'
+type UpdateType =
+  | 'company_details'
+  | 'team'
+  | 'delete_team'
+  | 'delete_mentor'
+  | 'delete_faq'
+  | 'delete_event'
+  | 'delete_dealfile'
+  | 'mentor'
+  | 'faq'
+  | 'event'
+  | 'dealterm'
+  | 'duefile'
+  | 'pitch'
+  | 'logo'
+  | 'delete_pitch'
 
 type ContextProps = {
   loading: boolean
-  handleUpdate: (formData: StartupData | unknown, updating: UpdateType) => any
+  handleUpdate: (formData: any, updating: UpdateType) => any
 }
 const UpdateContext = createContext<ContextProps>({} as ContextProps)
 
@@ -52,7 +65,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [deleteDealFile] = useDeleteDealfileMutation()
   const [deletePitch] = useDeletePitchMutation()
   
-  const handleUpdate = (formData: StartupData | any, updating: UpdateType) => {
+  const handleUpdate = (formData: any, updating: UpdateType) => {
     if (!user) {
       dispatch(
         setNotification({
@@ -63,7 +76,8 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       )
       return
     }
-    const updatedData = { ...formData, refId: user.userData._id }
+    const updatedData = { ...formData, refId: user.refId }
+
     setLoading(true)
     if (updating === 'company_details') {
       setLoading(true)

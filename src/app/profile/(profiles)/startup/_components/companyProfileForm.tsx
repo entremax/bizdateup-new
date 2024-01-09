@@ -1,26 +1,24 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { Fragment, useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { TextAreaRef } from 'antd/lib/input/TextArea'
-import { FieldNames, Fields, Refs } from '@/types/profile'
+import { Refs, StartupInputFieldNames } from '@/types/profile'
 import Input from '@/components/form/Input'
 import Select from '@/components/form/Select'
 import TextArea from '@/components/form/TextArea'
 import RadioGroup from '@/components/form/RadioGroup'
 import ImageUploader from '@/components/form/ImageUploader'
+import type { RadioChangeEvent } from 'antd'
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
-import type { RadioChangeEvent, UploadProps } from 'antd'
-import {StartupData} from '@/types/invest'
-import { RadioGroupOptionType } from 'antd/es/radio'
-
+import { StartupData } from '@/types/invest'
 
 export default function GeneralForm({ user }: { user: StartupData }) {
   const router = useRouter()
   //@ts-ignore
-  const refs: Record<string, React.MutableRefObject<InputRef | null>> = {
+  const refs: Refs = {
     'company-name': useRef<InputRef | null>(null),
     'registered-name': useRef<InputRef | null>(null),
     // 'raised': useRef<InputRef | null>(null),
@@ -37,10 +35,11 @@ export default function GeneralForm({ user }: { user: StartupData }) {
     phone: useRef<InputRef | null>(null),
     email: useRef<InputRef | null>(null),
     // 'banner': useRef<InputRef | null>(null),
-    stage: useRef<InputRef | null>(null),
   }
+
   //@ts-ignore
-  const refs2: Record<string, React.MutableRefObject<TextAreaRef | null>> = {
+  const refs2 = {
+    stage: useRef<TextAreaRef | null>(null),
     'short-description': useRef<TextAreaRef | null>(null),
   }
   const { handleUpdate, loading } = useStartupUpdateContext()
@@ -50,10 +49,6 @@ export default function GeneralForm({ user }: { user: StartupData }) {
     sector: user.sector.split(',').map((item) => item.trim()),
     banner: user.banner,
   })
-  console.log(
-    '🚀 ~ file: companyProfileForm.tsx:45 ~ GeneralForm ~ selected:',
-    selected,
-  )
 
   const inputFields = [
     {
@@ -172,7 +167,6 @@ export default function GeneralForm({ user }: { user: StartupData }) {
       fieldType: 'fileUploader',
     },
   ]
-
   // const handleChange = (
   //   fieldName: any,
   //   value: DefaultOptionType | DefaultOptionType[],
@@ -221,14 +215,6 @@ export default function GeneralForm({ user }: { user: StartupData }) {
   }
 
   const handleRadioChange = (fieldName: string, event: RadioChangeEvent) => {
-    console.log(
-      '🚀 ~ file: companyProfileForm.tsx:172 ~ handleRadioChange ~ event:',
-      event,
-    )
-    console.log(
-      '🚀 ~ file: companyProfileForm.tsx:172 ~ handleRadioChange ~ fieldName:',
-      fieldName,
-    )
     setSelected((prevState) => ({
       ...prevState,
       [fieldName]: event.target.value,
@@ -243,34 +229,34 @@ export default function GeneralForm({ user }: { user: StartupData }) {
   }
 
   const handleProfileUpdate = async () => {
-    let values = {} as {
-      [key: string]: string
+    let values1: {
+      [key in StartupInputFieldNames]: string
+    } = {} as {
+      [key in StartupInputFieldNames]: string
     }
-
+    // let values2:{
+    //   stage: string;
+    //   'short-description':string
+    // } = {} as {
+    //   stage: string;
+    //   'short-description':string
+    // }
     for (let key in refs) {
-      values[key] = refs[key]?.current?.input?.value || ''
+      if (refs.hasOwnProperty(key)) {
+        //@ts-ignore
+        values1[key] = refs[key]?.current?.input?.value || ''
+      }
     }
 
-    for (let key in refs2) {
-      values[key] =
-        refs2[key]?.current?.resizableTextArea?.textArea?.value || ''
-    }
+    const short_description =
+      refs2['short-description']?.current?.resizableTextArea?.textArea.value ??
+      ''
+    const stage = refs2.stage?.current?.resizableTextArea?.textArea.value ?? ''
+    const values2 = { short_description, stage }
+    console.log(values1)
+    const values = { ...values1, ...values2 }
 
     const formData = new FormData()
-
-    // Log values for debugging
-    console.log('Selected Banner:', selected.banner)
-    console.log('User ID:', user._id)
-    console.log('Founder First Name:', values['first-name'])
-    console.log(
-      '🚀 ~ file: companyProfileForm.tsx:287 ~ handleProfileUpdate ~ values:',
-      values,
-    )
-    console.log(
-      '🚀 ~ file: companyProfileForm.tsx:287 ~ handleProfileUpdate ~ values:',
-      refs,
-    )
-    // ... log other values ...
 
     // Append values only if they are not null or undefined
     if (selected.banner) {
@@ -309,7 +295,7 @@ export default function GeneralForm({ user }: { user: StartupData }) {
       values['key_highlight4'] || '',
     )
     formData.append('sector', String(selected.sector) || '')
-    formData.append('shortDescription', values['short-description'] || '')
+    formData.append('shortDescription', values['short_description'] || '')
     formData.append('stage', values['stage'] || '')
     formData.append('companyName', values['company-name'] || '')
     formData.append('companyDetails', values['company-name'] || '')
@@ -319,60 +305,66 @@ export default function GeneralForm({ user }: { user: StartupData }) {
     if (selected.raised !== null && selected.raised !== undefined) {
       formData.append('raisedFund', selected.raised)
     }
-
+    console.log(formData, values)
     await handleUpdate(formData, 'company_details')
     return router.refresh()
   }
 
   return (
     <div className="grid grid-cols-1">
-      <div className="grid gap-8 p-8 lg:grid-cols-2">
-        {inputFields.slice(0, 3).map((field, index) =>
-          field.fieldType === 'select' && 'options' in field ? (
-            <Select
-              key={field.label}
-              className={'selector-profile'}
-              label={field.label}
-              title={field.name}
-              //@ts-ignore
-              options={field.options.map((option, index) => ({
-                key: index,
-                value: option.value,
-                label: option.label,
-              }))}
-              defaultValue={field.defaultValue}
-              name={field.name}
-              onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
-                handleChange(field.name, value)
-              }
-              // placeholder={field.placeholder}
-            />
-          ) : field.fieldType === 'textarea' && field?.name == 'stage' ? (
-            <TextArea
-              key={field.name}
-              defaultValue={field.defaultValue}
-              ref={refs2[field.name]}
-              name={field.name}
-              label={field.label}
-              className={index === 2 ? 'lg:col-span-2' : ''}
-              placeholder={`Enter your ${field.name}`}
-            />
-          ) : (
-            <Input
-              key={field.name}
-              defaultValue={field.defaultValue}
-              ref={refs[field.name]}
-              name={field.name}
-              label={field.label}
-              className={index === 2 ? 'lg:col-span-2' : ''}
-              placeholder={`Enter your ${field.name}`}
-            />
-          ),
-        )}
+      <div className="grid gap-8 p-8 py-4 lg:grid-cols-2">
+        {inputFields.slice(0, 3).map((field, index) => (
+          <Fragment key={field.label}>
+            {field.fieldType === 'select' && 'options' in field && (
+              <Select
+                key={field.label}
+                className={'selector-profile'}
+                label={field.label}
+                title={field.name}
+                //@ts-ignore
+                options={field.options.map((option, index) => ({
+                  key: index,
+                  value: option.value,
+                  label: option.label,
+                }))}
+                defaultValue={field.defaultValue}
+                name={field.name}
+                onChange={(value: DefaultOptionType | DefaultOptionType[]) =>
+                  handleChange(field.name, value)
+                }
+                // placeholder={field.placeholder}
+              />
+            )}
+            {field.fieldType === 'textarea' &&
+            field?.name === 'short-description' ? (
+              <TextArea
+                key={field.name}
+                defaultValue={field.defaultValue}
+                //@ts-ignore
+                ref={refs2[field.name]}
+                name={field.name}
+                label={field.label}
+                className={index === 2 ? 'lg:col-span-2' : ''}
+                placeholder={`Enter your ${field.name}`}
+              />
+            ) : (
+              <Input
+                key={field.name}
+                defaultValue={field.defaultValue}
+                //@ts-ignore
+                ref={refs[field.name]}
+                name={field.name}
+                label={field.label}
+                className={index === 2 ? 'lg:col-span-2' : ''}
+                placeholder={`Enter your ${field.name}`}
+              />
+            )}
+          </Fragment>
+        ))}
       </div>
       <div className="h-2 w-full bg-light-shadow"></div>
       <div className="mt-3 grid grid-cols-1 items-center gap-8 p-8 lg:grid-cols-1">
-        {inputFields.slice(3, 6).map((field) =>
+        {inputFields.slice(3, 6).map((field, index) =>
           field.fieldType === 'select' && 'options' in field ? (
             <Select
               key={field.label}
@@ -394,6 +386,7 @@ export default function GeneralForm({ user }: { user: StartupData }) {
           ) : field.fieldType === 'radiogroup' ? (
             <RadioGroup
               key={field.name}
+              labelClassName={'!font-semibold text-xl'}
               defaultValue={field.defaultValue}
               //@ts-ignore
               options={field.options}
@@ -403,6 +396,17 @@ export default function GeneralForm({ user }: { user: StartupData }) {
                 handleRadioChange(field.name, value)
               }
               label={field.label}
+              placeholder={`Enter your ${field.name}`}
+            />
+          ) : field.fieldType === 'textarea' ? (
+            <TextArea
+              key={field.name}
+              defaultValue={field.defaultValue}
+              //@ts-ignore
+              ref={refs2[field.name]}
+              name={field.name}
+              label={field.label}
+              className={index === 2 ? 'lg:col-span-2' : ''}
               placeholder={`Enter your ${field.name}`}
             />
           ) : (
@@ -503,14 +507,14 @@ export default function GeneralForm({ user }: { user: StartupData }) {
           ),
         )}
       </div>
-      <div className=" flex items-center justify-end px-8 pb-8">
+      <div className=" my-6 flex items-center  px-8 pb-8 md:w-1/6  md:justify-self-end">
         <Button
           loading={loading}
           disabled={loading}
           type={'default'}
           onClick={handleProfileUpdate}
           className={
-            'col-span-2 !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
+            '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block md:!bg-primary md:!text-white'
           }
           block>
           Save

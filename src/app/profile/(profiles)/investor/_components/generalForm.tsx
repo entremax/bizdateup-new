@@ -1,5 +1,5 @@
 'use client'
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { FieldNames, Refs } from '@/types/profile'
 import Input from '@/components/form/Input'
@@ -52,10 +52,7 @@ const States = [
 
 export default function GeneralForm({ user }: { user: DataInner }) {
   const router = useRouter()
-  const [refer_code, setReferCode] = useState<string | undefined>(
-    user?.refer ?? '',
-  )
-  const refs: Record<string, MutableRefObject<null | InputRef>> = {
+  const refs: Refs = {
     'first-name': useRef<InputRef | null>(null),
     'last-name': useRef<InputRef | null>(null),
     'p-ml': useRef<InputRef | null>(null),
@@ -65,21 +62,18 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     city: useRef<InputRef | null>(null),
     'pin-code': useRef<InputRef | null>(null),
   }
-
   const { handleUpdate, loading } = useUpdateContext()
   const [selected, setSelected] = useState({
     gender: user.gender,
     country: user.address.country,
     state: user.address.state,
   })
-
-  useEffect(() => {
-    setReferCode(
-      sessionStorage
-        ? sessionStorage?.getItem('refer_code') ?? undefined
-        : user?.refer ?? undefined,
-    )
-  }, [user.refer])
+  const getReferCode = () => {
+    if (user?.refer) {
+      return user?.refer
+    }
+    return sessionStorage.getItem('refer_code') ?? undefined
+  }
   const inputFields = [
     {
       name: 'first-name',
@@ -127,7 +121,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     },
     {
       name: 'referral',
-      defaultValue: refer_code,
+      defaultValue: getReferCode(),
       label: 'Referral Code',
       disabled: true,
     },
@@ -218,6 +212,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
       country: selected.country,
       refer: values.referral,
     } as unknown as DataInner
+    console.log(values)
     await handleUpdate(formData, 'general')
     return
   }

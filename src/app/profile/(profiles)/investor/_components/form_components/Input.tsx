@@ -36,6 +36,7 @@ const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
         )}
         placeholder={`Enter ${label}`}
         {...props}
+        ref={ref}
       />
 
       <label
