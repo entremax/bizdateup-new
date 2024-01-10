@@ -8,7 +8,6 @@ import {
 } from 'next/navigation'
 import { useAppSelector } from '@/store/hooks'
 import { Icons } from '@/components/icons/icon'
-import { useUser } from '@/hooks/useUser'
 import { KYCStatus } from '@/types'
 import Edit from '@/icons/Edit'
 import { cn } from '@/lib/utils'
@@ -37,9 +36,8 @@ export default function SectionHeader() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const editState = searchParams.get('edit')
-  const { user } = useUser()
-  const { kycStatus } = useAppSelector(({ authUser }) => authUser)
-  
+  const { user, kycStatus } = useAppSelector(({ authUser }) => authUser)
+
   const sections: SectionsInterface = useMemo(
     () => ({
       'general-info': { id: 1, name: 'General Information', editable: true },
@@ -47,9 +45,7 @@ export default function SectionHeader() {
         id: 2,
         name: 'KYC',
         editable:
-          user?.role === 'investor' &&
-          (user?.kycStatus?.includes(KYCStatus.aadhar || KYCStatus.pan) ??
-            false),
+          kycStatus?.includes(KYCStatus.aadhar || KYCStatus.pan) ?? false,
       },
       bank: { id: 3, name: 'Bank Details', editable: true },
       other: { id: 4, name: 'Other Details', editable: true },
@@ -59,7 +55,7 @@ export default function SectionHeader() {
         editable: false,
       },
     }),
-    [user],
+    [kycStatus],
   )
   const [section, setSection] = useState<SectionDetails>(
     sections['general-info'],

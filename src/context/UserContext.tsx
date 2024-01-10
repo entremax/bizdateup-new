@@ -44,15 +44,20 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const router = useRouter()
   const [state, dispatch] = useReducer(reducer, { user: null, loading: false })
   const role = useCookieLocal('role')
-  const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
-
+  const { user: reduxUser, refId } = useAppSelector(({ authUser }) => authUser)
+  
   const fetchUserDetails = useCallback(async () => {
-    if (!role || role === '') return
+    if (!role || role === '' || reduxUser) return
 
     const data = await getUserDetails()
+
+    console.log(data)
+
     if (!data || !data.role || !data.user) {
+      console.log('Redirecting to login')
       return router.push('/login')
     }
+
     if (data.role === 'investor') {
       dispatch({ type: 'SET_LOADING', payload: true })
       if ((data && data.role !== 'investor') || !data.user)
@@ -69,8 +74,6 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         kycStatus: data?.status,
         premiumMember: data?.user?.membership?.isMember !== 'no',
       }
-
-      dispatch({ type: 'SET_USER', payload: userInfo })
       store.dispatch(setUser(userInfo))
     } else {
       const authMethod = localStorage.getItem('loginMethod') ?? ''
@@ -94,16 +97,12 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       dispatch({ type: 'SET_USER', payload: userInfo })
       store.dispatch(setUser(userInfo))
     }
-  }, [role, router])
+  }, [role])
 
   useEffect(() => {
+    console.log('running effect')
     fetchUserDetails()
-  }, [fetchUserDetails])
-
-  // console.log('USER HOOK RENDER_COUNT:', renderCount);
-  // if (reduxUser && renderCount.current > 3) {
-  //   return null; // Or some other logic, e.g., return a loading spinner
-  // }
+  }, [role])
 
   return <UserContext.Provider value={state}>{children}</UserContext.Provider>
 };

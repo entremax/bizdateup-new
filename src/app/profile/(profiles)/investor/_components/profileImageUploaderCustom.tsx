@@ -1,13 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { useAppDispatch } from '@/store/hooks'
 import ImageUpload from '@/components/ImageUpload'
 import { useUpdateProfileImageMutation } from '@/services/apiSlice'
 import { notifyUser } from '@/components/notification'
 import { apiUri, cn } from '@/lib/utils'
-import { useUser } from '@/hooks/useUser'
 import { DataInner } from '@/types'
 import { StartupData } from '@/types/invest'
+import { revalidate } from '@/action/revalidate'
 
 type IBorderColors = 'premium' | 'error' | 'normal' | 'uploading'
 type Props =
@@ -21,9 +20,6 @@ const ImageUploader: React.FC<Props> = ({ user, role, refId }) => {
     uploading: 'drop-shadow-lg  !border-[#22c55e]',
     error: 'drop-shadow-lg  !border-[#FF5630]',
   }
-  const { user: loacl } = useUser()
-  const dispatch = useAppDispatch()
-
   const [uploadImage] = useUpdateProfileImageMutation()
   const [state, setState] = useState({
     file: null as File | null,
@@ -50,6 +46,7 @@ const ImageUploader: React.FC<Props> = ({ user, role, refId }) => {
             borderColor: determineBorderColor(),
           }))
           notifyUser('success', res?.data?.message ?? 'Submitted Successfully')
+          revalidate('/profile/investor', 'layout')
         })
         .catch((e) => {
           setState((prevState) => ({ ...prevState, borderColor: 'error' }))
@@ -78,7 +75,9 @@ const ImageUploader: React.FC<Props> = ({ user, role, refId }) => {
             ? apiUri().v0 + '/logo/' + user?.logo
             : user?.profilePic === ''
               ? undefined
-              : apiUri().v0 + '/investor/profile_pic/' + user?._id
+              : apiUri().v0 +
+                '/investor/profile_pic_by_name/' +
+                user?.profilePic
         }
         onFileSet={handleFileChange}
         className={cn(

@@ -18,10 +18,8 @@ export default async function getUserDetails(): Promise<
   InvestorUserData | StartupUserData | NoUser
 > {
   const token = cookies().get('token')?.value
-  console.log('🚀 ~ file: user.ts:11 ~ getUserDetails ~ token:', token)
   const user_id = cookies().get('user_id')?.value
   const role = cookies().get('role')?.value
-  console.log('🚀 ~ file: user.ts:13 ~ getUserDetails ~ role:', role)
 
   if (!user_id || !token) {
     return { user: null, role: undefined, status: [], token: null, refId: '' }
@@ -29,7 +27,7 @@ export default async function getUserDetails(): Promise<
 
   let url = '/investor/fetchbyid'
   let config: any = {
-    next: { revalidate: 0 },
+    next: { revalidate: 10000 },
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -40,7 +38,7 @@ export default async function getUserDetails(): Promise<
   if (role === 'startup') {
     url = '/startup/fetchStartupByRef?refId=' + user_id
     config = {
-      next: { revalidate: 0 },
+      next: { revalidate: 10000 },
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -57,6 +55,7 @@ export default async function getUserDetails(): Promise<
       throw new Error(e)
     })
   
+  console.log('🚀 ~ file: user.ts:58 ~ getUserDetails ~ Fetched User', res)
   return {
     role: role as 'investor' | 'startup' | undefined,
     refId: user_id,

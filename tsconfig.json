@@ -119,8 +119,8 @@
       // "@/context/startup_profile/*": [
       //   "./src/app/profile/(profiles)/startup/_components/context/*"
       // ],
-      "@/hooks/common/*": [
-        "./src/hooks/*"
+      "@/context/*": [
+        "./src/context/*"
       ],
       "@/types/*": [
         "./src/types/*"

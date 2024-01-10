@@ -1,8 +1,7 @@
 'use client'
 import React, { createContext, useContext, useState } from 'react'
 import { DataInner, KYCStatus } from '@/types'
-import { useUser } from '@/hooks/useUser'
-import { useAppDispatch } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import {
   useUpdateBankDetailsMutation,
@@ -10,6 +9,9 @@ import {
   useUpdateUserMutation,
 } from '@/services/apiSlice'
 import { useRouter } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
+import { revalidate } from '@/action/revalidate'
+import { notifyUser } from '@/components/notification'
 
 type UpdateType = 'general' | 'bank' | 'other' | 'aadhar' | 'pan'
 
@@ -22,16 +24,16 @@ const UpdateContext = createContext<ContextProps>({} as ContextProps)
 export const useUpdateContext = () => useContext(UpdateContext)
 
 const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useUser()
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const { user, kycStatus } = useAppSelector(({ authUser }) => authUser)
   const [loading, setLoading] = useState(false)
   const [updateUser] = useUpdateUserMutation()
   const [updateOtherDetails] = useUpdateOtherDetailsMutation()
   const [updateBankDetails] = useUpdateBankDetailsMutation()
 
   function navigateNext(updated: UpdateType) {
-    if (user && user.role !== 'investor') {
+    if (user && 'role' in user) {
       return
     }
     const findNextPendingStep = () => {
@@ -53,7 +55,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         i++
       ) {
         const nextStep = pendingSteps[i]
-        if (user?.kycStatus?.includes(nextStep.status)) {
+        if (kycStatus?.includes(nextStep.status)) {
           return nextStep.route
         }
       }
@@ -64,23 +66,19 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     const nextPendingStep = findNextPendingStep()
 
     if (nextPendingStep) {
-      router.push(nextPendingStep)
+      return router.push(nextPendingStep)
     }
   }
 
   const handleUpdate = (formData: DataInner | any, updating: UpdateType) => {
-    console.log('🚀 ~ file: index.tsx:32 ~ handleUpdate ~ formData:', formData)
     if (!user) {
-      dispatch(
-        setNotification({
-          type: 'warning',
-          message: 'No logged in user found',
-          description: 'A refresh might fix this issue',
-        }),
+      return notifyUser(
+        'warning',
+        'No logged in user found',
+        'A refresh might fix this issue',
       )
-      return
     }
-    const updatedData = { ...formData, refId: user.userData._id }
+    const updatedData = { ...formData, refId: user._id }
     setLoading(true)
     let failed = false
     setTimeout(() => {}, 3000)
@@ -210,7 +208,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (!failed) {
       navigateNext(updating)
-      router.refresh()
     }
     setLoading(false)
   }

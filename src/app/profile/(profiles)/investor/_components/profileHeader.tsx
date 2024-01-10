@@ -70,9 +70,7 @@ export const fetchCache = 'default-no-store'
 
 export default async function ProfileHeader() {
   const { user, role, refId } = await getUserDetails()
-  console.log(user)
   if (!user || !role) {
-    'Check failed'
     return
   }
   const userData:

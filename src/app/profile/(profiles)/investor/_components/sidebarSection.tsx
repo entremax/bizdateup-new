@@ -20,7 +20,6 @@ import {
   reset as authReset,
 } from '@/reducers/user/authSlice'
 import { notifyUser } from '@/components/notification'
-import { useUser } from '@/hooks/useUser'
 import { KYCStatus } from '@/types'
 
 export default function SectionBar({
@@ -30,7 +29,6 @@ export default function SectionBar({
 }) {
   const searchParams = useSearchParams()
   const sm = searchParams.get('sm')
-  const { user } = useUser()
   const { kycStatus } = useAppSelector(({ authUser }) => authUser)
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -298,7 +296,7 @@ export default function SectionBar({
         ))}
       </div>
       <div className={`my-8 lg:hidden ${sm === 'y' ? 'hidden' : ''}`}>
-        <Button onClick={logoutUser} type={'text'} danger>
+        <Button loading={isLoading} onClick={logoutUser} type={'text'} danger>
           Sign Out
         </Button>
       </div>

@@ -6,7 +6,6 @@ import {
   useSearchParams,
   useSelectedLayoutSegment,
 } from 'next/navigation'
-import { useUser } from '@/hooks/useUser'
 import Edit from '@/icons/Edit'
 import { cn } from '@/lib/utils'
 
@@ -37,7 +36,6 @@ export default function SectionHeader() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const editState = searchParams.get('edit')
-  const { user } = useUser()
 
   const sections: SectionsInterface = {
     'company-profile': { id: 1, name: 'Company Profile', editable: true },
@@ -56,7 +54,8 @@ export default function SectionHeader() {
 
   useEffect(() => {
     setSection(segment ? sections[segment] : sections['company-profile'])
-  }, [segment])
+    // eslint-disable-next-line
+  }, [])
 
   const handleEdit = () => {
     setLoading(true)

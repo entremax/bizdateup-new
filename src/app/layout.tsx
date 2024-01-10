@@ -7,7 +7,7 @@ import StyledComponentsRegistry from '@/lib/AntdRegistry'
 import ReduxProvider from '@/store/Provider'
 import AntNotification from '@/components/notification'
 import MobileNavbar from '@/components/navbar/navbar_mobile'
-import UserProvider from '@/hooks/useUser'
+import UserProvider from '@/context/UserContext'
 import Footer from '@/components/footer'
 import NavbarNew from '@/components/navbar_new'
 

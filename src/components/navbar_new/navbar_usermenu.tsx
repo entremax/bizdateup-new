@@ -28,7 +28,7 @@ import useCookieLocal from '@/lib/useCookieLocal'
 import UserMenuDropdown from '@/components/navbar_new/UserMenuDropdown'
 import { DollarOutlined } from '@ant-design/icons'
 import { StartupData } from '@/types/invest'
-import { useUser } from '@/hooks/useUser'
+import { useUser } from '@/context/UserContext'
 
 type Props =
   | { user: DataInner | null; role: 'investor' }
@@ -192,6 +192,7 @@ const UserMenu = ({ user, role }: Props) => {
     }
     setCreating(false)
   }
+
   useEffect(() => {
     setWindowWidth(window.innerWidth)
   }, [])

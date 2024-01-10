@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useState } from 'react'
-import { useUser } from '@/hooks/useUser'
+import { useUser } from '@/context/UserContext'
 import { useAppDispatch } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import {

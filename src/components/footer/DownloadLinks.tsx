@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import React from 'react'
+
 export default function DownloadLinks() {
   return (
     <div className="mt-[122px] hidden flex-col items-center justify-between rounded-[30px] bg-[#EEF] px-4 py-4 pb-[68px] lg:mx-[124px] lg:flex lg:flex-row lg:px-[88px] lg:pb-[0]">
@@ -261,7 +264,7 @@ export default function DownloadLinks() {
       </div>
       <div>
         <picture>
-          <img src="/Phone.webp" alt="Phone" width="100%" height="auto" />
+          <Image src={'/mobile_app.svg'} height={200} width={250} alt={'IOS'} />
         </picture>
       </div>
     </div>

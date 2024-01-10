@@ -11,6 +11,7 @@ import ReadyToJoin from '@/app/_components/RedayToJoin'
 import DownloadLinks from '@/components/footer/DownloadLinks'
 import Faq from '@/components/faq'
 import HowItWorks from '@/components/home/onboarding_steps/HowToInvest'
+import MobileAppAds from '@/components/mobileAppAds'
 
 export default function Home() {
   return (
@@ -25,7 +26,7 @@ export default function Home() {
       <Founders />
       <Featured />
       <ReadyToJoin />
-      <DownloadLinks />
+      <MobileAppAds />
       <div className="flex-col items-center justify-center gap-8 md:my-32 md:px-44">
         <h4 className={'mb-4 text-center text-4xl font-bold lg:mb-8'}>
           Frequently Asked Questions
