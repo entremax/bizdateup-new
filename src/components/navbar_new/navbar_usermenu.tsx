@@ -31,10 +31,10 @@ import { StartupData } from '@/types/invest'
 import { useUser } from '@/context/UserContext'
 
 type Props =
-  | { user: DataInner | null; role: 'investor' }
-  | { user: StartupData | null; role: 'startup' }
+  | { user: DataInner | null; role: 'investor'; local_user?: false }
+  | { user: StartupData | null; role: 'startup'; local_user?: boolean }
 
-const UserMenu = ({ user, role }: Props) => {
+const UserMenu = ({ user, role, local_user }: Props) => {
   const [windowWidth, setWindowWidth] = useState(0)
   const logged_in = useCookieLocal('logged-in')
   const [creating, setCreating] = useState(false)
@@ -87,6 +87,7 @@ const UserMenu = ({ user, role }: Props) => {
   const items = [
     {
       label: <p className={'reset px-4'}>Profile</p>,
+      hidden: local_user && role === 'startup',
       key: '1',
       icon: <FontAwesomeIcon icon={faUser} className={'text-primary'} />,
     },
@@ -196,7 +197,7 @@ const UserMenu = ({ user, role }: Props) => {
   useEffect(() => {
     setWindowWidth(window.innerWidth)
   }, [])
-  if (!logged_in || !user) {
+  if (!logged_in || (!user && !local_user)) {
     return null
   }
   return (

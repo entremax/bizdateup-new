@@ -1,6 +1,4 @@
-'use server'
 import { cookies } from 'next/headers'
-import { fetch } from 'next/dist/compiled/@edge-runtime/primitives'
 import { apiUri } from '@/lib/utils'
 import { StartupInvestment } from '@/types'
 
@@ -15,7 +13,8 @@ export default async function getStartupInvestmentDetails(): Promise<StartupInve
   const token = cookies().get('token')?.value
   const user_id = cookies().get('user_id')?.value
   const role = cookies().get('role')?.value
-
+  const local_user = cookies().get('local-user')?.value
+  
   if (!user_id || !token) {
     return []
   }

@@ -27,7 +27,7 @@ export default async function getUserDetails(): Promise<
 
   let url = '/investor/fetchbyid'
   let config: any = {
-    next: { revalidate: 10000 },
+    next: { revalidate: 20000 },
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export default async function getUserDetails(): Promise<
   if (role === 'startup') {
     url = '/startup/fetchStartupByRef?refId=' + user_id
     config = {
-      next: { revalidate: 10000 },
+      next: { revalidate: 20000 },
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -105,4 +105,10 @@ export async function getCookieData() {
     referrer_id,
     role,
   } as Cookies
+}
+
+
+export async function setUserAsLocal() {
+  cookies().set('local-user', 'true', { maxAge: 60 * 60 * 24 })
+  return
 }

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import PDFUpload from '@/components/PdfUpload'
 import { Button } from 'antd'
 import { DefaultOptionType } from 'rc-select/lib/Select'
-import { useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import {
   useFetchFormMutation,
   useOnboardingMutation,
@@ -16,14 +16,18 @@ import {
 import { notifyUser } from '@/components/notification'
 import { IStartupDetails } from '@/types/startup'
 import { useRouter } from 'next/navigation'
+import { temp_values } from '@/reducers/user/authSlice'
 
 export default function OnboardingForm() {
   const router = useRouter()
+  const dispatch = useAppDispatch()
   const [selected, setSelected] = useState({
     tags: '',
   })
   const [pdf, setPdf] = useState<File | null>(null)
-  const { user, refId } = useAppSelector(({ authUser }) => authUser)
+  const { user, temp_auth_medium, refId } = useAppSelector(
+    ({ authUser }) => authUser,
+  )
   const [onboarding, { isLoading }] = useOnboardingMutation()
   const [fetchForm] = useFetchFormMutation()
   const [defaultValues, setDefaultValues] = useState<IStartupDetails | any>({})
@@ -46,6 +50,14 @@ export default function OnboardingForm() {
     referral: React.useRef<InputRef | null>(null),
     sector: React.useRef<InputRef | null>(null),
   }
+  const getReferCode = () => {
+    // if (user?.refer) {
+    //   return user?.refer
+    // }
+    const refer_code = sessionStorage.getItem('refer_code') ?? undefined
+    const email = localStorage.getItem('email') ?? undefined
+    return { refer_code, email }
+  }
   const inputFields = [
     {
       name: 'first-name',
@@ -58,11 +70,13 @@ export default function OnboardingForm() {
     {
       name: 'email',
       label: 'EmailID',
-      defaultValue: user?.email ?? '',
+      defaultValue: getReferCode().email ?? undefined,
+      disabled: true,
     },
     {
       name: 'phone',
       label: 'Phone Number',
+      type: 'number',
     },
     {
       name: 'founder-linkedin',
@@ -121,10 +135,15 @@ export default function OnboardingForm() {
     {
       name: 'referral',
       label: 'Refer & Earn',
+      defaultValue: getReferCode().refer_code ?? undefined,
+      disabled: true,
     },
   ]
 
   React.useEffect(() => {
+    if (!refId) return
+    let range = true
+    if (!range) return
     // if (method !== "localSignup") {
     fetchForm(refId)
       .unwrap()
@@ -154,8 +173,15 @@ export default function OnboardingForm() {
       })
       .catch((e) => console.log(e))
     // }
-  }, [])
+    return () => {
+      range = false
+    }
+  }, [refId])
 
+  React.useEffect(() => {
+    const email = localStorage.getItem('email')
+    dispatch(temp_values(email))
+  }, [temp_auth_medium])
   const handleSubmit = () => {
     let values: { [key in keyof typeof refs]: unknown | null } = {} as {
       [key in keyof typeof refs]: unknown | null
@@ -167,8 +193,8 @@ export default function OnboardingForm() {
     const startupDetails: IStartupDetails = {
       founderFirstName: values['first-name'],
       founderLastName: values['last-name'],
-      emailOrPhone: user?.email ?? '',
-      phone: user?.phone ?? '',
+      emailOrPhone: user?.email ?? values['email'],
+      phone: user?.phone ?? values['phone'],
       founderLinkedinUrl: values['founder-linkedin'],
       registeredCompanyName: values['registered-name'],
       companyName: values['company-name'],
@@ -196,6 +222,7 @@ export default function OnboardingForm() {
     Object.keys(startupDetails).forEach((key) =>
       body.append(key, startupDetails[key as keyof IStartupDetails]),
     )
+    console.log(body)
     onboarding(body)
       .unwrap()
       .then((res) => {
@@ -215,6 +242,7 @@ export default function OnboardingForm() {
   ) => {
     setSelected((prevState: any) => ({ ...prevState, [fieldName]: value }))
   }
+
   return (
     <div className="flex flex-col gap-3">
       <h3 className="px-4 text-3xl font-semibold text-primary-dark xl:text-4xl">
@@ -251,6 +279,7 @@ export default function OnboardingForm() {
                 wrapperClassName={cn(
                   index < 4 ? 'col-span-2 lg:col-span-1' : 'col-span-2',
                 )}
+                disabled={field.disabled ?? false}
                 //TODO- uncomment this
                 // required
                 key={field.name}

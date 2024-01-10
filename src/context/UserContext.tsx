@@ -6,13 +6,12 @@ import React, {
   useEffect,
   useReducer,
 } from 'react'
-import { useAppSelector } from '@/store/hooks'
 import { setUser } from '@/reducers/user/authSlice'
 import getUserDetails from '@/action/user'
 import localUser from '@/lib/getToken'
 import useCookieLocal from '@/lib/useCookieLocal'
 import { DataInner, InvestorUserPayload, StartupUserPayload } from '@/types'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { store } from '@/store'
 
 type State = {
@@ -42,16 +41,28 @@ const UserContext = createContext<State>({ user: null, loading: false })
 
 const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const router = useRouter()
+  const path = usePathname()
   const [state, dispatch] = useReducer(reducer, { user: null, loading: false })
   const role = useCookieLocal('role')
-  const { user: reduxUser, refId } = useAppSelector(({ authUser }) => authUser)
   
   const fetchUserDetails = useCallback(async () => {
-    if (!role || role === '' || reduxUser) return
+    if (!role || role === '') return
+
+    if (role === 'startup') {
+      const authMethod = localStorage.getItem('loginMethod') ?? ''
+      const authAction = localStorage.getItem('loginMethod2') ?? ''
+
+      if (authMethod === 'local' && authAction === 'signup') {
+        const localData = localUser.getUserLocal()
+        if (!localData || localData.role !== 'startup')
+          return router.push('/login/startup')
+        dispatch({ type: 'SET_USER', payload: localData })
+        store.dispatch(setUser(localData))
+        return
+      }
+    }
 
     const data = await getUserDetails()
-
-    console.log(data)
 
     if (!data || !data.role || !data.user) {
       console.log('Redirecting to login')
@@ -76,17 +87,6 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       }
       store.dispatch(setUser(userInfo))
     } else {
-      const authMethod = localStorage.getItem('loginMethod') ?? ''
-      const authAction = localStorage.getItem('loginMethod2') ?? ''
-
-      if (authMethod === 'local' && authAction === 'signup') {
-        const localData = localUser.getUserLocal()
-        if (!localData || localData.role !== 'startup')
-          return router.push('/login/startup')
-        dispatch({ type: 'SET_USER', payload: localData })
-        store.dispatch(setUser(localData))
-        return
-      }
       const userInfo: StartupUserPayload = {
         role: data.role,
         userData: data.user,
@@ -97,12 +97,12 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       dispatch({ type: 'SET_USER', payload: userInfo })
       store.dispatch(setUser(userInfo))
     }
-  }, [role])
+  }, [role, path])
 
   useEffect(() => {
     console.log('running effect')
     fetchUserDetails()
-  }, [role])
+  }, [role, path])
 
   return <UserContext.Provider value={state}>{children}</UserContext.Provider>
 };

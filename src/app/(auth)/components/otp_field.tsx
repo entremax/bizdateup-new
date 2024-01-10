@@ -11,6 +11,7 @@ import { setNotification } from '@/reducers/others/notificationSlice'
 import { useVerifyOtpMutation } from '@/services/NextApiSlice'
 import localUser from '@/lib/getToken'
 import { DataInner, InvestorUserPayload, StartupUserPayload } from '@/types'
+import { setUserAsLocal } from '@/action/user'
 
 interface OtpVerifyData {
   code: string
@@ -136,10 +137,11 @@ export default function OtpField({ id }: { id: string }) {
         refId = userId,
         status,
       } = response.data
+      console.log(token)
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
       const user: InvestorUserPayload | StartupUserPayload =
-        'role' in investorData
+        investorData && 'role' in investorData
           ? {
               role: 'investor',
               userData: investorData as DataInner,
@@ -157,13 +159,19 @@ export default function OtpField({ id }: { id: string }) {
             }
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
         localStorage.setItem('token', token)
-
+        if (temp_auth_medium) {
+          localStorage.setItem('email', temp_auth_medium ?? '')
+        }
         await setUserInLocal({
           dispatch,
           setUser,
           user,
         })
-        router.refresh()
+        if (userRole === 'startup') {
+          await setUserAsLocal()
+          return router.push('/startup/onboarding')
+        }
+
         return window.location.replace(
           referer && referer !== ('/' || '/login') ? referer : '/dashboard',
         )

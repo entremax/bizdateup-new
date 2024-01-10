@@ -4,14 +4,18 @@ import Wealth_Manager from '@/components/referral/AskManger'
 import InvestTable from '@/components/dashboard/startup/Investments'
 import getUserDetails from '@/action/user'
 import getStartupInvestmentDetails from '@/components/dashboard/startup/context'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export default async function StartupDashboard() {
+  const local_user = cookies().get('local-user')
+  if (local_user) {
+    return redirect('/startup/onboarding')
+  }
   const result = await getStartupInvestmentDetails()
 
-  console.log('🚀 ~ file: page.tsx:14 ~ StartupDashboard ~ result:', result)
+  const { user, status, role } = await getUserDetails()
 
-  const { user, status, role, token } = await getUserDetails()
-  // const token = cookies().get('token')?.value
   if (!user || role !== 'startup') {
     return <>Loading</>
   }

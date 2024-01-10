@@ -1,9 +1,5 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
-
-const OnboardingForm = dynamic(() => import('../components/RegisterForm'), {
-  ssr: false,
-})
+import OnboardingForm from '@/components/startup/RegisterForm'
 
 export default function StartupOnboarding() {
   return (

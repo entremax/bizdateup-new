@@ -33,7 +33,7 @@ const Dashboard = async () => {
   const campaign = (await fetchData(
     `/startupsInvestorView?limit=5`,
     'get',
-    0,
+    3600,
   )) as Campaign[]
   const { user, status, token } = await getUserDetails()
   if (!token) {

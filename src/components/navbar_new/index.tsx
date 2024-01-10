@@ -9,16 +9,27 @@ import getUserDetails from '@/action/user'
 import { cookies } from 'next/headers'
 import { InvestorUserData, StartupUserData } from '@/types'
 
+interface ExtendedStartupData extends StartupUserData {
+  local_user?: boolean
+}
+
+interface ExtendedInvestorData extends InvestorUserData {
+  local_user?: false
+}
+
 export default async function NavbarNew() {
   const { user, role } = await getUserDetails()
 
   const token = cookies()?.get('token')?.value
+  const local_user = Boolean(cookies()?.get('local-user')?.value)
   const authenticated = !!token
 
   const userData:
-    | Pick<InvestorUserData, 'user' | 'role'>
-    | Pick<StartupUserData, 'user' | 'role'> =
-    role === 'investor' ? { user, role: 'investor' } : { user, role: 'startup' }
+    | Pick<ExtendedInvestorData, 'user' | 'role' | 'local_user'>
+    | Pick<ExtendedStartupData, 'user' | 'role' | 'local_user'> =
+    role === 'investor'
+      ? { user, role: 'investor', local_user: false }
+      : { user, role: 'startup', local_user }
 
   return (
     <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white shadow-[0px_1px_0px_0px_#E5E9F2] lg:px-8">

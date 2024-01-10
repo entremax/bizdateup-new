@@ -18,7 +18,7 @@ const authenticated: { [key in UserRole]: RegExp[] } = {
   startup: [
     /\/dashboard\/startup.*/,
     /\/profile\/startup.*/,
-    /\/startup(?!\/(updates|update)).*/,
+    /\/startup(?!\/(updates|update))\/.*/,
   ],
   admin: [/\/dashboard\/investor.*/],
 }
@@ -47,7 +47,7 @@ export async function middleware(req: NextRequest) {
   const role = req.cookies.get('role')?.value as UserRole
   const path = req.nextUrl.pathname
   const url = req.nextUrl.clone()
-
+  const local_user = Boolean(req.cookies.get('local-user')?.value)
   const matchPath = (patterns: RegExp[]) =>
     patterns.some((pattern) => pattern.test(path))
 
@@ -68,8 +68,10 @@ export async function middleware(req: NextRequest) {
     if (matchPath(publicPaths)) {
       return NextResponse.next()
     }
-    console.log('Redirecting to dashboard')
     url.pathname = role !== 'investor' ? `/dashboard/${role}` : '/dashboard'
+    if (local_user && role !== 'investor') {
+      url.pathname = '/startup/onboarding'
+    }
     return NextResponse.redirect(url)
   }
   if (

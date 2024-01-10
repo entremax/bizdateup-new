@@ -21,6 +21,7 @@ export const NextApi = createApi({
         },
       }),
       transformResponse: (response: ISendOtpResponseData) => {
+        console.log(response)
         return {
           responseCode: response.data.code,
           token: response.data.token,
