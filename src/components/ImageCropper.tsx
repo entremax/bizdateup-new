@@ -69,7 +69,7 @@ const ImageCropper: React.FC<ImageCropperProps> = ({
 
   return (
     <Modal
-      visible={visible}
+      open={visible}
       title="Crop Image"
       onCancel={onCancel}
       maskClosable={false}

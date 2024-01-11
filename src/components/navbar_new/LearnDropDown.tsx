@@ -179,7 +179,7 @@ export default function LearnDropDown() {
           </div>
           <div className="flex flex-col gap-0">
             <span className={'text-lg font-semibold'}>{link.name}</span>
-            <span className={'text-base text-gray-300'}>{link.desc}</span>
+            <span className={'text-sm text-neutral-400'}>{link.desc}</span>
           </div>
         </Link>
       ))}

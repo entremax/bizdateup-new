@@ -23,7 +23,7 @@ const TextAreaInput: ForwardRefRenderFunction<
           wrapperClassName,
       )}>
       <TextArea
-        autoSize={{ minRows: 3, maxRows: 6 }}
+        autoSize={{ minRows: 4, maxRows: 6 }}
         id={name}
         name={name}
         {...props}

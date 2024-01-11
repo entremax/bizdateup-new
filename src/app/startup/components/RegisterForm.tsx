@@ -17,6 +17,7 @@ import { notifyUser } from '@/components/notification'
 import { IStartupDetails } from '@/types/startup'
 import { useRouter } from 'next/navigation'
 import { temp_values } from '@/reducers/user/authSlice'
+import TextAreaInput from '@/components/form/TextArea'
 
 export default function OnboardingForm() {
   const router = useRouter()
@@ -101,22 +102,27 @@ export default function OnboardingForm() {
     {
       name: 'previous-round',
       label: 'Describe your previous fundraising round ',
+      fieldType:'text-area'
     },
     {
       name: 'describe-product',
       label: 'Describe Your Product',
+      fieldType:'text-area'
     },
     {
       name: 'traction',
       label: 'Describe Traction',
+      fieldType:'text-area'
     },
     {
       name: 'revenue',
       label: 'Revenue',
+      type:'number'
     },
     {
       name: 'team-capacity',
       label: 'Team capacity',
+      type:'number'
     },
     {
       name: 'based',
@@ -264,6 +270,7 @@ export default function OnboardingForm() {
                 label={field.label}
                 title={field.name}
                 defaultValue={field.defaultValue}
+                //@ts-ignore
                 options={field.options.map((option, index) => ({
                   key: index,
                   value: option.value,
@@ -274,7 +281,24 @@ export default function OnboardingForm() {
                 }
                 name={field.name}
               />
-            ) : (
+            ) : field.fieldType==='text-area'?
+              <TextAreaInput
+                
+                wrapperClassName={cn(
+                  index < 4 ? 'col-span-2 lg:col-span-1' : 'col-span-2',
+                )}
+                disabled={field.disabled ?? false}
+                //TODO- uncomment this
+                // required
+                key={field.name}
+                defaultValue={defaultValues[field.name] ?? field.defaultValue}
+                //@ts-ignore
+                ref={field.fieldType !== 'select' && refs[field.name]}
+                name={field.name}
+                label={field.label}
+                placeholder={`Enter your ${field.name}`}
+              />
+              :(
               <Input
                 wrapperClassName={cn(
                   index < 4 ? 'col-span-2 lg:col-span-1' : 'col-span-2',

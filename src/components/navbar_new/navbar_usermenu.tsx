@@ -26,7 +26,7 @@ import { setAcceleratorCookies } from '@/action/accelerator'
 import { DataInner } from '@/types'
 import useCookieLocal from '@/lib/useCookieLocal'
 import UserMenuDropdown from '@/components/navbar_new/UserMenuDropdown'
-import { DollarOutlined } from '@ant-design/icons'
+import { DollarOutlined, EditFilled } from '@ant-design/icons'
 import { StartupData } from '@/types/invest'
 import { useUser } from '@/context/UserContext'
 
@@ -54,31 +54,33 @@ const UserMenu = ({ user, role, local_user }: Props) => {
         dispatch(investReset())
         router.push('/login')
         localStorage.removeItem('user')
-        notifyUser('success', 'Logout Successfully')
+        return notifyUser('success', 'Logout Successfully')
       })
       .catch((error) => {
         const errorMessage = error.data?.message
         const errorCode = error.status
         if (errorMessage && errorCode) {
-          notifyUser('error', `${errorMessage} (code:${errorCode})`)
+          return notifyUser('error', `${errorMessage} (code:${errorCode})`)
         }
       })
   }
 
   const onClick: MenuProps['onClick'] = async ({ key }) => {
-    if (key === '1') {
-      return router.push(
-        `/profile/${role === 'investor' ? 'investor' : 'startup'}`,
-      )
-    }
-    if (key === '2') {
-      return router.push('/transactions')
-    }
-    if (key === '3') {
-      return handleCreateAccelerator()
-    }
-    if (key === '4') {
-      logoutUser()
+    switch (key) {
+      case '1':
+        return router.push(
+          `/profile/${role === 'investor' ? 'investor' : 'startup'}`,
+        )
+      case '2':
+        return router.push('/transactions')
+      case '3':
+        return handleCreateAccelerator()
+      case '4':
+        return router.push('/startup/onboarding')
+      case '5':
+        return logoutUser()
+      default:
+        return
     }
   }
 
@@ -104,12 +106,17 @@ const UserMenu = ({ user, role, local_user }: Props) => {
         (role && role === 'startup') ||
         (role === 'investor' && windowWidth > 900),
       icon: <DollarOutlined />,
+    },{
+      label: <p className={'reset px-4 text-primary font-semibold'}>Register</p>,
+      key: '4',
+      hidden:role!=='startup'||role ==='startup' && !local_user,
+      icon: <EditFilled className={'stroke-primary '} />,
     },
     {
       label: (
         <p className={'reset px-4'}>{isLoading ? 'Exiting...' : 'Sign Out'}</p>
       ),
-      key: '4',
+      key: '5',
       icon: <FontAwesomeIcon icon={faRightFromBracket} />,
       danger: true,
     },

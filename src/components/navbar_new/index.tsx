@@ -30,7 +30,7 @@ export default async function NavbarNew() {
     role === 'investor'
       ? { user, role: 'investor', local_user: false }
       : { user, role: 'startup', local_user }
-
+  const navLinkProps={...userData,authenticated}
   return (
     <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white shadow-[0px_1px_0px_0px_#E5E9F2] lg:px-8">
       <Link href={'/'} className={!authenticated ? 'flex-grow' : ''}>
@@ -50,21 +50,8 @@ export default async function NavbarNew() {
             ? 'flex h-full items-center xl:gap-12'
             : 'flex h-full w-full items-center'
         }>
-        {role !== 'investor' ? (
-          <NavbarLinks
-            role={'startup'}
-            user={user}
-            authenticated={authenticated}
-          />
-        ) : (
-          (!role || role === 'investor') && (
-            <NavbarLinks
-              role={'investor'}
-              user={user}
-              authenticated={authenticated}
-            />
-          )
-        )}
+        {!local_user?<NavbarLinks {...navLinkProps} />:<div className="grow"/>}
+        
         {authenticated && (
           <div className={' flex items-center justify-center gap-4'}>
             <UserMenu {...userData} />

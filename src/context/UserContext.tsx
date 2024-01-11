@@ -56,7 +56,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
 
   const fetchUserDetails = useCallback(async () => {
-    if (!role || role === '') return
+    if (!role || role === ''||reduxUser) return
     if (role === 'startup') {
       const authMethod = localStorage.getItem('loginMethod') ?? ''
       const authAction = localStorage.getItem('loginMethod2') ?? ''

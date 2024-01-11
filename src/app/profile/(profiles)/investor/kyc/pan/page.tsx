@@ -5,17 +5,24 @@ import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
 import { redirect, RedirectType } from 'next/navigation'
 import { apiUri } from '@/lib/utils'
 import ImagePreview from '@/app/profile/(profiles)/investor/kyc/ImagePreview'
+import type { Metadata } from 'next'
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
+
+export const metadata: Metadata = {
+  title: 'KYC/PAN - Profile | Bizdateup',
+  description: 'KYC Details',
+}
+
 export default async function PanPage({ searchParams }: Props) {
   const { role, user ,token} = await getUserDetails()
   if (role !== 'investor' || !user) {
     return <>Loading</>
   }
-  if (user.aadhar.status !== 'verified') {
-    return redirect('/profile/investor/kyc', RedirectType.push)
-  }
+  // if (user.aadhar.status !== 'verified') {
+  //   return redirect('/profile/investor/kyc', RedirectType.push)
+  // }
 
   const data = {
     pan: [

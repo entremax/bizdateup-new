@@ -44,8 +44,8 @@ export default function SectionHeader() {
       kyc: {
         id: 2,
         name: 'KYC',
-        editable:
-          kycStatus?.includes(KYCStatus.aadhar || KYCStatus.pan) ?? false,
+        editable:false
+          // kycStatus?.includes(KYCStatus.aadhar || KYCStatus.pan) ?? false,
       },
       bank: { id: 3, name: 'Bank Details', editable: true },
       other: { id: 4, name: 'Other Details', editable: true },

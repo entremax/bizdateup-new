@@ -33,7 +33,6 @@ export const useUpdateContext = () => useContext(UpdateContext)
 const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const { setUpdate } = useUser()
   const authUser = useAppSelector(({ authUser }) => authUser)
   const { user, kycStatus } = authUser
   const [loading, setLoading] = useState(false)

@@ -70,7 +70,7 @@ export const Membership = () => {
             <div className="absolute -right-10 -top-8 h-20 w-20 rounded-full bg-premium-circle"></div>
             <div className={'relative grid h-20 w-20 items-end justify-center'}>
               <Icons.Premium
-                className={'absolute bottom-[10%] left-[34%] top-[10%]'}
+                className={'absolute bottom-[2.3rem] right-[1.7rem]'}
                 height={'25'}
                 width={'25'}
               />

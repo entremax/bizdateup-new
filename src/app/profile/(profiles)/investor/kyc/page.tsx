@@ -10,10 +10,9 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 export const metadata: Metadata = {
-  title: 'KYC - Profile | Bizdateup',
-  description: 'Your kyc status',
+  title: 'KYC/Aadhar - Profile | Bizdateup',
+  description: 'KYC Details',
 }
-
 export default async function KYC({ searchParams }: Props) {
   const { role, user, status,token } = await getUserDetails()
   if (!user || role !== 'investor') {
