@@ -14,7 +14,7 @@ import ImageCropper from '@/components/ImageCropper'
 
 export default function PanForm({ user }: { user: DataInner }) {
   const { handleUpdate, loading } = useUpdateContext()
-  
+
   const [cropData, setImageData] = useState<{
     front: string | null
     back: string | null
@@ -71,18 +71,18 @@ export default function PanForm({ user }: { user: DataInner }) {
     // const formData = {
     //   aadharNo: aadharNo ? aadharNo : user.aadhar.aadharNo,
     // }
-    const formData = new FormDat()
+    const formData = new FormData()
 
     if (cropDataFront) {
       formData.append('front', cropDataFront, 'cropped-image-front.pn')
     }
-    formData.append('refId', user._id);
-    if (ropDataBack) {
-      formData.append('back', cropDataBack, 'cropped-image-back.png');
+    formData.append('refId', user._id)
+    if (cropDataBack) {
+      formData.append('back', cropDataBack, 'cropped-image-back.png')
     }
-   formData.append('panNo', user.pan.panNo === '' ? panNumber : user.pan.panNo);
+    formData.append('panNo', user.pan.panNo === '' ? panNumber : user.pan.panNo)
 
-    awat handleUpdate(formData, 'pan')
+    await handleUpdate(formData, 'pan')
     return router.refresh()
   }
 
@@ -104,29 +104,36 @@ export default function PanForm({ user }: { user: DataInner }) {
             <p className="font-medium leading-[1.6] !text-gray-900">
               Upload Font Side
             </p>
-            {cropData.front ?
-              <Image width={250} height={100} src={cropData.front} alt="cropped" /> :
+            {cropData.front ? (
+              <Image
+                width={250}
+                height={100}
+                src={cropData.front}
+                alt="cropped"
+              />
+            ) : (
               <div className="g">
                 <UploadCheck onChange={handleImageChange} type={'front'} />
-            </div>
-            }
-            
+              </div>
+            )}
           </div>
           <div className="grid gap-2">
-            
             <p className="font-medium leading-[1.6] !text-gray-900">
-           
               Upload Back Side
             </p>
             {/* </Upload> */}
-            {cropData.back ?
-              <Image width={250} height={100} src={cropData.back} alt="cropped" /> : <div className="g">
-                
+            {cropData.back ? (
+              <Image
+                width={250}
+                height={100}
+                src={cropData.back}
+                alt="cropped"
+              />
+            ) : (
+              <div className="g">
                 <UploadCheck onChange={handleImageChange} type={'back'} />
-              
               </div>
-            }
-            
+            )}
           </div>
         </div>
         <ImageCropper

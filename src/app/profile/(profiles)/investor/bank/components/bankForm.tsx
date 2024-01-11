@@ -79,13 +79,13 @@ export default function BankForm({ user }: { user: DataInner }) {
       //@ts-ignore
       values[key] = refs[key]?.current?.input?.value ?? ''
     }
-    
+
     const formData = new FormData()
 
     if (cropData) {
       formData.append('cheque', cropData, 'cropped-image-cheque.png')
     }
-    
+
     formData.append('refId', user._id)
     formData.append('firstName', user.firstName)
     formData.append('lastName', user.lastName)
@@ -105,26 +105,23 @@ export default function BankForm({ user }: { user: DataInner }) {
   ) => {
     setSelected((prevState: any) => ({ ...prevState, [fieldName]: value }))
   }
-  
+
   const handleCrop = (croppedImageData: string, croppedImage: Blob) => {
-    // console.log("🚀 ~ handleCrop ~ type:", type)
-    console.log("🚀 ~ ha'🚀 ~ handleCrop ~ croppedImageData:'dImageData)
-    setImageData(croppedImage);
-    seChequeData(croppedImageData);
-    
-   setModalVisible(false);
-  };
- 
-  cnst handleImageChange = (info: any, type: string) => {
-    console.log("🚀 ~ ha'🚀 ~ handleImageChange ~ info:'    // setType(type)
+    setImageData(croppedImage)
+    setChequeData(croppedImageData)
+
+    setModalVisible(false)
+  }
+
+  const handleImageChange = (info: any, type: string) => {
     if (info.file.status === 'uploading') {
       // Image has been successfully uploaded
-      setModalVisible(true);
+      setModalVisible(true)
     }
-   setFileList([info.file]);
-  };
+    setFileList([info.file])
+  }
 
- retrn (
+  return (
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 xl:grid-cols-2">
         {inputFields.slice(0, 6).map((field) =>
@@ -164,12 +161,18 @@ export default function BankForm({ user }: { user: DataInner }) {
           <p className="font-medium leading-[1.6] !text-gray-900">
             Upload Cancelled Check
           </p>
-          {cropDataChecue ?
-            <Image width={250} height={100} src={cropDataChecue} alt="cropped" /> :
+          {cropDataChecue ? (
+            <Image
+              width={250}
+              height={100}
+              src={cropDataChecue}
+              alt="cropped"
+            />
+          ) : (
             <div className="g">
               <UploadCheck onChange={handleImageChange} type={'checque'} />
             </div>
-          }
+          )}
         </div>
       </div>
       <ImageCropper

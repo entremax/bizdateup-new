@@ -7,7 +7,7 @@ import { Upload } from 'antd'
 const { Dragger } = Upload
 
 interface UploadCheckProps {
-  onChange: (e: any, type: string) => void
+  onChange: (e: any, type: 'front' | 'back' | any) => void
   type: string
 }
 
@@ -33,4 +33,4 @@ const UploadCheck: React.FC<UploadCheckProps> = ({ onChange, type }) => {
   )
 }
 
-xport default UploadCheck;
+export default UploadCheck

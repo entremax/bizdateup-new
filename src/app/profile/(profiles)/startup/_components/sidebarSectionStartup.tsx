@@ -20,7 +20,7 @@ import {
   reset as authReset,
 } from '@/reducers/user/authSlice'
 import { notifyUser } from '@/components/notification'
-import { useUser } from '@/hooks/useUser'
+import { useUser } from '@/context/UserContext'
 
 export default function SectionBarStartup({
   children,
