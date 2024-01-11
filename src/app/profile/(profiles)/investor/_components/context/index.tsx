@@ -193,6 +193,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (updating === 'pan') {
       setLoading(true)
+      console.log(formData)
       updatePanDetails(formData)
         .unwrap()
         .then((res) => {
