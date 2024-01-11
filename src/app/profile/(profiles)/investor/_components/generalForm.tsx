@@ -72,7 +72,7 @@ export default function GeneralForm({ user }: { user: DataInner }) {
     if (user?.refer) {
       return user?.refer
     }
-    return sessionStorage.getItem('refer_code') ?? undefined
+    return sessionStorage?.getItem('refer_code') ?? undefined
   }
   const inputFields = [
     {

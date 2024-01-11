@@ -3,8 +3,15 @@ import { StartupData } from '@/types/invest'
 
 export type UserRole = 'investor' | 'admin' | 'startup'
 
+export enum Role {
+  startup = 'startup',
+  investor = 'investor',
+}
+
 export interface Aadhar {
-  aadharNo: string
+  aadharNo: string,
+  aadharImageFront:string,
+  aadharImageBack:string,
   status: string
 }
 
@@ -17,7 +24,9 @@ export interface Address {
 }
 
 export interface Pan {
-  panNo: string
+  panNo: string,
+  panImageFront:string,
+  panImageBack:string,
   status: string
 }
 
@@ -45,6 +54,8 @@ interface Membership {
   amount: number
 }
 
+
+// types of investor user data
 export interface DataInner {
   aadhar: Aadhar
   address: Address
@@ -63,7 +74,7 @@ export interface DataInner {
   providerId: string
   isAccelerator: boolean
   status: string
-  role: 'investor' | 'startup'
+  role: 'investor'
   created_at: string
   __v: number
   code: number
@@ -72,28 +83,10 @@ export interface DataInner {
   acknowledgement: 'false' | 'true'
 }
 
-export interface DataStartup {
-  _id: string
-  companyName: string
-  registeredCompanyName: string
-  shortDescription: string
-  raisedFund: string
-  sector: string
-  stage: string
-  keyHighlights: {
-    keyHighlight1: string | undefined
-    keyHighlight2: string | undefined
-    keyHighlight3: string | undefined
-    keyHighlight4: string | undefined
-  }
-  founderFirstName: string
-  founderLastName: string
-  email: string
-  phone: number
-  companyBased: string
-  youtubeVideoUrl: string
-  banner: string
-}
+// types of startup user data 
+//TODO - Remove this from usage
+export interface DataStartup extends StartupData{}
+
 
 export interface dealTerms {
   typeOfSecurity: string
@@ -104,59 +97,6 @@ export interface dealTerms {
   // Add any other properties as needed
 }
 
-export interface DataStartup {
-  _id: string
-  companyName: string
-  registeredCompanyName: string
-  shortDescription: string
-  raisedFund: string
-  sector: string
-  stage: string
-  keyHighlights: {
-    keyHighlight1: string | undefined
-    keyHighlight2: string | undefined
-    keyHighlight3: string | undefined
-    keyHighlight4: string | undefined
-  }
-  founderFirstName: string
-  founderLastName: string
-  email: string
-  phone: number
-  companyBased: string
-  youtubeVideoUrl: string
-  banner: string
-}
-
-export interface dealTerms {
-  typeOfSecurity: string
-  valuation: number
-  minimumInvestment: number
-  targetAmount: number
-  discount: number
-  // Add any other properties as needed
-}
-
-export interface IInvestorData {
-  acknowledgement: 'false' | 'true'
-  aadhar: Aadhar
-  address: Address
-  pan: Pan
-  other: Other
-  bank: Bank
-  membership: Membership
-  _id: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: number
-  gender: string
-  LinkedInUrl: string
-  provider: string
-  providerId: string
-  isAccelerator: boolean
-  status: string
-  role: string
-}
 
 export enum KYCStatus {
   profile = 'profile',
@@ -186,7 +126,7 @@ export interface BaseAuthUserState {
   riskAccepted: boolean
   kycCompletionPercentage: number
   kycStatus: KYCStatusArray
-  premiumMember: boolean | null
+  premiumMember: boolean
   role: UserRole
 }
 
@@ -205,16 +145,17 @@ export interface StartupUserState extends BaseAuthUserState {
   token: string | null
   startupId: string | null
   startup: StartupData | null
+  premiumMember: false
   role: 'startup'
 }
 
 export interface Data {
   code: number
   message: string
-  refId: string
+  refId: string | null
   data: DataInner | StartupData
   status?: KYCStatusArray
-  token: string
+  token: string | null
 }
 
 export type ISendOtpResponseData = {
@@ -392,6 +333,8 @@ export type PaymentData = {
   gst: number
 }
 
+
+
 export type BaseUserData = {
   role: 'investor' | 'startup' | null
   refId: string
@@ -428,10 +371,12 @@ export interface StartupUserData extends BaseUserData {
   user: StartupData | null
 }
 
+
+// Redux User Payload
 export interface BaseUserPayload {
-  token: string
+  token: string | null
   userData: DataInner | StartupData
-  refId: string
+  refId: string | null
   premiumMember?: boolean
   role: 'investor' | 'startup'
 }

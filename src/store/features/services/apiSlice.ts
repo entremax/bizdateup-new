@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
+  DataInner,
   IInvestmentDataResponse,
   IInvestmentItem,
   ISendOtpResponseData,
@@ -143,7 +144,7 @@ export const api = createApi({
           status: response.data.status,
           investorData: {
             ...response.data.data,
-          },
+          } as DataInner,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -209,9 +210,6 @@ export const api = createApi({
         url: baseUrl + 'v0/kyc/verify_and_add_pan_ocr',
         method: 'POST',
         body: updatedData,
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
       }),
       transformResponse: (response: ISendOtpResponseData) => {
         return {

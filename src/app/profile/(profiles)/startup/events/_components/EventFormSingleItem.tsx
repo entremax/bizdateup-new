@@ -108,7 +108,7 @@ export default function FaqSingleItem({
               className="w-full">
               <label
                 htmlFor="banner"
-                className={`block flex h-28  w-full  cursor-pointer items-center justify-center rounded-sm !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary`}>
+                className={`flex h-28  w-full  cursor-pointer items-center justify-center rounded-sm !bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none transition-all duration-200 ease-linear focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary`}>
                 {previewImage || event.banner ? (
                   <Image
                     src={previewImage || api + '/banner/' + event.banner || ''}

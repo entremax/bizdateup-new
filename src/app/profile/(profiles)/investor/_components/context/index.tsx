@@ -1,6 +1,7 @@
 'use client'
 import React, { createContext, useContext, useState } from 'react'
 import { DataInner, KYCStatus } from '@/types'
+import { setUser } from '@/reducers/user/authSlice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import {
@@ -12,6 +13,12 @@ import {
 } from '@/services/apiSlice'
 import { useRouter } from 'next/navigation'
 import { notifyUser } from '@/components/notification'
+import { useUser } from '@/context/UserContext'
+import {
+  InvestorUserPayload,
+  StartupUserPayload,
+  InvestorUserState,
+} from '@/types'
 
 type UpdateType = 'general' | 'bank' | 'other' | 'aadhar' | 'pan'
 
@@ -26,7 +33,9 @@ export const useUpdateContext = () => useContext(UpdateContext)
 const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const { user, kycStatus } = useAppSelector(({ authUser }) => authUser)
+  const { setUpdate } = useUser()
+  const authUser = useAppSelector(({ authUser }) => authUser)
+  const { user, kycStatus } = authUser
   const [loading, setLoading] = useState(false)
   const [updateUser] = useUpdateUserMutation()
   const [updateOtherDetails] = useUpdateOtherDetailsMutation()
@@ -35,7 +44,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [updatePanDetails] = useUpdatePanMutation()
 
   function navigateNext(updated: UpdateType) {
-    if (user && 'role' in user) {
+    if (authUser?.user && 'role' in authUser?.user) {
       return
     }
     const findNextPendingStep = () => {
@@ -57,7 +66,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         i++
       ) {
         const nextStep = pendingSteps[i]
-        if (kycStatus?.includes(nextStep.status)) {
+        if (authUser?.kycStatus?.includes(nextStep.status)) {
           return nextStep.route
         }
       }
@@ -87,7 +96,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     setTimeout(() => {}, 3000)
     if (updating === 'general') {
       setLoading(true)
-      console.log(updatedData)
       updateUser(updatedData)
         .unwrap()
         .then((res) => {
@@ -98,6 +106,12 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             }),
           )
           setLoading(false)
+          const updatedUser = res.investorData
+          const mergedUser = {
+            ...authUser,
+            userData: updatedUser,
+          } as InvestorUserPayload
+          dispatch(setUser(mergedUser))
           return res
         })
         .catch((e) => {
@@ -150,6 +164,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             setNotification({
               type: 'info',
               message: res.message ?? '',
+              description: 'Please add you atm pin and number too',
             }),
           )
           return res
@@ -198,6 +213,13 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         .unwrap()
         .then((res) => {
           setLoading(false)
+          dispatch(
+            setNotification({
+              type: 'success',
+              message: 'Tanq for your private details',
+              description: res.message,
+            }),
+          )
           return res
         })
         .catch((e) => {
@@ -205,8 +227,8 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           dispatch(
             setNotification({
               type: 'error',
-              message: "Couldn't Update Pan Details",
-              description: e.message,
+              message: "Couldn't Update Pan Details ",
+              description: e.message ?? 'We missed an oppourtunity to collect your data please try again',
             }),
           )
           setLoading(false)
@@ -217,6 +239,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     if (!failed) {
       navigateNext(updating)
     }
+
     setLoading(false)
   }
 
