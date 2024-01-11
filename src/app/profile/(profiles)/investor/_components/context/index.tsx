@@ -17,7 +17,7 @@ type UpdateType = 'general' | 'bank' | 'other' | 'aadhar' | 'pan'
 
 type ContextProps = {
   loading: boolean
-  handleUpdate: (formData: DataInner | unknown, updating: UpdateType) => any
+  handleUpdate: (formData: DataInner | any, updating: UpdateType) => any
 }
 const UpdateContext = createContext<ContextProps>({} as ContextProps)
 
@@ -72,8 +72,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
-  const handleUpdate = (formData: DataInner | any, updating: UpdateType) => {
-    console.log('🚀 ~ file: index.tsx:32 ~ handleUpdate ~ formData:', formData)
+  const handleUpdate = (formData: any | DataInner, updating: UpdateType) => {
     if (!user) {
       return notifyUser(
         'warning',
@@ -81,12 +80,14 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         'A refresh might fix this issue',
       )
     }
-    const updatedData = { ...formData, refId: user._id }
+
+    let updatedData = { ...formData, refId: user._id }
     setLoading(true)
     let failed = false
     setTimeout(() => {}, 3000)
     if (updating === 'general') {
       setLoading(true)
+      console.log(updatedData)
       updateUser(updatedData)
         .unwrap()
         .then((res) => {
@@ -140,6 +141,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     if (updating === 'bank') {
       setLoading(true)
+
       updateBankDetails(formData)
         .unwrap()
         .then((res) => {
@@ -166,27 +168,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-    // if (updating === 'pan') {
-    //   setLoading(true)
-    //   updateBankDetails(updatedData)
-    //     .unwrap()
-    //     .then((res) => {
-    //       setLoading(false)
-    //       return res
-    //     })
-    //     .catch((e) => {
-    //       failed = true
-    //       dispatch(
-    //         setNotification({
-    //           type: 'error',
-    //           message: "Couldn't Update PAN Details",
-    //           description: e.message,
-    //         }),
-    //       )
-    //       setLoading(false)
-    //       console.log(e)
-    //     })
-    // }
+
     if (updating === 'aadhar') {
       setLoading(true)
       updateAadharDetails(formData)
@@ -222,7 +204,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           dispatch(
             setNotification({
               type: 'error',
-              message: "Couldn't Update Aadhar Details",
+              message: "Couldn't Update Pan Details",
               description: e.message,
             }),
           )

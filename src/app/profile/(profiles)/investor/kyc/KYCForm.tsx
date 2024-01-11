@@ -73,6 +73,7 @@ export default function AadharForm({ user }: { user: DataInner }) {
       formData.append('back', cropDataBack, 'cropped-image-back.png')
     }
     formData.append('refId', user._id)
+    formData.append('name', user.firstName + user.lastName)
     formData.append('aadharNo', aadharNo ? aadharNo : user.aadhar.aadharNo)
 
     await handleUpdate(formData, 'aadhar')

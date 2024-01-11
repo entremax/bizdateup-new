@@ -61,22 +61,18 @@ export default function PanForm({ user }: { user: DataInner }) {
     if (!panRegex.test(panNumber)) {
       return notifyUser('error', 'Invalid PAN')
     }
-    // const formData = {
-    //   panNo: user.pan.panNo === '' ? panNumber : user.pan.panNo,
-    // }
-
+    
     if (!cropDataFront || !cropDataBack) {
       return notifyUser('error', 'Scanned image required')
     }
-    // const formData = {
-    //   aadharNo: aadharNo ? aadharNo : user.aadhar.aadharNo,
-    // }
+    
     const formData = new FormData()
 
     if (cropDataFront) {
-      formData.append('front', cropDataFront, 'cropped-image-front.pn')
+      formData.append('front', cropDataFront, 'cropped-image-front.png')
     }
     formData.append('refId', user._id)
+    formData.append('name', user.firstName + user.lastName)
     if (cropDataBack) {
       formData.append('back', cropDataBack, 'cropped-image-back.png')
     }
