@@ -3,7 +3,6 @@ import { Button } from 'antd'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import Input from '@/components/form/Input'
-import UploadCheck from '@/components/profile/dropCheck'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
@@ -11,9 +10,9 @@ import { notifyUser } from '@/components/notification'
 import OfflineKyc from '@/app/profile/(profiles)/investor/kyc/OfflineKyc'
 import ImageCropper from '@/components/ImageCropper'
 import Image from 'next/image'
+import UploadCheck from '@/components/profile/dropCheck'
 
 export default function AadharForm({ user }: { user: DataInner }) {
-  
   const [cropData, setImageData] = useState<{
     front: string | null
     back: string | null
@@ -23,47 +22,41 @@ export default function AadharForm({ user }: { user: DataInner }) {
   const [modalVisible, setModalVisible] = useState(false)
 
   const [fileList, setFileList] = useState<any[]>([])
-  const [type, setType] = useState<string | null>()
+  const [type, setType] = useState<'front' | 'back' | null>(null)
 
   const { handleUpdate, loading } = useUpdateContext()
   const router = useRouter()
   const refs = {
     aadharNo: useRef<InputRef | null>(null),
   }
-  conso'🚀 ~ AadharForm ~ refs:' ", refs)
-  
   const handleCrop = (croppedImageData: string, croppedImage: any) => {
-    conso'🚀 ~ handleCrop ~ type:' ", type)
-    conso'🚀 ~ handleCrop ~ croppedImageData:'", croppedImageData)
-    if (type && ty'front'"front") {
-      setImageDataFront(croppeImage);
-      setImageData({ ...cropData, front: croppedImageata });
+    if (type && type === 'front') {
+      setImageDataFront(croppedImage)
+      setImageData({ ...cropData, front: croppedImageData })
     } else {
-      setImageDataBack(croppeImage);
-      setImageData({ ...cropData, back: croppedImageata });
+      setImageDataBack(croppedImage)
+      setImageData({ ...cropData, back: croppedImageData })
     }
-    setModalVisiblefals)
-  };
-  
-  const handleImageChange = (info: any, type: string) => {
-    conso'🚀 ~ handleImageChange ~ info:' ", info)
+    setModalVisible(false)
+  }
+
+  const handleImageChange = (info: any, type: 'front' | 'back') => {
     setType(type)
     if (info.file.status === 'uploading') {
       // Image has been successfully uploaded
-      setModalVisibl(true);
+      setModalVisible(true)
     }
-    setFileList([infofile);
-  };
+    setFileList([info.file])
+  }
 
   const handleAadhar = async () => {
     const aadharNo = refs.aadharNo?.current?.input?.value ?? ''
-    console.log('🚀 ~ handleAadhar ~ aadharNo:', aadharNo)
     const aadharRegExp = /\b\d{12}\b/
 
     if (!aadharRegExp.test(aadharNo)) {
       return notifyUser('error', 'Invalid Aadhar Number')
     }
-    
+
     if (!cropDataFront || !cropDataBack) {
       return notifyUser('error', 'Scanned image required')
     }
@@ -71,17 +64,17 @@ export default function AadharForm({ user }: { user: DataInner }) {
     //   aadharNo: aadharNo ? aadharNo : user.aadhar.aadharNo,
     // }
     const formData = new FormData()
-    
+
     if (cropDataFront) {
       formData.append('front', cropDataFront, 'cropped-image-front.png')
     }
-    
+
     if (cropDataBack) {
       formData.append('back', cropDataBack, 'cropped-image-back.png')
     }
     formData.append('refId', user._id)
     formData.append('aadharNo', aadharNo ? aadharNo : user.aadhar.aadharNo)
-    
+
     await handleUpdate(formData, 'aadhar')
     return router.refresh()
   }
@@ -105,29 +98,36 @@ export default function AadharForm({ user }: { user: DataInner }) {
             <p className="font-medium leading-[1.6] !text-gray-900">
               Upload Font Side
             </p>
-            {cropData.front ?
-              <Image width={250} height={100} src={cropData.front} alt="cropped" /> :
+            {cropData.front ? (
+              <Image
+                width={250}
+                height={100}
+                src={cropData.front}
+                alt="cropped"
+              />
+            ) : (
               <div className="g">
                 <UploadCheck onChange={handleImageChange} type={'front'} />
-            </div>
-            }
-            
+              </div>
+            )}
           </div>
           <div className="grid gap-2">
-            
             <p className="font-medium leading-[1.6] !text-gray-900">
-           
               Upload Back Side
             </p>
             {/* </Upload> */}
-            {cropData.back ?
-              <Image width={250} height={100} src={cropData.back} alt="cropped" /> : <div className="g">
-                
+            {cropData.back ? (
+              <Image
+                width={250}
+                height={100}
+                src={cropData.back}
+                alt="cropped"
+              />
+            ) : (
+              <div className="g">
                 <UploadCheck onChange={handleImageChange} type={'back'} />
-              
               </div>
-            }
-            
+            )}
           </div>
         </div>
         <ImageCropper

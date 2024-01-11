@@ -12,9 +12,9 @@ export default function FaqForm({
   initialUsers: StartupData
 }) {
   const router = useRouter()
-  const [faq, setFaq] = useState(initialUsersfaq)
+  const [faq, setFaq] = useState(initialUsers.faq)
 
-  const { handleUpdate, loading } = useStartupUpdateContext)
+  const { handleUpdate, loading } = useStartupUpdateContext()
 
   // console.log(user)
   const handleFaqUpdate = async () => {
