@@ -14,8 +14,8 @@ export default function FaqForm({
   initialUsers: StartupData
 }) {
   const router = useRouter()
-  const [user, setUser] = useState(initialUsers.dueDiligenceFles)
-  const [files, setFiles] = useState<File[]>[])
+  const [user, setUser] = useState(initialUsers.dueDiligenceFiles)
+  const [files, setFiles] = useState<File[]>([])
 
   const { handleUpdate, loading } = useStartupUpdateContext()
 
@@ -36,12 +36,7 @@ export default function FaqForm({
           handleUpdate(data, 'delete_dealfile')
         }
 
-        const updatedFile = [
-          ...prevFaq.slice(0, index),
-          ...prevFaq.slice(index + 1),
-        ]
-
-        return updatedFile
+        return [...prevFaq.slice(0, index), ...prevFaq.slice(index + 1)]
       } else {
         console.error('Invalid index:', index)
         return prevFaq

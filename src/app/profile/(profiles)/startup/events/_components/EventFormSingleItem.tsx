@@ -46,7 +46,7 @@ export default function FaqSingleItem({
     }
   }
 
-  const DateChange: any = (date: string, field: strin) => {}
+  const DateChange: any = (date: string, field: string) => {}
 
   return (
     <div className="w-full">
