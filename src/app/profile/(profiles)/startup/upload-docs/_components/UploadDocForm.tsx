@@ -14,8 +14,8 @@ export default function FaqForm({
   initialUsers: StartupData
 }) {
   const router = useRouter()
-  const [user, setUser] = useState(initialUsers.dueDiligenceFiles)
-  const [files, setFiles] = useState<File[]>([])
+  const [user, setUser] = useState(initialUsers.dueDiligenceFles)
+  const [files, setFiles] = useState<File[]>[])
 
   const { handleUpdate, loading } = useStartupUpdateContext()
 

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function Bank({ searchParams }: Props) {
   const editState: boolean = !searchParams.edit
-
+  
   const { role, user } = await getUserDetails()
   if (!user || role !== 'investor') {
     return <>Loading</>

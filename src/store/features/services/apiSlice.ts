@@ -170,12 +170,48 @@ export const api = createApi({
     }),
     updateBankDetails: builder.mutation({
       query: (updatedData) => ({
-        url: baseUrl + 'v0/kyc/verify_and_add_bank',
+        url: baseUrl + 'v0/kyc/verify_and_add_bank_ocr',
         method: 'POST',
         body: updatedData,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+      }),
+      transformResponse: (response: ISendOtpResponseData) => {
+        return {
+          message: response.data?.message ?? response.message ?? '',
+          status: response.data?.status,
+        }
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
+    updateAadhar: builder.mutation({
+      query: (updatedData) => ({
+        url: baseUrl + 'v0/kyc/verify_and_add_aadhar_ocr',
+        method: 'POST',
+        body: updatedData,
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+      }),
+      transformResponse: (response: ISendOtpResponseData) => {
+        return {
+          message: response.data?.message ?? response.message ?? '',
+          status: response.data?.status,
+        }
+      },
+      transformErrorResponse: (response: { status: string | number }) =>
+        response,
+    }),
+    updatePan: builder.mutation({
+      query: (updatedData) => ({
+        url: baseUrl + 'v0/kyc/verify_and_add_pan_ocr',
+        method: 'POST',
+        body: updatedData,
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
       }),
       transformResponse: (response: ISendOtpResponseData) => {
         return {
@@ -234,6 +270,8 @@ export const {
   useUpdateUserMutation,
   useUpdateOtherDetailsMutation,
   useUpdateBankDetailsMutation,
+  useUpdateAadharMutation,
+  useUpdatePanMutation,
   useUpdateProfileImageMutation,
   useCheckRiskMutation,
 } = api

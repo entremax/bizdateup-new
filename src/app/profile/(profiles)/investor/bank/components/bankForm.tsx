@@ -10,9 +10,16 @@ import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import ImageCropper from '@/components/ImageCropper'
 
 export default function BankForm({ user }: { user: DataInner }) {
   const { handleUpdate, loading } = useUpdateContext()
+  const [cropData, setImageData] = useState<Blob>()
+  const [cropDataChecue, setChequeData] = useState<string | null>(null)
+  const [modalVisible, setModalVisible] = useState(false)
+  const [fileList, setFileList] = useState<any[]>([])
+
   const router = useRouter()
   const refs = {
     ifsc: useRef<InputRef | null>(null),
@@ -72,14 +79,23 @@ export default function BankForm({ user }: { user: DataInner }) {
       //@ts-ignore
       values[key] = refs[key]?.current?.input?.value ?? ''
     }
-    const formData = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      accountType: selected['account-type'],
-      bankName: selected['bank-name'],
-      accountNumber: values['account-number'],
-      ifsc: values['ifsc'],
+    
+    const formData = new FormData()
+
+    if (cropData) {
+      formData.append('cheque', cropData, 'cropped-image-cheque.png')
     }
+    
+    formData.append('refId', user._id)
+    formData.append('firstName', user.firstName)
+    formData.append('lastName', user.lastName)
+    formData.append('accountType', selected['account-type'])
+    formData.append('bankName', selected['bank-name'])
+    formData.append('accountNumber', values['account-number'])
+    formData.append('ifsc', values['ifsc'])
+
+    // await handleUpdate(formData, 'aadhar')
+
     await handleUpdate(formData, 'bank')
     return
   }
@@ -89,7 +105,26 @@ export default function BankForm({ user }: { user: DataInner }) {
   ) => {
     setSelected((prevState: any) => ({ ...prevState, [fieldName]: value }))
   }
-  return (
+  
+  const handleCrop = (croppedImageData: string, croppedImage: Blob) => {
+    // console.log("🚀 ~ handleCrop ~ type:", type)
+    console.log("🚀 ~ ha'🚀 ~ handleCrop ~ croppedImageData:'dImageData)
+    setImageData(croppedImage);
+    seChequeData(croppedImageData);
+    
+   setModalVisible(false);
+  };
+ 
+  cnst handleImageChange = (info: any, type: string) => {
+    console.log("🚀 ~ ha'🚀 ~ handleImageChange ~ info:'    // setType(type)
+    if (info.file.status === 'uploading') {
+      // Image has been successfully uploaded
+      setModalVisible(true);
+    }
+   setFileList([info.file]);
+  };
+
+ retrn (
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 xl:grid-cols-2">
         {inputFields.slice(0, 6).map((field) =>
@@ -129,11 +164,20 @@ export default function BankForm({ user }: { user: DataInner }) {
           <p className="font-medium leading-[1.6] !text-gray-900">
             Upload Cancelled Check
           </p>
-          <div className="g">
-            <UploadCheck />
-          </div>
+          {cropDataChecue ?
+            <Image width={250} height={100} src={cropDataChecue} alt="cropped" /> :
+            <div className="g">
+              <UploadCheck onChange={handleImageChange} type={'checque'} />
+            </div>
+          }
         </div>
       </div>
+      <ImageCropper
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        onCrop={handleCrop}
+        imageFile={fileList[0]?.originFileObj}
+      />
       <div className="grow"></div>
       <div className="my-6 flex items-center justify-self-end px-8 pb-8  md:w-1/6">
         <Button

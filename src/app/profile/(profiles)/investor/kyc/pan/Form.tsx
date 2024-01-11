@@ -1,6 +1,6 @@
 'use client'
 import { Button } from 'antd'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import Input from '@/components/form/Input'
 import UploadCheck from '@/components/profile/dropCheck'
@@ -9,9 +9,46 @@ import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
 import { notifyUser } from '@/components/notification'
 import OfflineKyc from '@/app/profile/(profiles)/investor/kyc/OfflineKyc'
+import Image from 'next/image'
+import ImageCropper from '@/components/ImageCropper'
 
 export default function PanForm({ user }: { user: DataInner }) {
   const { handleUpdate, loading } = useUpdateContext()
+  
+  const [cropData, setImageData] = useState<{
+    front: string | null
+    back: string | null
+  }>({ front: null, back: null })
+  const [cropDataFront, setImageDataFront] = useState<Blob>()
+  const [cropDataBack, setImageDataBack] = useState<Blob>()
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const [fileList, setFileList] = useState<any[]>([])
+  const [type, setType] = useState<string | null>()
+
+  const handleCrop = (croppedImageData: string, croppedImage: any) => {
+    console.log('🚀 ~ handleCrop ~ type:', type)
+    console.log('🚀 ~ handleCrop ~ croppedImageData:', croppedImageData)
+    if (type && type === 'front') {
+      setImageDataFront(croppedImage)
+      setImageData({ ...cropData, front: croppedImageData })
+    } else {
+      setImageDataBack(croppedImage)
+      setImageData({ ...cropData, back: croppedImageData })
+    }
+    setModalVisible(false)
+  }
+
+  const handleImageChange = (info: any, type: string) => {
+    console.log('🚀 ~ handleImageChange ~ info:', info)
+    setType(type)
+    if (info.file.status === 'uploading') {
+      // Image has been successfully uploaded
+      setModalVisible(true)
+    }
+    setFileList([info.file])
+  }
+
   const router = useRouter()
   const refs = {
     panNo: useRef<InputRef | null>(null),
@@ -24,10 +61,28 @@ export default function PanForm({ user }: { user: DataInner }) {
     if (!panRegex.test(panNumber)) {
       return notifyUser('error', 'Invalid PAN')
     }
-    const formData = {
-      panNo: user.pan.panNo === '' ? panNumber : user.pan.panNo,
+    // const formData = {
+    //   panNo: user.pan.panNo === '' ? panNumber : user.pan.panNo,
+    // }
+
+    if (!cropDataFront || !cropDataBack) {
+      return notifyUser('error', 'Scanned image required')
     }
-    await handleUpdate(formData, 'pan')
+    // const formData = {
+    //   aadharNo: aadharNo ? aadharNo : user.aadhar.aadharNo,
+    // }
+    const formData = new FormDat()
+
+    if (cropDataFront) {
+      formData.append('front', cropDataFront, 'cropped-image-front.pn')
+    }
+    formData.append('refId', user._id);
+    if (ropDataBack) {
+      formData.append('back', cropDataBack, 'cropped-image-back.png');
+    }
+   formData.append('panNo', user.pan.panNo === '' ? panNumber : user.pan.panNo);
+
+    awat handleUpdate(formData, 'pan')
     return router.refresh()
   }
 
@@ -49,19 +104,37 @@ export default function PanForm({ user }: { user: DataInner }) {
             <p className="font-medium leading-[1.6] !text-gray-900">
               Upload Font Side
             </p>
-            <div className="g">
-              <UploadCheck />
+            {cropData.front ?
+              <Image width={250} height={100} src={cropData.front} alt="cropped" /> :
+              <div className="g">
+                <UploadCheck onChange={handleImageChange} type={'front'} />
             </div>
+            }
+            
           </div>
           <div className="grid gap-2">
+            
             <p className="font-medium leading-[1.6] !text-gray-900">
+           
               Upload Back Side
             </p>
-            <div className="g">
-              <UploadCheck />
-            </div>
+            {/* </Upload> */}
+            {cropData.back ?
+              <Image width={250} height={100} src={cropData.back} alt="cropped" /> : <div className="g">
+                
+                <UploadCheck onChange={handleImageChange} type={'back'} />
+              
+              </div>
+            }
+            
           </div>
         </div>
+        <ImageCropper
+          visible={modalVisible}
+          onCancel={() => setModalVisible(false)}
+          onCrop={handleCrop}
+          imageFile={fileList[0]?.originFileObj}
+        />
         <div className="grow"></div>
         <div className=" my-6 flex items-center justify-self-end px-8 md:w-1/6">
           <Button

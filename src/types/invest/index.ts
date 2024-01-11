@@ -43,6 +43,21 @@ export interface TeamMember {
   linkedinUrl: string
   _id: string
 }
+export interface Mentors {
+  profileImage: string
+  fullName: string
+  description: string
+  linkedinUrl: string
+  _id?: string
+}
+
+export interface Events {
+  banner: string
+  date: string
+  time: string
+  url: string
+  _id: string
+}
 
 export interface Mentors {
   profileImage: string

@@ -249,4 +249,4 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
   )
 }
 
-export default Pdf
+export default Pdf;

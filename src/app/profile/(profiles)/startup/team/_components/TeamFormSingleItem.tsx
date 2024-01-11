@@ -23,11 +23,6 @@ export default function TeamSingleItem({
   const api = apiUri().v1
   const [previewImage, setPreviewImage] = useState<string | undefined>()
   const handleFileChange = (file: File) => {
-    console.log(
-      '🚀 ~ file: ImageUploader.tsx:42 ~ handleFileChange ~ index:',
-      index,
-    )
-    // const file = e.target.files && e.target.files[0];
     if (file) {
       const reader = new FileReader()
       reader.onload = () => {
@@ -47,10 +42,6 @@ export default function TeamSingleItem({
         key={teamMember._id}
         className="flex items-center gap-4 py-4 lg:gap-2">
         <div className="min-w-[32px]">
-          {/* <Badge  
-  offset={[10,20]}
-  
-  count={<Camera/>}> */}
           <Upload
             showUploadList={false}
             beforeUpload={(file) => {

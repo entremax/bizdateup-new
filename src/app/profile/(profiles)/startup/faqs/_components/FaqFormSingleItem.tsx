@@ -15,12 +15,12 @@ export default function FaqSingleItem({
   index: number
   changeHandler: any
   removeHandler: any
-}) {
+,}) {
   const api = apiUri().v1
   return (
     <div className="w-full">
       <div key={faq._id} className="flex items-center gap-4 py-4 lg:gap-2">
-        <div className="grid w-full grid-cols-1 gap-2  px-4 py-4 md:grid-cols-1 lg:gap-1">
+       <div className="grid w-full grid-cols-1 gap-2  px-4 py-4 md:grid-cols-1 lg:gap-1">
           <div className="px-4 py-4">
             <Input
               key={faq._id}
@@ -32,8 +32,7 @@ export default function FaqSingleItem({
               name={'question'}
               label="Question"
               placeholder={`Enter your question`}
-            />
-          </div>
+         'question'      </div>
           <div className="px-4 py-4">
             <Input
               key={faq._id}
@@ -44,7 +43,7 @@ export default function FaqSingleItem({
               }
               name={'answer'}
               label="Answer"
-              placeholder={`Enter your answer`}
+              placeholder={`Ente'answer'nswer`}
             />
           </div>
         </div>

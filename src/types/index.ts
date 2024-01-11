@@ -104,6 +104,38 @@ export interface dealTerms {
   // Add any other properties as needed
 }
 
+export interface DataStartup {
+  _id: string
+  companyName: string
+  registeredCompanyName: string
+  shortDescription: string
+  raisedFund: string
+  sector: string
+  stage: string
+  keyHighlights: {
+    keyHighlight1: string | undefined
+    keyHighlight2: string | undefined
+    keyHighlight3: string | undefined
+    keyHighlight4: string | undefined
+  }
+  founderFirstName: string
+  founderLastName: string
+  email: string
+  phone: number
+  companyBased: string
+  youtubeVideoUrl: string
+  banner: string
+}
+
+export interface dealTerms {
+  typeOfSecurity: string
+  valuation: number
+  minimumInvestment: number
+  targetAmount: number
+  discount: number
+  // Add any other properties as needed
+}
+
 export interface IInvestorData {
   acknowledgement: 'false' | 'true'
   aadhar: Aadhar

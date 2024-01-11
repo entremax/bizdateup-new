@@ -26,7 +26,7 @@ export default async function Pitch({ searchParams }: Props) {
       value: user.pitch,
     },
   ]
-
+  
   return (
     <div className="flex h-full w-full flex-col">
       {!searchParams.edit ? (

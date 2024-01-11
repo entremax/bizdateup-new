@@ -20,7 +20,7 @@ export default async function Mentor({ searchParams }: Props) {
   if (!user || role !== 'startup') {
     return <>Loading</>
   }
-
+  
   return (
     <div className="flex flex-col">
       {!searchParams.edit ? (

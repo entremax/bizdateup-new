@@ -49,6 +49,7 @@ const Input: ForwardRefRenderFunction<InputRef, ForwardRefProps> = (
             className,
         )}
         value={defaultValue}
+        ref={ref}
         {...props}
       />
 

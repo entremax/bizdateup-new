@@ -132,8 +132,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-,
-    "src/app/profile/(profiles)/investor/_components/sidebarSection.tsx"
   ],
   "exclude": [
     "node_modules"

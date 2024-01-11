@@ -12,7 +12,6 @@ type Props = {
 }
 
 const KycIndicator = ({ token, status, user, className, hidden }: Props) => {
-  
   return (
     <>
       {user && status.length !== 0 ? (

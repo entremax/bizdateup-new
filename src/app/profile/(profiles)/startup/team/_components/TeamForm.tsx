@@ -12,10 +12,6 @@ export default function TeamForm({
 }: {
   initialUsers: StartupData
 }) {
-  console.log(
-    '🚀 ~ file: TeamForm.tsx:15 ~ TeamForm ~ initialUsers:',
-    initialUsers,
-  )
   const router = useRouter()
   const [teamMembers, setTeamMembers] = useState(initialUsers?.teamMembers)
   console.log('Team members:', teamMembers)

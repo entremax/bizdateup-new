@@ -20,6 +20,7 @@ import {
   reset as authReset,
 } from '@/reducers/user/authSlice'
 import { notifyUser } from '@/components/notification'
+import { useUser } from '@/hooks/useUser'
 
 export default function SectionBarStartup({
   children,
@@ -28,6 +29,7 @@ export default function SectionBarStartup({
 }) {
   const searchParams = useSearchParams()
   const sm = searchParams.get('sm')
+  const { user } = useUser()
   const router = useRouter()
   const dispatch = useAppDispatch()
   const routeSegment = useSelectedLayoutSegment()

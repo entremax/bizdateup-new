@@ -46,8 +46,6 @@ export default function FaqSingleItem({ event }: { event: Events }) {
             <ImageUploader
               key={event._id}
               defaultValue={event.url}
-              //@ts-ignore
-              // ref={field.fieldType !== 'select' && refs[field.name]}
               name={'banner'}
               type={'image'}
               label={'banner'}

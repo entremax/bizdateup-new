@@ -109,7 +109,7 @@ export default async function StartupProfile({ searchParams }: Props) {
       hidden: false,
     },
   ]
-
+  
   return (
     <>
       {!(user.companyName === '' && user.registeredCompanyName === '') &&

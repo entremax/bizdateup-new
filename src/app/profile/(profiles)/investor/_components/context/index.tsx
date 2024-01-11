@@ -4,13 +4,13 @@ import { DataInner, KYCStatus } from '@/types'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import {
+  useUpdateAadharMutation,
   useUpdateBankDetailsMutation,
   useUpdateOtherDetailsMutation,
+  useUpdatePanMutation,
   useUpdateUserMutation,
 } from '@/services/apiSlice'
 import { useRouter } from 'next/navigation'
-import { revalidatePath } from 'next/cache'
-import { revalidate } from '@/action/revalidate'
 import { notifyUser } from '@/components/notification'
 
 type UpdateType = 'general' | 'bank' | 'other' | 'aadhar' | 'pan'
@@ -31,6 +31,8 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [updateUser] = useUpdateUserMutation()
   const [updateOtherDetails] = useUpdateOtherDetailsMutation()
   const [updateBankDetails] = useUpdateBankDetailsMutation()
+  const [updateAadharDetails] = useUpdateAadharMutation()
+  const [updatePanDetails] = useUpdatePanMutation()
 
   function navigateNext(updated: UpdateType) {
     if (user && 'role' in user) {
@@ -71,6 +73,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   const handleUpdate = (formData: DataInner | any, updating: UpdateType) => {
+    console.log('🚀 ~ file: index.tsx:32 ~ handleUpdate ~ formData:', formData)
     if (!user) {
       return notifyUser(
         'warning',
@@ -137,7 +140,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     if (updating === 'bank') {
       setLoading(true)
-      updateBankDetails(updatedData)
+      updateBankDetails(formData)
         .unwrap()
         .then((res) => {
           setLoading(false)
@@ -163,9 +166,30 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-    if (updating === 'pan') {
+    // if (updating === 'pan') {
+    //   setLoading(true)
+    //   updateBankDetails(updatedData)
+    //     .unwrap()
+    //     .then((res) => {
+    //       setLoading(false)
+    //       return res
+    //     })
+    //     .catch((e) => {
+    //       failed = true
+    //       dispatch(
+    //         setNotification({
+    //           type: 'error',
+    //           message: "Couldn't Update PAN Details",
+    //           description: e.message,
+    //         }),
+    //       )
+    //       setLoading(false)
+    //       console.log(e)
+    //     })
+    // }
+    if (updating === 'aadhar') {
       setLoading(true)
-      updateBankDetails(updatedData)
+      updateAadharDetails(formData)
         .unwrap()
         .then((res) => {
           setLoading(false)
@@ -176,7 +200,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           dispatch(
             setNotification({
               type: 'error',
-              message: "Couldn't Update PAN Details",
+              message: "Couldn't Update Aadhar Details",
               description: e.message,
             }),
           )
@@ -184,9 +208,10 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-    if (updating === 'aadhar') {
+
+    if (updating === 'pan') {
       setLoading(true)
-      updateBankDetails(updatedData)
+      updatePanDetails(formData)
         .unwrap()
         .then((res) => {
           setLoading(false)
