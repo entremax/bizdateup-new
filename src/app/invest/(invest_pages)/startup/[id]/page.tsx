@@ -34,38 +34,38 @@ const { v0: apiV1 } = apiUri()
 
 export const revalidate = 0
 
-export async function generateMetadata(
-  {
-    params,
-  }: {
-    params: { id: string }
-  },
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
-  // read route params
-  const id = params.id
-
-  // fetch data
-  const { data }: { data: StartupDataResponse } = await fetch(
-    apiV1 + `/startup/fetchStartupByRef?refId=${id}`,
-    { next: { revalidate: 3600 } },
-  )
-    .then((res) => {
-      return res.json()
-    })
-    .catch((e) => {
-      console.log(e)
-      throw new Error('Something went wrong check server log')
-    })
-
-  const companyName = capitalizeFirstLetter(
-    data?.data?.registeredCompanyName.trim().split(' '),
-  )
-  return {
-    title: companyName.join(' ') + ' | Bizdateup',
-    description: data?.data?.shortDescription,
-  }
-}
+// export async function generateMetadata(
+//   {
+//     params,
+//   }: {
+//     params: { id: string }
+//   },
+//   parent: ResolvingMetadata,
+// ): Promise<Metadata> {
+//   // read route params
+//   const id = params.id
+//
+//   // fetch data
+//   const { data }: { data: StartupDataResponse } = await fetch(
+//     apiV1 + `/startup/fetchStartupByRef?refId=${id}`,
+//     { next: { revalidate: 3600 } },
+//   )
+//     .then((res) => {
+//       return res.json()
+//     })
+//     .catch((e) => {
+//       console.log(e)
+//       throw new Error('Something went wrong check server log')
+//     })
+//
+//   const companyName = capitalizeFirstLetter(
+//     data?.data?.registeredCompanyName.trim().split(' '),
+//   )
+//   return {
+//     title: companyName.join(' ') + ' | Bizdateup',
+//     description: data?.data?.shortDescription,
+//   }
+// }
 
 const checkInterest = async (id: string) => {
   const cookie = cookies()
