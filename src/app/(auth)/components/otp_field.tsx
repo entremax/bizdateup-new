@@ -137,7 +137,7 @@ export default function OtpField({ id }: { id: string }) {
         refId = userId,
         status,
       } = response.data
-      console.log(token)
+      
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
       const user: InvestorUserPayload | StartupUserPayload =
@@ -158,7 +158,7 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: false,
             }
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
-        localStorage.setItem('token', token)
+        localStorage.setItem('token', token??'')
         if (temp_auth_medium) {
           localStorage.setItem('email', temp_auth_medium ?? '')
         }

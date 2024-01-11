@@ -190,6 +190,13 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         .unwrap()
         .then((res) => {
           setLoading(false)
+          const updated = [KYCStatus.aadhar, ...authUser?.kycStatus]
+          const mergedUser = {
+            ...authUser,
+            userData: authUser.user,
+            kycStatus: updated,
+          } as InvestorUserPayload
+          dispatch(setUser(mergedUser))
           return res
         })
         .catch((e) => {
@@ -213,10 +220,17 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         .unwrap()
         .then((res) => {
           setLoading(false)
+          const updated = [KYCStatus.pan, ...authUser?.kycStatus]
+          const mergedUser = {
+            ...authUser,
+            userData: authUser.user,
+            kycStatus: updated,
+          } as InvestorUserPayload
+          dispatch(setUser(mergedUser))
           dispatch(
             setNotification({
               type: 'success',
-              message: 'Tanq for your private details',
+              message: 'Verification Successful',
               description: res.message,
             }),
           )
@@ -228,7 +242,9 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             setNotification({
               type: 'error',
               message: "Couldn't Update Pan Details ",
-              description: e.message ?? 'We missed an oppourtunity to collect your data please try again',
+              description:
+                e.message ??
+                'We missed an oppourtunity to collect your data please try again',
             }),
           )
           setLoading(false)
