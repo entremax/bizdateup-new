@@ -71,7 +71,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
       router.refresh()
-      return pendingSteps[startIndex].route // No, pending KYC steps
+      return pendingSteps[startIndex].route
     }
 
     const nextPendingStep = findNextPendingStep()

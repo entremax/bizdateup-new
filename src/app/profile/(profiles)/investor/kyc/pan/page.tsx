@@ -4,11 +4,12 @@ import Link from 'next/link'
 import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
 import { redirect, RedirectType } from 'next/navigation'
 import { apiUri } from '@/lib/utils'
+import ImagePreview from '@/app/profile/(profiles)/investor/kyc/ImagePreview'
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 export default async function PanPage({ searchParams }: Props) {
-  const { role, user } = await getUserDetails()
+  const { role, user ,token} = await getUserDetails()
   if (role !== 'investor' || !user) {
     return <>Loading</>
   }
@@ -54,14 +55,15 @@ export default async function PanPage({ searchParams }: Props) {
                 <div className="grid gap-2">
                   <p className="text-md text-gray-400">{label}</p>
                   {link ? (
-                    <Link
-                      target="_blank"
-                      href={apiUri().v0 + '/doc/pan/' + fileName}
-                      className={
-                        'text-md font-semibold !text-primary underline'
-                      }>
-                      {value}
-                    </Link>
+                    // <Link
+                    //   target="_blank"
+                    //   href={apiUri().v0 + '/doc/pan/' + fileName}
+                    //   className={
+                    //     'text-md font-semibold !text-primary underline'
+                    //   }>
+                    //   {value}
+                    // </Link>
+                    <ImagePreview fileName={fileName} docType={'pan'} token={token}/>
                   ) : (
                     <p className="text-md font-bold">{value}</p>
                   )}

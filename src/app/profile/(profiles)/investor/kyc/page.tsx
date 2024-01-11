@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import AadharForm from '@/app/profile/(profiles)/investor/kyc/KYCForm'
 import { apiUri } from '@/lib/utils'
+import ImagePreview from '@/app/profile/(profiles)/investor/kyc/ImagePreview'
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 export default async function KYC({ searchParams }: Props) {
-  const { role, user, status } = await getUserDetails()
+  const { role, user, status,token } = await getUserDetails()
   if (!user || role !== 'investor') {
     return <>Loading</>
   }
@@ -60,14 +61,15 @@ export default async function KYC({ searchParams }: Props) {
                 <div className="grid gap-2">
                   <p className="text-md text-gray-400">{label}</p>
                   {link ? (
-                    <Link
-                      target="_blank"
-                      href={apiUri().v0 + '/doc/aadhar/' + fileName}
-                      className={
-                        'text-md font-semibold !text-primary underline'
-                      }>
-                      {value}
-                    </Link>
+                    // <Link
+                    //   target="_blank"
+                    //   href={apiUri().v0 + '/doc/aadhar/' + fileName}
+                    //   className={
+                    //     'text-md font-semibold !text-primary underline'
+                    //   }>
+                    //   {value}
+                    // </Link>
+                    <ImagePreview fileName={fileName} docType={'aadhar'} token={token}/>
                   ) : (
                     <p className="text-md font-bold">{value}</p>
                   )}
