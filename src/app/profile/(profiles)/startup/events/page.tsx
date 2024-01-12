@@ -7,7 +7,7 @@ import { useAppSelector } from '@/store/hooks'
 import { useSearchParams } from 'next/navigation'
 
 
-export default async function Bank() {
+export default function Bank() {
   const {user,token,role}=useAppSelector(({authUser})=>authUser)
   const searchParams=useSearchParams()
   const editState=Boolean(searchParams.get('edit'))
