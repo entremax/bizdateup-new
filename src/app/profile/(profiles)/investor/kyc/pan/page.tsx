@@ -52,7 +52,7 @@ export default function PanPage() {
   }
   return (
     <div className="flex flex-col">
-      {user?.pan.status === 'verified' && editState ? (
+      {user?.pan.status === 'verified' ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.pan.map(({ label, value, fileName, link }) => (

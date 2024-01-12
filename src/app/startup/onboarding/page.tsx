@@ -326,6 +326,7 @@ export default function OnboardingForm() {
                   ref={field.fieldType !== 'select' && refs[field.name]}
                   name={field.name}
                   label={field.label}
+                  type={field.type}
                   placeholder={`Enter your ${field.name}`}
                 />
               ),
