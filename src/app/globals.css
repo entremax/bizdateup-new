@@ -431,3 +431,17 @@ input[type='number'] {
     }
   }
 }
+
+/*---------------------------icon wrapper--------------------------*/
+@layer components{
+  .icon-wrapper.active{
+    svg{
+      @apply stroke-primary;
+    }
+  }
+  .icon-wrapper{
+    svg{
+      @apply w-5 h-5 fill-none group-hover:stroke-primary;
+    }
+  }
+}

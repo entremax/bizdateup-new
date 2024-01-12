@@ -19,5 +19,5 @@ export default function IconWrapper(
   { component, className }: IconWrapperProps,
   props: Partial<CustomIconComponentProps>,
 ) {
-  return <Icon component={component} className={className} {...props} />
+  return <Icon component={component} className={'icon-wrapper '+className} {...props} />
 }

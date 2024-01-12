@@ -1,5 +1,5 @@
 'use client'
-import { Button } from 'antd'
+import { Button,Image} from 'antd'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import Input from '@/components/form/Input'
@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation'
 import { notifyUser } from '@/components/notification'
 import OfflineKyc from '@/app/profile/(profiles)/investor/kyc/OfflineKyc'
 import ImageCropper from '@/components/ImageCropper'
-import Image from 'next/image'
 import UploadCheck from '@/components/profile/dropCheck'
 
 export default function AadharForm({ user }: { user: DataInner }) {
@@ -94,7 +93,7 @@ export default function AadharForm({ user }: { user: DataInner }) {
             placeholder={`Enter your Aadhar Number`}
           />
         </div>
-        <div className="mt-3 grid  items-center gap-8 p-8 py-0 xl:grid-cols-2">
+        <div className="mt-3 grid  items-start gap-8 p-8 py-0 xl:grid-cols-2">
           <div className="grid gap-2">
             <p className="font-medium leading-[1.6] !text-gray-900">
               Upload Font Side

@@ -1,5 +1,5 @@
 'use client'
-import { Button } from 'antd'
+import { Button,Image } from 'antd'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import { bankNames } from '@/app/profile/(profiles)/investor/bank/data'
@@ -10,7 +10,7 @@ import { DefaultOptionType } from 'rc-select/lib/Select'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
+
 import ImageCropper from '@/components/ImageCropper'
 
 export default function BankForm({ user }: { user: DataInner }) {
@@ -156,7 +156,7 @@ export default function BankForm({ user }: { user: DataInner }) {
           ),
         )}
       </div>
-      <div className="mt-3 grid  items-center gap-8 p-8 py-0 xl:grid-cols-2">
+      <div className="mt-3 grid  items-start gap-8 p-8 py-0 xl:grid-cols-2">
         <div className="grid gap-2">
           <p className="font-medium leading-[1.6] !text-gray-900">
             Upload Cancelled Check

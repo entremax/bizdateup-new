@@ -9,9 +9,8 @@ import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
 import { notifyUser } from '@/components/notification'
 import OfflineKyc from '@/app/profile/(profiles)/investor/kyc/OfflineKyc'
-import Image from 'next/image'
 import ImageCropper from '@/components/ImageCropper'
-
+import {Image} from 'antd'
 export default function PanForm({ user }: { user: DataInner }) {
   const { handleUpdate, loading } = useUpdateContext()
 
@@ -95,18 +94,20 @@ export default function PanForm({ user }: { user: DataInner }) {
             placeholder={`Enter your PAN Number`}
           />
         </div>
-        <div className="mt-3 grid  items-center gap-8 p-8 py-0 xl:grid-cols-2">
+        <div className="mt-3 grid  items-start gap-8 p-8 py-0 xl:grid-cols-2">
           <div className="grid gap-2">
             <p className="font-medium leading-[1.6] !text-gray-900">
               Upload Font Side
             </p>
             {cropData.front ? (
+              <div className="w-64 h-32 rounded-xl overflow-crop">
               <Image
                 width={250}
                 height={100}
                 src={cropData.front}
                 alt="cropped"
               />
+              </div>
             ) : (
               <div className="g">
                 <UploadCheck onChange={handleImageChange} type={'front'} />

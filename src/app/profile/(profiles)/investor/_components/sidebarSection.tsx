@@ -21,6 +21,7 @@ import {
 } from '@/reducers/user/authSlice'
 import { notifyUser } from '@/components/notification'
 import { KYCStatus } from '@/types'
+import IconWrapper from '@/icons/CustomAntdIcon'
 
 export default function SectionBar({
   children,
@@ -42,56 +43,34 @@ export default function SectionBar({
       id: 1,
       name: 'General Information',
       segment: null,
-      icon: (
-        <Profile
-          className={
-            'stroke-black-lighter group-hover:fill-primary group-hover:stroke-primary  group-active:stroke-primary'
-          }
-        />
-      ),
+      icon: Profile,
       link: '/profile/investor',
     },
     {
       id: 2,
       name: 'KYC',
       segment: 'kyc',
-      icon: (
-        <TicketStar
-          className={'stroke-black-lighter   group-hover:stroke-primary'}
-        />
-      ),
+      icon: TicketStar,
       link: baseUri + '/kyc',
     },
     {
       id: 3,
       name: 'Bank details',
       segment: 'bank',
-      icon: (
-        <Icons.TextFile
-          className={'stroke-black-lighter   group-hover:stroke-primary'}
-        />
-      ),
+      icon: Icons.TextFile,
       link: baseUri + '/bank',
     },
     {
       id: 4,
       name: 'Other details',
       segment: 'other',
-      icon: (
-        <MoreSquare
-          className={'stroke-black-lighter   group-hover:stroke-primary'}
-        />
-      ),
+      icon:MoreSquare,
       link: baseUri + '/other',
     },
     {
       id: 5,
       name: 'Investment manager',
-      icon: (
-        <Work
-          className={'group: stroke-black-lighter  group-hover:stroke-primary'}
-        />
-      ),
+      icon:Work,
       segment: 'investment-manager',
       link: baseUri + '/investment-manager',
     },
@@ -116,7 +95,9 @@ export default function SectionBar({
         return false
     }
   }
-
+  
+  
+  
   const logoutUser = () => {
     logout('')
       .unwrap()
@@ -156,7 +137,7 @@ export default function SectionBar({
                 className={`flex h-8 w-8 items-center justify-center ${
                   id === 5 && 'justify-self-start'
                 }`}>
-                {icon}
+                <Icon className={routeSegment === segment?' active':''} icon={icon}/>
               </div>
               <div
                 className={cn(
@@ -201,12 +182,10 @@ export default function SectionBar({
               key={link}
               href={link}
               className={cn(
-                'hidden w-full items-center gap-3 py-6 !text-black-lighter  text-gray-800 delay-100 active:text-black lg:flex hover:lg:bg-[#F0F0FF] hover:lg:text-primary' +
+                'hidden w-full items-center gap-3 py-6 !text-black-lighter delay-100 active:text-black lg:flex hover:lg:bg-[#F0F0FF] hover:lg:text-primary' +
                   (routeSegment === segment && ' lg:text-primary'),
               )}>
-              <div className="flex h-8 w-8 items-center justify-center">
-                {icon}
-              </div>
+              <Icon className={''} icon={icon}/>
               <div
                 className={cn(
                   `items-left ${id === 5 && 'flex flex-col gap-1'}`,
@@ -255,9 +234,7 @@ export default function SectionBar({
                 'flex w-full items-center gap-3 py-6  text-gray-800 delay-100 hover:bg-[#F0F0FF] hover:text-primary active:text-black lg:hidden' +
                   (routeSegment === segment && ' lg:text-primary'),
               )}>
-              <div className="flex h-8 w-8 items-center justify-center">
-                {icon}
-              </div>
+              
               <div
                 className={cn(
                   `items-left ${id === 5 && 'flex flex-col gap-2'}`,
@@ -301,5 +278,14 @@ export default function SectionBar({
         </Button>
       </div>
     </>
+  )
+}
+
+
+function Icon({className,icon}:{className:string,icon:any}){
+  return(
+    <div className={'flex h-8 w-8 items-center justify-center group'}>
+      <IconWrapper component={icon} className={'group: stroke-black-lighter  group-hover:stroke-primary fill-white '+className } />
+    </div>
   )
 }
