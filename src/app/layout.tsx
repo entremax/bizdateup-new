@@ -9,7 +9,7 @@ import AntNotification from '@/components/notification'
 import MobileNavbar from '@/components/navbar/navbar_mobile'
 import Footer from '@/components/footer'
 import NavbarNew from '@/components/navbar_new'
-import CommonLayout from '@/components/layouts/CommonLayout'
+import dynamic from 'next/dynamic'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,7 +17,9 @@ export const metadata = {
   title: 'Bizdata',
   description: 'by @bizdata',
 }
-
+const CommonLayout=dynamic(()=>import('@/components/layouts/CommonLayout') ,{
+  ssr:false
+})
 const RootLayout = ({ children }: React.PropsWithChildren) => (
   <html lang="en">
     <body className={inter.className}>

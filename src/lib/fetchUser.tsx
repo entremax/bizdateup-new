@@ -8,6 +8,9 @@ import { store } from '@/store'
 export const FetchUser=()=>{
   return async()=>{
     const role=getCookieLocal('role')
+    if (!role){
+      return
+    }
     if (role === 'startup') {
       const authMethod = localStorage.getItem('loginMethod') ?? ''
       const authAction = localStorage?.getItem('loginMethod2') ?? ''
