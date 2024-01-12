@@ -147,7 +147,7 @@ export default function AadharForm({ user }: { user: DataInner }) {
               '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block md:!bg-primary md:!text-white'
             }
             block>
-            Verify
+            {loading?'Verifying':'Verify'}
           </Button>
         </div>
       </div>

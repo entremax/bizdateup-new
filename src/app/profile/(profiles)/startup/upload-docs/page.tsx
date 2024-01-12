@@ -1,29 +1,19 @@
 import React from 'react'
-import getUserDetails from '@/action/user'
-import type { Metadata } from 'next'
 import UploadForm from '@/components/profile/startup/UploadDocForm'
 import { FileIcons } from '@/icons/FileIcon'
-
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export const metadata: Metadata = {
-  title: 'Document Upload - Profile | Bizdateup',
-  description: 'Document Upload Details Overview',
-}
-
-export default async function Bank({ searchParams }: Props) {
-  const editState: boolean = !searchParams.edit
-
-  const { role, user } = await getUserDetails()
-  if (!user || role !== 'startup') {
-    return <>Loading</>
+import { useAppSelector } from '@/store/hooks'
+import { useSearchParams } from 'next/navigation'
+export default async function Bank() {
+  const {user,token,role}=useAppSelector(({authUser})=>authUser)
+  const searchParams=useSearchParams()
+  const editState=Boolean(searchParams.get('edit'))
+  
+  if (!user||role!=='startup'||!token) {
+    return null
   }
-
   return (
     <div className="flex flex-col">
-      {!searchParams.edit ? (
+      {editState? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-1">
             {user.dueDiligenceFiles.map((file, index) => (

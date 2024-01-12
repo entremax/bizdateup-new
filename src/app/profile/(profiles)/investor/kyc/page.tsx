@@ -1,27 +1,19 @@
+'use client'
 import React from 'react'
-import getUserDetails from '@/action/user'
-import type { Metadata } from 'next'
-import Link from 'next/link'
 import AadharForm from '@/app/profile/(profiles)/investor/kyc/KYCForm'
-import { apiUri } from '@/lib/utils'
 import ImagePreview from '@/app/profile/(profiles)/investor/kyc/ImagePreview'
+import { useAppSelector } from '@/store/hooks'
+import { useSearchParams } from 'next/navigation'
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-export const metadata: Metadata = {
-  title: 'KYC/Aadhar - Profile | Bizdateup',
-  description: 'KYC Details',
-}
-export default async function KYC({ searchParams }: Props) {
-  const { role, user, status,token } = await getUserDetails()
-  if (!user || role !== 'investor') {
-    return <>Loading</>
+export default  function KYC() {
+  const {user,token,role}=useAppSelector(({authUser})=>authUser)
+  const searchParams=useSearchParams()
+  const edit=Boolean(searchParams.get('edit'))
+  
+  if (!user||role!=='investor'||!token) {
+    return null
   }
-  // if (user.aadhar.status === 'verified' && user.pan.status !== 'verified') {
-  //   return redirect('/profile/investor/kyc/pan')
-  // }
-  console.log(user.aadhar)
+  
   const data = {
     aadhar: [
       {
@@ -52,7 +44,7 @@ export default async function KYC({ searchParams }: Props) {
   }
   return (
     <div className="flex flex-col">
-      {user?.aadhar.status === 'verified' && !searchParams.edit ? (
+      {user?.aadhar.status === 'verified' && !edit ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.aadhar.map(({ label, fileName, value, link }) => (
@@ -60,14 +52,6 @@ export default async function KYC({ searchParams }: Props) {
                 <div className="grid gap-2">
                   <p className="text-md text-gray-400">{label}</p>
                   {link ? (
-                    // <Link
-                    //   target="_blank"
-                    //   href={apiUri().v0 + '/doc/aadhar/' + fileName}
-                    //   className={
-                    //     'text-md font-semibold !text-primary underline'
-                    //   }>
-                    //   {value}
-                    // </Link>
                     <ImagePreview fileName={fileName} docType={'aadhar'} token={token}/>
                   ) : (
                     <p className="text-md font-bold">{value}</p>

@@ -18,7 +18,7 @@ const initialState = {
   isVerified: false,
   kycCompletionPercentage: 0,
   riskAccepted: false,
-  premiumMember: false,
+  premiumMember: false
 } as InvestorUserState | StartupUserState
 
 export const authUser = createSlice({
@@ -34,13 +34,14 @@ export const authUser = createSlice({
     reset: () => initialState,
     setUser: (
       state,
-      { payload }: PayloadAction<InvestorUserPayload | StartupUserPayload>,
+      { payload }: PayloadAction<any>,
     ) => {
       state.token = payload.token
       state.user = payload.userData
       state.refId = payload.refId
-      state.role = payload.role
+      
       if (payload.role === 'investor') {
+        state.role = 'investor'
         const { kycStatus, premiumMember } = payload
         const pendingStatuses: KYCStatus[] = []
         const totalStatuses: KYCStatus[] = [
@@ -50,7 +51,7 @@ export const authUser = createSlice({
           KYCStatus.bank,
           KYCStatus.other,
         ]
-
+        
         totalStatuses.forEach((status) => {
           if (kycStatus && kycStatus.includes(status)) {
             pendingStatuses.push(status)
@@ -63,6 +64,10 @@ export const authUser = createSlice({
             totalStatuses.length) *
           100
       }
+      if (payload.role==='startup'){
+        state.role='startup'
+      }
+      
     },
     setStartup: (state) => {},
     setVerify(state, { payload }: PayloadAction<boolean>) {
@@ -70,10 +75,10 @@ export const authUser = createSlice({
     },
     setRiskAccept(state) {
       state.riskAccepted = true
-    },
+    }
   },
 })
-export const { setRiskAccept, temp_values, reset, setInvestorId, setUser } =
+export const { setRiskAccept,temp_values, reset, setInvestorId, setUser } =
   authUser.actions
 
 export default authUser.reducer

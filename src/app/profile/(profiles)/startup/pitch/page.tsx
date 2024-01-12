@@ -1,24 +1,17 @@
+'use client'
 import React from 'react'
-import getUserDetails from '@/action/user'
-import type { Metadata } from 'next'
 import Pdf from '@/components/common/Pdf'
 import PitchForm from '@/components/profile/startup/PitchForm'
+import { useAppSelector } from '@/store/hooks'
+import { useSearchParams } from 'next/navigation'
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export const metadata: Metadata = {
-  title: 'Bank Details - Profile | Bizdateup',
-  description: 'Your Bank Details Overview',
-}
-
-export default async function Pitch({ searchParams }: Props) {
-  const editState: boolean = !searchParams.edit
-
-  const { role, user } = await getUserDetails()
-  if (!user || role !== 'startup') {
-    return <>Loading</>
+export default function Pitch() {
+  const {user,token,role}=useAppSelector(({authUser})=>authUser)
+  const searchParams=useSearchParams()
+  const editState=Boolean(searchParams.get('edit'))
+  
+  if (!user||role!=='startup'||!token) {
+    return null
   }
   const data = [
     {
@@ -29,7 +22,7 @@ export default async function Pitch({ searchParams }: Props) {
   
   return (
     <div className="flex h-full w-full flex-col">
-      {!searchParams.edit ? (
+      {editState ? (
         // <div className="grid grid-cols-1 w-full">
         <Pdf pitch={user.pitch} />
       ) : (

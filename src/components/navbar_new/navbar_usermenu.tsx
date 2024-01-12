@@ -28,24 +28,21 @@ import useCookieLocal from '@/lib/useCookieLocal'
 import UserMenuDropdown from '@/components/navbar_new/UserMenuDropdown'
 import { DollarOutlined, EditFilled } from '@ant-design/icons'
 import { StartupData } from '@/types/invest'
-import { useUser } from '@/context/UserContext'
 
 type Props =
-  | { user: DataInner | null; role: 'investor'; local_user?: false }
-  | { user: StartupData | null; role: 'startup'; local_user?: boolean }
+  | { user: DataInner | null; role: 'investor'; local_user?: false ,token:string}
+  | { user: StartupData | null; role: 'startup'; local_user?: boolean ,token:string}
 
-const UserMenu = ({ user, role, local_user }: Props) => {
+const UserMenu = ({ user, role, local_user ,token}: Props) => {
   const [windowWidth, setWindowWidth] = useState(0)
   const logged_in = useCookieLocal('logged-in')
   const [creating, setCreating] = useState(false)
   const dispatch = useAppDispatch()
-  const { user: client } = useUser()
-  const token = client?.token
   const router = useRouter()
   const [logout, { isLoading }] = useLogoutMutation()
   const [fetchUpdates, { isLoading: fetching }] =
     useFetchStartupUpdatesMutation()
-
+  
   const logoutUser = () => {
     logout('')
       .unwrap()
@@ -64,7 +61,7 @@ const UserMenu = ({ user, role, local_user }: Props) => {
         }
       })
   }
-
+  
   const onClick: MenuProps['onClick'] = async ({ key }) => {
     switch (key) {
       case '1':
@@ -83,9 +80,9 @@ const UserMenu = ({ user, role, local_user }: Props) => {
         return
     }
   }
-
+  
   const badgeTitle = 'Notifications'
-
+  
   const items = [
     {
       label: <p className={'reset px-4'}>Profile</p>,
@@ -121,7 +118,7 @@ const UserMenu = ({ user, role, local_user }: Props) => {
       danger: true,
     },
   ]
-
+  
   const handleFetchUpdates = async () => {
     fetchUpdates('')
       .unwrap()
@@ -140,7 +137,7 @@ const UserMenu = ({ user, role, local_user }: Props) => {
         }
       })
   }
-
+  
   const avatarClass =
     role === 'investor' &&
     user &&
@@ -148,14 +145,14 @@ const UserMenu = ({ user, role, local_user }: Props) => {
     user?.membership?.isMember !== 'no'
       ? 'relative rounded-full outline outline-4 outline-yellow-500'
       : 'relative rounded-full'
-
+  
   const handleCreateAccelerator = async () => {
     setCreating(true)
     if (user && 'isAccelerator' in user && user?.isAccelerator) {
       setCreating(false)
       return router.push('/referral')
     }
-
+    
     const res = await fetch(acceleratorApis.create, {
       method: 'POST',
       body: JSON.stringify({ id: user?._id }),
@@ -200,7 +197,7 @@ const UserMenu = ({ user, role, local_user }: Props) => {
     }
     setCreating(false)
   }
-
+  
   useEffect(() => {
     setWindowWidth(window.innerWidth)
   }, [])
@@ -220,7 +217,7 @@ const UserMenu = ({ user, role, local_user }: Props) => {
                 className="hidden !rounded-lg !border-0 !text-primary !outline   !outline-[0.022rem] !outline-primary  lg:inline-block">
                 Refer & Earn
               </Button>
-
+              
               <Tooltip title={badgeTitle}>
                 <Dropdown
                   dropdownRender={() => <StartupUpdatesDropDown />}

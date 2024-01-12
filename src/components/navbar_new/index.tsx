@@ -19,17 +19,17 @@ interface ExtendedInvestorData extends InvestorUserData {
 
 export default async function NavbarNew() {
   const { user, role } = await getUserDetails()
-
+  
   const token = cookies()?.get('token')?.value
   const local_user = Boolean(cookies()?.get('local-user')?.value)
   const authenticated = !!token
-
+  
   const userData:
-    | Pick<ExtendedInvestorData, 'user' | 'role' | 'local_user'>
-    | Pick<ExtendedStartupData, 'user' | 'role' | 'local_user'> =
+    | Pick<ExtendedInvestorData, 'user' | 'role' | 'local_user'|'token'>
+    | Pick<ExtendedStartupData, 'user' | 'role' | 'local_user'|'token'> =
     role === 'investor'
-      ? { user, role: 'investor', local_user: false }
-      : { user, role: 'startup', local_user }
+      ? { user, role: 'investor', local_user: false ,token:token??''}
+      : { user, role: 'startup', local_user,token:token??''}
   const navLinkProps={...userData,authenticated}
   return (
     <div className="fixed left-0 right-0 z-[999] flex h-[4.5rem]  items-center bg-white shadow-[0px_1px_0px_0px_#E5E9F2] lg:px-8">
@@ -43,7 +43,7 @@ export default async function NavbarNew() {
           alt="app logo"
         />
       </Link>
-
+      
       <div
         className={
           !authenticated
@@ -52,7 +52,7 @@ export default async function NavbarNew() {
         }>
         {!local_user?<NavbarLinks {...navLinkProps} />:<div className="grow"/>}
         
-        {authenticated && (
+        {authenticated&&token && (
           <div className={' flex items-center justify-center gap-4'}>
             <UserMenu {...userData} />
           </div>

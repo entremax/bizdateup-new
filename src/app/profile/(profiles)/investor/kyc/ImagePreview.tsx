@@ -4,7 +4,7 @@ import { apiUri } from '@/lib/utils'
 import { useState } from 'react'
 import capitalize from 'antd/lib/_util/capitalize'
 import { notifyUser } from '@/components/notification'
-
+import Spinner from '@/icons/Spinner'
 type Props={
   docType:'aadhar'|'pan'|'bank'
   fileName:string
@@ -13,8 +13,9 @@ type Props={
 export default function ImagePreview({fileName,docType,token}:Props){
   const [preview, setPreview] = useState(false)
   const [previewImage, setPreviewImage] = useState<  string |undefined>()
-  
+  const [loading, setLoading] = useState(false)
   const handleFetchImage = async () => {
+    setLoading(true)
     try {
       const res = await fetch(apiUri().v0 + `/doc/${docType}/` + fileName, {
         headers: {
@@ -23,6 +24,7 @@ export default function ImagePreview({fileName,docType,token}:Props){
       })
       
       if (!res || !res.ok) {
+        setLoading(false)
         return notifyUser('error', 'Something went wrong');
       }
       
@@ -35,8 +37,10 @@ export default function ImagePreview({fileName,docType,token}:Props){
       };
       
       reader.readAsDataURL(buffer);
+      setLoading(false)
       return
     } catch (e) {
+      setLoading(false)
       return notifyUser('error', 'Something went wrong');
     }
   };
@@ -51,8 +55,8 @@ export default function ImagePreview({fileName,docType,token}:Props){
           await handleFetchImage()
           setPreview(!preview)
         }}
-        className="cursor-pointer text-md !bg-transparent !outline-0 !border-0 font-semibold !text-primary underline">
-        Document
+        className="flex items-center gap-1 cursor-pointer text-md !bg-transparent !outline-0 !border-0 font-semibold !text-primary underline">
+        {loading&&<Spinner/>} Document
       </span>
       {previewImage && (
         <Modal

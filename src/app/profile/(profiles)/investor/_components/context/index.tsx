@@ -13,7 +13,6 @@ import {
 } from '@/services/apiSlice'
 import { useRouter } from 'next/navigation'
 import { notifyUser } from '@/components/notification'
-import { useUser } from '@/context/UserContext'
 import {
   InvestorUserPayload,
   StartupUserPayload,
@@ -196,6 +195,13 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             kycStatus: updated,
           } as InvestorUserPayload
           dispatch(setUser(mergedUser))
+          dispatch(
+            setNotification({
+              type: 'success',
+              message: 'Verification Successful',
+              description: res.message,
+            }),
+          )
           return res
         })
         .catch((e) => {
@@ -225,7 +231,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             userData: authUser.user,
             kycStatus: updated,
           } as InvestorUserPayload
-          dispatch(setUser(mergedUser))
+          dispatch(setUser (mergedUser))
           dispatch(
             setNotification({
               type: 'success',
@@ -243,7 +249,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
               message: "Couldn't Update Pan Details ",
               description:
                 e.message ??
-                'We missed an oppourtunity to collect your data please try again',
+                'We missed an opportunity to collect your data please try again',
             }),
           )
           setLoading(false)

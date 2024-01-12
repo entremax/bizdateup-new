@@ -59,7 +59,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     if (!role || role === ''||reduxUser) return
     if (role === 'startup') {
       const authMethod = localStorage.getItem('loginMethod') ?? ''
-      const authAction = localStorage.getItem('loginMethod2') ?? ''
+      const authAction = localStorage?.getItem('loginMethod2') ?? ''
 
       if (authMethod === 'local' && authAction === 'signup') {
         const localData = localUser.getUserLocal()
@@ -79,13 +79,9 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     }
 
     if (data.role === 'investor') {
-      dispatch({ type: 'SET_LOADING', payload: true })
-      if ((data && data.role !== 'investor') || !data.user)
+       if ((data && data.role !== 'investor') || !data.user)
         return router.push('/login')
-
-      const localData = localUser.getUserLocal()
-      if (!localData) return router.push('/login')
-      console.log(data)
+      
       const userInfo: InvestorUserPayload = {
         role: data.role,
         userData: data?.user as DataInner,
@@ -106,13 +102,12 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       dispatch({ type: 'SET_USER', payload: userInfo })
       store.dispatch(setUser(userInfo))
     }
-  }, [role, path, update])
+  }, [])
 
   useEffect(() => {
-    console.log('running effect')
     fetchUserDetails()
-  }, [role, path, update])
-  console.log(update)
+  }, [])
+ 
   return (
     <UserContext.Provider value={{ ...state, setUpdate }}>
       {children}

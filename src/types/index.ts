@@ -127,7 +127,7 @@ export interface BaseAuthUserState {
   kycCompletionPercentage: number
   kycStatus: KYCStatusArray
   premiumMember: boolean
-  role: UserRole
+  role: 'investor'|'startup'|undefined
 }
 
 export interface InvestorUserState extends BaseAuthUserState {
@@ -143,8 +143,8 @@ export interface InvestorUserState extends BaseAuthUserState {
 
 export interface StartupUserState extends BaseAuthUserState {
   token: string | null
-  startupId: string | null
-  startup: StartupData | null
+  userId: string | null
+  user: StartupData | null
   premiumMember: false
   role: 'startup'
 }

@@ -1,7 +1,6 @@
 'use client'
 import React, { createContext, useContext, useState } from 'react'
-import { useUser } from '@/context/UserContext'
-import { useAppDispatch } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import {
   useDeleteDealfileMutation,
@@ -19,6 +18,7 @@ import {
   useUpdatePitchMutation,
   useUpdateTeamMutation,
 } from '@/services/startupApiSlice'
+import { useSearchParams } from 'next/navigation'
 
 type UpdateType =
   | 'company_details'
@@ -46,8 +46,8 @@ const UpdateContext = createContext<ContextProps>({} as ContextProps)
 export const useStartupUpdateContext = () => useContext(UpdateContext)
 
 const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useUser()
   const dispatch = useAppDispatch()
+  const {user,token,role,refId}=useAppSelector(({authUser})=>authUser)
   const [loading, setLoading] = useState(false)
   const [updateCompany] = useUpdateCompanyDetailsMutation()
   const [updateTeam] = useUpdateTeamMutation()
@@ -63,7 +63,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [deleteEvent] = useDeleteEventMutation()
   const [deleteDealFile] = useDeleteDealfileMutation()
   const [deletePitch] = useDeletePitchMutation()
-
+  
   const handleUpdate = (formData: any, updating: UpdateType) => {
     if (!user) {
       dispatch(
@@ -75,8 +75,8 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       )
       return
     }
-    const updatedData = { ...formData, refId: user.refId }
-
+    const updatedData = { ...formData, refId: refId }
+    
     setLoading(true)
     if (updating === 'company_details') {
       setLoading(true)
@@ -359,7 +359,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           console.log(e)
         })
     }
-
+    
     setLoading(false)
   }
   return (

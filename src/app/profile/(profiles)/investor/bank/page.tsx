@@ -1,23 +1,20 @@
+'use client'
 import React from 'react'
 import getUserDetails from '@/action/user'
 import BankForm from '@/components/profile/bankForm'
 import type { Metadata } from 'next'
+import { useAppSelector } from '@/store/hooks'
+import { useSearchParams } from 'next/navigation'
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
 
-export const metadata: Metadata = {
-  title: 'Bank Details - Profile | Bizdateup',
-  description: 'Your Bank Details Overview',
-}
 
-export default async function Bank({ searchParams }: Props) {
-  const editState: boolean = !searchParams.edit
+export default function Bank() {
+  const {user,token,role}=useAppSelector(({authUser})=>authUser)
+  const searchParams=useSearchParams()
+  const editState=Boolean(searchParams.get('edit'))
   
-  const { role, user } = await getUserDetails()
-  if (!user || role !== 'investor') {
-    return <>Loading</>
+  if (!user||role!=='investor'||!token) {
+    return null
   }
   const data = [
     {
@@ -43,7 +40,7 @@ export default async function Bank({ searchParams }: Props) {
   ]
   return (
     <div className="flex flex-col">
-      {user.bank.status !== 'pending' && !searchParams.edit ? (
+      {user.bank.status !== 'pending' && editState ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.map(({ label, value }) => (

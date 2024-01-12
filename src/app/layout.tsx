@@ -7,9 +7,9 @@ import StyledComponentsRegistry from '@/lib/AntdRegistry'
 import ReduxProvider from '@/store/Provider'
 import AntNotification from '@/components/notification'
 import MobileNavbar from '@/components/navbar/navbar_mobile'
-import UserProvider from '@/context/UserContext'
 import Footer from '@/components/footer'
 import NavbarNew from '@/components/navbar_new'
+import CommonLayout from '@/components/layouts/CommonLayout'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,13 +24,13 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
           <ReduxProvider>
-            <UserProvider>
+            <CommonLayout>
               <NavbarNew />
               {children}
               <Footer />
               <MobileNavbar />
               <AntNotification />
-            </UserProvider>
+            </CommonLayout>
           </ReduxProvider>
         </ConfigProvider>
       </StyledComponentsRegistry>

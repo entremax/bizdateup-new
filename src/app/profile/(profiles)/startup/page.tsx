@@ -1,27 +1,18 @@
-import type { Metadata } from 'next'
-import getUserDetails from '@/action/user'
+'use client'
 import React from 'react'
 import Image from 'next/image'
 import CompanyProfileForm from '@/components/profile/startup/companyProfileForm'
+import { useAppSelector } from '@/store/hooks'
+import { useSearchParams } from 'next/navigation'
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-export const metadata: Metadata = {
-  title: 'Startup Teams | Bizdateup',
-  description: 'This pages holds your startup teams details.',
-}
-export default async function StartupProfile({ searchParams }: Props) {
-  let editState: boolean = !searchParams.edit
-
-  const { role, user } = await getUserDetails()
-  if (!user) {
-    return <>Loading</>
+export default function StartupProfile() {
+  const {user,token,role}=useAppSelector(({authUser})=>authUser)
+  const searchParams=useSearchParams()
+  const editState=Boolean(searchParams.get('edit'))
+  
+  if (!user||role!=='startup'||!token) {
+    return null
   }
-  if (role !== 'startup') {
-    return
-  }
-
   const data = [
     {
       label: 'Company Name',
@@ -146,7 +137,7 @@ export default async function StartupProfile({ searchParams }: Props) {
             ))}
           </div>
           <div className="h-2 w-full bg-light-shadow"></div>
-
+          
           <div>
             <div className="text-md ml-8 items-center pt-6  font-extrabold ">
               Highlights
@@ -162,7 +153,7 @@ export default async function StartupProfile({ searchParams }: Props) {
                   )}
                 </React.Fragment>
               ))}
-
+              
               {/* {data.slice(7, 12).map(({ label, value, hidden } , index) => (
               <React.Fragment key={label}>
                 {!hidden && (

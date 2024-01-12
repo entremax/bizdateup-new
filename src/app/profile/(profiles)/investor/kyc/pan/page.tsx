@@ -1,24 +1,22 @@
+'use client'
 import React from 'react'
 import getUserDetails from '@/action/user'
 import Link from 'next/link'
 import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
-import { redirect, RedirectType } from 'next/navigation'
+import { redirect, RedirectType, useSearchParams } from 'next/navigation'
 import { apiUri } from '@/lib/utils'
 import ImagePreview from '@/app/profile/(profiles)/investor/kyc/ImagePreview'
 import type { Metadata } from 'next'
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+import { useAppSelector } from '@/store/hooks'
 
-export const metadata: Metadata = {
-  title: 'KYC/PAN - Profile | Bizdateup',
-  description: 'KYC Details',
-}
 
-export default async function PanPage({ searchParams }: Props) {
-  const { role, user ,token} = await getUserDetails()
-  if (role !== 'investor' || !user) {
-    return <>Loading</>
+export default function PanPage() {
+  const {user,token,role}=useAppSelector(({authUser})=>authUser)
+  const searchParams=useSearchParams()
+  const editState=Boolean(searchParams.get('edit'))
+  
+  if (!user||role!=='investor'||!token) {
+    return null
   }
   // if (user.aadhar.status !== 'verified') {
   //   return redirect('/profile/investor/kyc', RedirectType.push)
@@ -54,7 +52,7 @@ export default async function PanPage({ searchParams }: Props) {
   }
   return (
     <div className="flex flex-col">
-      {user?.pan.status === 'verified' && !searchParams.edit ? (
+      {user?.pan.status === 'verified' && editState ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-3">
             {data.pan.map(({ label, value, fileName, link }) => (

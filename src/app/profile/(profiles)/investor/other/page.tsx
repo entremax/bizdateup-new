@@ -1,24 +1,18 @@
+'use client'
 import React from 'react'
-import getUserDetails from '@/action/user'
 import OtherDetailsForm from '@/app/profile/(profiles)/investor/other/components/otherDetailsForm'
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { useAppSelector } from '@/store/hooks'
+import { useSearchParams } from 'next/navigation'
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-export const metadata: Metadata = {
-  title: 'Other Details- Profile | Bizdateup',
-  description:
-    'This pages holds your other details like occupation,invest amount etc.',
-}
-export default async function OtherDetails({ searchParams }: Props) {
-  const editState: boolean = !searchParams.edit
-
-  const { role, user } = await getUserDetails()
-  if (role !== 'investor' || !user) {
-    return <>Loading</>
+export default function OtherDetails() {
+  const {user,token,role}=useAppSelector(({authUser})=>authUser)
+  const searchParams=useSearchParams()
+  const editState=Boolean(searchParams.get('edit'))
+  
+  if (!user||role!=='investor'||!token) {
+    return null
   }
   const data = [
     {

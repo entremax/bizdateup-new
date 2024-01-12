@@ -193,12 +193,12 @@ export interface IStartupFeedBackResponse {
 export interface OnlinePaymentData {
   order_amount: number
   order_currency: 'INR'
-  order_note: String
-  customer_id: String
-  customer_name: String
-  customer_email: String
-  customer_phone?: String
-  startupId: String
+  order_note: string
+  customer_id: string
+  customer_name: string
+  customer_email: string
+  customer_phone?: string
+  startupId: string
   amount: number
   tds: 0
   convenienceFee: number

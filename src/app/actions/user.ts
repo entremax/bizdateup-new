@@ -55,7 +55,6 @@ export default async function getUserDetails(): Promise<
       throw new Error(e)
     })
   
-  console.log('🚀 ~ file: user.ts:58 ~ getUserDetails ~ Fetched User', res)
   return {
     role: role as 'investor' | 'startup' | undefined,
     refId: user_id,
