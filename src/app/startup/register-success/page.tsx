@@ -8,12 +8,12 @@ export default function RegisterSuccess() {
               {/*<img src={cta23} alt="" className=" w-[100px] md:w-[150px]" />*/}
             </div>
             <div className="mt-6">
-              <label className="font-[inter] text-3xl font-medium not-italic leading-[45px] text-[#252525] ">
+              <label className="font-[inter] text-3xl font-medium text-center not-italic leading-[45px] text-[#252525] ">
                 Congratulations on your first step of fundraising
               </label>
             </div>
             <div>
-              <p className="font-[inter] text-lg font-medium not-italic leading-6 text-[#828F99]">
+              <p className="font-[inter] text-center text-lg font-medium not-italic leading-6 text-[#828F99]">
                 While we go through your details you can go check startups
                 onboarded by us.
               </p>
