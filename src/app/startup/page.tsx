@@ -1,11 +1,5 @@
-import React from 'react'
-import OnboardingForm from '@/app/startup/components/RegisterForm'
+import { redirect, RedirectType } from 'next/navigation'
 
-export const dynamic='force-dynamic'
 export default function StartupOnboarding() {
-  return (
-    <div className="">
-      <OnboardingForm />
-    </div>
-  )
+  return redirect('/startup/onboarding',RedirectType.push)
 }
