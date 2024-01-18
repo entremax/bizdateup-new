@@ -8,15 +8,15 @@ export const PdfIcons = {
       viewBox="0 0 89 89"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
-      <g filter="url(#filter0_d_428_3738)">
+      <g filter="url(#filter0_d_428_3738)" {...props}>
         <circle cx="44.1975" cy="40.0139" r="27.4709" fill="white" />
       </g>
       <path
         d="M40.6953 31.2467L48.8781 39.4295L40.6953 47.6123"
         stroke="black"
-        stroke-width="1.75346"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.75346"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <defs>
         <filter
@@ -26,8 +26,8 @@ export const PdfIcons = {
           width="87.6766"
           height="87.6732"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -62,7 +62,8 @@ export const PdfIcons = {
       height="89"
       viewBox="0 0 89 89"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}>
       <g filter="url(#filter0_d_428_3741)">
         <circle
           cx="27.4709"
@@ -75,9 +76,9 @@ export const PdfIcons = {
       <path
         d="M47.9766 31.2467L39.7937 39.4295L47.9766 47.6123"
         stroke="black"
-        stroke-width="1.75346"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.75346"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <defs>
         <filter
@@ -87,8 +88,8 @@ export const PdfIcons = {
           width="87.6766"
           height="87.6732"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -118,4 +119,3 @@ export const PdfIcons = {
     </svg>
   ),
 }
-  

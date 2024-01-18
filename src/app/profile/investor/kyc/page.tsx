@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import AadharForm from '@/app/profile/(profiles)/investor/kyc/KYCForm'
-import ImagePreview from '@/app/profile/(profiles)/investor/kyc/ImagePreview'
+import AadharForm from '@/app/profile/investor/kyc/KYCForm'
+import ImagePreview from '@/app/profile/investor/kyc/ImagePreview'
 import { useAppSelector } from '@/store/hooks'
 import { useSearchParams } from 'next/navigation'
 

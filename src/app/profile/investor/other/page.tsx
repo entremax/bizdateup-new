@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import OtherDetailsForm from '@/app/profile/(profiles)/investor/other/components/otherDetailsForm'
+import OtherDetailsForm from '@/app/profile/investor/other/components/otherDetailsForm'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { useAppSelector } from '@/store/hooks'

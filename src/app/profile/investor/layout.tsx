@@ -1,4 +1,4 @@
-import SectionBar from '@/app/profile/(profiles)/investor/_components/sidebarSection'
+import SectionBar from '@/app/profile/investor/_components/sidebarSection'
 import React from 'react'
 import SectionHeader from '@/components/profile/sectionHeader'
 import ReduxProvider from '@/store/Provider'

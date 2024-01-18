@@ -1,9 +1,9 @@
 'use client'
 import React from 'react'
-import KycTabs from '@/app/profile/(profiles)/investor/kyc/kycTabs'
+import KycTabs from '@/app/profile/investor/kyc/kycTabs'
 
 export default function KycTabLayout({
-  children
+  children,
 }: {
   children: React.ReactNode
 }) {

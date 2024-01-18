@@ -1,19 +1,17 @@
 'use client'
-import { Button } from 'antd'
+import { Button, Image } from 'antd'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
 import Input from '@/components/form/Input'
-import UploadCheck from '@/components/profile/dropCheck'
 import { DataInner } from '@/types'
 import { useUpdateContext } from '@/components/profile/context'
 import { useRouter } from 'next/navigation'
 import { notifyUser } from '@/components/notification'
-import OfflineKyc from '@/app/profile/(profiles)/investor/kyc/OfflineKyc'
+import OfflineKyc from '@/app/profile/investor/kyc/OfflineKyc'
 import ImageCropper from '@/components/ImageCropper'
-import {Image} from 'antd'
-export default function PanForm({ user }: { user: DataInner }) {
-  const { handleUpdate, loading } = useUpdateContext()
+import UploadCheck from '@/components/profile/dropCheck'
 
+export default function AadharForm({ user }: { user: DataInner }) {
   const [cropData, setImageData] = useState<{
     front: string | null
     back: string | null
@@ -23,11 +21,14 @@ export default function PanForm({ user }: { user: DataInner }) {
   const [modalVisible, setModalVisible] = useState(false)
 
   const [fileList, setFileList] = useState<any[]>([])
-  const [type, setType] = useState<string | null>()
+  const [type, setType] = useState<'front' | 'back' | null>(null)
 
+  const { handleUpdate, loading } = useUpdateContext()
+  const router = useRouter()
+  const refs = {
+    aadharNo: useRef<InputRef | null>(null),
+  }
   const handleCrop = (croppedImageData: string, croppedImage: any) => {
-    console.log('🚀 ~ handleCrop ~ type:', type)
-    console.log('🚀 ~ handleCrop ~ croppedImageData:', croppedImageData)
     if (type && type === 'front') {
       setImageDataFront(croppedImage)
       setImageData({ ...cropData, front: croppedImageData })
@@ -38,8 +39,7 @@ export default function PanForm({ user }: { user: DataInner }) {
     setModalVisible(false)
   }
 
-  const handleImageChange = (info: any, type: string) => {
-    console.log('🚀 ~ handleImageChange ~ info:', info)
+  const handleImageChange = (info: any, type: 'front' | 'back') => {
     setType(type)
     if (info.file.status === 'uploading') {
       // Image has been successfully uploaded
@@ -48,36 +48,34 @@ export default function PanForm({ user }: { user: DataInner }) {
     setFileList([info.file])
   }
 
-  const router = useRouter()
-  const refs = {
-    panNo: useRef<InputRef | null>(null),
-  }
+  const handleAadhar = async () => {
+    const aadharNo = refs.aadharNo?.current?.input?.value ?? ''
+    const aadharRegExp = /\b\d{12}\b/
 
-  const handlePanUpdate = async () => {
-    const panNumber = refs.panNo?.current?.input?.value ?? ''
-    const panRegex = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z])$/
-
-    if (!panRegex.test(panNumber)) {
-      return notifyUser('error', 'Invalid PAN')
+    if (!aadharRegExp.test(aadharNo)) {
+      return notifyUser('error', 'Invalid Aadhar Number')
     }
-    
+
     if (!cropDataFront || !cropDataBack) {
       return notifyUser('error', 'Scanned image required')
     }
-    
+    // const formData = {
+    //   aadharNo: aadharNo ? aadharNo : user.aadhar.aadharNo,
+    // }
     const formData = new FormData()
 
     if (cropDataFront) {
       formData.append('front', cropDataFront, 'cropped-image-front.png')
     }
-    formData.append('refId', user._id)
-    formData.append('name', user.firstName + user.lastName)
+
     if (cropDataBack) {
       formData.append('back', cropDataBack, 'cropped-image-back.png')
     }
-    formData.append('panNo', user.pan.panNo === '' ? panNumber : user.pan.panNo)
+    formData.append('refId', user._id)
+    formData.append('name', user.firstName + ' ' + user.lastName)
+    formData.append('aadharNo', aadharNo ? aadharNo : user.aadhar.aadharNo)
 
-    await handleUpdate(formData, 'pan')
+    await handleUpdate(formData, 'aadhar')
     return router.refresh()
   }
 
@@ -86,12 +84,13 @@ export default function PanForm({ user }: { user: DataInner }) {
       <div className="grid grid-cols-1">
         <div className="grid grid-cols-1 gap-8 p-8">
           <Input
-            defaultValue={user.pan.panNo === '' ? undefined : user.pan.panNo}
-            //@ts-ignore
-            ref={refs.panNo}
-            name={'panNo'}
-            label={'Personal Account Number (PAN) '}
-            placeholder={`Enter your PAN Number`}
+            defaultValue={
+              user.aadhar.aadharNo === '' ? undefined : user.aadhar.aadharNo
+            }
+            ref={refs.aadharNo}
+            name={'aadharNo'}
+            label={'Aadhar Number'}
+            placeholder={`Enter your Aadhar Number`}
           />
         </div>
         <div className="mt-3 grid  items-start gap-8 p-8 py-0 xl:grid-cols-2">
@@ -100,14 +99,12 @@ export default function PanForm({ user }: { user: DataInner }) {
               Upload Font Side
             </p>
             {cropData.front ? (
-              <div className="w-64 h-32 rounded-xl overflow-crop">
               <Image
                 width={250}
                 height={100}
                 src={cropData.front}
                 alt="cropped"
               />
-              </div>
             ) : (
               <div className="g">
                 <UploadCheck onChange={handleImageChange} type={'front'} />
@@ -145,12 +142,12 @@ export default function PanForm({ user }: { user: DataInner }) {
             loading={loading}
             disabled={loading}
             type={'default'}
-            onClick={handlePanUpdate}
+            onClick={handleAadhar}
             className={
               '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block md:!bg-primary md:!text-white'
             }
             block>
-            {loading?'Verifying':'Verify'}
+            {loading ? 'Verifying' : 'Verify'}
           </Button>
         </div>
       </div>

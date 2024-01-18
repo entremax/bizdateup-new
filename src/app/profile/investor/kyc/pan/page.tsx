@@ -2,18 +2,17 @@
 import React from 'react'
 import getUserDetails from '@/action/user'
 import Link from 'next/link'
-import PanForm from '@/app/profile/(profiles)/investor/kyc/pan/Form'
+import PanForm from '@/app/profile/investor/kyc/pan/Form'
 import { redirect, RedirectType, useSearchParams } from 'next/navigation'
 import { apiUri } from '@/lib/utils'
-import ImagePreview from '@/app/profile/(profiles)/investor/kyc/ImagePreview'
+import ImagePreview from '@/app/profile/investor/kyc/ImagePreview'
 import type { Metadata } from 'next'
 import { useAppSelector } from '@/store/hooks'
 
-
 export default function PanPage() {
-  const {user,token,role}=useAppSelector(({authUser})=>authUser)
-  
-  if (!user||role!=='investor'||!token) {
+  const { user, token, role } = useAppSelector(({ authUser }) => authUser)
+
+  if (!user || role !== 'investor' || !token) {
     return null
   }
   // if (user.aadhar.status !== 'verified') {
@@ -66,7 +65,11 @@ export default function PanPage() {
                     //   }>
                     //   {value}
                     // </Link>
-                    <ImagePreview fileName={fileName} docType={'pan'} token={token}/>
+                    <ImagePreview
+                      fileName={fileName}
+                      docType={'pan'}
+                      token={token}
+                    />
                   ) : (
                     <p className="text-md font-bold">{value}</p>
                   )}

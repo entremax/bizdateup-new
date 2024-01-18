@@ -1,8 +1,8 @@
 'use client'
-import { Button,Image } from 'antd'
+import { Button, Image } from 'antd'
 import React, { useRef, useState } from 'react'
 import { InputRef } from 'antd/lib/input'
-import { bankNames } from '@/app/profile/(profiles)/investor/bank/data'
+import { bankNames } from '@/app/profile/investor/bank/data'
 import Select from '@/components/form/Select'
 import Input from '@/components/form/Input'
 import UploadCheck from '@/components/profile/dropCheck'
@@ -192,7 +192,7 @@ export default function BankForm({ user }: { user: DataInner }) {
             '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block md:!bg-primary md:!text-white'
           }
           block>
-          {loading?'Saving':'Save'}
+          {loading ? 'Saving' : 'Save'}
         </Button>
       </div>
     </div>

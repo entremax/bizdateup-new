@@ -35,9 +35,9 @@ export default function DetailsTabStartup({
   const router = useRouter()
   const searchParams = useSearchParams()
   const editState = Boolean(searchParams?.get('edit'))
-  const segment: sectionType | null = useSelectedLayoutSegment(
-    'startup',
-  ) as sectionType | null
+  const segment: sectionType | undefined = useSelectedLayoutSegment() as
+    | sectionType
+    | undefined
   const sm = Boolean(searchParams?.get('sm'))
   const sections: sectionsInterface = {
     'company-profile': {

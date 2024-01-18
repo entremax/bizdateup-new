@@ -10,8 +10,12 @@ import MobileNavbar from '@/components/navbar/navbar_mobile'
 import Footer from '@/components/footer'
 import NavbarNew from '@/components/navbar_new'
 import dynamic from 'next/dynamic'
-import CommonLayout from '@/components/layouts/CommonLayout'
 const inter = Inter({ subsets: ['latin'] })
+
+const CommonLayout = dynamic(
+  () => import('@/components/layouts/CommonLayout'),
+  { ssr: false },
+)
 
 export const metadata = {
   title: 'Bizdata',

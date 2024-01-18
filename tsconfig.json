@@ -59,7 +59,7 @@
         "./src/components/navbar/*"
       ],
       "@/components/form/*": [
-        "./src/app/profile/(profiles)/investor/_components/form_components/*"
+        "./src/app/profile/investor/_components/form_components/*"
       ],
       "@/components/home/*": [
         "./src/app/_components/*"
@@ -91,20 +91,20 @@
         "./src/app/payment/_components/*"
       ],
       "@/components/profile/startup/*": [
-        "./src/app/profile/(profiles)/startup/_components/*",
-        "./src/app/profile/(profiles)/startup/deal-terms/_components/*",
-        "./src/app/profile/(profiles)/startup/upload-docs/_components/*",
-        "./src/app/profile/(profiles)/startup/events/_components/*",
-        "./src/app/profile/(profiles)/startup/mentor/_components/*",
-        "./src/app/profile/(profiles)/startup/team/_components/*",
-        "./src/app/profile/(profiles)/startup/faqs/_components/*",
-        "./src/app/profile/(profiles)/startup/pitch/_components/*"
+        "./src/app/profile/startup/_components/*",
+        "./src/app/profile/startup/deal-terms/_components/*",
+        "./src/app/profile/startup/upload-docs/_components/*",
+        "./src/app/profile/startup/events/_components/*",
+        "./src/app/profile/startup/mentor/_components/*",
+        "./src/app/profile/startup/team/_components/*",
+        "./src/app/profile/startup/faqs/_components/*",
+        "./src/app/profile/startup/pitch/_components/*"
       ],
       "@/components/profile/*": [
-        "./src/app/profile/(profiles)/investor/_components/*",
-        "./src/app/profile/(profiles)/startup/_components/*",
-        "./src/app/profile/(profiles)/investor/bank/components/*",
-        "./src/app/profile/(profiles)/investor/other/components/*"
+        "./src/app/profile/investor/_components/*",
+        "./src/app/profile/startup/_components/*",
+        "./src/app/profile/investor/bank/components/*",
+        "./src/app/profile/investor/other/components/*"
       ],
       "@/components/portfolio/*": [
         "./src/app/portfolio/components/*"
@@ -113,12 +113,9 @@
         "./src/app/referral/components/*"
       ],
       "@/context/profile/*": [
-        "./src/app/profile/(profiles)/investor/_components/context/*",
-        "./src/app/profile/(profiles)/startup/_components/context/*"
+        "./src/app/profile/investor/_components/context/*",
+        "./src/app/profile/startup/_components/context/*"
       ],
-      // "@/context/startup_profile/*": [
-      //   "./src/app/profile/(profiles)/startup/_components/context/*"
-      // ],
       "@/context/*": [
         "./src/context/*"
       ],
