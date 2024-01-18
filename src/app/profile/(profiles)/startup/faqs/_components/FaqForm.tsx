@@ -18,18 +18,6 @@ export default function FaqForm({
 
   // console.log(user)
   const handleFaqUpdate = async () => {
-    // const data = new FormData();
-    // data.append('refId', initialUsers._id);
-
-    // faq?.forEach((item, index) => {
-    //   console.log("Index:", index);
-    //   if (item.question && item.answer) {
-    //     data.append(`_id[]`, item._id || "new");
-    //     data.append(`question[]`, item.question);
-    //     data.append(`answer[]`, item.answer);
-
-    //   }
-    // });
     const data = {
       refId: initialUsers._id,
       faqs: faq.map((item) => ({
@@ -71,16 +59,11 @@ export default function FaqForm({
             refId: initialUsers._id,
             delId: deletedFaq._id,
           }
-          console.log(
-            '🚀 ~ file: TeamForm.tsx:87 ~ setTeamMembers ~ data:',
-            data,
-          )
           handleUpdate(data, 'delete_faq')
         }
 
         return [...prevFaq.slice(0, index), ...prevFaq.slice(index + 1)]
       } else {
-        console.error('Invalid index:', index)
         return prevFaq
       }
     })
@@ -96,8 +79,6 @@ export default function FaqForm({
     const updatedFaq = [...faq, temp]
 
     setFaq(updatedFaq)
-
-    console.log('🚀 ~ file: MentorForm.tsx:105 ~ addNew ~ user:', updatedFaq)
   }
 
   return (

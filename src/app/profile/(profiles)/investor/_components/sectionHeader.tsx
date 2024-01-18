@@ -35,7 +35,7 @@ export default function SectionHeader() {
   const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
-  const editState = searchParams.get('edit')
+  const editState = searchParams?.get('edit')
   const { user, kycStatus } = useAppSelector(({ authUser }) => authUser)
 
   const sections: SectionsInterface = useMemo(
@@ -44,8 +44,8 @@ export default function SectionHeader() {
       kyc: {
         id: 2,
         name: 'KYC',
-        editable:false
-          // kycStatus?.includes(KYCStatus.aadhar || KYCStatus.pan) ?? false,
+        editable: false,
+        // kycStatus?.includes(KYCStatus.aadhar || KYCStatus.pan) ?? false,
       },
       bank: { id: 3, name: 'Bank Details', editable: true },
       other: { id: 4, name: 'Other Details', editable: true },

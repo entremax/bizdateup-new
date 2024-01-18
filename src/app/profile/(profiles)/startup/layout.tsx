@@ -5,16 +5,14 @@ import SectionHeader from '@/components/profile/startup/sectionHeaderStartup'
 import ReduxProvider from '@/store/Provider'
 import UpdateContextProvider from '@/components/profile/startup/context'
 import DetailsTab from '@/components/profile/startup/detailsTabStartup'
-import dynamic from 'next/dynamic'
+import ProfileHeader from '@/components/profile/profileHeader'
 
 export const metadata: Metadata = {
   title: 'Profile/Startup | Bizdateup',
   description: 'General Profile of Investor',
 }
-const ProfileHeader = dynamic(
-  () => import('@/components/profile/profileHeader'),
-)
 
+export const dynamic = 'force-dynamic'
 export default function InvestorProfileLayout({
   children,
 }: React.PropsWithChildren) {

@@ -6,16 +6,14 @@ import { apiUri, capitalizeFirstLetter } from '@/lib/utils'
 import { StartupData } from '@/types/invest'
 import Button from '@/components/LinkButton'
 
-// import InvestButton from '@/components/invest/InvestButton'
-
 export default function CompanyIntro({ startup }: { startup: StartupData }) {
   const { v1: apiV1 } = apiUri()
   return (
     <>
       <div className=" mx-3 flex flex-col gap-3 rounded-xl pt-4 shadow-sm md:mx-14  md:flex-col md:border-0 md:shadow-none lg:mx-32">
         <div className="flex items-center gap-4 ">
-          <div className="flex flex-row md:gap-2">
-            <div className="relative h-[66px] max-h-[5rem] w-[66px] overflow-clip rounded-sm border border-gray-400">
+          <div className="flex flex-row gap-2">
+            <div className="relative h-[66px] max-h-[5rem] w-[66px] overflow-clip overflow-clip rounded rounded-sm border border-gray-400">
               <Image
                 src={apiV1 + '/logo/' + startup.logo}
                 fill
@@ -37,10 +35,10 @@ export default function CompanyIntro({ startup }: { startup: StartupData }) {
           <div className="flex w-3/6 items-center gap-4 md:w-2/6">
             <Button
               href={'/'}
-              className="hidden justify-center !border-none !bg-light-shadow !text-primary md:flex ">
+              className="hidden justify-center !border-none !bg-light-shadow p-2 text-sm !text-primary md:flex">
               Resource
             </Button>
-            <Button href={'/'} className="p-2">
+            <Button href={'/'} className="p-2 text-sm">
               View Your Page
             </Button>
           </div>

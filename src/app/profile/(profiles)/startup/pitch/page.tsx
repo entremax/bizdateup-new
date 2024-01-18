@@ -1,15 +1,17 @@
 'use client'
 import React from 'react'
-import Pdf from '@/components/common/Pdf'
 import PitchForm from '@/components/profile/startup/PitchForm'
 import { useAppSelector } from '@/store/hooks'
 import { useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import dynamic from 'next/dynamic'
+
+const Pdf = dynamic(() => import('@/components/common/Pdf'), { ssr: false })
 
 export default function Pitch() {
   const { user, token, role } = useAppSelector(({ authUser }) => authUser)
   const searchParams = useSearchParams()
-  const editState = Boolean(searchParams.get('edit'))
+  const editState = Boolean(searchParams?.get('edit'))
 
   if (!user || role !== 'startup' || !token) {
     return null
@@ -29,9 +31,7 @@ export default function Pitch() {
         }`,
       )}>
       {!editState ? (
-        <>
-          <Pdf pitch={user.pitch} />
-        </>
+        <Pdf pitch={user.pitch} />
       ) : (
         <PitchForm initialUsers={user} />
       )}

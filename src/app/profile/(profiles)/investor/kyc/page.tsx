@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation'
 export default function KYC() {
   const { user, token, role } = useAppSelector(({ authUser }) => authUser)
   const searchParams = useSearchParams()
-  const edit = Boolean(searchParams.get('edit'))
+  const edit = Boolean(searchParams?.get('edit'))
 
   if (!user || role !== 'investor' || !token) {
     return null

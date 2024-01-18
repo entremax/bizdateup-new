@@ -90,7 +90,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             notifyUser(
               'error',
               "Couldn't update Company Details.",
-              e.message ?? undefined,
+              
             ),
           )
         break
@@ -104,7 +104,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             notifyUser(
               'error',
               "Couldn't update Mentor Details.",
-              e.message ?? undefined,
+        
             ),
           )
         break
@@ -117,8 +117,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           .catch((e) =>
             notifyUser(
               'error',
-              "Couldn't update Team Details.",
-              e.message ?? undefined,
+              "Couldn't update Team Details."
             ),
           )
         break
@@ -131,8 +130,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           .catch((e) =>
             notifyUser(
               'error',
-              "Couldn't Delete Team Details.",
-              e.message ?? undefined,
+              "Couldn't Delete Team Details."
             ),
           )
         break
@@ -145,8 +143,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           .catch((e) =>
             notifyUser(
               'error',
-              "Couldn't Delete Team Details.",
-              e.message ?? undefined,
+              "Couldn't Delete Team Details."
             ),
           )
         break
@@ -155,7 +152,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           .unwrap()
           .then(() => notifyUser('success', 'FAQ Deleted Successfully'))
           .catch((e) =>
-            notifyUser('error', "Couldn't Delete FAQ.", e.message ?? undefined),
+            notifyUser('error', "Couldn't Delete FAQ."),
           )
         break
       case 'delete_event':
@@ -165,8 +162,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           .catch((e) =>
             notifyUser(
               'error',
-              "Couldn't Delete Event.",
-              e.message ?? undefined,
+              "Couldn't Delete Event."
             ),
           )
         break
@@ -177,8 +173,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           .catch((e) =>
             notifyUser(
               'error',
-              "Couldn't Delete DealFile.",
-              e.message ?? undefined,
+              "Couldn't Delete DealFile."
             ),
           )
         break
@@ -189,8 +184,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
           .catch((e) =>
             notifyUser(
               'error',
-              "Couldn't Update FAQs.",
-              e.message ?? undefined,
+              "Couldn't Update FAQs."
             ),
           )
         break
@@ -202,7 +196,6 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             notifyUser(
               'error',
               "Couldn't Update Events.",
-              e.message ?? undefined,
             ),
           )
         break
@@ -214,7 +207,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             notifyUser(
               'error',
               "Couldn't Update Pitch.",
-              e.message ?? undefined,
+              
             ),
           )
         break
@@ -226,7 +219,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             notifyUser(
               'error',
               "Couldn't Deleted Pitch.",
-              e.message ?? undefined,
+              
             ),
           )
         break
@@ -238,7 +231,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             notifyUser(
               'error',
               "Couldn't Update DealTerms.",
-              e.message ?? undefined,
+              
             ),
           )
         break
@@ -250,7 +243,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
             notifyUser(
               'error',
               "Couldn't Update Duefile.",
-              e.message ?? undefined,
+              
             ),
           )
         break
