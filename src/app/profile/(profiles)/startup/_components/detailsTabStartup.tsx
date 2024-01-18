@@ -14,14 +14,14 @@ type sectionType =
   | 'pitch'
   | 'team'
   | 'mentor'
-  | 'deal-term'
+  | 'deal-terms'
   | 'upload-docs'
   | 'event'
   | 'faq'
 
 type sectionDetails = {
   name: string
-  editable: boolean
+  editable?: boolean
 }
 type sectionsInterface = {
   [key in sectionType]: sectionDetails
@@ -34,42 +34,34 @@ export default function DetailsTabStartup({
 }) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const editState = searchParams.get('edit')
+  const editState = Boolean(searchParams.get('edit'))
   const segment: sectionType | null =
     useSelectedLayoutSegment() as sectionType | null
   const sm = searchParams.get('sm')
   const sections: sectionsInterface = {
     'company-profile': {
       name: 'Company Profile',
-      editable: true,
     },
     pitch: {
       name: 'Pitch',
-      editable: false,
     },
     team: {
       name: 'Team',
-      editable: true,
     },
     mentor: {
       name: 'Mentor',
-      editable: true,
     },
-    'deal-term': {
+    'deal-terms': {
       name: 'Deal Term',
-      editable: false,
     },
     'upload-docs': {
       name: 'Upload Docs',
-      editable: false,
     },
     event: {
       name: 'Upload Docs',
-      editable: false,
     },
     faq: {
       name: 'FAQs',
-      editable: false,
     },
   }
 
@@ -86,13 +78,11 @@ export default function DetailsTabStartup({
   }, [segment])
   const handleEdit = () => {
     return router.push(
-      editState === 'true'
-        ? `/profile/investor/${segment ? segment : ''}${
+      editState
+        ? `/profile/startup/${segment ? segment : ''}${
             sm === 'y' ? '?sm=y' : ''
           }`
-        : `?edit=${editState === null ? 'true' : ''}${
-            sm === 'y' ? '&sm=y' : ''
-          }`,
+        : `?edit=${!editState ? 'true' : ''}${sm === 'y' ? '&sm=y' : ''}`,
       { scroll: false },
     )
   }
@@ -104,20 +94,20 @@ export default function DetailsTabStartup({
         <h4 className="flex-grow text-2xl text-primary-dark">{section.name}</h4>
       </div>
       {children}
-      <div className="px-8">
-        {section.editable && !editState && (
+      {editState ? null : (
+        <div className="border_gray fixed inset-0 bottom-0 top-auto border-0 border-t border-solid bg-white  p-4  shadow-2xl">
           <Button
             type={'default'}
             onClick={handleEdit}
             size={'large'}
             className={
-              '!flex !items-center justify-center !bg-primary !text-white !outline-none'
+              '!flex !items-center justify-center gap-2 !border-0 !bg-light-shadow !text-primary !outline-none'
             }
             block>
-            <Edit fill={'#fff'} /> Edit
+            <Edit /> Edit
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -17,7 +17,7 @@ export default function TeamMembers({ startup }: { startup: StartupData }) {
             className={'flex  items-center gap-4 px-4 py-4 lg:gap-2'}>
             <div className="min-w-[32px]">
               <Avatar
-                size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+                size={88}
                 src={api + '/mentorfile/' + mentor.profileImage}
               />
             </div>

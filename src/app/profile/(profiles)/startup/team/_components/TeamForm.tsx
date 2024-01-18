@@ -6,6 +6,7 @@ import TeamFormSingleItem from '@/components/profile/startup/TeamFormSingleItem'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
 import { StartupData, TeamMember } from '@/types/invest'
+import SubmitComponent from '@/components/profile/SubmitComponent'
 
 export default function TeamForm({
   initialUsers,
@@ -159,16 +160,12 @@ export default function TeamForm({
           }>
           + Add another teammate
         </Button>
-        <Button
+        <SubmitComponent
           loading={loading}
           disabled={loading}
           type={'default'}
           onClick={handleTeamMembersUpdate}
-          className={
-            '!h-auto w-1/4 !border-none !bg-light-shadow  !bg-primary  !px-6 !px-6 !py-2 !py-2 font-medium !text-white !outline-none !outline-none md:w-1/4'
-          }>
-          Save
-        </Button>
+        />
       </div>
     </div>
   )

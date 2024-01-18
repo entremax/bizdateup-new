@@ -32,13 +32,18 @@ type SectionsInterface = {
 export default function SectionHeader() {
   const segment: SectionType | null =
     useSelectedLayoutSegment() as SectionType | null
+
   const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
   const editState = searchParams.get('edit')
 
-  const sections: SectionsInterface = {
-    'company-profile': { id: 1, name: 'Company Profile', editable: true },
+  const sections: Record<SectionType, SectionDetails> = {
+    'company-profile': {
+      id: 1,
+      name: 'Company Profile',
+      editable: true,
+    },
     pitch: { id: 2, name: 'Pitch', editable: true },
     team: { id: 3, name: 'Team', editable: true },
     mentor: { id: 4, name: 'Mentors', editable: true },
@@ -47,21 +52,21 @@ export default function SectionHeader() {
     events: { id: 7, name: 'Event', editable: true },
     faqs: { id: 8, name: 'FAQs', editable: true },
   }
-
   const [section, setSection] = useState<SectionDetails>(
     sections['company-profile'],
   )
 
   useEffect(() => {
-    setSection(segment ? sections[segment] : sections['company-profile'])
-    // eslint-disable-next-line
-  }, [])
+    setSection((prevSection) =>
+      segment ? sections[segment] : sections['company-profile'],
+    )
+  }, [segment])
 
   const handleEdit = () => {
     setLoading(true)
     router.push(
       editState === 'true'
-        ? `/profile/investor/${segment || ''}`
+        ? `/profile/startup/${segment || ''}`
         : `?edit=${editState === null ? 'true' : ''}`,
       { scroll: false },
     )

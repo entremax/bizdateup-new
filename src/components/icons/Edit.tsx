@@ -5,7 +5,8 @@ export default function Edit({ ...props }) {
       height="20"
       viewBox="0 0 20 20"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}>
       <g id="Iconly/Regular/Light/Edit">
         <g id="Edit">
           <path

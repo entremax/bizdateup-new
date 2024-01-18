@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { DataInner } from '@/types'
-import useCookieLocal from '@/lib/useCookieLocal'
+import useCookieLocal from '@/hooks/useCookieLocal'
 import InvestorLinks from '@/components/navbar_new/InvestorLinks'
 import { StartupData } from '@/types/invest'
 import StartupLinks from '@/components/navbar_new/StartupLinks'
@@ -35,12 +35,6 @@ export default function NavbarLinks({ user, role, authenticated }: Props) {
   const path = usePathname()
   const linkStyle =
     'flex gap-2 items-center text-gray-400 font-medium text-sm md:text-lg px-4 group-hover:text-primary h-full'
-  useEffect(() => {
-    if (renderCount.current < 2) {
-      return router.refresh()
-    }
-    renderCount.current += 1
-  }, [router, logged_in])
 
   return (
     <>
@@ -57,7 +51,7 @@ export default function NavbarLinks({ user, role, authenticated }: Props) {
         </div>
       )}
       {user && authenticated && logged_in && role === 'startup' && (
-        <div className="hidden md:flex md:h-full md:w-full">
+        <div className="h-full md:flex md:w-full">
           <StartupLinks
             path={path}
             linkStyle={linkStyle}

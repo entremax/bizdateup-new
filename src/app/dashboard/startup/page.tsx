@@ -22,9 +22,8 @@ export default async function StartupDashboard() {
 
   return (
     <main className={'w-screen'}>
-      {/* <StickyCompanyIntro startup={user}/> */}
-      <div className="grid grid-cols-12 gap-2 pb-3 pt-12 md:pt-20 xl:ml-2 xl:py-20">
-        <div className="col-span-full flex flex-col gap-7 md:col-start-1 md:col-end-12 xl:col-start-1 xl:col-end-12">
+      <div className="grid grid-cols-12 gap-2 pb-3 pt-20 xl:py-20">
+        <div className="col-span-full flex flex-col gap-7">
           <CompanyIntro startup={user} />
           <CompanyTarget startup={user} />
           <Wealth_Manager />
@@ -34,9 +33,7 @@ export default async function StartupDashboard() {
         <div
           className={
             'md:col-end col-span-full hidden flex-col gap-4 md:col-start-8 md:flex md:pl-8 xl:col-start-8 xl:col-end-12 xl:px-12'
-          }>
-          {/* <DownloadFiles startup={user} /> */}
-        </div>
+          }></div>
       </div>
     </main>
   )

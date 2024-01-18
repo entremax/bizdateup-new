@@ -11,7 +11,10 @@ import {
 import { formatCustomDate } from '@/lib/utils'
 import Export from '@/icons/Export'
 
-const generatePdfBlob = (columnDefinitions: [any], rowData: [any]) => {
+const generatePdfBlob = (
+  columnDefinitions: { accessor: string; name: string; fieldType: string }[],
+  rowData: any[][],
+) => {
   const styles = StyleSheet.create({
     page: {
       flexDirection: columnDefinitions.length > 3 ? 'column' : 'column',
@@ -96,8 +99,8 @@ const Investments = ({
   columnDefinitions,
   rowData,
 }: {
-  columnDefinitions: [any]
-  rowData: [any]
+  columnDefinitions: { accessor: string; name: string; fieldType: string }[]
+  rowData: any[][]
 }) => {
   const [isClient, setIsClient] = useState(false)
 

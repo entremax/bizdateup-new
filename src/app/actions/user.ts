@@ -27,7 +27,7 @@ export default async function getUserDetails(): Promise<
 
   let url = '/investor/fetchbyid'
   let config: any = {
-    next: { revalidate: 20000 },
+    next: { revalidate: 0 },
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export default async function getUserDetails(): Promise<
   if (role === 'startup') {
     url = '/startup/fetchStartupByRef?refId=' + user_id
     config = {
-      next: { revalidate: 20000 },
+      next: { revalidate: 0 },
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

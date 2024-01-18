@@ -8,16 +8,18 @@ import { DefaultOptionType } from 'rc-select/lib/Select'
 import { dealTerms } from '@/types'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
+import SubmitComponent from '../../_components/SubmitComponent'
+
+type RefsType = 'valuation' | 'discount' | 'minimumInvestment' | 'targetAmount'
 
 export default function DealTerms({ deal }: { deal: dealTerms }) {
   const router = useRouter()
-  const refs: Record<string, MutableRefObject<null | InputRef>> = {
+  const refs: Record<RefsType, MutableRefObject<InputRef | null>> = {
     valuation: useRef<InputRef | null>(null),
     discount: useRef<InputRef | null>(null),
     minimumInvestment: useRef<InputRef | null>(null),
     targetAmount: useRef<InputRef | null>(null),
   }
-
   const { handleUpdate, loading } = useStartupUpdateContext()
   const [selected, setSelected] = useState({
     typeOfSecurity: deal.typeOfSecurity,
@@ -52,19 +54,19 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
       name: 'discount',
       label: 'Discount',
       defaultValue: deal?.discount,
-      disabled: !!deal?.discount,
+      // disabled: !!deal?.discount,
     },
     {
       name: 'minimumInvestment',
       label: 'Minimum Investment',
       defaultValue: deal?.minimumInvestment,
-      disabled: !!deal?.minimumInvestment,
+      // disabled: !!deal?.minimumInvestment,
     },
     {
       name: 'targetAmount',
       defaultValue: deal?.targetAmount,
       label: 'Target Amount',
-      disabled: !!deal?.targetAmount,
+      // disabled: !!deal?.targetAmount,
     },
   ]
 
@@ -77,14 +79,15 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
       [fieldName]: value,
     }))
   }
-  console.log(deal)
   const handleProfileUpdate = async () => {
-    let values = {} as {
-      [key: keyof typeof refs]: unknown | null
+    let values: {
+      [key in RefsType]: string | number
+    } = {} as {
+      [key in RefsType]: string | number
     }
     for (let key in refs) {
-      //@ts-ignore
-      values[key] = refs[key]?.current?.input.value ?? ''
+      values[key as keyof typeof refs] =
+        refs[key as keyof typeof refs]?.current?.input?.value ?? ''
     }
     const formData = {
       typeOfSecurity: selected.typeOfSecurity,
@@ -93,9 +96,7 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
       minimumInvestment: values['minimumInvestment'],
       targetAmount: values['targetAmount'],
     } as unknown as any
-    console.log(formData, values)
     await handleUpdate(formData, 'dealterm')
-    return router.refresh()
   }
 
   return (
@@ -108,7 +109,6 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
               className={'selector-profile'}
               label={field.label}
               title={field.name}
-              disabled={field.disabled}
               options={field.options.map((option, index) => ({
                 key: index,
                 value: option.value,
@@ -125,8 +125,11 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
             <Input
               key={field.name}
               defaultValue={field.defaultValue}
-              disabled={field.disabled}
-              ref={field.fieldType !== 'select' ? undefined : refs[field.name]}
+              ref={
+                field.fieldType === 'select'
+                  ? undefined
+                  : refs[field.name as keyof typeof refs]
+              }
               name={field.name}
               label={field.label}
               className={index === 2 ? 'lg:col-span-2' : ''}
@@ -136,19 +139,13 @@ export default function DealTerms({ deal }: { deal: dealTerms }) {
         )}
       </div>
 
-      <div className=" flex items-center justify-end px-8 pb-8">
-        <Button
-          loading={loading}
-          disabled={loading}
-          type={'default'}
-          onClick={handleProfileUpdate}
-          className={
-            'col-span-2 !h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block'
-          }
-          block>
-          Save
-        </Button>
-      </div>
+      <SubmitComponent
+        loading={loading}
+        disabled={loading}
+        type={'default'}
+        onClick={handleProfileUpdate}
+        block
+      />
     </div>
   )
 }

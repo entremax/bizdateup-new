@@ -8,8 +8,8 @@ import React, {
 } from 'react'
 import { setUser } from '@/reducers/user/authSlice'
 import getUserDetails from '@/action/user'
-import localUser from '@/lib/getToken'
-import useCookieLocal from '@/lib/useCookieLocal'
+import localUser from '@/lib/localUser'
+import useCookieLocal from '@/hooks/useCookieLocal'
 import { DataInner, InvestorUserPayload, StartupUserPayload } from '@/types'
 import { usePathname, useRouter } from 'next/navigation'
 import { store } from '@/store'
@@ -56,7 +56,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { user: reduxUser } = useAppSelector(({ authUser }) => authUser)
 
   const fetchUserDetails = useCallback(async () => {
-    if (!role || role === ''||reduxUser) return
+    if (!role || role === '' || reduxUser) return
     if (role === 'startup') {
       const authMethod = localStorage.getItem('loginMethod') ?? ''
       const authAction = localStorage?.getItem('loginMethod2') ?? ''
@@ -79,9 +79,9 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     }
 
     if (data.role === 'investor') {
-       if ((data && data.role !== 'investor') || !data.user)
+      if ((data && data.role !== 'investor') || !data.user)
         return router.push('/login')
-      
+
       const userInfo: InvestorUserPayload = {
         role: data.role,
         userData: data?.user as DataInner,
@@ -107,7 +107,7 @@ const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   useEffect(() => {
     fetchUserDetails()
   }, [])
- 
+
   return (
     <UserContext.Provider value={{ ...state, setUpdate }}>
       {children}

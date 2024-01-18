@@ -5,11 +5,11 @@ import { useAppSelector } from '@/store/hooks'
 import { useSearchParams } from 'next/navigation'
 
 export default function Deal() {
-  const {user,token,role}=useAppSelector(({authUser})=>authUser)
-  const searchParams=useSearchParams()
-  const editState=Boolean(searchParams.get('edit'))
-  
-  if (!user||role!=='startup'||!token) {
+  const { user, token, role } = useAppSelector(({ authUser }) => authUser)
+  const searchParams = useSearchParams()
+  const editState = Boolean(searchParams.get('edit'))
+
+  if (!user || role !== 'startup' || !token) {
     return null
   }
   const data = [
@@ -37,7 +37,7 @@ export default function Deal() {
 
   return (
     <div className="flex flex-col">
-      {editState ? (
+      {!editState ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
             {data.map(({ label, value }) => (

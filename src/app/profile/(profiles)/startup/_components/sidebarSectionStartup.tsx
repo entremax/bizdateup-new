@@ -20,6 +20,12 @@ import {
   reset as authReset,
 } from '@/reducers/user/authSlice'
 import { notifyUser } from '@/components/notification'
+import UserGroup from '@/icons/UserGroup'
+import UploadIcon from '@/icons/UploadIcon'
+import EventsIcon from '@/icons/EventsIcon'
+import InfoSquare from '@/icons/InfoSquare'
+import AddUser from '@/icons/AddUser'
+import IconWrapper from '@/components/icons/CustomAntdIcon'
 
 export default function SectionBarStartup({
   children,
@@ -40,81 +46,55 @@ export default function SectionBarStartup({
       id: 1,
       name: 'Company Profile',
       segment: null,
-      icon: (
-        <Profile
-          className={
-            'stroke-black-lighter group-hover:fill-primary group-hover:stroke-primary  group-active:fill-primary'
-          }
-        />
-      ),
+      icon: Profile,
       link: '/profile/startup',
     },
     {
       id: 2,
-      name: 'Pitch',
+      name: 'Pitch & Other Docs',
       segment: 'pitch',
-      icon: (
-        <TicketStar
-          className={'stroke-black-lighter   group-hover:stroke-primary'}
-        />
-      ),
+      icon: TicketStar,
       link: baseUri + '/pitch',
     },
     {
       id: 3,
       name: 'Team',
       segment: 'team',
-      icon: (
-        <Icons.TextFile
-          className={'stroke-black-lighter   group-hover:stroke-primary'}
-        />
-      ),
+      icon: UserGroup,
       link: baseUri + '/team',
     },
     {
       id: 4,
       name: 'Mentors',
       segment: 'mentor',
-      icon: (
-        <MoreSquare
-          className={'stroke-black-lighter   group-hover:stroke-primary'}
-        />
-      ),
+      icon: AddUser,
       link: baseUri + '/mentor',
     },
     {
       id: 5,
       name: 'Deal Terms',
-      icon: (
-        <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
-      ),
+      icon: Icons.TextFile,
       segment: 'deal-terms',
       link: baseUri + '/deal-terms',
     },
     {
       id: 6,
-      name: 'upload-docs',
-      icon: (
-        <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
-      ),
+      name: 'Upload Docs',
+      icon: UploadIcon,
       segment: 'upload-docs',
       link: baseUri + '/upload-docs',
     },
     {
       id: 7,
       name: 'Event',
-      icon: (
-        <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
-      ),
+      icon: EventsIcon,
       segment: 'events',
       link: baseUri + '/events',
     },
     {
       id: 8,
-      name: 'faqs',
-      icon: (
-        <Work className={'stroke-black-lighter  group-hover:stroke-primary'} />
-      ),
+      name: 'FAQs',
+      icon: InfoSquare,
       segment: 'faqs',
       link: baseUri + '/faqs',
     },
@@ -151,21 +131,28 @@ export default function SectionBarStartup({
               key={name}
               href={link}
               className={cn(
-                'group flex w-full items-center gap-3 rounded-xl px-3  py-2 text-gray-800 delay-100 hover:bg-[#F0F0FF] hover:text-primary active:text-black' +
+                'group flex w-full items-center gap-3 rounded-xl px-3  py-2 text-gray-800 delay-100 active:text-black lg:hover:bg-[#F0F0FF] lg:hover:text-primary lg:active:text-primary ' +
                   (routeSegment === segment &&
-                    'group:stroke-primary bg-[#F0F0FF] text-primary'),
+                    'lg:group:stroke-primary group-active:stroke-primary lg:bg-[#F0F0FF] lg:text-primary'),
               )}>
-              <div className="flex h-8 w-8 items-center justify-center">
-                {icon}
+              <div
+                className={`flex h-8 w-8 items-center justify-center ${
+                  id === 5 && 'justify-self-start'
+                }`}>
+                <Icon
+                  className={routeSegment === segment ? ' active' : ''}
+                  icon={icon}
+                />
               </div>
               <div
                 className={cn(
-                  `items-left ${id === 5 && 'flex flex-col gap-2'}`,
+                  `items-left ${id === 5 && 'flex flex-col gap-1'}`,
                 )}>
                 <span className={'font-semibold '}>{name}</span>
               </div>
               <div className="grow"></div>
-
+              {/*{kycStatusDetails(id) && (*/}
+              {/*  <VerifiedIcon />*/}
               {/*)}*/}
             </Link>
           ))}
@@ -186,11 +173,11 @@ export default function SectionBarStartup({
               key={link}
               href={link}
               className={cn(
-                'hidden w-full items-center gap-3 py-6  text-gray-800 delay-100 hover:bg-[#F0F0FF] hover:text-primary active:text-black lg:flex' +
+                'hidden w-full items-center gap-3 py-6  text-black text-gray-800 delay-100  hover:md:bg-[#F0F0FF] lg:flex' +
                   (routeSegment === segment && ' md:text-primary'),
               )}>
               <div className="flex h-8 w-8 items-center justify-center">
-                {icon}
+                <Icon className={''} icon={icon} />
               </div>
               <div
                 className={cn(
@@ -217,25 +204,17 @@ export default function SectionBarStartup({
               key={name}
               href={link + `?sm=y`}
               className={cn(
-                'flex w-full items-center gap-3 py-6  text-gray-800 delay-100 hover:bg-[#F0F0FF] hover:text-primary active:text-black lg:hidden' +
-                  (routeSegment === segment && ' text-primary'),
+                'flex w-full items-center gap-3 py-6  !text-gray-800 delay-100 hover:md:bg-[#F0F0FF]  lg:hidden ' +
+                  (routeSegment === segment && ' md:text-primary'),
               )}>
               <div className="flex h-8 w-8 items-center justify-center">
-                {icon}
+                <Icon className={''} icon={icon} />
               </div>
               <div
                 className={cn(
                   `items-left ${id === 5 && 'flex flex-col gap-2'}`,
                 )}>
                 <span className={'font-semibold '}>{name}</span>
-                {id === 5 && (
-                  <span
-                    className={
-                      'w-fit rounded-full bg-[#F3B518] px-[0.022rem] text-xs'
-                    }>
-                    PRIORITY
-                  </span>
-                )}
               </div>
               <div className="grow" />
               <div className={'px-2'}>
@@ -251,5 +230,19 @@ export default function SectionBarStartup({
         </Button>
       </div>
     </>
+  )
+}
+
+function Icon({ className, icon }: { className: string; icon: any }) {
+  return (
+    <div className={'group flex h-8 w-8 items-center justify-center'}>
+      <IconWrapper
+        component={icon}
+        className={
+          'group:fill-white  stroke-black-lighter group-hover:stroke-primary ' +
+          className
+        }
+      />
+    </div>
   )
 }

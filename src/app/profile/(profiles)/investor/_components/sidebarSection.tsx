@@ -129,7 +129,7 @@ export default function SectionBar({
               key={name}
               href={link}
               className={cn(
-                'group flex w-full items-center gap-3 rounded-xl px-3  py-2 text-gray-800 delay-100 active:text-black lg:hover:bg-[#F0F0FF] lg:hover:text-primary lg:active:text-primary' +
+                'group flex w-full items-center gap-3 rounded-xl px-3  py-2 text-gray-800 delay-100 active:text-black lg:hover:bg-[#F0F0FF] lg:hover:text-primary lg:active:text-primary ' +
                   (routeSegment === segment &&
                     'lg:group:stroke-primary group-active:stroke-primary lg:bg-[#F0F0FF] lg:text-primary'),
               )}>
@@ -137,7 +137,10 @@ export default function SectionBar({
                 className={`flex h-8 w-8 items-center justify-center ${
                   id === 5 && 'justify-self-start'
                 }`}>
-                <Icon className={routeSegment === segment?' active':''} icon={icon}/>
+                <Icon
+                  className={routeSegment === segment ? ' active' : ''}
+                  icon={icon}
+                />
               </div>
               <div
                 className={cn(
@@ -185,7 +188,7 @@ export default function SectionBar({
                 'hidden w-full items-center gap-3 py-6 !text-black-lighter delay-100 active:text-black lg:flex hover:lg:bg-[#F0F0FF] hover:lg:text-primary' +
                   (routeSegment === segment && ' lg:text-primary'),
               )}>
-              <Icon className={''} icon={icon}/>
+              <Icon className={''} icon={icon} />
               <div
                 className={cn(
                   `items-left ${id === 5 && 'flex flex-col gap-1'}`,
@@ -234,7 +237,6 @@ export default function SectionBar({
                 'flex w-full items-center gap-3 py-6  text-gray-800 delay-100 hover:bg-[#F0F0FF] hover:text-primary active:text-black lg:hidden' +
                   (routeSegment === segment && ' lg:text-primary'),
               )}>
-              
               <div
                 className={cn(
                   `items-left ${id === 5 && 'flex flex-col gap-2'}`,

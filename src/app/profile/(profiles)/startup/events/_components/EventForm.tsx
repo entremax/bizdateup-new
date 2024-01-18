@@ -5,6 +5,7 @@ import EventFormSingleItem from './EventFormSingleItem'
 import { Button } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
+import SubmitComponent from '../../_components/SubmitComponent'
 
 export default function FaqForm({
   initialUsers,
@@ -13,7 +14,6 @@ export default function FaqForm({
 }) {
   const router = useRouter()
   const [events, setEvents] = useState(initialUsers?.events)
-  console.log('🚀 ~ file: EventForm.tsx:14 ~ FaqForm ~ events:', events)
 
   const { handleUpdate, loading } = useStartupUpdateContext()
 
@@ -40,18 +40,10 @@ export default function FaqForm({
 
   const changeHandler = useCallback(
     (index: number, field: keyof Events, newData: any) => {
-      console.log('🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ index:', index)
-      console.log(
-        '🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ newData:',
-        newData,
-      )
-      console.log('🚀 ~ file: EventForm.tsx:44 ~ changeHandler ~ field:', field)
-
       setEvents((prevEvent) => {
         const updatedData = [...prevEvent]
         if (index >= 0 && index < updatedData.length) {
           updatedData[index][field] = newData
-          console.log('Updated Data:', updatedData)
           return updatedData
         } else {
           console.error('Invalid index:', index)
@@ -136,16 +128,15 @@ export default function FaqForm({
           }>
           + Add another question
         </Button>
-        <Button
+        <SubmitComponent
           loading={loading}
           disabled={loading}
           type={'default'}
           onClick={handleProfileUpdate}
           className={
             '!h-auto  w-1/4 !border-none !bg-primary !px-6 !py-2 font-medium !text-white !outline-none md:w-1/4'
-          }>
-          Save
-        </Button>
+          }
+        />
       </div>
     </div>
   )

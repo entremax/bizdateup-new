@@ -6,11 +6,11 @@ import { useAppSelector } from '@/store/hooks'
 import { useSearchParams } from 'next/navigation'
 
 export default function StartupProfile() {
-  const {user,token,role}=useAppSelector(({authUser})=>authUser)
-  const searchParams=useSearchParams()
-  const editState=Boolean(searchParams.get('edit'))
-  
-  if (!user||role!=='startup'||!token) {
+  const { user, token, role } = useAppSelector(({ authUser }) => authUser)
+  const searchParams = useSearchParams()
+  const editState = Boolean(searchParams.get('edit'))
+
+  if (!user || role !== 'startup' || !token) {
     return null
   }
   const data = [
@@ -100,11 +100,11 @@ export default function StartupProfile() {
       hidden: false,
     },
   ]
-  
+
   return (
     <>
       {!(user.companyName === '' && user.registeredCompanyName === '') &&
-      editState ? (
+      !editState ? (
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-2">
             {data.slice(0, 3).map(({ label, value, hidden }) => (
@@ -137,7 +137,7 @@ export default function StartupProfile() {
             ))}
           </div>
           <div className="h-2 w-full bg-light-shadow"></div>
-          
+
           <div>
             <div className="text-md ml-8 items-center pt-6  font-extrabold ">
               Highlights
@@ -153,7 +153,7 @@ export default function StartupProfile() {
                   )}
                 </React.Fragment>
               ))}
-              
+
               {/* {data.slice(7, 12).map(({ label, value, hidden } , index) => (
               <React.Fragment key={label}>
                 {!hidden && (

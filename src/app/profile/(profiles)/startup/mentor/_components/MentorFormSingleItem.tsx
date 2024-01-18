@@ -56,7 +56,7 @@ export default function MentorSingleItem({
             }}>
             <div style={{ position: 'relative', display: 'inline-block' }}>
               <Avatar
-                size={{ xs: 24, sm: 32, md: 80, lg: 80, xl: 80, xxl: 100 }}
+                size={88}
                 src={
                   typeof mentor.profileImage == 'string' && !previewImage
                     ? api + '/mentorfile/' + mentor.profileImage

@@ -7,7 +7,7 @@ import Camera from '@/components/icons/CameraIcon'
 import Input from '@/components/form/InputWithoutRef'
 import Trash from '@/components/icons/Trash'
 import { apiUri } from '@/lib/utils'
-import { PlusOutlined } from '@ant-design/icons'
+import { CameraFilled, CameraOutlined, PlusOutlined } from '@ant-design/icons'
 
 export default function TeamSingleItem({
   teamMember,
@@ -40,8 +40,8 @@ export default function TeamSingleItem({
     <div className="w-full">
       <div
         key={teamMember._id}
-        className="flex items-center gap-4 py-4 lg:gap-2">
-        <div className="min-w-[32px]">
+        className="flex flex-col items-center gap-4 py-4 md:flex-row lg:gap-2">
+        <div className="min-w-8">
           <Upload
             showUploadList={false}
             beforeUpload={(file) => {
@@ -52,7 +52,7 @@ export default function TeamSingleItem({
             }}>
             <div style={{ position: 'relative', display: 'inline-block' }}>
               <Avatar
-                size={{ xs: 24, sm: 32, md: 80, lg: 80, xl: 80, xxl: 100 }}
+                size={88}
                 src={
                   typeof teamMember.profileImage == 'string' && !previewImage
                     ? api + '/teammember/' + teamMember.profileImage
@@ -60,7 +60,7 @@ export default function TeamSingleItem({
                       ? previewImage
                       : undefined
                 }
-                icon={<PlusOutlined />}
+                icon={<CameraFilled />}
                 className={
                   ' !border-4 border-solid !border-[#8686F5] bg-gray-100 object-contain p-0 text-gray-400 outline-none drop-shadow-lg transition duration-300 ease-in-out hover:cursor-pointer hover:border-yellow-500'
                 }
@@ -73,8 +73,8 @@ export default function TeamSingleItem({
           {/* </Badge> */}
         </div>
 
-        <div className="grid w-full grid-cols-2 gap-2  px-4 py-4 md:grid-cols-2 lg:gap-1">
-          <div className="px-4 py-4">
+        <div className="grid w-full grid-cols-2  gap-2 px-4  py-4 lg:gap-1">
+          <div className="col-span-2 px-4 py-4 md:col-span-1">
             <Input
               key={teamMember._id}
               defaultValue={teamMember.fullName}
@@ -87,7 +87,7 @@ export default function TeamSingleItem({
               placeholder={`Enter ${teamMember.fullName}`}
             />
           </div>
-          <div className="px-4 py-4">
+          <div className="col-span-2 px-4 py-4 md:col-span-1">
             <Input
               key={teamMember._id}
               defaultValue={teamMember.designation}

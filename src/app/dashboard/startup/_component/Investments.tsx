@@ -146,27 +146,28 @@ export default function Investments({
         }>
         <h2>Investors</h2>
         {investData ? (
-          // @ts-ignore
-
+          //@ts-ignore
           <Download columnDefinitions={columnDefinitions} rowData={rowData} />
         ) : null}
       </div>
-      <Table
-        id={'refer-table'}
-        className={'border_gray rounded-xl'}
-        columns={columns}
-        dataSource={data.slice(
-          (currentPage - 1) * tablePagination.pageSize,
-          currentPage * tablePagination.pageSize,
-        )}
-        pagination={{
-          current: currentPage,
-          pageSize: tablePagination.pageSize,
-          total: tablePagination.total,
-          position: ['bottomLeft'],
-          onChange: (e) => handleTableChange(e),
-        }}
-      />
+      <div className="overflow-auto">
+        <Table
+          id={'refer-table'}
+          className={'border_gray rounded-xl'}
+          columns={columns}
+          dataSource={data.slice(
+            (currentPage - 1) * tablePagination.pageSize,
+            currentPage * tablePagination.pageSize,
+          )}
+          pagination={{
+            current: currentPage,
+            pageSize: tablePagination.pageSize,
+            total: tablePagination.total,
+            position: ['bottomLeft'],
+            onChange: (e) => handleTableChange(e),
+          }}
+        />
+      </div>
     </div>
   )
 }

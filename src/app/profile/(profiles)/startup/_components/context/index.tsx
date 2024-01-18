@@ -18,7 +18,8 @@ import {
   useUpdatePitchMutation,
   useUpdateTeamMutation,
 } from '@/services/startupApiSlice'
-import { useSearchParams } from 'next/navigation'
+import { notifyUser } from '@/components/notification'
+import { fetchUser } from '@/store/features/actions/fetchUser'
 
 type UpdateType =
   | 'company_details'
@@ -47,7 +48,7 @@ export const useStartupUpdateContext = () => useContext(UpdateContext)
 
 const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch()
-  const {user,token,role,refId}=useAppSelector(({authUser})=>authUser)
+  const { user, refId } = useAppSelector(({ authUser }) => authUser)
   const [loading, setLoading] = useState(false)
   const [updateCompany] = useUpdateCompanyDetailsMutation()
   const [updateTeam] = useUpdateTeamMutation()
@@ -63,7 +64,7 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [deleteEvent] = useDeleteEventMutation()
   const [deleteDealFile] = useDeleteDealfileMutation()
   const [deletePitch] = useDeletePitchMutation()
-  
+
   const handleUpdate = (formData: any, updating: UpdateType) => {
     if (!user) {
       dispatch(
@@ -75,291 +76,188 @@ const UpdateContextProvider = ({ children }: { children: React.ReactNode }) => {
       )
       return
     }
-    const updatedData = { ...formData, refId: refId }
-    
+    const updatedData = { ...formData, refId: user?._id }
+
     setLoading(true)
-    if (updating === 'company_details') {
-      setLoading(true)
-      updateCompany(formData)
-        .unwrap()
-        .then((res) => {
-          console.log('🚀 ~ file: index.tsx:62 ~ .then ~ res:', res)
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Company Details",
-              description: e.message,
-            }),
+    switch (updating) {
+      case 'company_details':
+        updateCompany(formData)
+          .unwrap()
+          .then(() =>
+            notifyUser('success', 'Company Details Updated Successfully'),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'mentor') {
-      setLoading(true)
-      updateMentor(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Mentor",
-              description: e.message,
-            }),
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't update Company Details.",
+              e.message ?? undefined,
+            ),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'team') {
-      setLoading(true)
-      updateTeam(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Mentor",
-              description: e.message,
-            }),
+        break
+      case 'mentor':
+        updateMentor(formData)
+          .unwrap()
+          .then(() =>
+            notifyUser('success', 'Mentor Details Updated Successfully'),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'delete_team') {
-      setLoading(true)
-      deleteTeam(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Delete Team",
-              description: e.message,
-            }),
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't update Mentor Details.",
+              e.message ?? undefined,
+            ),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'delete_mentor') {
-      setLoading(true)
-      deleteMentor(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Delete Mentor",
-              description: e.message,
-            }),
+        break
+      case 'team':
+        updateTeam(formData)
+          .unwrap()
+          .then(() =>
+            notifyUser('success', 'Team Details Updated Successfully'),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'delete_faq') {
-      setLoading(true)
-      deleteFaq(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Delete faq",
-              description: e.message,
-            }),
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't update Team Details.",
+              e.message ?? undefined,
+            ),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'delete_event') {
-      setLoading(true)
-      deleteEvent(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Delete event",
-              description: e.message,
-            }),
+        break
+      case 'delete_team':
+        deleteTeam(formData)
+          .unwrap()
+          .then(() =>
+            notifyUser('success', 'Team Details Deleted Successfully'),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'delete_dealfile') {
-      setLoading(true)
-      deleteDealFile(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Delete dealFile",
-              description: e.message,
-            }),
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Delete Team Details.",
+              e.message ?? undefined,
+            ),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'faq') {
-      setLoading(true)
-      updateFaq(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Faq",
-              description: e.message,
-            }),
+        break
+      case 'delete_mentor':
+        deleteMentor(formData)
+          .unwrap()
+          .then(() =>
+            notifyUser('success', 'Team Details Deleted Successfully'),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'event') {
-      setLoading(true)
-      updateEvent(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Event",
-              description: e.message,
-            }),
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Delete Team Details.",
+              e.message ?? undefined,
+            ),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'pitch') {
-      setLoading(true)
-      updatePitch(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Pitch",
-              description: e.message,
-            }),
+        break
+      case 'delete_faq':
+        deleteFaq(formData)
+          .unwrap()
+          .then(() => notifyUser('success', 'FAQ Deleted Successfully'))
+          .catch((e) =>
+            notifyUser('error', "Couldn't Delete FAQ.", e.message ?? undefined),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'delete_pitch') {
-      setLoading(true)
-      deletePitch(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Pitch",
-              description: e.message,
-            }),
+        break
+      case 'delete_event':
+        deleteEvent(formData)
+          .unwrap()
+          .then(() => notifyUser('success', 'Event Deleted Successfully'))
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Delete Event.",
+              e.message ?? undefined,
+            ),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'dealterm') {
-      setLoading(true)
-      dealterm(updatedData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Event",
-              description: e.message,
-            }),
+        break
+      case 'delete_dealfile':
+        deleteDealFile(formData)
+          .unwrap()
+          .then(() => notifyUser('success', 'DealFile Deleted Successfully'))
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Delete DealFile.",
+              e.message ?? undefined,
+            ),
           )
-          setLoading(false)
-          console.log(e)
-        })
-    }
-    if (updating === 'duefile') {
-      setLoading(true)
-      duefile(formData)
-        .unwrap()
-        .then((res) => {
-          setLoading(false)
-          return res
-        })
-        .catch((e) => {
-          dispatch(
-            setNotification({
-              type: 'error',
-              message: "Couldn't Update Event",
-              description: e.message,
-            }),
+        break
+      case 'faq':
+        updateFaq(formData)
+          .unwrap()
+          .then(() => notifyUser('success', 'FAQs Updated Successfully'))
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Update FAQs.",
+              e.message ?? undefined,
+            ),
           )
-          setLoading(false)
-          console.log(e)
-        })
+        break
+      case 'event':
+        updateEvent(formData)
+          .unwrap()
+          .then(() => notifyUser('success', 'Events Updated Successfully'))
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Update Events.",
+              e.message ?? undefined,
+            ),
+          )
+        break
+      case 'pitch':
+        updatePitch(formData)
+          .unwrap()
+          .then(() => notifyUser('success', 'Pitch Updated Successfully'))
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Update Pitch.",
+              e.message ?? undefined,
+            ),
+          )
+        break
+      case 'delete_pitch':
+        deletePitch(formData)
+          .unwrap()
+          .then(() => notifyUser('success', 'Pitch Deleted Successfully'))
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Deleted Pitch.",
+              e.message ?? undefined,
+            ),
+          )
+        break
+      case 'dealterm':
+        dealterm(updatedData)
+          .unwrap()
+          .then(() => notifyUser('success', 'DealTerms Updated Successfully'))
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Update DealTerms.",
+              e.message ?? undefined,
+            ),
+          )
+        break
+      case 'duefile':
+        duefile(formData)
+          .unwrap()
+          .then(() => notifyUser('success', 'Duefile Updated Successfully'))
+          .catch((e) =>
+            notifyUser(
+              'error',
+              "Couldn't Update Duefile.",
+              e.message ?? undefined,
+            ),
+          )
+        break
+      default:
+        break
     }
-    
+    dispatch(fetchUser())
     setLoading(false)
   }
   return (

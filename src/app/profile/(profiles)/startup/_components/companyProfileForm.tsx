@@ -14,6 +14,7 @@ import { DefaultOptionType } from 'rc-select/lib/Select'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
 import { StartupData } from '@/types/invest'
+import SubmitComponent from '@/components/profile/SubmitComponent'
 
 export default function GeneralForm({ user }: { user: StartupData }) {
   const router = useRouter()
@@ -507,19 +508,14 @@ export default function GeneralForm({ user }: { user: StartupData }) {
           ),
         )}
       </div>
-      <div className=" my-6 flex items-center  px-8 pb-8 md:w-1/6  md:justify-self-end">
-        <Button
-          loading={loading}
-          disabled={loading}
-          type={'default'}
-          onClick={handleProfileUpdate}
-          className={
-            '!h-auto !border-none !bg-light-shadow !px-6 !py-2 font-medium !text-primary !outline-none md:inline-block md:!bg-primary md:!text-white'
-          }
-          block>
-          Save
-        </Button>
-      </div>
+      <div className="py-8 md:hidden" />
+      <SubmitComponent
+        loading={loading}
+        disabled={loading}
+        type={'default'}
+        onClick={handleProfileUpdate}
+        block
+      />
     </div>
   )
 }

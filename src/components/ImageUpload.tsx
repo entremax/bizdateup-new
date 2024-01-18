@@ -109,7 +109,7 @@ const ImageUpload: React.FC<Props> = ({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           className={cn(
-            'relative flex h-24 w-24  flex-col items-center  justify-center overflow-clip rounded-full border-2   border-gray-300 bg-gray-100 object-contain p-0 text-gray-400 outline-none transition duration-300 ease-in-out hover:cursor-pointer hover:border-yellow-500 ' +
+            'relative flex h-20 w-20  flex-col items-center  justify-center overflow-clip  rounded-full border-2  border-gray-300 bg-gray-100 object-contain p-0   text-gray-400 outline-none transition duration-300 ease-in-out hover:cursor-pointer hover:border-yellow-500 md:h-[5.8rem] md:w-[5.8rem] ' +
               className,
           )}
           onDragOver={(e) => e.preventDefault()} // Necessary to prevent browser default behavior

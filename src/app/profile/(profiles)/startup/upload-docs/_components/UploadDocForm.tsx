@@ -6,7 +6,13 @@ import { Button } from 'antd'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
 import { FileIcons } from '@/icons/FileIcon'
-import { forEach } from 'jszip'
+import FilePreview from '../../_components/FileDetailsPreview'
+import {
+  CloseCircleFilled,
+  CloseCircleOutlined,
+  CloseOutlined,
+} from '@ant-design/icons'
+import SubmitComponent from '../../_components/SubmitComponent'
 
 export default function FaqForm({
   initialUsers,
@@ -137,14 +143,23 @@ export default function FaqForm({
         />
       </div>
 
-      <div className="grid grid-cols-1 px-8 py-4 pb-8">
+      <div className="grid grid-cols-1 gap-2 px-8 py-4 pb-8">
         {user.map((file, index) => (
           <React.Fragment key={file._id}>
-            <div className="border_gray my-2 flex flex-row items-center gap-2 rounded-2xl p-5">
-              <FileIcons.Pdf />{' '}
-              <span className="text-md text-gray-400">{file.name}</span>
-              <div onClick={() => removeUploaded(index)}>X</div>
-            </div>
+            <FilePreview
+              fileName={file.name}
+              remove={
+                <>
+                  <div className="grow" />
+                  <Button
+                    icon={<CloseOutlined height={46} width={46} />}
+                    shape="circle"
+                    className="!border-none !bg-transparent !outline-none"
+                    onClick={() => removeUploaded(index)}
+                  />
+                </>
+              }
+            />
           </React.Fragment>
         ))}
         {files.map((file, index) => (
@@ -158,16 +173,12 @@ export default function FaqForm({
         ))}
       </div>
       <div className="flex items-center justify-between px-8 pb-8">
-        <Button
+        <SubmitComponent
           loading={loading}
           disabled={loading}
           type={'default'}
           onClick={handleProfileUpdate}
-          className={
-            '!h-auto w-1/4 !border-none !bg-light-shadow  !bg-primary  !px-6 !px-6 !py-2 !py-2 font-medium !text-white !outline-none !outline-none md:w-1/4'
-          }>
-          Save
-        </Button>
+        />
       </div>
     </div>
   )

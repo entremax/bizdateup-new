@@ -10,64 +10,6 @@ import getUserDetails from '@/action/user'
 
 export const fetchCache = 'default-no-store'
 
-// async function getUserDetails() {
-//   const token = cookies().get('token')?.value
-//   const user_id = cookies().get('user_id')?.value
-//   const role = cookies().get('role')?.value
-//
-//   if (!user_id || !token) {
-//     return redirect('/login', 'push' as RedirectType)
-//   }
-//   let url = '/investor/fetchbyid'
-//   let config: any = {
-//     next: { revalidate: 0 },
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: `Bearer ${token}`,
-//     },
-//     body: JSON.stringify({ refId: user_id }),
-//   }
-//   if (role === 'startup') {
-//     url = '/startup/fetchStartupById?refId=' + user_id
-//     config = {
-//       next: { revalidate: 0 },
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${token}`,
-//       },
-//     }
-//   }
-//   const res = await fetch(apiUri().v0 + url, config)
-//     .then((res) => {
-//       return res.json()
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       throw new Error(e)
-//     })
-//
-//   const userData: InvestorUserData | StartupUserData = res?.data?.data?.role
-//     ? {
-//       refId: user_id,
-//       status: res?.data?.status,
-//       token: token,
-//       role: 'investor',
-//       user: res?.data?.data as DataInner,
-//     }
-//     : {
-//       refId: user_id,
-//       status: res?.data?.status,
-//       token: token,
-//       role: 'startup',
-//       user: res?.data?.data as StartupData,
-//     }
-//
-//   return { ...userData }
-// }
-
-
 export default async function ProfileHeader() {
   const { user, role, refId } = await getUserDetails()
   if (!user || !role) {
@@ -84,20 +26,20 @@ export default async function ProfileHeader() {
       ? { user, role: 'investor', refId }
       : { user, role: 'startup', refId }
   return (
-    <div className={cn(`flex flex-col items-center py-6 md:flex-row`)}>
-      <div className="flex flex-col items-center gap-4 sm:flex-row md:flex-grow">
-        <div className="relative flex h-28 w-28 items-center justify-center">
+    <div className={cn(`mx-4 flex flex-col py-6 md:flex-row`)}>
+      <div className="mx-4 flex items-center gap-4 sm:flex-row md:flex-grow">
+        <div className="relative flex h-24 w-24 items-center justify-center md:h-28 md:w-28">
           <ReduxProvider>
             <ImageUploader {...userData} />
           </ReduxProvider>
           {user &&
             role === 'investor' &&
             user.membership.isMember === 'yes' && (
-              <div className="absolute -top-[1.6rem] right-2 rotate-12">
+              <div className="absolute rotate-12 md:-top-[1.6rem] md:right-2">
                 <Icons.Premium className={'h-12 w-16'} />
               </div>
             )}
-          <div className="absolute -bottom-2 right-2 hover:cursor-pointer">
+          <div className="absolute -right-[0.2rem] bottom-[0.3rem] hover:cursor-pointer">
             <svg
               width="29"
               height="28"
@@ -114,16 +56,15 @@ export default async function ProfileHeader() {
             </svg>
           </div>
         </div>
-        <div className="justify-left grid items-center gap-2">
-          <h4 className="text-xl text-primary-dark md:text-4xl">
+        <div className="justify-left mb-4 grid items-center justify-center md:gap-2 ">
+          <h4 className="text-2xl text-primary-dark md:text-4xl">
             {role === 'investor'
               ? user?.firstName + ' ' + user?.lastName
               : user?.registeredCompanyName}
           </h4>
-          <p className="flex items-center gap-3 font-semibold text-neutral-500">
-            {user &&
-              role === 'investor' &&
-              user.membership.isMember === 'yes' && (
+          {user && role === 'investor' && (
+            <p className="flex items-center gap-3 font-semibold text-neutral-500">
+              {user.membership.isMember === 'yes' && (
                 <svg
                   width="106"
                   height="14"
@@ -136,9 +77,14 @@ export default async function ProfileHeader() {
                   />
                 </svg>
               )}
-            User since 2023
+              User since 2023
+            </p>
+          )}
+          <p className="font-normal text-neutral-400">
+            {role === 'investor'
+              ? user?.email
+              : `Profile owner: ${user?.founderFirstName} ${user?.founderLastName}`}
           </p>
-          <p className="font-normal text-neutral-400">{user?.email}</p>
         </div>
       </div>
       <div className="my-4 flex items-center justify-center gap-3 md:m-auto">
@@ -165,7 +111,7 @@ export default async function ProfileHeader() {
           <Button
             type={'default'}
             className={
-              '!flex !h-auto w-full !items-center !border-none !bg-primary !px-6 !py-2 !text-white !outline-none md:w-auto'
+              '!flex !h-auto w-full !items-center justify-center !border-none !bg-primary !px-6 !py-2 !text-white !outline-none md:w-auto'
             }
             icon={
               <svg

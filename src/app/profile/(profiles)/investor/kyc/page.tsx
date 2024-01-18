@@ -5,15 +5,15 @@ import ImagePreview from '@/app/profile/(profiles)/investor/kyc/ImagePreview'
 import { useAppSelector } from '@/store/hooks'
 import { useSearchParams } from 'next/navigation'
 
-export default  function KYC() {
-  const {user,token,role}=useAppSelector(({authUser})=>authUser)
-  const searchParams=useSearchParams()
-  const edit=Boolean(searchParams.get('edit'))
-  
-  if (!user||role!=='investor'||!token) {
+export default function KYC() {
+  const { user, token, role } = useAppSelector(({ authUser }) => authUser)
+  const searchParams = useSearchParams()
+  const edit = Boolean(searchParams.get('edit'))
+
+  if (!user || role !== 'investor' || !token) {
     return null
   }
-  
+
   const data = {
     aadhar: [
       {
@@ -52,7 +52,11 @@ export default  function KYC() {
                 <div className="grid gap-2">
                   <p className="text-md text-gray-400">{label}</p>
                   {link ? (
-                    <ImagePreview fileName={fileName} docType={'aadhar'} token={token}/>
+                    <ImagePreview
+                      fileName={fileName}
+                      docType={'aadhar'}
+                      token={token}
+                    />
                   ) : (
                     <p className="text-md font-bold">{value}</p>
                   )}

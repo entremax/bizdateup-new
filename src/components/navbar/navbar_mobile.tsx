@@ -4,11 +4,12 @@ import { usePathname } from 'next/navigation'
 import { Icons } from '@/components/icons/icon'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import useCookieLocal from '@/lib/useCookieLocal'
+import useCookieLocal from '@/hooks/useCookieLocal'
 
 const MobileNavbar = () => {
   const logged_in = useCookieLocal('logged-in')
   const local_user = useCookieLocal('local-user')
+  const role = useCookieLocal('role')
   const [authenticated, setAuthenticated] = useState(
     !!(logged_in && logged_in === 'true'),
   )
@@ -42,7 +43,7 @@ const MobileNavbar = () => {
   const linkStyle =
     'grid justify-center items-center gap-2 text-gray-400 font-medium text-xs group-hover:text-primary'
   const groupStyle = 'group grid justify-center items-center h-full'
-  return (!authenticated||local_user) ? null : (
+  return !authenticated || local_user || role !== 'investor' ? null : (
     <nav
       className={
         'border_gray fixed bottom-0 left-0 right-0 z-[999] grid h-16 grid-cols-4 gap-8 border-0 border-t-2 bg-white shadow-lg md:hidden'

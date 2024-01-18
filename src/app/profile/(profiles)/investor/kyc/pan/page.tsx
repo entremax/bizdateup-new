@@ -12,8 +12,6 @@ import { useAppSelector } from '@/store/hooks'
 
 export default function PanPage() {
   const {user,token,role}=useAppSelector(({authUser})=>authUser)
-  const searchParams=useSearchParams()
-  const editState=Boolean(searchParams.get('edit'))
   
   if (!user||role!=='investor'||!token) {
     return null

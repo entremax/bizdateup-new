@@ -38,7 +38,7 @@ export default function StartupLinks({ path, linkStyle, user }: Props) {
             </Link>
           ),
       )}
-      <div className={'grow'} />
+      <div className={'sm:grow'} />
     </>
   )
 }

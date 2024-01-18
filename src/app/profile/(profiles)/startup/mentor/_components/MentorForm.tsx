@@ -5,6 +5,7 @@ import MentorFormSingleItem from './MentorFormSingleItem'
 import { Button } from 'antd'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
+import SubmitComponent from '@/components/profile/SubmitComponent'
 
 export default function TeamForm({
   initialUsers,
@@ -15,32 +16,9 @@ export default function TeamForm({
   const [mentors, setMentors] = useState(initialUsers?.mentors)
   console.log('🚀 ~ file: MentorForm.tsx:23 ~ TeamForm ~ user:', mentors)
 
-  // const refs: Record<'company-name', MutableRefObject<null | InputRef>> = {
-  //   'company-name': useRef<InputRef | null>(null),
-  // }
-
-  // const handleFileChange = (fieldName: string, event: UploadProps) => {
-  //   console.log("🚀 ~ file: companyProfileForm.tsx:172 ~ handleRadioChange ~ event:", event)
-  //   console.log("🚀 ~ file: companyProfileForm.tsx:172 ~ handleRadioChange ~ fieldName:", fieldName)
-  // };
-
   const { handleUpdate, loading } = useStartupUpdateContext()
 
-  // const handleChange = (
-  //   fieldName: any,
-  //   value: DefaultOptionType | DefaultOptionType[],
-  // ) => {
-  //    setSelected((prevState: any) => ({
-  //      ...prevState,
-  //      [fieldName]: value,
-  //    }))
-  // }
-  console.log(mentors)
-
   const handleMentorsUpdate = async () => {
-    // let values = {} as {
-    //   [key in FieldNames]: unknown | null
-    // }
     const data = new FormData()
     data.append('refId', initialUsers._id)
     mentors.forEach((item, index) => {
@@ -168,16 +146,12 @@ export default function TeamForm({
           }>
           + Add another teammate
         </Button>
-        <Button
+        <SubmitComponent
           loading={loading}
           disabled={loading}
           type={'default'}
           onClick={handleMentorsUpdate}
-          className={
-            '!h-auto w-1/4 !border-none !bg-light-shadow  !bg-primary  !px-6 !px-6 !py-2 !py-2 font-medium !text-white !outline-none !outline-none md:w-1/4'
-          }>
-          Save
-        </Button>
+        />
       </div>
     </div>
   )

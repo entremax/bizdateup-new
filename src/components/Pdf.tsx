@@ -18,13 +18,11 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
   type ImageResponse = ImageObject[]
   const api = apiUri().v1
   const [base64Images, setBase64Images] = useState<ImageResponse | []>([])
-  // console.log("🚀 ~ file: Pdf.tsx:24 ~ base64Images:", base64Images)
 
   const [images, setImages] = useState<any[]>([])
-  // console.log("🚀 ~ file: Pdf.tsx:28 ~ images:", images)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(0)
-  const [startupData] = useState<string>(pitch || '')
+  const [startupData] = useState(pitch)
 
   const [pdfRendering, setPdfRendering] = useState<boolean>()
 
@@ -33,7 +31,6 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
       ? `${api}/pitch_viewer/${startupData}`
       : 'http://127.0.0.1:4700/v1/pitch_viewer/2023-06-27T14-49-30.700Z-BIZ_DATE_UP_PITCH_compressed.pdf'
   }, [startupData])
-  console.log('🚀 ~ file: Pdf.tsx:37 ~ pdfUrl ~ pdfUrl:', pdfUrl)
 
   const showPdf = useCallback(async () => {
     try {
@@ -90,27 +87,6 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
     [base64Images, totalMainSlides],
   )
 
-  // const renderPage = useCallback(async () => {
-  //   if (base64Images.length<0) {
-  //     setPdfRendering(true);
-  //     return;
-  //   }
-  //   setPdfRendering(false);
-
-  //   const imagesList = await Promise.all(
-  //     base64Images.map(async (base64Image) => {
-  //       return `data:image/png;base64,${base64Image.base64}`
-  //       // return <Image key={base64Image.page} src={`data:image/png;base64,${base64Image.base64}`} alt="Image" width={50} height={50} />;
-  //     })
-  //   );
-
-  //   setImages(imagesList);
-  // }, [base64Images, setPdfRendering, setImages]);
-
-  // useEffect(() => {
-  //   renderPage();
-  // }, [renderPage, currentPage]);
-
   const handleNext = () => {
     setCurrentPage(currentPage + 1)
   }
@@ -120,7 +96,7 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
   }
 
   return (
-    <div className="relative h-full w-full bg-white text-center ">
+    <div className="relative h-[50vh] w-full bg-white text-center ">
       <div className="big-screen h-[70%] w-full">
         <div className="relative mx-auto my-5 h-full">
           <div id="pdf-loader" hidden={!pdfRendering}>
@@ -129,7 +105,7 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
           <div id="pdf-contents h-[100%]" style={{ height: '100%' }}>
             <div className="flex h-full flex-row justify-around rounded-lg border-2">
               <div
-                className="text-30 z-100 absolute flex h-full cursor-pointer select-none items-center border-2 align-middle text-black lg:left-0"
+                className="text-30 absolute left-0 z-[100] flex h-full cursor-pointer select-none items-center border-2 align-middle text-black"
                 id="pdf-prev"
                 onClick={() => (currentPage === 1 ? null : handlePrev())}>
                 <PdfIcons.LeftArrow
@@ -140,7 +116,7 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
               </div>
 
               <div
-                className="top-150 text-30 z-100 absolute flex h-full cursor-pointer select-none items-center border-2 align-middle text-black lg:right-0"
+                className="top-150 text-30 absolute right-0 z-[100] flex h-full cursor-pointer select-none items-center border-2 align-middle text-black"
                 id="pdf-next"
                 onClick={() =>
                   currentPage < totalMainSlides - 1 ||
@@ -196,7 +172,7 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
       <div className="small-screen flex h-[20%]   w-full items-center justify-center">
         {/* <div style={{ width: totalSmallSlides === 0 ? "25%" : "25%" }}> */}
         {/* <div > */}
-        <div className="flex h-full w-full flex-wrap rounded-xl">
+        <div className="flex h-full w-full flex-wrap justify-center rounded-xl">
           {images.map((image, index) => (
             <div
               key={index}
@@ -249,4 +225,4 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
   )
 }
 
-export default Pdf;
+export default Pdf

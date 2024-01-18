@@ -9,7 +9,7 @@ import { useSendOtpMutation } from '@/services/apiSlice'
 import { validateEmailOrPhone } from '@/lib/utils'
 import { setNotification } from '@/reducers/others/notificationSlice'
 import { useVerifyOtpMutation } from '@/services/NextApiSlice'
-import localUser from '@/lib/getToken'
+import localUser from '@/lib/localUser'
 import { DataInner, InvestorUserPayload, StartupUserPayload } from '@/types'
 import { setUserAsLocal } from '@/action/user'
 
@@ -137,7 +137,7 @@ export default function OtpField({ id }: { id: string }) {
         refId = userId,
         status,
       } = response.data
-      
+
       const loginMethod = localStorage.getItem('loginMethod')
       const loginMethod2 = localStorage.getItem('loginMethod2')
       const user: InvestorUserPayload | StartupUserPayload =
@@ -158,7 +158,7 @@ export default function OtpField({ id }: { id: string }) {
               premiumMember: false,
             }
       if (loginMethod === 'local' && loginMethod2 === 'signup') {
-        localStorage.setItem('token', token??'')
+        localStorage.setItem('token', token ?? '')
         if (temp_auth_medium) {
           localStorage.setItem('email', temp_auth_medium ?? '')
         }

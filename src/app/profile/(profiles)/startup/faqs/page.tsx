@@ -22,7 +22,7 @@ export default  function Bank() {
 
   return (
     <div className="flex flex-col">
-      {editState ? (
+      {!editState ? (
         <div className="grid grid-cols-1">
           {/* <div className="grid grid-cols-1 gap-8 p-8 xl:grid-cols-3">
             {data.map(({ label, value }) => (

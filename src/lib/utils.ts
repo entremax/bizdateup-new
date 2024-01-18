@@ -158,6 +158,20 @@ export function getFileName(fileName: string): string | undefined {
 }
 
 /**
+ * Removes date from file name
+ */
+export function removeDateFromFilename(fileName: string) {
+  // Extract the part of the filename after the last hyphen
+  const lastHyphenIndex = fileName.lastIndexOf('-')
+  if (lastHyphenIndex !== -1) {
+    return fileName.replaceAll('_', ' ').slice(lastHyphenIndex + 1)
+  } else {
+    // No hyphen found, return the original filename
+    return fileName.replaceAll('_', ' ')
+  }
+}
+
+/**
  * Formats a date input string into a custom date format.
  *
  *

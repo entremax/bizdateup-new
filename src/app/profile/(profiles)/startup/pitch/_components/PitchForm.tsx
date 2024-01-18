@@ -6,6 +6,9 @@ import { Button } from 'antd'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
 import { useRouter } from 'next/navigation'
 import { FileIcons } from '@/icons/FileIcon'
+import SubmitComponent from '@/components/profile/SubmitComponent'
+import FilePreview from '../../_components/FileDetailsPreview'
+import { CloseOutlined } from '@ant-design/icons'
 
 export default function FaqForm({
   initialUsers,
@@ -77,36 +80,45 @@ export default function FaqForm({
         {/* {user.map(( file , index ) => ( */}
         <React.Fragment>
           {user ? (
-            <div className="border_gray my-2 flex flex-row items-center gap-2 rounded-2xl p-5">
-              <FileIcons.Pdf />{' '}
-              <span className="text-md text-gray-400">{user}</span>
-              <div onClick={() => removeUploaded()}>X</div>
-            </div>
+            <FilePreview
+            fileName={user}
+            remove={
+              <>
+                <div className="grow" />
+                <Button
+                  icon={<CloseOutlined height={46} width={46} />}
+                  shape="circle"
+                  className="!border-none !bg-transparent !outline-none"
+                  onClick={removeUploaded}
+                />
+              </>
+            }
+          />
           ) : null}
         </React.Fragment>
-        {/* ))} */}
         {file ? (
-          <React.Fragment>
-            <div className="border_gray my-2 flex flex-row items-center gap-2 rounded-2xl p-5">
-              <FileIcons.Pdf />{' '}
-              <span className="text-md text-gray-400">{file.name}</span>
-              <div onClick={() => removeUnUploaded()}>X</div>
-            </div>
-          </React.Fragment>
+          <FilePreview
+            fileName={file.name}
+            remove={
+              <>
+                <div className="grow" />
+                <Button
+                  icon={<CloseOutlined height={46} width={46} />}
+                  shape="circle"
+                  className="!border-none !bg-transparent !outline-none"
+                  onClick={removeUnUploaded}
+                />
+              </>
+            }
+          />
         ) : null}
       </div>
-      <div className="flex items-center justify-between px-8 pb-8">
-        <Button
-          loading={loading}
-          disabled={loading}
-          type={'default'}
-          onClick={handleProfileUpdate}
-          className={
-            '!h-auto w-1/4 !border-none !bg-light-shadow  !bg-primary  !px-6 !px-6 !py-2 !py-2 font-medium !text-white !outline-none !outline-none md:w-1/4'
-          }>
-          Save
-        </Button>
-      </div>
+      <SubmitComponent
+        onClick={handleProfileUpdate}
+        loading={loading}
+        disabled={loading}
+        block
+      />
     </div>
   )
 }
