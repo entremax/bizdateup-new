@@ -29,7 +29,7 @@ export default function SectionBar({
   children: React.ReactNode
 }) {
   const searchParams = useSearchParams()
-  const sm = searchParams.get('sm')
+  const sm = searchParams?.get('sm')
   const { kycStatus } = useAppSelector(({ authUser }) => authUser)
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -64,13 +64,13 @@ export default function SectionBar({
       id: 4,
       name: 'Other details',
       segment: 'other',
-      icon:MoreSquare,
+      icon: MoreSquare,
       link: baseUri + '/other',
     },
     {
       id: 5,
       name: 'Investment manager',
-      icon:Work,
+      icon: Work,
       segment: 'investment-manager',
       link: baseUri + '/investment-manager',
     },
@@ -95,9 +95,7 @@ export default function SectionBar({
         return false
     }
   }
-  
-  
-  
+
   const logoutUser = () => {
     logout('')
       .unwrap()
@@ -283,11 +281,16 @@ export default function SectionBar({
   )
 }
 
-
-function Icon({className,icon}:{className:string,icon:any}){
-  return(
-    <div className={'flex h-8 w-8 items-center justify-center group'}>
-      <IconWrapper component={icon} className={'group: stroke-black-lighter  group-hover:stroke-primary fill-white '+className } />
+function Icon({ className, icon }: { className: string; icon: any }) {
+  return (
+    <div className={'group flex h-8 w-8 items-center justify-center'}>
+      <IconWrapper
+        component={icon}
+        className={
+          'group: fill-white  stroke-black-lighter group-hover:stroke-primary ' +
+          className
+        }
+      />
     </div>
   )
 }

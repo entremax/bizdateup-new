@@ -36,7 +36,7 @@ export default function SectionHeader() {
   const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
-  const editState = searchParams.get('edit')
+  const editState = searchParams?.get('edit')
 
   const sections: Record<SectionType, SectionDetails> = {
     'company-profile': {
@@ -57,7 +57,7 @@ export default function SectionHeader() {
   )
 
   useEffect(() => {
-    setSection( segment ? sections[segment] : sections['company-profile'],)
+    setSection(segment ? sections[segment] : sections['company-profile'])
   }, [segment])
 
   const handleEdit = () => {
@@ -73,7 +73,9 @@ export default function SectionHeader() {
 
   return (
     <>
-      <h4 className="flex-grow text-2xl text-primary-dark">{section.name??''}</h4>
+      <h4 className="flex-grow text-2xl text-primary-dark">
+        {section.name ?? ''}
+      </h4>
       {section.editable && (
         <Button
           loading={loading}

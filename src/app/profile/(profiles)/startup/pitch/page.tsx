@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 export default function Pitch() {
   const { user, token, role } = useAppSelector(({ authUser }) => authUser)
   const searchParams = useSearchParams()
-  const editState = Boolean(searchParams.get('edit'))
+  const editState = Boolean(searchParams?.get('edit'))
 
   if (!user || role !== 'startup' || !token) {
     return null

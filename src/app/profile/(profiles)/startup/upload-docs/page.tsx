@@ -8,7 +8,7 @@ import FilePreview from '@/components/profile/FileDetailsPreview'
 export default function Bank() {
   const { user, token, role } = useAppSelector(({ authUser }) => authUser)
   const searchParams = useSearchParams()
-  const editState = Boolean(searchParams.get('edit'))
+  const editState = Boolean(searchParams?.get('edit'))
 
   if (!user || role !== 'startup' || !token) {
     return null

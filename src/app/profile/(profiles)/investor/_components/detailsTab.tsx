@@ -28,10 +28,10 @@ type sectionsInterface = {
 export default function DetailsTab({ children }: { children: ReactNode }) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const editState = searchParams.get('edit')
+  const editState = searchParams?.get('edit')
   const segment: sectionType | null =
     useSelectedLayoutSegment() as sectionType | null
-  const sm = searchParams.get('sm')
+  const sm = searchParams?.get('sm')
   const sections: sectionsInterface = {
     'general-info': {
       name: 'General Information',

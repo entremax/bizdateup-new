@@ -33,10 +33,10 @@ export default function SectionBarStartup({
   children: React.ReactNode
 }) {
   const searchParams = useSearchParams()
-  const sm = searchParams.get('sm')
+  const sm = searchParams?.get('sm')
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const routeSegment = useSelectedLayoutSegment()
+  const routeSegment = useSelectedLayoutSegment('startup')
 
   const [logout, { isLoading }] = useLogoutMutation()
 
@@ -159,13 +159,12 @@ export default function SectionBarStartup({
         </div>
       </div>
       {/*Mobile*/}
-      <div
-        className={cn(`col-span-full lg:hidden ${sm === 'y' ? 'hidden' : ''}`)}>
+      <div className={cn(`col-span-full lg:hidden ${sm ? 'hidden' : ''}`)}>
         {children}
       </div>
       <div
         className={`border_gray col-span-full flex flex-col px-2 lg:hidden ${
-          sm === 'y' ? 'hidden' : ''
+          sm ? 'hidden' : ''
         }`}>
         {sectionTabs.map(({ id, name, segment, icon, link }) => (
           <React.Fragment key={link}>
@@ -224,7 +223,7 @@ export default function SectionBarStartup({
           </React.Fragment>
         ))}
       </div>
-      <div className={`my-8 lg:hidden ${sm === 'y' ? 'hidden' : ''}`}>
+      <div className={`my-8 lg:hidden ${sm ? 'hidden' : ''}`}>
         <Button onClick={logoutUser} type={'text'} danger>
           Sign Out
         </Button>

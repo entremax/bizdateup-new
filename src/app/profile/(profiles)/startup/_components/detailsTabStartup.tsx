@@ -34,10 +34,10 @@ export default function DetailsTabStartup({
 }) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const editState = Boolean(searchParams.get('edit'))
+  const editState = Boolean(searchParams?.get('edit'))
   const segment: sectionType | null =
     useSelectedLayoutSegment() as sectionType | null
-  const sm = Boolean(searchParams.get('sm'))
+  const sm = Boolean(searchParams?.get('sm'))
   const sections: sectionsInterface = {
     'company-profile': {
       name: 'Company Profile',
@@ -79,9 +79,7 @@ export default function DetailsTabStartup({
   const handleEdit = () => {
     return router.push(
       editState
-        ? `/profile/startup/${segment ? segment : ''}${
-            sm ? '?sm=y' : ''
-          }`
+        ? `/profile/startup/${segment ? segment : ''}${sm ? '?sm=y' : ''}`
         : `?edit=${!editState ? 'true' : ''}${sm ? '&sm=y' : ''}`,
       { scroll: false },
     )
@@ -89,7 +87,7 @@ export default function DetailsTabStartup({
   if (!sm) return null
   return (
     <div className={'flex flex-col lg:hidden'}>
-      <div className={'flex gap-4 items-center px-2 py-3'}>
+      <div className={'flex items-center gap-4 px-2 py-3'}>
         <GoBack />
         <h4 className="flex-grow text-xl text-primary-dark">{section.name}</h4>
       </div>
