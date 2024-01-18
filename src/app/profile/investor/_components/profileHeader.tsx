@@ -15,7 +15,7 @@ export default async function ProfileHeader() {
   const { user, token, role, refId } = useAppSelector(
     ({ authUser }) => authUser,
   )
-  if (!user || !role) {
+  if (!user || !role || !refId) {
     return
   }
   const userData:
