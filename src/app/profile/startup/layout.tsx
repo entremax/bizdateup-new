@@ -1,16 +1,10 @@
-import type { Metadata } from 'next'
+'use client'
 import SectionBar from '@/components/profile/startup/sidebarSectionStartup'
 import React from 'react'
 import SectionHeader from '@/components/profile/startup/sectionHeaderStartup'
-import ReduxProvider from '@/store/Provider'
 import UpdateContextProvider from '@/components/profile/startup/context'
 import DetailsTab from '@/components/profile/startup/detailsTabStartup'
 import ProfileHeader from '@/components/profile/profileHeader'
-
-export const metadata: Metadata = {
-  title: 'Profile/Startup | Bizdateup',
-  description: 'General Profile of Investor',
-}
 
 export const dynamic = 'force-dynamic'
 export default function InvestorProfileLayout({

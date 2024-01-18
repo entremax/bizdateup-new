@@ -7,11 +7,14 @@ import { Icons } from '@/icons/icon'
 import React from 'react'
 import { StartupData } from '@/types/invest'
 import getUserDetails from '@/action/user'
+import { useAppSelector } from '@/store/hooks'
 
 export const fetchCache = 'default-no-store'
 
 export default async function ProfileHeader() {
-  const { user, role, refId } = await getUserDetails()
+  const { user, token, role, refId } = useAppSelector(
+    ({ authUser }) => authUser,
+  )
   if (!user || !role) {
     return
   }

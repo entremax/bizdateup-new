@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useAppSelector } from '@/store/hooks'
 
 const useCookieLocal = (cookieName: string) => {
+  const { role } = useAppSelector(({ authUser }) => authUser)
   const [cookieValue, setCookieValue] = useState<string | null>(null)
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const useCookieLocal = (cookieName: string) => {
     }
 
     getCookie()
-  }, [cookieName])
+  }, [cookieName, role])
 
   return cookieValue
 }
