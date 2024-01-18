@@ -128,7 +128,7 @@ export default function FaqSingleItem({
         </div>
       </div>
       <div
-        className="flex cursor-pointer items-center justify-end space-x-2"
+        className="flex cursor-pointer pr-8 pb-8 lg:pr-0 items-center justify-end space-x-2"
         onClick={() => removeHandler(indexx)}>
         <Trash />
         <span className="font-medium text-primary">Remove</span>

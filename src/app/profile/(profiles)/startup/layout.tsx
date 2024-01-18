@@ -28,7 +28,7 @@ export default function InvestorProfileLayout({
           <SectionBar>
             <ProfileHeader />
           </SectionBar>
-          <div className="border_gray col-span-9 grid overflow-clip rounded-r-3xl">
+          <div className="lg:border_gray col-span-9 grid overflow-clip rounded-r-3xl">
             <div className="hidden flex-col lg:flex">
               <div className="border_gray flex items-center border-b-2 p-4 ">
                 <SectionHeader />

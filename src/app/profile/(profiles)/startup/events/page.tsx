@@ -24,7 +24,7 @@ export default function Bank() {
 
   return (
     <div className="flex flex-col">
-      {editState ? (
+      {!editState ? (
         <Event startup={user} />
       ) : (
         <EventForm initialUsers={user} />

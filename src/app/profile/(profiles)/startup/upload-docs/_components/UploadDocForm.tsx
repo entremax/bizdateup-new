@@ -128,16 +128,10 @@ export default function FaqForm({
     <div className="grid grid-cols-1">
       <div className="grid gap-8 p-8 lg:grid-cols-1">
         <ImageUploader
-          // key={user._id}
-          // disabled={false}
-          // defaultValue={event.url}
-          //@ts-ignore
-          // ref={field.fieldType !== 'select' && refs[field.name]}
           name={'event'}
           type={'docs'}
           //@ts-ignore
           onChange={(file) => onChange(file)}
-          // label={"Image"}
           multiple={true}
           placeholder={`Upload Image`}
         />
@@ -163,23 +157,29 @@ export default function FaqForm({
           </React.Fragment>
         ))}
         {files.map((file, index) => (
-          <React.Fragment key={index}>
-            <div className="border_gray my-2 flex flex-row items-center gap-2 rounded-2xl p-5">
-              <FileIcons.Pdf />{' '}
-              <span className="text-md text-gray-400">{file.name}</span>
-              <div onClick={() => removeUnUploaded(index)}>X</div>
-            </div>
-          </React.Fragment>
+          <FilePreview
+            key={index}
+            fileName={file.name}
+            remove={
+              <>
+                <div className="grow" />
+                <Button
+                  icon={<CloseOutlined height={46} width={46} />}
+                  shape="circle"
+                  className="!border-none !bg-transparent !outline-none"
+                  onClick={() => removeUnUploaded(index)}
+                />
+              </>
+            }
+          />
         ))}
       </div>
-      <div className="flex items-center justify-between px-8 pb-8">
-        <SubmitComponent
-          loading={loading}
-          disabled={loading}
-          type={'default'}
-          onClick={handleProfileUpdate}
-        />
-      </div>
+      <SubmitComponent
+        loading={loading}
+        disabled={loading}
+        type={'default'}
+        onClick={handleProfileUpdate}
+      />
     </div>
   )
 }

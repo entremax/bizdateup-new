@@ -57,9 +57,7 @@ export default function SectionHeader() {
   )
 
   useEffect(() => {
-    setSection((prevSection) =>
-      segment ? sections[segment] : sections['company-profile'],
-    )
+    setSection( segment ? sections[segment] : sections['company-profile'],)
   }, [segment])
 
   const handleEdit = () => {
@@ -75,7 +73,7 @@ export default function SectionHeader() {
 
   return (
     <>
-      <h4 className="flex-grow text-2xl text-primary-dark">{section.name}</h4>
+      <h4 className="flex-grow text-2xl text-primary-dark">{section.name??''}</h4>
       {section.editable && (
         <Button
           loading={loading}

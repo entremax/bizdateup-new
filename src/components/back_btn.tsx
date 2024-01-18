@@ -9,9 +9,15 @@ const GoBack = () => {
   return (
     <>
       <Button
-        className={' outline-none'}
+        className={' !border-0 !bg-transparent !outline-none'}
         type={'default'}
-        icon={<Icons.ArrowLeft height={13} width={13} />}
+        icon={
+          <Icons.ArrowLeft
+            className="stroke-primary-dark"
+            height={13}
+            width={13}
+          />
+        }
         onClick={() => router.back()}
       />
     </>

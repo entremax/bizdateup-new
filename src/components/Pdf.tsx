@@ -96,7 +96,7 @@ const Pdf: React.FC<PdfProps> = ({ pitch }) => {
   }
 
   return (
-    <div className="relative h-[50vh] w-full bg-white text-center ">
+    <div className="lg:h-60vh relative h-[50vh] w-full bg-white text-center ">
       <div className="big-screen h-[70%] w-full">
         <div className="relative mx-auto my-5 h-full">
           <div id="pdf-loader" hidden={!pdfRendering}>

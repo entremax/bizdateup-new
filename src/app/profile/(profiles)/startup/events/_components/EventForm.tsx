@@ -100,7 +100,7 @@ export default function FaqForm({
 
   return (
     <div className="grid grid-cols-1">
-      <div className="grid gap-8 p-8 lg:grid-cols-1">
+      <div className="grid gap-8 lg:p-8 lg:grid-cols-1">
         {events?.map((event, index) => (
           <div key={index}>
             <EventFormSingleItem

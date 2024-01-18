@@ -18,14 +18,15 @@ export default function Event({ startup }: { startup: StartupData }) {
             }>
             <div className="flex w-full items-center gap-0.5 lg:gap-1">
               <h5 className="reset flex flex-grow items-center gap-3 text-sm text-gray-400 lg:text-lg">
-                <EventsIcon /> {formatCustomDate(event.date)}
+                <EventsIcon className="stroke-gray-600" />{' '}
+                {formatCustomDate(event.date)}
               </h5>
-              <p className={'reset text-gray-40 text-sm lg:text-base '}>
+              <p className={'reset text-gray-400 text-sm lg:text-base '}>
                 {event.time}
               </p>
             </div>
             <div>
-              <p className={'reset text-gray-40 text-sm lg:text-base '}>
+              <p className={'reset text-gray-400 text-sm lg:text-base '}>
                 {event.banner}
               </p>
               <Link

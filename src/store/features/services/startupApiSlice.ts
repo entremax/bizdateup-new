@@ -32,7 +32,7 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: IStartupUpdatesResponse) => {
         // console.log(response)
-        return response.data
+        return response.data??undefined
       },
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
@@ -46,7 +46,7 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         // console.log(response)
-        return response.data
+        return response.data??undefined
       },
       transformErrorResponse: (response: { status: string | number }) =>
         response,
@@ -58,7 +58,7 @@ export const startupsApiSlice = createApi({
         method: 'GET',
       }),
       transformResponse: (response: any) => {
-        return response.data
+        return response.data??undefined
       },
       transformErrorResponse: (response: { status: string | number }) =>
         response,
@@ -155,9 +155,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -172,9 +172,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response) => response,
@@ -188,9 +188,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response) => response,
@@ -203,9 +203,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response) => response,
@@ -218,9 +218,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response) => response,
@@ -233,9 +233,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response) => response,
@@ -252,9 +252,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -271,9 +271,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -290,9 +290,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -309,9 +309,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -328,9 +328,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>
@@ -347,9 +347,9 @@ export const startupsApiSlice = createApi({
       }),
       transformResponse: (response: any) => {
         return {
-          responseCode: response.data.code,
-          message: response.data.message,
-          status: response.data.status,
+          responseCode: response?.data?.code,
+          message: response?.data?.message,
+          status: response?.data?.status,
         }
       },
       transformErrorResponse: (response: { status: string | number }) =>

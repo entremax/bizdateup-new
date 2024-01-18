@@ -4,7 +4,6 @@ import { Mentors, StartupData } from '@/types/invest'
 import MentorFormSingleItem from './MentorFormSingleItem'
 import { Button } from 'antd'
 import { useStartupUpdateContext } from '@/components/profile/startup/context'
-import { useRouter } from 'next/navigation'
 import SubmitComponent from '@/components/profile/SubmitComponent'
 
 export default function TeamForm({
@@ -12,9 +11,7 @@ export default function TeamForm({
 }: {
   initialUsers: StartupData
 }) {
-  const router = useRouter()
   const [mentors, setMentors] = useState(initialUsers?.mentors)
-  console.log('🚀 ~ file: MentorForm.tsx:23 ~ TeamForm ~ user:', mentors)
 
   const { handleUpdate, loading } = useStartupUpdateContext()
 
@@ -37,12 +34,10 @@ export default function TeamForm({
           data.append(`files`, item.profileImage)
           data.append(`changed_file[]`, String(index))
         }
-        // data.append(`linkedinUrl[${index}]`, item.linkedinUrl);
       }
     })
 
     await handleUpdate(data, 'mentor')
-    return router.refresh()
   }
 
   const changeHandler = useCallback(

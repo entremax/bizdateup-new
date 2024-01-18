@@ -16,8 +16,8 @@ type sectionType =
   | 'mentor'
   | 'deal-terms'
   | 'upload-docs'
-  | 'event'
-  | 'faq'
+  | 'events'
+  | 'faqs'
 
 type sectionDetails = {
   name: string
@@ -37,7 +37,7 @@ export default function DetailsTabStartup({
   const editState = Boolean(searchParams.get('edit'))
   const segment: sectionType | null =
     useSelectedLayoutSegment() as sectionType | null
-  const sm = searchParams.get('sm')
+  const sm = Boolean(searchParams.get('sm'))
   const sections: sectionsInterface = {
     'company-profile': {
       name: 'Company Profile',
@@ -57,10 +57,10 @@ export default function DetailsTabStartup({
     'upload-docs': {
       name: 'Upload Docs',
     },
-    event: {
-      name: 'Upload Docs',
+    events: {
+      name: 'Events',
     },
-    faq: {
+    faqs: {
       name: 'FAQs',
     },
   }
@@ -80,18 +80,18 @@ export default function DetailsTabStartup({
     return router.push(
       editState
         ? `/profile/startup/${segment ? segment : ''}${
-            sm === 'y' ? '?sm=y' : ''
+            sm ? '?sm=y' : ''
           }`
-        : `?edit=${!editState ? 'true' : ''}${sm === 'y' ? '&sm=y' : ''}`,
+        : `?edit=${!editState ? 'true' : ''}${sm ? '&sm=y' : ''}`,
       { scroll: false },
     )
   }
-  if (sm !== 'y') return null
+  if (!sm) return null
   return (
     <div className={'flex flex-col lg:hidden'}>
-      <div className={'flex gap-4 px-2 py-3'}>
+      <div className={'flex gap-4 items-center px-2 py-3'}>
         <GoBack />
-        <h4 className="flex-grow text-2xl text-primary-dark">{section.name}</h4>
+        <h4 className="flex-grow text-xl text-primary-dark">{section.name}</h4>
       </div>
       {children}
       {editState ? null : (
