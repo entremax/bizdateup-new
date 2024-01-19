@@ -119,7 +119,8 @@ const UserMenu = ({ user, role, local_user, token }: Props) => {
         <p className={'reset px-4 font-semibold text-primary'}>Register</p>
       ),
       key: '4',
-      hidden: role !== 'startup' || (role === 'startup' && !local_user),
+      hidden: true,
+      // hidden: role !== 'startup' || (role === 'startup' && !local_user),
       icon: <EditFilled className={'stroke-primary '} />,
     },
     {

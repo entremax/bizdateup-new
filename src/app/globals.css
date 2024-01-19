@@ -36,11 +36,6 @@ p {
   margin: 0;
 }
 
-.otp div input {
-  width: 3.5rem !important;
-  height: 3.5rem !important;
-}
-
 @layer base {
   html,
   body {
@@ -132,7 +127,6 @@ p {
   }
 
   .startup-update {
-
     .ant-modal-content {
       @apply p-0 pb-4;
 
@@ -141,7 +135,7 @@ p {
       }
 
       .ant-modal-header {
-        @apply px-4 py-2 text-base border_gray;
+        @apply border_gray px-4 py-2 text-base;
       }
 
       .ant-modal-body {
@@ -162,7 +156,7 @@ p {
   }
 
   .auth {
-    @apply flex min-h-full w-screen flex-col items-center justify-center;
+    @apply w-dvw flex min-h-full  flex-col items-center justify-center;
   }
 
   .auth_container {
@@ -237,7 +231,7 @@ p {
         }
 
         .ant-steps-item-content {
-            @apply !flex flex-col items-start justify-start;
+          @apply !flex flex-col items-start justify-start;
         }
       }
 
@@ -264,12 +258,12 @@ p {
 
       li {
         button {
-            @apply !h-1.5 !w-1.5 !rounded-full bg-primary;
+          @apply !h-1.5 !w-1.5 !rounded-full bg-primary;
         }
       }
 
       li.slick-active {
-          @apply !h-1.5 !w-1.5 !rounded-full bg-primary;
+        @apply !h-1.5 !w-1.5 !rounded-full bg-primary;
       }
     }
 
@@ -420,7 +414,7 @@ input[type='number'] {
   .ant-collapse {
     .ant-collapse-item {
       .ant-collapse-header {
-          @apply py-6 pl-0;
+        @apply py-6 pl-0;
       }
 
       .ant-collapse-content {
@@ -433,15 +427,31 @@ input[type='number'] {
 }
 
 /*---------------------------icon wrapper--------------------------*/
-@layer components{
-  .icon-wrapper.active{
-    svg{
+@layer components {
+  .icon-wrapper.active {
+    svg {
       @apply stroke-primary;
     }
   }
-  .icon-wrapper{
-    svg{
-      @apply w-5 h-5 fill-none group-hover:stroke-primary;
+  .icon-wrapper {
+    svg {
+      @apply h-5 w-5 fill-none group-hover:stroke-primary;
+    }
+  }
+}
+
+@layer components {
+  .otp {
+    div {
+      input {
+        @apply h-9 w-9 sm:!h-[3.5rem] sm:!w-[3.5rem];
+      }
+      input:first-child {
+        @apply !ml-0;
+      }
+      input:last-child {
+        @apply !mr-0;
+      }
     }
   }
 }

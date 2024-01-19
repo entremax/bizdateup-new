@@ -12,7 +12,7 @@ export default function VerifyEmail({ params }: { params: { id: string } }) {
   const { id } = params
   return (
     <div className="auth">
-      <div className="auth_container p-5">
+      <div className="auth_container sm:p-5">
         <div className={'hidden w-full justify-start sm:flex'}>
           <GoBack />
         </div>

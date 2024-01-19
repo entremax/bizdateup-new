@@ -193,7 +193,7 @@ export default function OtpField({ id }: { id: string }) {
 
   return (
     <>
-      <div className="grid w-full items-center justify-center text-center md:min-w-max">
+      <div className="grid w-fit items-center justify-center text-center md:min-w-max">
         <h2 className="!m-0 text-center font-bold text-primary-dark">
           OTP Verification
         </h2>
@@ -203,7 +203,7 @@ export default function OtpField({ id }: { id: string }) {
           }>
           Enter your OTP sent to your email <strong>{temp_auth_medium}</strong>
         </p>
-        <div className={'otp m-0 flex items-center justify-center p-0 px-6'}>
+        <div className={'otp m-0 flex items-center justify-center p-0 sm:px-6'}>
           <OtpInput
             inputType={'number'}
             value={otp}

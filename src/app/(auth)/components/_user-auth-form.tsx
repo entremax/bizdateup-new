@@ -150,95 +150,97 @@ export default function UserAuthForm({
   }
 
   return (
-    <div className={`col-6 grid w-full px-12 ${className}`}>
-      <div className="mt-4 grid gap-4">
-        <Button
-          onClick={usingGoogle}
-          type="default"
-          block
-          size="large"
-          className="!flex !h-12 items-center !justify-between gap-2 !text-gray-900">
-          <Icons.Google height={22} width={22} />
-          <div className="grow"></div>
-          <span className=" !justify-self-stretch font-semibold">
-            Continue with Google
-          </span>
-          <div className="grow"></div>
-        </Button>
-        <Button
-          onClick={usingFacebook}
-          type="default"
-          block
-          size="large"
-          className="!flex !h-12 items-center !justify-between gap-2 !text-gray-900">
-          <Icons.Facebook height={22} width={22} />
-          <div className="grow"></div>
-          <span className=" !justify-self-stretch font-semibold">
-            Continue with Facebook
-          </span>
-          <div className="grow"></div>
-        </Button>
-      </div>
-      <Divider className="my-3">
-        <span className="bg-background text-textPrimary px-2">OR</span>
-      </Divider>
-      {withEmail ? (
-        <div className="grid w-full">
-          <div className="relative mb-6">
-            <Input
-              size="large"
-              type={'text'}
-              className="focus:placeholder:opacity-400 data-[te-input-state-active]:!placeholder:opacity-400 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 peer block min-h-[auto] w-full rounded-sm border-0 bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none !outline-gray-300 transition-all duration-200 ease-linear focus:border-sky-500 focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary"
-              id="FormControlInputEmail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email or phone number"
-            />
-
-            <label
-              htmlFor="FormControlInputEmailLabel"
-              className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white pt-[0.37rem] font-medium leading-[1.6] !text-gray-900 text-black transition-all duration-200 ease-out">
-              {email !== ''
-                ? validateEmailOrPhone(email) === false
-                  ? 'Email/Phone'
-                  : validateEmailOrPhone(email) === 'email'
-                    ? 'Email'
-                    : 'Phone'
-                : 'Email/Phone'}
-            </label>
-          </div>
+    <>
+      <div className={`flex w-full flex-col ${className}`}>
+        <div className="mt-4 flex flex-col gap-4">
           <Button
+            onClick={usingGoogle}
             type="default"
+            block
             size="large"
-            disabled={
-              (email === '' && validateEmailOrPhone(email) !== false) ||
-              isLoading
-            }
-            className="!flex !h-10 !justify-between gap-2 !bg-primary disabled:text-primary"
-            onClick={requestType === 'login' ? handleLogin : handleRegister}>
-            <div className="grow"></div>
-            <span className="!justify-self-stretch text-primary text-white">
-              {loader ? 'Sending OTP' : 'Send OTP'}
+            className="!flex  items-center !justify-between gap-2 !text-gray-900">
+            <Icons.Google height={22} width={22} />
+            <div className="grow" />
+            <span className=" !justify-self-stretch font-semibold">
+              Continue with Google
             </span>
             <div className="grow"></div>
           </Button>
+          <Button
+            onClick={usingFacebook}
+            type="default"
+            block
+            size="large"
+            className="!flex items-center !justify-between gap-2 !text-gray-900">
+            <Icons.Facebook height={22} width={22} />
+            <div className="grow" />
+            <span className=" !justify-self-stretch font-semibold">
+              Continue with Facebook
+            </span>
+            <div className="grow" />
+          </Button>
         </div>
-      ) : null}
-      {!withEmail && (
-        <Button
-          type="default"
-          block
-          size="large"
-          className="!flex !h-12 items-center !justify-between gap-2 !bg-light-shadow"
-          onClick={() => setWithEmail(!withEmail)}>
-          <Icons.Email height={22} width={22} />
-          <div className="grow"></div>
-          <span className="!justify-self-stretch text-primary">
-            Continue with Email/Phone
-          </span>
-          <div className="grow"></div>
-        </Button>
-      )}
-    </div>
+        <Divider className="my-3">
+          <span className="bg-background text-textPrimary px-2">OR</span>
+        </Divider>
+        {withEmail ? (
+          <div className="flex w-full flex-col">
+            <div className="relative mb-6">
+              <Input
+                size="large"
+                type={'text'}
+                className="focus:placeholder:opacity-400 data-[te-input-state-active]:!placeholder:opacity-400 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-600 peer block min-h-[auto] w-full rounded-sm border-0 bg-transparent px-3 py-[0.28rem] font-medium leading-[1.6] text-[#000] outline-none !outline-gray-300 transition-all duration-200 ease-linear focus:border-sky-500 focus:outline-none peer-focus:text-black-lighter motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-400 dark:peer-focus:text-primary"
+                id="FormControlInputEmail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email or phone number"
+              />
+
+              <label
+                htmlFor="FormControlInputEmailLabel"
+                className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] -translate-y-[1.1rem] scale-[0.8] truncate bg-white pt-[0.37rem] font-medium leading-[1.6] !text-gray-900 text-black transition-all duration-200 ease-out">
+                {email !== ''
+                  ? validateEmailOrPhone(email) === false
+                    ? 'Email/Phone'
+                    : validateEmailOrPhone(email) === 'email'
+                      ? 'Email'
+                      : 'Phone'
+                  : 'Email/Phone'}
+              </label>
+            </div>
+            <Button
+              type="default"
+              size="large"
+              disabled={
+                (email === '' && validateEmailOrPhone(email) !== false) ||
+                isLoading
+              }
+              className="!flex !justify-between gap-2 !bg-primary disabled:text-primary"
+              onClick={requestType === 'login' ? handleLogin : handleRegister}>
+              <div className="grow"></div>
+              <span className="!justify-self-stretch text-primary text-white">
+                {loader ? 'Sending OTP' : 'Send OTP'}
+              </span>
+              <div className="grow"></div>
+            </Button>
+          </div>
+        ) : null}
+        {!withEmail && (
+          <Button
+            type="default"
+            block
+            size="large"
+            className="!flex items-center !justify-between gap-2 !bg-light-shadow"
+            onClick={() => setWithEmail(!withEmail)}>
+            <Icons.Email height={22} width={22} />
+            <div className="grow"></div>
+            <span className="!justify-self-stretch text-primary">
+              Continue with Email/Phone
+            </span>
+            <div className="grow"></div>
+          </Button>
+        )}
+      </div>
+    </>
   )
 }

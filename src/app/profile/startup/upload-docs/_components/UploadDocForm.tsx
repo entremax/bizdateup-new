@@ -141,6 +141,7 @@ export default function FaqForm({
         {user.map((file, index) => (
           <React.Fragment key={file._id}>
             <FilePreview
+              link={''}
               fileName={file.name}
               remove={
                 <>
